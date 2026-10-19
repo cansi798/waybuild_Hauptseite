@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { company } from '../config/site';
+import { IS_PREVIEW } from '../lib/env';
+import Val from '../components/Val.astro';
+import Hint from '../components/Hint.astro';
+// Hinweis: Vorlage – vor dem Livegang unter eigener Domain rechtlich prüfen lassen.
+---
+
+<BaseLayout title="Datenschutzerklärung" description={`Datenschutzerklärung der ${company.legalName}.`} noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Datenschutzerklärung</h1>
+      <Hint block label="Rechtliche Prüfung" where="src/pages/datenschutz.astro">
+        Vorlage – vor dem Start prüfen lassen. Bei eigener Domain/eigenem Hoster muss Abschnitt 3 angepasst werden.
+      </Hint>
+
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        {company.legalName}, <Val value={company.street} label="Straße" where="src/config/site.ts → company.street" />, <Val value={company.zip} label="PLZ" where="src/config/site.ts → company.zip" /> <Val value={company.city} label="Ort" where="src/config/site.ts → company.city" /><br />
+        E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>
+      </p>
+
+      <h2>2. Grundsatz: So wenig Daten wie möglich</h2>
+      <p>
+        Diese Website verwendet keine Cookies, kein Tracking, keine Analyse-Tools und lädt beim Aufruf keine Inhalte von
+        Drittanbietern (auch Schriftarten werden lokal ausgeliefert). Daten an Dritte fließen nur, wenn Sie selbst aktiv
+        werden – etwa beim Absenden des Kontaktformulars oder beim Klick auf den WhatsApp-Link (siehe Abschnitt 4).
+      </p>
+
+      <h2>3. Hosting</h2>
+      {IS_PREVIEW ? (
+        <p>
+          Diese Vorschau wird bei GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA)
+          gehostet. Beim Aufruf verarbeitet der Hoster technisch notwendige Daten (u. a. IP-Adresse, Zeitpunkt,
+          aufgerufene Seite, Browser) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+        </p>
+      ) : (
+        <p>
+          Diese Website wird bei <Val value={company.hoster} label="Name & Anschrift des Hosters" where="src/config/site.ts → company.hoster" /> gehostet.
+          Beim Aufruf der Seite verarbeitet der Hoster technisch notwendige Daten (u. a. IP-Adresse, Zeitpunkt,
+          aufgerufene Seite, Browser) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
+          (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Mit dem Hoster besteht ein Vertrag
+          zur Auftragsverarbeitung.
+        </p>
+      )}
+
+      <h2>4. Kontaktformular und E-Mail</h2>
+      <p>
+        Wenn Sie uns über das Formular oder per E-Mail kontaktieren, verarbeiten wir Ihre Angaben (Name, E-Mail,
+        ggf. Unternehmen, Telefon, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist
+        Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen). Die Daten werden gelöscht, sobald sie für die
+        Bearbeitung nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten bestehen.
+      </p>
+
+      <h3>Formular-Dienst Web3Forms</h3>
+      <p>
+        Für den Versand des Kontaktformulars nutzen wir den Dienst Web3Forms (web3forms.com). Wenn Sie das Formular
+        absenden, werden Ihre Angaben direkt von Ihrem Browser an Web3Forms übermittelt und von dort per E-Mail an uns
+        weitergeleitet. Dabei verarbeitet Web3Forms auch technisch notwendige Daten wie Ihre IP-Adresse. Web3Forms
+        handelt als Auftragsverarbeiter (Art. 28 DSGVO). Der Anbieter kann Daten auch außerhalb der EU, insbesondere in
+        den USA, verarbeiten; eine Übermittlung erfolgt nur auf Grundlage der Art. 44 ff. DSGVO. Rechtsgrundlage ist
+        Art. 6 Abs. 1 lit. b DSGVO (Anfrage zu einem Vertrag) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an
+        einem zuverlässigen Formularversand). Wenn Sie das nicht möchten, schreiben Sie uns einfach direkt per E-Mail.
+      </p>
+      <Hint block label="Web3Forms: Anbieterangaben, Serverstandort, AV-Vertrag" where="src/pages/datenschutz.astro → Abschnitt 4">
+        Vor dem Livegang Anbieter-Anschrift und Datenverarbeitungsbedingungen von Web3Forms prüfen und hier ergänzen (rechtliche Prüfung).
+      </Hint>
+
+      <h3>WhatsApp und Telefon</h3>
+      <p>
+        Auf unserer Website verlinken wir auf WhatsApp. Erst wenn Sie auf den Link klicken, öffnet sich WhatsApp
+        (WhatsApp Ireland Limited, Merrion Road, Dublin 4, Irland) und es werden Daten an diesen Anbieter übertragen.
+        Nutzen Sie WhatsApp für Ihre Anfrage, gelten zusätzlich die Datenschutzbestimmungen von WhatsApp. Alternativ
+        erreichen Sie uns jederzeit per E-Mail oder Telefon.
+      </p>
+
+      <h2>5. Ihre Rechte</h2>
+      <p>
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung,
+        Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht auf Beschwerde bei einer
+        Datenschutz-Aufsichtsbehörde.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

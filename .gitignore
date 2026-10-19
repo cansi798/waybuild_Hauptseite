@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+.remember/
+Github.txt
+.claude/
+.playwright-mcp/
+intern/

@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { company, phoneTel, whatsappLink, HOURS, WAAS } from '../config/site';
+import Val from '../components/Val.astro';
+import Hint from '../components/Hint.astro';
+import { href } from '../lib/paths';
+import { leistungen } from '../config/leistungen';
+import { SAEULEN } from '../config/angebot';
+
+const interessen = [
+  { value: 'website', label: WAAS.name },
+  ...SAEULEN.filter((s) => s.id !== 'websites').flatMap((s) => leistungen.filter((l) => l.saeule === s.id && l.slug !== 'abo-wartung').map((l) => ({ value: l.slug, label: `Auf Anfrage: ${l.title}` }))),
+];
+const websiteSlugs = leistungen.filter((l) => l.saeule === 'websites').map((l) => l.slug);
+
+// Versand über Web3Forms (kostenlos, ohne eigenen Server). Der Access-Key ist laut Anbieter öffentlich nutzbar.
+// Ohne Key öffnet sich als Rückfall das E-Mail-Programm. Key setzen: GitHub → Settings → Variables → WEB3FORMS_KEY
+const formKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
+---
+
+<BaseLayout
+  title="Kontakt & kostenloses Erstgespräch"
+  description="Kostenloses Erstgespräch zu Website as a Service anfragen – persönliche Beratung, Antwort innerhalb eines Werktags, unverbindlich und ohne Verkaufsdruck."
+  breadcrumb={[{ name: 'Kontakt', path: '/kontakt/' }]}
+  hideMobileCta
+>
+  <PageHeader
+    eyebrow="Kontakt"
+    title="Lassen Sie uns sprechen."
+    lead="Antwort in einem Werktag. Erstgespräch kostenlos."
+  />
+
+  <section class="section">
+    <div class="wrap contact">
+      <form class="form card" id="contact-form" data-endpoint={endpoint} data-key={formKey} data-mailto={company.email} data-thanks={href('/danke/')} data-website-slugs={websiteSlugs.join(',')} novalidate>
+        <label>Worum geht es?
+          <select name="interesse">
+            <option value="">Beraten Sie mich – ich bin noch unsicher</option>
+            {interessen.map((i) => <option value={i.value}>{i.label}</option>)}
+          </select>
+        </label>
+        <div class="row">
+          <label>Name*<input name="name" autocomplete="name" required /></label>
+          <label>E-Mail*<input name="email" type="email" inputmode="email" autocomplete="email" required /></label>
+        </div>
+        <div class="row">
+          <label><span>Telefon <small>(für Rückruf)</small></span><input name="telefon" type="tel" inputmode="tel" autocomplete="tel" /></label>
+          <label>Unternehmen<input name="firma" autocomplete="organization" /></label>
+        </div>
+        <label><span>Nachricht <small>(optional)</small></span><textarea name="nachricht" rows="4" placeholder="z. B. Branche, Anzahl Mitarbeitende, bestehende Domain oder Software …"></textarea></label>
+        <input type="hidden" name="branche" value="" />
+        <input type="hidden" name="paket" value="" />
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label class="check">
+          <input type="checkbox" name="datenschutz" required />
+          <span>Ich habe die <a href={href('/datenschutz/')}>Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.*</span>
+        </label>
+        <button class="btn btn--primary" type="submit">Kostenloses Erstgespräch anfragen</button>
+        <ol class="after" aria-label="So geht es weiter">
+          <li><strong>Heute</strong> Anfrage senden</li>
+          <li><strong>1 Werktag</strong> Wir melden uns</li>
+          <li><strong>20 Min.</strong> Erstgespräch</li>
+        </ol>
+        {!endpoint && (
+          <Hint label="Formular-Versand (Web3Forms-Key)" where="GitHub → Settings → Secrets and variables → Actions → Variables → WEB3FORMS_KEY">
+            {' '}– aktuell öffnet sich nur das E-Mail-Programm.
+          </Hint>
+        )}
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="side">
+        <div class="card side__card">
+          <h2>Direkter Draht</h2>
+          <p><a href={`mailto:${company.email}`}>{company.email}</a></p>
+          <div class="direct">
+            <a class="btn btn--ghost btn--sm" href={`tel:${phoneTel()}`}>📞 {company.phone}</a>
+            <a class="btn btn--ghost btn--sm" href={whatsappLink()} target="_blank" rel="noopener">💬 WhatsApp</a>
+          </div>
+          <p class="muted">{HOURS}</p>
+          <p class="muted">{company.legalName}<br /><Val value={company.street} label="Straße" where="src/config/site.ts → company.street" /><br /><Val value={company.zip} label="PLZ" where="src/config/site.ts → company.zip" /> <Val value={company.city} label="Ort" where="src/config/site.ts → company.city" /></p>
+        </div>
+        <ul class="promise">
+          <li><strong>Antwort in 1 Werktag</strong>Persönlich, nicht automatisiert.</li>
+          <li><strong>Kostenlos & unverbindlich</strong>Das Erstgespräch kostet nichts.</li>
+          <li><strong>Ehrliche Beratung</strong>Wir empfehlen, was Sie wirklich brauchen.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    // Früher verlinkte Tarif-Parameter (?tarif=…) gelten als Website-Anfrage
+    const tarif = new URLSearchParams(location.search).get('tarif');
+    // Branche von der Branchen-Landingpage mitnehmen
+    const branche = new URLSearchParams(location.search).get('branche');
+    if (branche) (form.elements.namedItem('branche') as HTMLInputElement).value = branche.slice(0, 40);
+    // Interesse aus ?leistung=… (Detailseiten) vorbelegen, Paket aus ?paket=… mitnehmen
+    const params = new URLSearchParams(location.search);
+    const interesse = form.elements.namedItem('interesse') as HTMLSelectElement;
+    const websiteSlugs = (form.dataset.websiteSlugs ?? '').split(',');
+    const leistung = params.get('leistung') ?? '';
+    if (websiteSlugs.includes(leistung) || tarif || params.get('paket')) interesse.value = 'website';
+    else if ([...interesse.options].some((o) => o.value === leistung)) interesse.value = leistung;
+    const paket = params.get('paket');
+    if (paket) (form.elements.namedItem('paket') as HTMLInputElement).value = paket.slice(0, 60);
+
+    const interessText = (d: Record<string, string>) => interesse.querySelector<HTMLOptionElement>(`option[value="${CSS.escape(d.interesse ?? '')}"]`)?.textContent ?? 'Beratung';
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+      if (data.website) return; // Honeypot: Bots füllen das versteckte Feld aus
+      delete data.website;
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        const body = `Name: ${data.name}\nUnternehmen: ${data.firma}\nE-Mail: ${data.email}\nTelefon: ${data.telefon}\nInteresse: ${interessText(data)}${data.paket ? `\nPaket: ${data.paket}` : ''}${data.branche ? `\nBranche: ${data.branche}` : ''}\n\n${data.nachricht}`;
+        location.href = `mailto:${form.dataset.mailto}?subject=${encodeURIComponent(`Anfrage: ${interessText(data)}`)}&body=${encodeURIComponent(body)}`;
+        status.textContent = 'Ihr E-Mail-Programm wurde geöffnet – bitte senden Sie die Nachricht dort ab.';
+        return;
+      }
+      status.textContent = 'Wird gesendet …';
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            ...data,
+            access_key: form.dataset.key,
+            subject: `Anfrage: ${interessText(data)}${data.paket ? ` – ${data.paket}` : ''}${data.branche ? ` (${data.branche})` : ''}`,
+            from_name: 'Waybuild Website',
+            replyto: data.email,
+          }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.success === false) throw new Error(String(res.status));
+        // Abschluss der Journey: Danke-Seite mit nächsten Schritten
+        location.href = `${form.dataset.thanks}?name=${encodeURIComponent(data.name.split(' ')[0])}`;
+      } catch {
+        button.disabled = false;
+        status.textContent = `Das hat leider nicht geklappt. Bitte schreiben Sie uns direkt an ${form.dataset.mailto}.`;
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .contact { grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; } }
+  .form { display: grid; gap: 18px; }
+  .row { display: grid; gap: 18px; }
+  @media (min-width: 640px) { .row { grid-template-columns: 1fr 1fr; } }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 0.95rem; }
+  legend small { font-weight: 400; color: var(--ink-soft); }
+  input, select, textarea {
+    font: inherit; font-weight: 400; color: var(--ink); width: 100%;
+    padding: 12px 14px; min-height: 48px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper);
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--dark); background: var(--white); }
+  .check { display: flex; gap: 12px; align-items: flex-start; font-weight: 400; font-size: 0.9rem; color: var(--ink-soft); }
+  .check input { width: 20px; min-height: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--accent); }
+  .hp { position: absolute; left: -9999px; }
+  .form .btn { justify-self: stretch; }
+  @media (min-width: 640px) { .form .btn { justify-self: start; } }
+  label small { font-weight: 400; color: var(--ink-soft); }
+  .after { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 0.82rem; color: var(--ink-soft); }
+  .after li { border-top: 2px solid var(--line); padding-top: 8px; }
+  .after li:first-child { border-color: var(--accent); }
+  .after strong { display: block; color: var(--ink); font-size: 0.9rem; }
+  .form__status { margin: 0; font-weight: 600; }
+  .side { display: grid; gap: 20px; }
+  .side__card h2 { font-size: 1.3rem; }
+  .side__card a { font-weight: 650; }
+  .direct { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+  .direct .btn { border-color: var(--line); }
+  .muted { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+  .promise { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .promise li { padding-left: 18px; border-left: 3px solid var(--accent); }
+  .promise strong { display: block; }
+  @media (max-width: 599px) { .promise { display: none; } }
+</style>

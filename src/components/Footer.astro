@@ -1,0 +1,78 @@
+---
+import { company } from '../config/site';
+import { href } from '../lib/paths';
+import Logo from './Logo.astro';
+import { branchen } from '../config/branchen';
+import { leistungen } from '../config/leistungen';
+import FooterKontakt from './FooterKontakt.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer section--dark">
+  <FooterKontakt />
+  <div class="wrap footer__grid">
+    <div>
+      <Logo />
+      <p class="footer__claim">{company.slogan}</p>
+    </div>
+    <nav aria-label="Footer">
+      <h2 class="footer__h">Leistungen</h2>
+      <ul>
+        <li><a href={href('/leistungen/')}>Website as a Service</a></li>
+        {leistungen.filter((l) => l.saeule !== 'websites').map((l) => <li><a href={href(`/leistungen/${l.slug}/`)}>{l.title}</a></li>)}
+        <li><a href={href('/preise/')}>Preis</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Branchen" class="footer__branchen">
+      <h2 class="footer__h">Branchen</h2>
+      <ul>
+        {branchen.map((b) => <li><a href={href(`/website-fuer/${b.slug}/`)}>{b.label}</a></li>)}
+      </ul>
+    </nav>
+    <div>
+      <h2 class="footer__h">Unternehmen</h2>
+      <ul>
+        <li><a href={href('/ueber-uns/')}>Über uns</a></li>
+        <li><a href={href('/referenzen/')}>Referenzen</a></li>
+        <li><a href={href('/warum-waybuild/')}>Warum waybuild</a></li>
+        <li><a href={href('/ratgeber/')}>Ratgeber</a></li>
+        <li><a href={href('/kontakt/')}>Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer__h">Rechtliches</h2>
+      <ul>
+        <li><a href={href('/impressum/')}>Impressum</a></li>
+        <li><a href={href('/datenschutz/')}>Datenschutz</a></li>
+        <li><a href={href('/agb/')}>AGB</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__bottom">
+    <small>© {year} {company.legalName}. Alle Preise netto zzgl. gesetzl. USt.</small>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: 0 calc(28px + env(safe-area-inset-bottom)); }
+  .footer__grid { padding-top: clamp(32px, 5vw, 48px); border-top: 1px solid var(--dark-line); }
+  @media (max-width: 599px) {
+    .footer__grid { gap: 20px 16px; }
+    .footer ul { display: flex; flex-wrap: wrap; gap: 0 16px; }
+    .footer__h { margin-bottom: 4px; }
+  }
+  @media (max-width: 599px) { .footer li a { padding: 6px 0; font-size: 0.92rem; } .footer__claim { margin-top: 10px; } .footer__bottom { margin-top: 28px; } }
+  /* Logo auf dunklem Grund: weiße Kachel, Logo selbst bleibt original */
+  .footer :global(.logo) { background: var(--white); border-radius: 12px; padding: 8px 12px; }
+  .footer__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
+  .footer__grid > :first-child { grid-column: 1 / -1; }
+  @media (min-width: 720px) { .footer__grid { gap: 36px; } }
+  @media (min-width: 1100px) { .footer__grid { grid-template-columns: 1.4fr 1fr 1.3fr 1fr 1fr; } }
+  .footer__claim { color: var(--dark-soft); margin-top: 16px; max-width: 32ch; }
+  .footer__h { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-soft); margin-bottom: 12px; }
+  .footer ul { list-style: none; margin: 0; padding: 0; }
+  .footer li a { display: inline-block; padding: 6px 0; text-decoration: none; }
+  .footer li a:hover { color: var(--accent); }
+  .footer__bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--dark-line); color: var(--dark-soft); }
+</style>
