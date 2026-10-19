@@ -1,0 +1,27 @@
+{
+  "name": "Waybuild – Websites im Abo",
+  "short_name": "Waybuild",
+  "start_url": "/waybuild_Hauptseite/",
+  "scope": "/waybuild_Hauptseite/",
+  "display": "browser",
+  "background_color": "#f7f5f0",
+  "theme_color": "#004f4c",
+  "icons": [
+    {
+      "src": "/waybuild_Hauptseite/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/waybuild_Hauptseite/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/waybuild_Hauptseite/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
