@@ -62,14 +62,37 @@ export const ZUSAGEN: { icon: IconName; key: string; title: string; text: string
   { icon: 'euro', key: '0 Überraschungen', title: 'Keine Überraschungen auf der Rechnung', text: 'Extras nur nach schriftlicher Absprache.' },
 ];
 
-/** Produkte – Produktname für Website-Entwicklung folgt (Jamil 19.10.2026) */
-export const PRODUKTE: { name: string; untertitel: string; text: string; icon: IconName; url?: string }[] = [
+/** Arbeitsname des Hauptprodukts (Jamil 20.10.2026, Talk 2609/2611) – VORLÄUFIG, finaler Name folgt.
+ *  Nur hier ändern; Karte, Footer und Texte übernehmen ihn automatisch. */
+export const START_NAME = 'waybuild Start';
+
+/** Produkte */
+export const PRODUKTE: {
+  name: string;
+  untertitel?: string;
+  slogan?: string;
+  text: string;
+  icon: IconName;
+  url?: string;
+  bausteine?: { icon: IconName; label: string }[];
+  bausteineHinweis?: string;
+}[] = [
   {
-    name: 'Website-Entwicklung',
-    untertitel: 'Produktname folgt',
-    text: 'Professionelle Websites für Unternehmen – komplett betreut.',
-    icon: 'layout',
+    name: START_NAME,
+    slogan: 'Alles für Ihren Start. Aus einer Hand.',
+    text: 'Alles, was Ihr Unternehmen für einen professionellen Start braucht – aus einer Hand: Website, Logo, E-Mail-Signatur, Visitenkarten und Kleidung mit Ihrem Logo. Bei Bedarf auch Videos mit unserem Profi-Videografen und die Einrichtung Ihres Buchhaltungs-Tools. Sie buchen nur, was Sie brauchen – auch einzeln, z. B. nur die Website.',
+    icon: 'rocket',
     url: 'https://cansi798.github.io/waybuild_website/',
+    bausteine: [
+      { icon: 'layout', label: 'Website' },
+      { icon: 'pen', label: 'Logo' },
+      { icon: 'mail', label: 'E-Mail-Signatur' },
+      { icon: 'idcard', label: 'Visitenkarten' },
+      { icon: 'shirt', label: 'Kleidung mit Logo' },
+      { icon: 'video', label: 'Video' },
+      { icon: 'euro', label: 'Buchhaltung einrichten' },
+    ],
+    bausteineHinweis: 'Einzeln oder als Paket',
   },
   { name: 'Weiteres Produkt', untertitel: 'Folgt in Kürze', text: 'Wir arbeiten daran.', icon: 'layers' },
   { name: 'Weiteres Produkt', untertitel: 'Folgt in Kürze', text: 'Wir arbeiten daran.', icon: 'cloud' },

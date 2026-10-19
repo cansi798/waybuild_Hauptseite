@@ -99,24 +99,45 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
       <SectionHead center eyebrow="Unsere Produkte" pre="Eine Marke. " accent="Mehrere Lösungen." text="Alle Details finden Sie auf den jeweiligen Produktseiten." id="produkte-h" />
       <ul class="produkte">
         {PRODUKTE.map((p, i) => (
-          <li class:list={['produkt reveal', { 'produkt--bald': !p.url }]} style={`transition-delay:${i * 120}ms`}>
+          <li class:list={['produkt reveal', { 'produkt--bald': !p.url, 'produkt--haupt': p.bausteine }]} style={`transition-delay:${i * 120}ms`}>
             <div class="produkt__art" aria-hidden="true">
               {p.url ? (
-                <div class="browser">
-                  <span class="browser__bar"><i></i><i></i><i></i></span>
-                  <span class="browser__hero"></span>
-                  <span class="browser__line"></span>
-                  <span class="browser__line browser__line--kurz"></span>
-                  <span class="browser__tiles"><b></b><b></b><b></b></span>
+                <div class="szene">
+                  <div class="browser">
+                    <span class="browser__bar"><i></i><i></i><i></i></span>
+                    <span class="browser__hero"></span>
+                    <span class="browser__line"></span>
+                    <span class="browser__line browser__line--kurz"></span>
+                    <span class="browser__tiles"><b></b><b></b><b></b></span>
+                  </div>
+                  {p.bausteine && (
+                    <>
+                      <span class="schwebe schwebe--logo"><span class="schwebe__mark"><Icon name="spark" size={18} /></span><em>Logo</em></span>
+                      <span class="schwebe schwebe--karte"><span class="schwebe__punkt"></span><span class="schwebe__zeilen"><i></i><i></i><i></i></span></span>
+                      <span class="schwebe schwebe--video"><span class="schwebe__play"></span><em>Video</em></span>
+                      <span class="schwebe schwebe--shirt"><Icon name="shirt" size={22} /></span>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div class="bald"><Icon name={p.icon} size={40} /></div>
               )}
             </div>
             <div class="produkt__body">
-              <span class="produkt__tag">{p.untertitel}</span>
+              {p.untertitel && <span class="produkt__tag">{p.untertitel}</span>}
               <h3>{p.name}</h3>
+              {p.slogan && <p class="produkt__slogan">{p.slogan}</p>}
               <p>{p.text}</p>
+              {p.bausteine && (
+                <>
+                  <ul class="bausteine" aria-label="Bausteine">
+                    {p.bausteine.map((b) => (
+                      <li><span class="bausteine__icon"><Icon name={b.icon} size={18} /></span>{b.label}</li>
+                    ))}
+                  </ul>
+                  {p.bausteineHinweis && <span class="bausteine__hinweis"><Icon name="check" size={16} />{p.bausteineHinweis}</span>}
+                </>
+              )}
               {p.url && <a class="btn btn--primary produkt__btn" href={p.url}>Zur Produktseite <Icon name="arrow" size={18} /></a>}
             </div>
           </li>
@@ -246,7 +267,12 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
 
   /* PRODUKTE */
   .produkte { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-  @media (min-width: 900px) { .produkte { grid-template-columns: 1.3fr 1fr 1fr; } }
+  @media (min-width: 720px) { .produkte { grid-template-columns: 1fr 1fr; } .produkt--haupt { grid-column: 1 / -1; } }
+  @media (min-width: 900px) {
+    .produkt.produkt--haupt { display: grid; grid-template-columns: 0.9fr 1.1fr; }
+    .produkt.produkt--haupt .produkt__art { height: auto; min-height: 340px; }
+    .produkt--haupt .produkt__body { padding: 32px 36px 34px; align-content: center; }
+  }
   .produkt { background: var(--white); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 600ms ease; }
   .produkt:not(.produkt--bald):hover { transform: translateY(-6px); box-shadow: var(--shadow); }
   .produkt--bald { background: transparent; border-style: dashed; }
@@ -258,6 +284,35 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   .produkt__tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
   .produkt--bald .produkt__tag { color: var(--ink-soft); }
   .produkt__btn { margin-top: 10px; }
+  .produkt--haupt .produkt__art { height: 300px; overflow: hidden; }
+  .produkt--haupt .produkt__body h3 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); }
+  .produkt__slogan { font-family: var(--font-head); font-weight: 700; color: var(--accent-ink) !important; font-size: 1.05rem !important; margin-bottom: 4px !important; }
+  .produkt--haupt .produkt__body > p:not(.produkt__slogan) { line-height: 1.65; }
+  /* Bausteine als kleine Icon-Chips */
+  .bausteine { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .bausteine li { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 5px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: 0.88rem; font-weight: 500; line-height: 1.2; transition: border-color 0.2s ease, transform 0.2s ease; }
+  .bausteine li:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .bausteine__icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); flex: none; }
+  .bausteine__hinweis { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); }
+  /* Szene: Browser + schwebende Karten (Logo, Visitenkarte, Video, Shirt) */
+  .szene { position: relative; width: min(360px, 92%); height: 240px; display: grid; place-items: center; }
+  .schwebe { position: absolute; display: inline-flex; align-items: center; gap: 6px; background: var(--white); border-radius: 10px; padding: 6px 9px; box-shadow: 0 12px 26px rgb(0 0 0 / 28%); color: var(--accent-ink); animation: schweben 4s ease-in-out infinite; }
+  .schwebe em { font-style: normal; font-size: 0.72rem; font-weight: 700; color: var(--ink); }
+  .schwebe--logo { left: 0; top: 14px; animation-delay: -1s; }
+  .schwebe__mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #6fd3cf); color: var(--white); }
+  .schwebe--video { right: 0; top: 0; background: var(--ink); animation-delay: -2.2s; }
+  .schwebe--video em { color: var(--white); }
+  .schwebe__play { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); position: relative; }
+  .schwebe__play::after { content: ''; position: absolute; left: 8px; top: 6px; border-left: 8px solid var(--white); border-block: 5px solid transparent; }
+  .schwebe--karte { right: 2px; bottom: 6px; width: 96px; height: 56px; padding: 9px; gap: 8px; align-items: flex-start; transform: rotate(-6deg); animation-name: schweben-schraeg; animation-delay: -0.6s; }
+  .schwebe__punkt { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #6fd3cf); flex: none; }
+  .schwebe__zeilen { display: grid; gap: 5px; flex: 1; }
+  .schwebe__zeilen i { height: 5px; border-radius: 3px; background: var(--paper-2); }
+  .schwebe__zeilen i:first-child { background: var(--ink); width: 80%; }
+  .schwebe__zeilen i:last-child { width: 60%; }
+  .schwebe--shirt { left: 10px; bottom: 10px; width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 50%; animation-delay: -3s; }
+  @keyframes schweben-schraeg { 0%, 100% { transform: rotate(-6deg) translateY(0); } 50% { transform: rotate(-6deg) translateY(-6px); } }
+  @media (max-width: 420px) { .szene .browser { width: 190px; } .szene { height: 220px; } }
   /* Mini-Browser, baut sich auf */
   .browser { width: 230px; background: var(--white); border-radius: 10px; padding: 8px; display: grid; gap: 7px; box-shadow: 0 16px 32px rgb(0 0 0 / 25%); }
   .browser__bar { display: flex; gap: 4px; }
@@ -284,7 +339,7 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   .flow__step strong { font-family: var(--font-head); font-size: 1.05rem; }
 
   @media (prefers-reduced-motion: reduce) {
-    .hub *, .browser > *, .bald, .flow::before { animation: none !important; }
+    .hub *, .browser > *, .bald, .flow::before, .schwebe { animation: none !important; }
     .wert__icon :global(path), .sla__bar { animation: none !important; stroke-dashoffset: 0 !important; }
     :global(html.js) .wert.reveal, .wert:hover, .wert:hover .wert__nr, .wert:hover .wert__icon::before { transform: none !important; }
   }
