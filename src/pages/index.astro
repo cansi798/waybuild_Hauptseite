@@ -1,35 +1,238 @@
 ---
-// Startseite – B2B entlang der Customer Journey (Feedback Jamil, 19.10.2026):
-// 1 Hero (Nutzen + Preisanker + Erstgespräch) → 2 Problem → Lösung (Schmerzpunkte, „eine Sprachnachricht genügt“)
-// → 3 Preise: zwei Varianten (Website / Intelligente Website) → 4 Was die intelligente Website macht (Beispiel)
-// → 5 Ablauf in vier Schritten → 6 Service-Versprechen (SLAs in Alltagssprache) → 7 Zielgruppen
-// → 8 Plattform-Ausblick → 9 FAQ → Footer-Kopf mit Direktkontakt (CTA).
+// Startseite waybuild IT (Dach-Marke, Jamil 19.10.2026): wenig Text, viel Grafik & Animation.
+// Hero → Wofür wir stehen → Service-Zusagen (SLAs) → Produkte → Über uns → (Footer-Kontakt)
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Schmerzpunkte from '../components/Schmerzpunkte.astro';
-import Pakete from '../components/Pakete.astro';
-import Vision from '../components/Vision.astro';
-import Ablauf from '../components/Ablauf.astro';
-import Siegel from '../components/Siegel.astro';
-import Zielgruppen from '../components/Zielgruppen.astro';
-import Plattform from '../components/Plattform.astro';
-import Faq from '../components/Faq.astro';
-import { serviceSchema, faqSchema } from '../lib/schema';
-import { PAKETE, formatEuro } from '../config/site';
+import SectionHead from '../components/SectionHead.astro';
+import Icon from '../components/Icon.astro';
+import { href } from '../lib/paths';
+import { HERO, WERTE, ZUSAGEN, PRODUKTE, UEBER } from '../config/hauptseite';
+
+// Knoten der Hero-Grafik (Kreis um die Mitte 240/240, Radius 170)
+const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const).map((icon, i) => {
+  const a = (-90 + i * 60) * (Math.PI / 180);
+  return { icon, x: 240 + 170 * Math.cos(a), y: 240 + 170 * Math.sin(a), d: i * 0.35 };
+});
 ---
 
 <BaseLayout
-  title="Website as a Service für Unternehmen"
-  description={`Website as a Service für KMU: persönliche Beratung, KI-gestützte Umsetzung, Änderungen per Sprachnachricht. Ab ${formatEuro(PAKETE[0].preis)} im Monat, 0 € Einrichtung, zzgl. MwSt.`}
-  schema={[serviceSchema(Astro.site), faqSchema()]}
+  title="Digitale Lösungen mit festen Service-Zusagen"
+  description="waybuild IT entwickelt digitale Produkte für Unternehmen – mit persönlichem Ansprechpartner und festen Service-Zusagen: Antwort spätestens am nächsten Werktag."
 >
-  <Hero />
-  <Schmerzpunkte />
-  <Pakete />
-  <Vision />
-  <Ablauf />
-  <Siegel />
-  <Zielgruppen />
-  <Plattform />
-  <Faq />
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <span class="eyebrow">{HERO.eyebrow}</span>
+        <h1>{HERO.pre}<span class="accent">{HERO.accent}</span></h1>
+        <p class="lead">{HERO.lead}</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href={href('/#produkte')}>Unsere Produkte <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--ghost btn--lg" href={href('/#zusagen')}>Unsere Zusagen</a>
+        </div>
+      </div>
+      <div class="hero__art" aria-hidden="true">
+        <svg class="hub" viewBox="0 0 480 480">
+          <circle class="hub__ring hub__ring--1" cx="240" cy="240" r="170" />
+          <circle class="hub__ring hub__ring--2" cx="240" cy="240" r="215" />
+          <circle class="hub__ring hub__ring--3" cx="240" cy="240" r="110" />
+          {knoten.map((k) => <line class="hub__line" x1="240" y1="240" x2={k.x} y2={k.y} style={`animation-delay:${k.d}s`} />)}
+          <circle class="hub__pulse" cx="240" cy="240" r="78" />
+          <circle class="hub__core" cx="240" cy="240" r="78" />
+          <image href={href('/logo-waybuild-it.png')} x="178" y="208" width="124" height="64" />
+          {knoten.map((k) => (
+            <g class="hub__node" style={`animation-delay:${k.d}s`}>
+              <circle cx={k.x} cy={k.y} r="32" />
+              <svg x={k.x - 14} y={k.y - 14} width="28" height="28"><Icon name={k.icon} size={28} /></svg>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- WOFÜR WIR STEHEN -->
+  <section class="section" id="werte" aria-labelledby="werte-h">
+    <div class="wrap">
+      <SectionHead center eyebrow="Wofür wir stehen" pre="Sechs Werte. " accent="Jeden Tag." id="werte-h" />
+      <ul class="werte">
+        {WERTE.map((w, i) => (
+          <li class="wert reveal" style={`transition-delay:${i * 90}ms`}>
+            <span class="wert__icon"><Icon name={w.icon} size={30} /></span>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- SERVICE-ZUSAGEN -->
+  <section class="section section--dark zusagen" id="zusagen" aria-labelledby="zusagen-h">
+    <div class="wrap">
+      <SectionHead center eyebrow="Unsere Service-Zusagen" pre="Feste Zusagen. " accent="Für jeden Kunden." text="Unser Unterschied: Service, auf den Sie sich verlassen können – schriftlich, ohne Fachchinesisch." id="zusagen-h" />
+      <ul class="sla">
+        {ZUSAGEN.map((z, i) => (
+          <li class="sla__item reveal" style={`transition-delay:${i * 90}ms`}>
+            <svg class="sla__ring" viewBox="0 0 80 80" aria-hidden="true">
+              <circle cx="40" cy="40" r="34" class="sla__track" />
+              <circle cx="40" cy="40" r="34" class="sla__bar" />
+            </svg>
+            <span class="sla__icon"><Icon name={z.icon} size={26} /></span>
+            <strong class="sla__key">{z.key}</strong>
+            <h3>{z.title}</h3>
+            <p>{z.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRODUKTE -->
+  <section class="section" id="produkte" aria-labelledby="produkte-h">
+    <div class="wrap">
+      <SectionHead center eyebrow="Unsere Produkte" pre="Eine Marke. " accent="Mehrere Lösungen." text="Alle Details finden Sie auf den jeweiligen Produktseiten." id="produkte-h" />
+      <ul class="produkte">
+        {PRODUKTE.map((p, i) => (
+          <li class:list={['produkt reveal', { 'produkt--bald': !p.url }]} style={`transition-delay:${i * 120}ms`}>
+            <div class="produkt__art" aria-hidden="true">
+              {p.url ? (
+                <div class="browser">
+                  <span class="browser__bar"><i></i><i></i><i></i></span>
+                  <span class="browser__hero"></span>
+                  <span class="browser__line"></span>
+                  <span class="browser__line browser__line--kurz"></span>
+                  <span class="browser__tiles"><b></b><b></b><b></b></span>
+                </div>
+              ) : (
+                <div class="bald"><Icon name={p.icon} size={40} /></div>
+              )}
+            </div>
+            <div class="produkt__body">
+              <span class="produkt__tag">{p.untertitel}</span>
+              <h3>{p.name}</h3>
+              <p>{p.text}</p>
+              {p.url && <a class="btn btn--primary produkt__btn" href={p.url}>Zur Produktseite <Icon name="arrow" size={18} /></a>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section class="section section--alt" id="ueber" aria-labelledby="ueber-h">
+    <div class="wrap ueber">
+      <SectionHead eyebrow="Über waybuild IT" pre="Mensch und Technik. " accent="Zusammen." id="ueber-h" />
+      <p class="lead ueber__text">{UEBER.text}</p>
+      <ol class="flow">
+        {UEBER.schritte.map((s, i) => (
+          <li class="flow__step reveal" style={`transition-delay:${i * 150}ms`}>
+            <span class="flow__icon"><Icon name={s.icon} size={30} /></span>
+            <strong>{s.title}</strong>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* HERO */
+  .hero { padding-block: clamp(40px, 7vw, 96px) clamp(40px, 6vw, 80px); overflow: hidden;
+    background: radial-gradient(60% 60% at 80% 40%, rgb(0 166 161 / 12%), transparent 70%); }
+  .hero__grid { display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 960px) { .hero__grid { grid-template-columns: 1.05fr 1fr; gap: 48px; } }
+  .hero__text .lead { margin-bottom: 28px; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero__art { max-width: 520px; width: 100%; margin-inline: auto; }
+  .hub { width: 100%; height: auto; overflow: visible; }
+  .hub__ring { fill: none; stroke: var(--accent); stroke-opacity: 0.35; stroke-width: 1.5; stroke-dasharray: 4 10; transform-origin: 240px 240px; }
+  .hub__ring--1 { animation: drehen 60s linear infinite; }
+  .hub__ring--2 { stroke-opacity: 0.18; animation: drehen 90s linear infinite reverse; }
+  .hub__ring--3 { stroke-opacity: 0.25; animation: drehen 40s linear infinite reverse; }
+  .hub__line { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 8; stroke-opacity: 0.7; animation: fluss 1.6s linear infinite; }
+  .hub__core { fill: var(--white); stroke: var(--accent); stroke-width: 3; }
+  .hub__pulse { fill: var(--accent); opacity: 0.25; transform-origin: 240px 240px; animation: puls 2.8s ease-out infinite; }
+  .hub__node { transform-box: fill-box; transform-origin: center; animation: schweben 4s ease-in-out infinite; color: var(--accent-ink); }
+  .hub__node circle { fill: var(--white); stroke: var(--line); stroke-width: 1.5; filter: drop-shadow(0 6px 12px rgb(0 79 76 / 14%)); }
+  @keyframes drehen { to { transform: rotate(360deg); } }
+  @keyframes fluss { to { stroke-dashoffset: -28; } }
+  @keyframes puls { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.7); opacity: 0; } }
+  @keyframes schweben { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+  /* WERTE */
+  .werte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 720px) { .werte { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+  .wert { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 22px 18px; text-align: center; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 600ms ease; }
+  .wert:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--accent); }
+  .wert__icon { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: rgb(0 166 161 / 12%); color: var(--accent-ink); margin-bottom: 12px; }
+  .wert__icon :global(path) { stroke-dasharray: 120; stroke-dashoffset: 0; }
+  :global(html.js) .wert:not(.is-visible) .wert__icon :global(path) { stroke-dashoffset: 120; }
+  .wert.is-visible .wert__icon :global(path) { animation: zeichnen 1.4s ease forwards; }
+  .wert:hover .wert__icon { animation: wackeln 0.6s ease; }
+  .wert h3 { margin: 0 0 4px; font-size: 1.1rem; }
+  .wert p { margin: 0; font-size: 0.93rem; line-height: 1.45; color: var(--ink-soft); }
+  @keyframes zeichnen { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+  @keyframes wackeln { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-8deg) scale(1.06); } 60% { transform: rotate(6deg) scale(1.06); } }
+
+  /* SERVICE-ZUSAGEN */
+  .sla { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  @media (min-width: 640px) { .sla { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .sla { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+  .sla__item { position: relative; background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); border-radius: 18px; padding: 22px 20px 20px 112px; min-height: 120px; }
+  .sla__ring { position: absolute; left: 18px; top: 20px; width: 76px; height: 76px; transform: rotate(-90deg); }
+  .sla__track { fill: none; stroke: var(--dark-line); stroke-width: 4; }
+  .sla__bar { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 214; stroke-dashoffset: 0; }
+  :global(html.js) .sla__item:not(.is-visible) .sla__bar { stroke-dashoffset: 214; }
+  .sla__item.is-visible .sla__bar { animation: ring 1.6s cubic-bezier(.4,0,.2,1) both; animation-delay: inherit; }
+  @keyframes ring { from { stroke-dashoffset: 214; } to { stroke-dashoffset: 0; } }
+  .sla__icon { position: absolute; left: 43px; top: 45px; color: var(--accent); }
+  .sla__key { display: block; font-family: var(--font-head); font-size: 1.35rem; color: var(--accent); line-height: 1.1; margin-bottom: 6px; }
+  .sla__item h3 { font-size: 1rem; margin: 0 0 4px; color: var(--white); }
+  .sla__item p { margin: 0; font-size: 0.9rem; color: var(--dark-soft); line-height: 1.45; }
+
+  /* PRODUKTE */
+  .produkte { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  @media (min-width: 900px) { .produkte { grid-template-columns: 1.3fr 1fr 1fr; } }
+  .produkt { background: var(--white); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 600ms ease; }
+  .produkt:not(.produkt--bald):hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .produkt--bald { background: transparent; border-style: dashed; }
+  .produkt__art { height: 190px; display: grid; place-items: center; background: linear-gradient(135deg, var(--dark), var(--accent-ink)); }
+  .produkt--bald .produkt__art { background: repeating-linear-gradient(45deg, var(--paper-2) 0 12px, var(--paper) 12px 24px); }
+  .produkt__body { padding: 20px 22px 24px; display: grid; gap: 6px; justify-items: start; }
+  .produkt__body h3 { margin: 0; }
+  .produkt__body p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+  .produkt__tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .produkt--bald .produkt__tag { color: var(--ink-soft); }
+  .produkt__btn { margin-top: 10px; }
+  /* Mini-Browser, baut sich auf */
+  .browser { width: 230px; background: var(--white); border-radius: 10px; padding: 8px; display: grid; gap: 7px; box-shadow: 0 16px 32px rgb(0 0 0 / 25%); }
+  .browser__bar { display: flex; gap: 4px; }
+  .browser__bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+  .browser__hero { height: 46px; border-radius: 6px; background: linear-gradient(90deg, var(--accent), #6fd3cf); }
+  .browser__line { height: 7px; border-radius: 4px; background: var(--paper-2); width: 90%; }
+  .browser__line--kurz { width: 60%; }
+  .browser__tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .browser__tiles b { height: 26px; border-radius: 5px; background: rgb(0 166 161 / 18%); }
+  .browser > * { animation: aufbau 4.5s ease infinite; }
+  .browser > :nth-child(2) { animation-delay: 0.2s; } .browser > :nth-child(3) { animation-delay: 0.4s; }
+  .browser > :nth-child(4) { animation-delay: 0.6s; } .browser > :nth-child(5) { animation-delay: 0.8s; }
+  @keyframes aufbau { 0% { opacity: 0; transform: translateY(6px); } 15%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  .bald { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: var(--white); color: var(--ink-soft); border: 2px dashed var(--line); animation: schweben 4s ease-in-out infinite; }
+
+  /* ÜBER UNS */
+  .ueber__text { margin-top: -8px; margin-bottom: 32px; }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; position: relative; }
+  @media (min-width: 760px) { .flow { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .flow::before { content: ''; position: absolute; left: 16%; right: 16%; top: 38px; height: 3px; background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 18px); animation: band 1.2s linear infinite; background-size: 36px 3px; } }
+  @keyframes band { to { background-position: 36px 0; } }
+  .flow__step { position: relative; display: grid; justify-items: center; text-align: center; gap: 10px; }
+  .flow__icon { display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); color: var(--accent-ink); box-shadow: var(--shadow); }
+  .flow__step strong { font-family: var(--font-head); font-size: 1.05rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hub *, .browser > *, .bald, .flow::before { animation: none !important; }
+    .wert__icon :global(path), .sla__bar { animation: none !important; stroke-dashoffset: 0 !important; }
+    .wert:hover .wert__icon { animation: none; }
+  }
+</style>

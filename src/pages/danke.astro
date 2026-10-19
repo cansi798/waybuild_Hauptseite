@@ -16,21 +16,10 @@ import { href } from '../lib/paths';
       <ol class="next">
         <li class="is-done"><Icon name="mail" /><strong>Anfrage gesendet</strong><span>Erledigt</span></li>
         <li><Icon name="chat" /><strong>Wir melden uns</strong><span>per E-Mail oder Telefon</span></li>
-        <li><Icon name="calendar" /><strong>Erstgespräch</strong><span>20 Min., kostenlos</span></li>
-        <li><Icon name="rocket" /><strong>Live in 14 Tagen</strong><span>nach Erhalt der Inhalte</span></li>
       </ol>
 
-      <div class="prep card">
-        <h2>Zur Vorbereitung (optional)</h2>
-        <ul>
-          <li>Logo und ggf. Farben Ihres Unternehmens</li>
-          <li>Bestehende Domain / Website, falls vorhanden</li>
-          <li>2–3 Websites, die Ihnen gefallen</li>
-        </ul>
-        <p class="muted">Einfach als Antwort auf unsere E-Mail senden: <a href={`mailto:${company.email}`}>{company.email}</a></p>
-      </div>
 
-      <p class="back"><a href={href('/')}>Zur Startseite</a> · <a href={href('/ratgeber/')}>Ratgeber lesen</a></p>
+      <p class="back"><a href={href('/')}>Zur Startseite</a></p>
     </div>
   </section>
 </BaseLayout>

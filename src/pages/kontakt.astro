@@ -1,18 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { company, phoneTel, whatsappLink, HOURS, WAAS } from '../config/site';
+import { company, phoneTel, whatsappLink, HOURS } from '../config/site';
 import Val from '../components/Val.astro';
 import Hint from '../components/Hint.astro';
 import { href } from '../lib/paths';
-import { leistungen } from '../config/leistungen';
-import { SAEULEN } from '../config/angebot';
+import { PRODUKTE } from '../config/hauptseite';
 
-const interessen = [
-  { value: 'website', label: WAAS.name },
-  ...SAEULEN.filter((s) => s.id !== 'websites').flatMap((s) => leistungen.filter((l) => l.saeule === s.id && l.slug !== 'abo-wartung').map((l) => ({ value: l.slug, label: `Auf Anfrage: ${l.title}` }))),
-];
-const websiteSlugs = leistungen.filter((l) => l.saeule === 'websites').map((l) => l.slug);
+const interessen = PRODUKTE.filter((p) => p.url).map((p) => ({ value: p.name.toLowerCase(), label: p.name }));
+const websiteSlugs: string[] = [];
 
 // Versand über Web3Forms (kostenlos, ohne eigenen Server). Der Access-Key ist laut Anbieter öffentlich nutzbar.
 // Ohne Key öffnet sich als Rückfall das E-Mail-Programm. Key setzen: GitHub → Settings → Variables → WEB3FORMS_KEY
@@ -21,15 +17,15 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
 ---
 
 <BaseLayout
-  title="Kontakt & kostenloses Erstgespräch"
-  description="Kostenloses Erstgespräch zu Website as a Service anfragen – persönliche Beratung, Antwort innerhalb eines Werktags, unverbindlich und ohne Verkaufsdruck."
+  title="Kontakt"
+  description="Kontakt zu waybuild IT: persönlicher Ansprechpartner, Antwort spätestens am nächsten Werktag – per Formular, Telefon, WhatsApp oder E-Mail."
   breadcrumb={[{ name: 'Kontakt', path: '/kontakt/' }]}
   hideMobileCta
 >
   <PageHeader
     eyebrow="Kontakt"
     title="Lassen Sie uns sprechen."
-    lead="Antwort in einem Werktag. Erstgespräch kostenlos."
+    lead="Antwort spätestens am nächsten Werktag."
   />
 
   <section class="section">
@@ -37,7 +33,7 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
       <form class="form card" id="contact-form" data-endpoint={endpoint} data-key={formKey} data-mailto={company.email} data-thanks={href('/danke/')} data-website-slugs={websiteSlugs.join(',')} novalidate>
         <label>Worum geht es?
           <select name="interesse">
-            <option value="">Beraten Sie mich – ich bin noch unsicher</option>
+            <option value="">Allgemeine Anfrage</option>
             {interessen.map((i) => <option value={i.value}>{i.label}</option>)}
           </select>
         </label>
@@ -57,11 +53,11 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
           <input type="checkbox" name="datenschutz" required />
           <span>Ich habe die <a href={href('/datenschutz/')}>Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.*</span>
         </label>
-        <button class="btn btn--primary" type="submit">Kostenloses Erstgespräch anfragen</button>
+        <button class="btn btn--primary" type="submit">Nachricht senden</button>
         <ol class="after" aria-label="So geht es weiter">
           <li><strong>Heute</strong> Anfrage senden</li>
           <li><strong>1 Werktag</strong> Wir melden uns</li>
-          <li><strong>20 Min.</strong> Erstgespräch</li>
+          <li><strong>Persönlich</strong> Ein fester Ansprechpartner</li>
         </ol>
         {!endpoint && (
           <Hint label="Formular-Versand (Web3Forms-Key)" where="GitHub → Settings → Secrets and variables → Actions → Variables → WEB3FORMS_KEY">
@@ -84,7 +80,7 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
         </div>
         <ul class="promise">
           <li><strong>Antwort in 1 Werktag</strong>Persönlich, nicht automatisiert.</li>
-          <li><strong>Kostenlos & unverbindlich</strong>Das Erstgespräch kostet nichts.</li>
+          <li><strong>Unverbindlich</strong>Fragen kostet nichts.</li>
           <li><strong>Ehrliche Beratung</strong>Wir empfehlen, was Sie wirklich brauchen.</li>
         </ul>
       </aside>

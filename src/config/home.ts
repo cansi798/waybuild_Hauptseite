@@ -69,10 +69,10 @@ export const PLATTFORM: { icon: IconName; title: string; heute?: boolean }[] = [
 
 /** Dunkler Footer-Kopf auf jeder Seite = Abschluss-CTA. */
 export const FOOTER_KONTAKT = {
-  pre: 'Bereit für den ',
-  accent: 'ersten Schritt?',
-  sub: 'Menschliche Beratung. KI-gestützte Umsetzung. Kontinuierliche Verbesserung.',
-  text: 'Im kostenlosen Erstgespräch klären wir, wo Ihr Unternehmen digital steht – und was Ihre Website leisten soll.',
+  pre: 'Lassen Sie uns ',
+  accent: 'sprechen.',
+  sub: 'Ein Ansprechpartner. Feste Zusagen. Echte Menschen.',
+  text: 'Sie haben eine Frage zu uns oder einem unserer Produkte? Wir melden uns spätestens am nächsten Werktag.',
   kontaktHead: 'Sprechen Sie mit uns',
   kontaktText: 'Kurze Frage, konkretes Vorhaben oder erst einmal unverbindlich beraten lassen?',
 };

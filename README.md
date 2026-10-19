@@ -1,6 +1,7 @@
 # waybuild_Hauptseite
 
 > **Grundgerüst (19.10.2026):** 1:1-Kopie von [`waybuild_website`](https://github.com/cansi798/waybuild_website) (Stand 098019b) – wird Stück für Stück zur neuen waybuild-Hauptseite umgebaut.
+> **Umbau 1 (19.10.2026, Jamil):** Dach-Seite für waybuild IT – Werte, Service-Zusagen, Produkte, Über uns; Inhalte in [`src/config/hauptseite.ts`](src/config/hauptseite.ts). Produktseiten (Preise, Leistungen, Branchen, Ratgeber …) entfernt; viele alte Komponenten/Configs sind noch vorhanden, aber ungenutzt.
 
 Website der **Waybuild UG (haftungsbeschränkt)** – „Wir bauen keine Websites. Wir bauen digitale Unternehmensplattformen.“ Angebot: **Website as a Service** (B2B, KMU) in zwei Varianten – Website 79 € und Intelligente Website 139 € netto im Monat. Software, Cloud & IT und Beratung als Ausbaustufen auf Anfrage.
 Gebaut mit [Astro](https://astro.build) als rein statische Seite, Quelltext im Branch `quelle`, gebaute Seite (`dist/`) auf `main` → GitHub Pages.
