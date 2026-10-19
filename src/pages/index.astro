@@ -53,13 +53,19 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   <!-- WOFÜR WIR STEHEN -->
   <section class="section" id="werte" aria-labelledby="werte-h">
     <div class="wrap">
-      <SectionHead center eyebrow="Wofür wir stehen" pre="Sechs Werte. " accent="Jeden Tag." id="werte-h" />
+      <SectionHead center eyebrow="Wofür wir stehen" pre="Sechs Werte. " accent="Jeden Tag." text="Was diese Werte für Sie als Kunde ganz konkret bedeuten." id="werte-h" />
       <ul class="werte">
         {WERTE.map((w, i) => (
-          <li class="wert reveal" style={`transition-delay:${i * 90}ms`}>
-            <span class="wert__icon"><Icon name={w.icon} size={30} /></span>
-            <h3>{w.title}</h3>
-            <p>{w.text}</p>
+          <li class:list={['wert reveal', i % 4 === 0 || i % 4 === 3 ? 'wert--breit' : 'wert--schmal', { 'wert--dunkel': i === 0 }]} style={`transition-delay:${(i % 2) * 120}ms`}>
+            <span class="wert__nr" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div class="wert__kopf">
+              <span class="wert__icon"><Icon name={w.icon} size={30} /></span>
+              <div>
+                <h3>{w.title}</h3>
+                <p class="wert__lead">{w.lead}</p>
+              </div>
+            </div>
+            <p class="wert__text">{w.text}</p>
           </li>
         ))}
       </ul>
@@ -160,20 +166,67 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   @keyframes puls { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.7); opacity: 0; } }
   @keyframes schweben { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
-  /* WERTE */
-  .werte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  @media (min-width: 720px) { .werte { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-  .wert { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 22px 18px; text-align: center; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 600ms ease; }
-  .wert:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--accent); }
-  .wert__icon { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: rgb(0 166 161 / 12%); color: var(--accent-ink); margin-bottom: 12px; }
+  /* WERTE – Bento: Reihen abwechselnd breit/schmal (7/5 · 5/7 · 7/5), erste Kachel dunkel */
+  .werte { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  @media (min-width: 720px) { .werte { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
+  @media (min-width: 1000px) {
+    .werte { grid-template-columns: repeat(12, 1fr); gap: 20px; }
+    .wert--breit { grid-column: span 7; }
+    .wert--schmal { grid-column: span 5; }
+  }
+  .wert { position: relative; overflow: hidden; isolation: isolate; background: var(--white); border: 1px solid var(--line); border-radius: 22px;
+    padding: clamp(22px, 3vw, 32px) clamp(20px, 3vw, 34px); display: flex; flex-direction: column; gap: 16px;
+    box-shadow: 0 1px 2px rgb(0 79 76 / 4%); }
+  :global(html.js) .wert.reveal { transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1), box-shadow 0.3s ease, border-color 0.3s ease; }
+  @media (min-width: 1000px) {
+    :global(html.js) .wert.reveal:not(.is-visible):nth-child(odd) { transform: translateX(-28px); }
+    :global(html.js) .wert.reveal:not(.is-visible):nth-child(even) { transform: translateX(28px); }
+  }
+  .wert:hover { transform: translateY(-6px); box-shadow: 0 2px 4px rgb(0 79 76 / 6%), 0 22px 44px -12px rgb(0 79 76 / 22%); border-color: rgb(0 166 161 / 55%); transition-delay: 0s !important; }
+  /* Akzentlinie oben, wächst beim Hover */
+  .wert::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--accent), #6fd3cf); transform: scaleX(0); transform-origin: left; transition: transform 0.45s ease; }
+  .wert:hover::before { transform: scaleX(1); }
+  /* breite Kacheln: zarter Verlauf + Punktraster */
+  .wert--breit { background: linear-gradient(140deg, var(--white) 50%, rgb(0 166 161 / 7%)); }
+  .wert--breit::after { content: ''; position: absolute; z-index: -1; right: 0; bottom: 0; width: 200px; height: 140px;
+    background-image: radial-gradient(rgb(0 166 161 / 30%) 1.3px, transparent 1.6px); background-size: 14px 14px;
+    -webkit-mask-image: radial-gradient(circle at 100% 100%, #000, transparent 72%); mask-image: radial-gradient(circle at 100% 100%, #000, transparent 72%); }
+  .wert__nr { position: absolute; z-index: -1; top: 10px; right: 20px; font-family: var(--font-head); font-weight: 800; font-size: clamp(2.8rem, 5vw, 4rem); line-height: 1;
+    color: transparent; -webkit-text-stroke: 1.5px rgb(0 166 161 / 24%); letter-spacing: -0.02em; transition: transform 0.4s ease, -webkit-text-stroke-color 0.4s ease; }
+  .wert:hover .wert__nr { transform: translateY(-3px); -webkit-text-stroke-color: rgb(0 166 161 / 50%); }
+  .wert__kopf { display: flex; align-items: center; gap: 18px; padding-right: 56px; }
+  /* Icon: Verlaufsring (dreht sich beim Hover) + gezeichnetes Linien-Icon */
+  .wert__icon { position: relative; flex: none; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; color: var(--accent-ink); }
+  .wert__icon::before { content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 3px;
+    background: conic-gradient(from 200deg, var(--accent), #6fd3cf 35%, rgb(0 166 161 / 10%) 60%, var(--accent));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); transition: transform 0.9s cubic-bezier(.4,0,.2,1); }
+  .wert__icon::after { content: ''; position: absolute; inset: 8px; border-radius: 50%; z-index: -1; background: radial-gradient(circle at 35% 30%, var(--white), rgb(0 166 161 / 16%)); box-shadow: 0 6px 16px -6px rgb(0 107 104 / 35%); }
+  .wert__icon :global(svg) { position: relative; }
+  .wert:hover .wert__icon::before { transform: rotate(360deg); }
   .wert__icon :global(path) { stroke-dasharray: 120; stroke-dashoffset: 0; }
   :global(html.js) .wert:not(.is-visible) .wert__icon :global(path) { stroke-dashoffset: 120; }
-  .wert.is-visible .wert__icon :global(path) { animation: zeichnen 1.4s ease forwards; }
-  .wert:hover .wert__icon { animation: wackeln 0.6s ease; }
-  .wert h3 { margin: 0 0 4px; font-size: 1.1rem; }
-  .wert p { margin: 0; font-size: 0.93rem; line-height: 1.45; color: var(--ink-soft); }
+  .wert.is-visible .wert__icon :global(path) { animation: zeichnen 1.4s ease forwards; animation-delay: 0.25s; }
+  .wert h3 { margin: 0 0 4px; font-size: clamp(1.15rem, 1.6vw, 1.35rem); }
+  .wert__lead { margin: 0; font-weight: 600; font-size: 0.98rem; line-height: 1.4; color: var(--accent-ink); }
+  .wert__text { margin: 0; font-size: 0.98rem; line-height: 1.65; color: var(--ink-soft); max-width: 60ch; }
+  /* dunkle Akzent-Kachel */
+  .wert--dunkel { background: linear-gradient(135deg, var(--dark), var(--accent-ink)); border-color: transparent; }
+  .wert--dunkel::after { background-image: radial-gradient(rgb(255 255 255 / 22%) 1.3px, transparent 1.6px); }
+  .wert--dunkel h3 { color: var(--white); }
+  .wert--dunkel .wert__lead { color: #7fe0db; }
+  .wert--dunkel .wert__text { color: var(--dark-lead); }
+  .wert--dunkel .wert__nr { -webkit-text-stroke-color: rgb(255 255 255 / 22%); }
+  .wert--dunkel:hover .wert__nr { -webkit-text-stroke-color: rgb(255 255 255 / 45%); }
+  .wert--dunkel .wert__icon { color: var(--white); }
+  .wert--dunkel .wert__icon::after { background: radial-gradient(circle at 35% 30%, rgb(255 255 255 / 22%), rgb(255 255 255 / 6%)); box-shadow: none; }
+  .wert--dunkel:hover { border-color: transparent; }
   @keyframes zeichnen { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
-  @keyframes wackeln { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-8deg) scale(1.06); } 60% { transform: rotate(6deg) scale(1.06); } }
+  @media (max-width: 420px) {
+    .wert__kopf { gap: 14px; padding-right: 40px; }
+    .wert__icon { width: 60px; height: 60px; }
+    .wert__icon :global(svg) { width: 26px; height: 26px; }
+  }
 
   /* SERVICE-ZUSAGEN */
   .sla { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
@@ -233,6 +286,6 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   @media (prefers-reduced-motion: reduce) {
     .hub *, .browser > *, .bald, .flow::before { animation: none !important; }
     .wert__icon :global(path), .sla__bar { animation: none !important; stroke-dashoffset: 0 !important; }
-    .wert:hover .wert__icon { animation: none; }
+    :global(html.js) .wert.reveal, .wert:hover, .wert:hover .wert__nr, .wert:hover .wert__icon::before { transform: none !important; }
   }
 </style>
