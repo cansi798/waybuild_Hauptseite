@@ -5,9 +5,10 @@ export type NavChild = { label: string; path: string; icon?: IconName; desc?: st
 export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 export const NAV: NavItem[] = [
-  { label: 'Wofür wir stehen', path: '/#werte' },
-  { label: 'Service-Zusagen', path: '/#zusagen' },
-  { label: 'Produkte', path: '/#produkte' },
   { label: 'Über uns', path: '/#ueber' },
+  { label: 'Service-Zusagen', path: '/#zusagen' },
+  { label: 'Ticketsystem', path: '/#ticketsystem' },
+  { label: 'Werte', path: '/#werte' },
+  { label: 'Produkte', path: '/#produkte' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

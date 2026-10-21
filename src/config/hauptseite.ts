@@ -52,14 +52,58 @@ export const WERTE: { icon: IconName; title: string; lead: string; text: string 
   },
 ];
 
-/** „Unsere Service-Zusagen“ – Wortlaut aus waybuild_website (src/config/versprechen.ts), allgemein formuliert */
-export const ZUSAGEN: { icon: IconName; key: string; title: string; text: string }[] = [
-  { icon: 'user', key: '1 Mensch', title: 'Sie erreichen immer einen Menschen', text: 'Kein Callcenter, kein Ticket-Labyrinth.' },
-  { icon: 'mic', key: '1 Nachricht', title: 'Eine Sprachnachricht genügt', text: 'Kein Formular, keine Screenshots.' },
-  { icon: 'zap', key: 'Minuten', title: 'Kleine Änderungen oft in Minuten', text: 'Bei Größerem sagen wir vorher, wann es fertig ist.' },
-  { icon: 'clock', key: '1 Werktag', title: 'Antwort spätestens am nächsten Werktag', text: 'Persönlich – meist deutlich schneller.' },
-  { icon: 'server', key: 'Rundum', title: 'Die Technik läuft – wir kümmern uns', text: 'Wartung, Updates und Backups im Hintergrund.' },
-  { icon: 'euro', key: '0 Überraschungen', title: 'Keine Überraschungen auf der Rechnung', text: 'Extras nur nach schriftlicher Absprache.' },
+/** „Klein, aber mit den Standards der Großen“ (Jamil 21.10.2026, Sprachnachricht 2960).
+ *  Gegenüberstellung bewusst sachlich – kein Herabsetzen anderer Anbieter. */
+export const STANDARDS = {
+  text: 'waybuild IT ist ein kleines, junges Unternehmen. Beim Service arbeiten wir trotzdem wie die Großen: mit festem Ticketsystem, schriftlichen Service-Zusagen und klaren Abläufen. Bei vielen IT-Dienstleistern läuft dagegen alles übers Telefon – man ruft „seinen“ IT-Mann an und hofft, dass er Zeit hat.',
+  vergleich: [
+    { thema: 'Anfragen', oft: 'Anruf beim „Lieblings-IT-Mann“', wir: 'Festes Ticketsystem – nichts geht verloren' },
+    { thema: 'Reaktionszeit', oft: 'Wenn gerade jemand Zeit hat', wir: 'Schriftlich zugesagt (SLA)' },
+    { thema: 'Ansprechpartner', oft: 'Wer gerade ans Telefon geht', wir: 'Ihr fester Ansprechpartner' },
+    { thema: 'Abläufe', oft: 'Im Kopf einzelner Personen', wir: 'Feste, dokumentierte Prozesse' },
+  ],
+};
+
+/** Service-Zusagen (SLAs). Werte NUR aus bestehenden Zusagen der Seite (nächster Werktag, „oft in Minuten“).
+ *  PLATZHALTER: garantierte Bearbeitungszeit für kleine Änderungen – Wert von Jamil/Can einsetzen. */
+export const SLA_KERN: { icon: IconName; label: string; wert: string; text: string }[] = [
+  { icon: 'clock', label: 'Reaktionszeit', wert: 'Spätestens am nächsten Werktag', text: 'Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.' },
+  { icon: 'zap', label: 'Bearbeitungszeit', wert: 'Kleine Änderungen: [Wert einsetzen]', text: 'Oft schon in Minuten erledigt. Bei größeren Aufgaben nennen wir Ihnen vorher einen festen Fertigtermin.' },
+];
+export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr. Alle Zusagen erhalten Sie schriftlich.';
+
+/** Weitere feste Zusagen – Wortlaut aus waybuild_website (src/config/versprechen.ts) */
+export const ZUSAGEN: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'user', title: 'Sie erreichen immer einen Menschen', text: 'Kein Callcenter, keine Warteschleife.' },
+  { icon: 'mic', title: 'Eine Sprachnachricht genügt', text: 'Kein Formular, keine Screenshots.' },
+  { icon: 'server', title: 'Die Technik läuft – wir kümmern uns', text: 'Wartung, Updates und Backups im Hintergrund.' },
+  { icon: 'euro', title: 'Keine Überraschungen auf der Rechnung', text: 'Extras nur nach schriftlicher Absprache.' },
+];
+
+/** So funktioniert unser Ticketsystem (Jamil 21.10.2026) */
+export const TICKET: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'mic', title: 'Sie melden sich', text: 'Per Sprachnachricht oder Text – so, wie es für Sie am einfachsten ist.' },
+  { icon: 'ticket', title: 'Ticket entsteht', text: 'Im Hintergrund wird automatisch ein Ticket angelegt. Nichts geht verloren.' },
+  { icon: 'layers', title: 'Wird eingeordnet', text: 'Das Ticket wird nach Thema und Dringlichkeit eingeordnet.' },
+  { icon: 'check', title: 'Wird erledigt', text: 'Einfache Anliegen löst unsere KI oft sofort. Alles andere übernimmt unser Team.' },
+];
+
+/** Prozesse & Transparenz (Jamil 21.10.2026) */
+export const PROZESSE: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'doc', title: 'Klare Abläufe', text: 'Jede Anfrage läuft über denselben festen Weg. Nichts hängt an einer einzelnen Person.' },
+  { icon: 'eye', title: 'Transparent', text: 'Sie wissen vorher, was passiert, wie lange es dauert und was es kostet.' },
+  { icon: 'refresh', title: 'Laufend verbessert', text: 'Wir prüfen unsere Abläufe regelmäßig und machen sie Schritt für Schritt besser.' },
+  { icon: 'users', title: 'Kundenorientiert', text: 'Maßstab ist, was Ihnen hilft: verständlich, schnell und verlässlich.' },
+];
+
+/** Vertrauen – nur Aussagen, die bereits im Seiten-Quelltext stehen (keine Zertifikate, Kundenzahlen, Bewertungen). */
+export const VERTRAUEN: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'user', title: 'Fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.' },
+  { icon: 'doc', title: 'Schriftliche Service-Zusagen', text: 'Reaktions- und Bearbeitungszeiten schwarz auf weiß.' },
+  { icon: 'euro', title: 'Transparente Preise', text: 'Keine versteckten Kosten, Extras nur nach Absprache.' },
+  { icon: 'server', title: 'Server in Deutschland', text: 'Unsere Lösungen laufen auf Servern in Deutschland.' },
+  { icon: 'lock', title: 'DSGVO-konform', text: 'Auftragsverarbeitungs-Vertrag (AV-Vertrag) auf Anfrage.' },
+  { icon: 'unlock', title: 'Kein künstlicher Lock-in', text: 'Sie behalten die Kontrolle über Ihre Daten.' },
 ];
 
 /** Arbeitsname des Hauptprodukts (Jamil 20.10.2026, Talk 2609/2611) – VORLÄUFIG, finaler Name folgt.
@@ -94,11 +138,12 @@ export const PRODUKTE: {
     ],
     bausteineHinweis: 'Einzeln oder als Paket',
   },
-  { name: 'Weiteres Produkt', untertitel: 'Folgt in Kürze', text: 'Wir arbeiten daran.', icon: 'layers' },
-  { name: 'Weiteres Produkt', untertitel: 'Folgt in Kürze', text: 'Wir arbeiten daran.', icon: 'cloud' },
 ];
 
-/** „Über waybuild IT“ – kurz, Rest als Grafik */
+/** Hinweis unter den Produkten (statt zwei leerer Platzhalter-Karten) */
+export const PRODUKTE_HINWEIS = 'Weitere Produkte folgen in Kürze.';
+
+/** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
 export const UEBER = {
   text: 'waybuild IT ist die IT-Marke der Waybuild UG (haftungsbeschränkt). Wir verbinden persönliche Beratung mit moderner, KI-gestützter Technik – für kleine und mittlere Unternehmen.',
   schritte: [

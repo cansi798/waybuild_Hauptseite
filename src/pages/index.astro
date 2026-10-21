@@ -1,11 +1,16 @@
 ---
 // Startseite waybuild IT (Dach-Marke, Jamil 19.10.2026): wenig Text, viel Grafik & Animation.
-// Hero → Wofür wir stehen → Service-Zusagen (SLAs) → Produkte → Über uns → (Footer-Kontakt)
+// Ruhiger Aufbau (Jamil 21.10.2026, Sprachnachricht 2960): Hero → Standards der Großen → Service-Zusagen (SLAs)
+// → Ticketsystem → Prozesse & Transparenz → Werte → Vertrauen → Produkte → (Footer-Kontakt).
+// Unterhalb des Heros nur noch: Einblenden beim Scrollen, SLA-Ringe (einmalig) und der Ticket-Ablauf.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { HERO, WERTE, ZUSAGEN, PRODUKTE, UEBER } from '../config/hauptseite';
+import { HERO, STANDARDS, SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, WERTE, VERTRAUEN, PRODUKTE, PRODUKTE_HINWEIS, UEBER } from '../config/hauptseite';
+
+const PLATZHALTER = '[Wert einsetzen]';
+const teile = (t: string) => t.split(PLATZHALTER);
 
 // Knoten der Hero-Grafik (Kreis um die Mitte 240/240, Radius 170)
 const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const).map((icon, i) => {
@@ -16,7 +21,7 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
 
 <BaseLayout
   title="Digitale Lösungen mit festen Service-Zusagen"
-  description="waybuild IT entwickelt digitale Produkte für Unternehmen – mit persönlichem Ansprechpartner und festen Service-Zusagen: Antwort spätestens am nächsten Werktag."
+  description="waybuild IT: klein, aber mit den Standards der Großen – festes Ticketsystem, schriftliche Service-Zusagen (SLAs) und ein fester Ansprechpartner."
 >
   <!-- HERO -->
   <section class="hero">
@@ -50,14 +55,95 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
     </div>
   </section>
 
-  <!-- WOFÜR WIR STEHEN -->
+  <!-- 1 KLEIN, ABER MIT DEN STANDARDS DER GROSSEN -->
+  <section class="section section--alt" id="ueber" aria-labelledby="ueber-h">
+    <div class="wrap standards">
+      <div>
+        <SectionHead eyebrow="Über waybuild IT" pre="Klein. " accent="Mit den Standards der Großen." id="ueber-h" />
+        <p class="standards__text">{STANDARDS.text}</p>
+        <p class="standards__text">{UEBER.text}</p>
+      </div>
+      <div class="vergleich reveal" role="table" aria-label="Vergleich: oft üblich und bei waybuild IT">
+        <div class="vergleich__kopf" role="row">
+          <span role="columnheader">Oft üblich</span>
+          <span role="columnheader">Bei waybuild IT</span>
+        </div>
+        {STANDARDS.vergleich.map((v) => (
+          <div class="vergleich__zeile" role="row">
+            <span class="vergleich__thema" role="rowheader">{v.thema}</span>
+            <span class="vergleich__oft" role="cell">{v.oft}</span>
+            <span class="vergleich__wir" role="cell"><Icon name="check" size={18} />{v.wir}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 SERVICE-ZUSAGEN (SLAs) -->
+  <section class="section section--dark" id="zusagen" aria-labelledby="zusagen-h">
+    <div class="wrap">
+      <SectionHead center eyebrow="Unsere Service-Zusagen (SLAs)" pre="Feste Zusagen. " accent="Schriftlich." text="Bei uns gibt es keine vagen Versprechen, sondern feste Zeiten – für jeden Kunden." id="zusagen-h" />
+      <ul class="sla">
+        {SLA_KERN.map((z, i) => (
+          <li class="sla__item reveal" style={`transition-delay:${i * 120}ms`}>
+            <span class="sla__ring" aria-hidden="true">
+              <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" class="sla__track" /><circle cx="40" cy="40" r="34" class="sla__bar" /></svg>
+              <Icon name={z.icon} size={28} />
+            </span>
+            <span class="sla__label">{z.label}</span>
+            <strong class="sla__wert">{teile(z.wert).map((t, k) => (<>{k > 0 && <mark class="platzhalter">{PLATZHALTER}</mark>}{t}</>))}</strong>
+            <p>{z.text}</p>
+          </li>
+        ))}
+      </ul>
+      <ul class="zusagen">
+        {ZUSAGEN.map((z) => (
+          <li><span class="zusagen__icon"><Icon name={z.icon} size={20} /></span><span><strong>{z.title}</strong> {z.text}</span></li>
+        ))}
+      </ul>
+      <p class="sla__hinweis">{SLA_HINWEIS}</p>
+    </div>
+  </section>
+
+  <!-- 3 TICKETSYSTEM -->
+  <section class="section" id="ticketsystem" aria-labelledby="ticket-h">
+    <div class="wrap">
+      <SectionHead center eyebrow="So funktioniert unser Ticketsystem" pre="Eine Nachricht. " accent="Ein fester Ablauf." text="Sie müssen nichts ausfüllen. Den Rest erledigt unser System – und unser Team." id="ticket-h" />
+      <ol class="ablauf reveal">
+        {TICKET.map((t, i) => (
+          <li class="ablauf__schritt" style={`--i:${i}`}>
+            <span class="ablauf__icon"><Icon name={t.icon} size={30} /><span class="ablauf__nr">{i + 1}</span></span>
+            <h3>{t.title}</h3>
+            <p>{t.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 PROZESSE & TRANSPARENZ -->
+  <section class="section section--alt" id="prozesse" aria-labelledby="prozesse-h">
+    <div class="wrap prozesse">
+      <SectionHead eyebrow="Prozesse & Transparenz" pre="Struktur statt " accent="Zufall." text="Wir arbeiten nach festen Prozessen – nicht auf Zuruf. Und wir verbessern sie ständig." id="prozesse-h" />
+      <ul class="prozesse__liste">
+        {PROZESSE.map((p) => (
+          <li class="reveal">
+            <span class="prozesse__icon"><Icon name={p.icon} size={24} /></span>
+            <div><h3>{p.title}</h3><p>{p.text}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 WOFÜR WIR STEHEN -->
   <section class="section" id="werte" aria-labelledby="werte-h">
     <div class="wrap">
       <SectionHead center eyebrow="Wofür wir stehen" pre="Sechs Werte. " accent="Jeden Tag." text="Was diese Werte für Sie als Kunde ganz konkret bedeuten." id="werte-h" />
       <ul class="werte">
-        {WERTE.map((w, i) => (
-          <li class="wert reveal" style={`transition-delay:${(i % 3) * 90}ms`}>
-            <span class="wert__icon"><Icon name={w.icon} size={32} /></span>
+        {WERTE.map((w) => (
+          <li class="wert reveal">
+            <span class="wert__icon"><Icon name={w.icon} size={28} /></span>
             <h3>{w.title}</h3>
             <p class="wert__lead">{w.lead}</p>
             <p class="wert__text">{w.text}</p>
@@ -67,93 +153,52 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
     </div>
   </section>
 
-  <!-- SERVICE-ZUSAGEN -->
-  <section class="section section--dark zusagen" id="zusagen" aria-labelledby="zusagen-h">
+  <!-- 6 VERTRAUEN -->
+  <section class="section section--alt" id="vertrauen" aria-labelledby="vertrauen-h">
     <div class="wrap">
-      <SectionHead center eyebrow="Unsere Service-Zusagen" pre="Feste Zusagen. " accent="Für jeden Kunden." text="Unser Unterschied: Service, auf den Sie sich verlassen können – schriftlich, ohne Fachchinesisch." id="zusagen-h" />
-      <ul class="sla">
-        {ZUSAGEN.map((z, i) => (
-          <li class="sla__item reveal" style={`transition-delay:${i * 90}ms`}>
-            <svg class="sla__ring" viewBox="0 0 80 80" aria-hidden="true">
-              <circle cx="40" cy="40" r="34" class="sla__track" />
-              <circle cx="40" cy="40" r="34" class="sla__bar" />
-            </svg>
-            <span class="sla__icon"><Icon name={z.icon} size={26} /></span>
-            <strong class="sla__key">{z.key}</strong>
-            <h3>{z.title}</h3>
-            <p>{z.text}</p>
+      <SectionHead center eyebrow="Darauf können Sie sich verlassen" pre="Gute Gründe für " accent="Vertrauen." id="vertrauen-h" />
+      <ul class="vertrauen">
+        {VERTRAUEN.map((v) => (
+          <li>
+            <span class="vertrauen__icon"><Icon name={v.icon} size={22} /></span>
+            <div><strong>{v.title}</strong><span>{v.text}</span></div>
           </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <!-- PRODUKTE -->
+  <!-- 7 PRODUKTE -->
   <section class="section" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
-      <SectionHead center eyebrow="Unsere Produkte" pre="Eine Marke. " accent="Mehrere Lösungen." text="Alle Details finden Sie auf den jeweiligen Produktseiten." id="produkte-h" />
-      <ul class="produkte">
-        {PRODUKTE.map((p, i) => (
-          <li class:list={['produkt reveal', { 'produkt--bald': !p.url, 'produkt--haupt': p.bausteine }]} style={`transition-delay:${i * 120}ms`}>
-            <div class="produkt__art" aria-hidden="true">
-              {p.url ? (
-                <div class="szene">
-                  <div class="browser">
-                    <span class="browser__bar"><i></i><i></i><i></i></span>
-                    <span class="browser__hero"></span>
-                    <span class="browser__line"></span>
-                    <span class="browser__line browser__line--kurz"></span>
-                    <span class="browser__tiles"><b></b><b></b><b></b></span>
-                  </div>
-                  {p.bausteine && (
-                    <>
-                      <span class="schwebe schwebe--logo"><span class="schwebe__mark"><Icon name="spark" size={18} /></span><em>Logo</em></span>
-                      <span class="schwebe schwebe--karte"><span class="schwebe__punkt"></span><span class="schwebe__zeilen"><i></i><i></i><i></i></span></span>
-                      <span class="schwebe schwebe--video"><span class="schwebe__play"></span><em>Video</em></span>
-                      <span class="schwebe schwebe--shirt"><Icon name="shirt" size={22} /></span>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <div class="bald"><Icon name={p.icon} size={40} /></div>
-              )}
+      <SectionHead center eyebrow="Unsere Produkte" pre="Eine Marke. " accent="Klare Lösungen." text="Alle Details finden Sie auf den jeweiligen Produktseiten." id="produkte-h" />
+      {PRODUKTE.map((p) => (
+        <article class="produkt reveal">
+          <div class="produkt__art" aria-hidden="true">
+            <div class="browser">
+              <span class="browser__bar"><i></i><i></i><i></i></span>
+              <span class="browser__hero"></span>
+              <span class="browser__line"></span>
+              <span class="browser__line browser__line--kurz"></span>
+              <span class="browser__tiles"><b></b><b></b><b></b></span>
             </div>
-            <div class="produkt__body">
-              {p.untertitel && <span class="produkt__tag">{p.untertitel}</span>}
-              <h3>{p.name}</h3>
-              {p.slogan && <p class="produkt__slogan">{p.slogan}</p>}
-              <p>{p.text}</p>
-              {p.bausteine && (
-                <>
-                  <ul class="bausteine" aria-label="Bausteine">
-                    {p.bausteine.map((b) => (
-                      <li><span class="bausteine__icon"><Icon name={b.icon} size={18} /></span>{b.label}</li>
-                    ))}
-                  </ul>
-                  {p.bausteineHinweis && <span class="bausteine__hinweis"><Icon name="check" size={16} />{p.bausteineHinweis}</span>}
-                </>
-              )}
-              {p.url && <a class="btn btn--primary produkt__btn" href={p.url}>Zur Produktseite <Icon name="arrow" size={18} /></a>}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- ÜBER UNS -->
-  <section class="section section--alt" id="ueber" aria-labelledby="ueber-h">
-    <div class="wrap ueber">
-      <SectionHead eyebrow="Über waybuild IT" pre="Mensch und Technik. " accent="Zusammen." id="ueber-h" />
-      <p class="lead ueber__text">{UEBER.text}</p>
-      <ol class="flow">
-        {UEBER.schritte.map((s, i) => (
-          <li class="flow__step reveal" style={`transition-delay:${i * 150}ms`}>
-            <span class="flow__icon"><Icon name={s.icon} size={30} /></span>
-            <strong>{s.title}</strong>
-          </li>
-        ))}
-      </ol>
+          </div>
+          <div class="produkt__body">
+            <h3>{p.name}</h3>
+            {p.slogan && <p class="produkt__slogan">{p.slogan}</p>}
+            <p>{p.text}</p>
+            {p.bausteine && (
+              <ul class="bausteine" aria-label="Bausteine">
+                {p.bausteine.map((b) => (
+                  <li><Icon name={b.icon} size={16} />{b.label}</li>
+                ))}
+              </ul>
+            )}
+            {p.url && <a class="btn btn--primary produkt__btn" href={p.url}>Zur Produktseite <Icon name="arrow" size={18} /></a>}
+          </div>
+        </article>
+      ))}
+      <p class="produkte__hinweis">{PRODUKTE_HINWEIS}</p>
     </div>
   </section>
 </BaseLayout>
@@ -182,109 +227,124 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   @keyframes puls { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.7); opacity: 0; } }
   @keyframes schweben { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
-  /* WERTE – ruhiges 3×2-Raster (Jamil 20.10.2026, Talk 2615: „nicht zu futuristisch“) */
-  .werte { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  @media (min-width: 720px) { .werte { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
-  @media (min-width: 1000px) { .werte { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
-  .wert { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 30px 28px 32px; }
-  :global(html.js) .wert.reveal { transform: none; transition: opacity 700ms ease, transform 0.25s ease, box-shadow 0.25s ease; }
-  .wert:hover, :global(html.js) .wert.reveal.is-visible:hover { transform: translateY(-3px); box-shadow: var(--shadow); transition-delay: 0s !important; }
-  .wert__icon { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: rgb(0 166 161 / 12%); color: var(--accent-ink); margin-bottom: 18px; }
-  .wert h3 { margin: 0 0 6px; font-size: 1.2rem; }
-  .wert__lead { margin: 0 0 12px; font-weight: 600; font-size: 1rem; line-height: 1.45; color: var(--accent-ink); }
-  .wert__text { margin: 0; font-size: 0.97rem; line-height: 1.7; color: var(--ink-soft); }
-  @media (max-width: 420px) { .wert { padding: 24px 22px 26px; } }
+  /* gemeinsame Ruhe-Regeln: gleiche Abstände, eine Akzentfarbe, keine Hover-Sprünge */
+  .section h3 { font-size: 1.1rem; margin: 0 0 6px; }
 
-  /* SERVICE-ZUSAGEN */
-  .sla { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  @media (min-width: 640px) { .sla { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1000px) { .sla { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-  .sla__item { position: relative; background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); border-radius: 18px; padding: 22px 20px 20px 112px; min-height: 120px; }
-  .sla__ring { position: absolute; left: 18px; top: 20px; width: 76px; height: 76px; transform: rotate(-90deg); }
+  /* 1 STANDARDS */
+  .standards { display: grid; gap: 32px; align-items: start; }
+  @media (min-width: 960px) { .standards { grid-template-columns: 1fr 1.05fr; gap: 56px; } }
+  .standards .section-head { margin-bottom: 20px; }
+  .standards__text { color: var(--ink-soft); line-height: 1.7; max-width: 58ch; }
+  .vergleich { background: var(--white); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .vergleich__kopf, .vergleich__zeile { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; padding: 14px 22px; }
+  .vergleich__kopf { background: var(--paper); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .vergleich__kopf span:last-child { color: var(--accent-ink); }
+  .vergleich__zeile { border-top: 1px solid var(--line); line-height: 1.45; }
+  .vergleich__thema { grid-column: 1 / -1; font-size: 0.8rem; font-weight: 700; color: var(--ink); }
+  .vergleich__oft { color: var(--ink-soft); font-size: 0.95rem; }
+  .vergleich__wir { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; font-size: 0.95rem; }
+  .vergleich__wir :global(.icon) { color: var(--accent-ink); flex: none; margin-top: 2px; }
+  @media (max-width: 420px) { .vergleich__kopf, .vergleich__zeile { padding: 12px 16px; gap: 4px 14px; } }
+
+  /* 2 SLAs */
+  .sla { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 18px; max-width: 920px; }
+  @media (min-width: 760px) { .sla { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  .sla__item { background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); border-radius: 18px; padding: 28px 26px; display: grid; gap: 8px; justify-items: start; }
+  .sla__ring { position: relative; width: 72px; height: 72px; display: grid; place-items: center; color: var(--accent); margin-bottom: 6px; }
+  .sla__ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
   .sla__track { fill: none; stroke: var(--dark-line); stroke-width: 4; }
   .sla__bar { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 214; stroke-dashoffset: 0; }
   :global(html.js) .sla__item:not(.is-visible) .sla__bar { stroke-dashoffset: 214; }
-  .sla__item.is-visible .sla__bar { animation: ring 1.6s cubic-bezier(.4,0,.2,1) both; animation-delay: inherit; }
+  .sla__item.is-visible .sla__bar { animation: ring 1.4s cubic-bezier(.4,0,.2,1) both; }
   @keyframes ring { from { stroke-dashoffset: 214; } to { stroke-dashoffset: 0; } }
-  .sla__icon { position: absolute; left: 43px; top: 45px; color: var(--accent); }
-  .sla__key { display: block; font-family: var(--font-head); font-size: 1.35rem; color: var(--accent); line-height: 1.1; margin-bottom: 6px; }
-  .sla__item h3 { font-size: 1rem; margin: 0 0 4px; color: var(--white); }
-  .sla__item p { margin: 0; font-size: 0.9rem; color: var(--dark-soft); line-height: 1.45; }
+  .sla__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-soft); }
+  .sla__wert { font-family: var(--font-head); font-size: clamp(1.3rem, 2.6vw, 1.6rem); line-height: 1.25; color: var(--white); }
+  .sla__item p { margin: 0; color: var(--dark-lead); line-height: 1.6; }
+  .platzhalter { background: #ffe58a; color: var(--ink); padding: 0 6px; border-radius: 4px; font-size: 0.8em; white-space: nowrap; }
+  .zusagen { list-style: none; margin: 28px auto 0; padding: 0; max-width: 920px; display: grid; gap: 14px 24px; }
+  @media (min-width: 760px) { .zusagen { grid-template-columns: 1fr 1fr; } }
+  .zusagen li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; color: var(--dark-lead); }
+  .zusagen strong { color: var(--white); font-weight: 600; }
+  .zusagen__icon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--dark-line); color: var(--accent); }
+  .sla__hinweis { max-width: 920px; margin: 28px auto 0; font-size: 0.9rem; color: var(--dark-soft); text-align: center; }
 
-  /* PRODUKTE */
-  .produkte { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-  @media (min-width: 720px) { .produkte { grid-template-columns: 1fr 1fr; } .produkt--haupt { grid-column: 1 / -1; } }
-  @media (min-width: 900px) {
-    .produkt.produkt--haupt { display: grid; grid-template-columns: 0.9fr 1.1fr; }
-    .produkt.produkt--haupt .produkt__art { height: auto; min-height: 340px; }
-    .produkt--haupt .produkt__body { padding: 32px 36px 34px; align-content: center; }
+  /* 3 TICKETSYSTEM – Ablauf in 4 Schritten (gleicher Stil wie die Hero-Linien: gestrichelt, fließend) */
+  .ablauf { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; position: relative; }
+  @media (min-width: 860px) {
+    .ablauf { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .ablauf::before { content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 38px; height: 3px; background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 18px); background-size: 36px 3px; opacity: 0.6; animation: band 1.6s linear infinite; }
   }
-  .produkt { background: var(--white); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 600ms ease; }
-  .produkt:not(.produkt--bald):hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-  .produkt--bald { background: transparent; border-style: dashed; }
-  .produkt__art { height: 190px; display: grid; place-items: center; background: linear-gradient(135deg, var(--dark), var(--accent-ink)); }
-  .produkt--bald .produkt__art { background: repeating-linear-gradient(45deg, var(--paper-2) 0 12px, var(--paper) 12px 24px); }
-  .produkt__body { padding: 20px 22px 24px; display: grid; gap: 6px; justify-items: start; }
-  .produkt__body h3 { margin: 0; }
-  .produkt__body p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
-  .produkt__tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
-  .produkt--bald .produkt__tag { color: var(--ink-soft); }
-  .produkt__btn { margin-top: 10px; }
-  .produkt--haupt .produkt__art { height: 300px; overflow: hidden; }
-  .produkt--haupt .produkt__body h3 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); }
-  .produkt__slogan { font-family: var(--font-head); font-weight: 700; color: var(--accent-ink) !important; font-size: 1.05rem !important; margin-bottom: 4px !important; }
-  .produkt--haupt .produkt__body > p:not(.produkt__slogan) { line-height: 1.65; }
-  /* Bausteine als kleine Icon-Chips */
-  .bausteine { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .bausteine li { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 5px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: 0.88rem; font-weight: 500; line-height: 1.2; transition: border-color 0.2s ease, transform 0.2s ease; }
-  .bausteine li:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .bausteine__icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); flex: none; }
-  .bausteine__hinweis { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); }
-  /* Szene: Browser + schwebende Karten (Logo, Visitenkarte, Video, Shirt) */
-  .szene { position: relative; width: min(360px, 92%); height: 240px; display: grid; place-items: center; }
-  .schwebe { position: absolute; display: inline-flex; align-items: center; gap: 6px; background: var(--white); border-radius: 10px; padding: 6px 9px; box-shadow: 0 6px 16px rgb(0 0 0 / 14%); color: var(--accent-ink); }
-  .schwebe em { font-style: normal; font-size: 0.72rem; font-weight: 700; color: var(--ink); }
-  .schwebe--logo { left: 0; top: 14px; animation-delay: -1s; }
-  .schwebe__mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
-  .schwebe--video { right: 0; top: 0; }
-  .schwebe__play { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); position: relative; }
-  .schwebe__play::after { content: ''; position: absolute; left: 8px; top: 6px; border-left: 8px solid var(--white); border-block: 5px solid transparent; }
-  .schwebe--karte { right: 2px; bottom: 6px; width: 96px; height: 56px; padding: 9px; gap: 8px; align-items: flex-start; }
-  .schwebe__punkt { width: 18px; height: 18px; border-radius: 50%; background: rgb(0 166 161 / 30%); flex: none; }
-  .schwebe__zeilen { display: grid; gap: 5px; flex: 1; }
-  .schwebe__zeilen i { height: 5px; border-radius: 3px; background: var(--paper-2); }
-  .schwebe__zeilen i:first-child { background: var(--ink); width: 80%; }
-  .schwebe__zeilen i:last-child { width: 60%; }
-  .schwebe--shirt { left: 10px; bottom: 10px; width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 50%; }
-  @media (max-width: 420px) { .szene .browser { width: 190px; } .szene { height: 220px; } }
-  /* Mini-Browser, baut sich auf */
-  .browser { width: 230px; background: var(--white); border-radius: 10px; padding: 8px; display: grid; gap: 7px; box-shadow: 0 16px 32px rgb(0 0 0 / 25%); }
+  @media (max-width: 859px) {
+    .ablauf::before { content: ''; position: absolute; left: 38px; top: 40px; bottom: 40px; width: 3px; background: repeating-linear-gradient(180deg, var(--accent) 0 10px, transparent 10px 18px); background-size: 3px 36px; opacity: 0.6; animation: band-v 1.6s linear infinite; }
+  }
+  @keyframes band { to { background-position: 36px 0; } }
+  @keyframes band-v { to { background-position: 0 36px; } }
+  :global(html.js) .ablauf.reveal { transform: none; opacity: 1; }
+  .ablauf__schritt { position: relative; display: grid; justify-items: center; text-align: center; gap: 4px; }
+  :global(html.js) .ablauf:not(.is-visible) .ablauf__schritt { opacity: 0; transform: translateY(12px); }
+  .ablauf__schritt { transition: opacity 500ms ease, transform 500ms ease; transition-delay: calc(var(--i) * 350ms); }
+  .ablauf__icon { position: relative; display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); color: var(--accent-ink); margin-bottom: 10px; }
+  .ablauf__nr { position: absolute; right: -4px; top: -4px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-ink); color: var(--white); font-size: 0.8rem; font-weight: 700; display: grid; place-items: center; }
+  .ablauf__schritt p { margin: 0; color: var(--ink-soft); font-size: 0.97rem; line-height: 1.6; max-width: 30ch; }
+  @media (max-width: 859px) {
+    .ablauf__schritt { grid-template-columns: 78px 1fr; justify-items: start; text-align: left; column-gap: 18px; }
+    .ablauf__icon { grid-row: span 2; margin-bottom: 0; }
+    .ablauf__schritt h3 { align-self: end; margin: 0; }
+    .ablauf__schritt p { align-self: start; }
+  }
+
+  /* 4 PROZESSE */
+  .prozesse { display: grid; gap: 28px; }
+  @media (min-width: 960px) { .prozesse { grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; } }
+  .prozesse .section-head { margin-bottom: 0; }
+  .prozesse__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+  .prozesse__liste li { display: flex; gap: 16px; align-items: flex-start; }
+  .prozesse__liste p { margin: 0; color: var(--ink-soft); line-height: 1.7; }
+  .prozesse__icon, .vertrauen__icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgb(0 166 161 / 12%); color: var(--accent-ink); }
+
+  /* 5 WERTE – ruhiges 3×2-Raster, weiße Karten (Jamil 20.10.2026), ohne Hover-Sprung */
+  .werte { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+  @media (min-width: 720px) { .werte { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .werte { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  .wert { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 28px 26px 30px; }
+  .wert__icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: rgb(0 166 161 / 12%); color: var(--accent-ink); margin-bottom: 16px; }
+  .wert__lead { margin: 0 0 10px; font-weight: 600; line-height: 1.45; color: var(--accent-ink); }
+  .wert__text { margin: 0; font-size: 0.97rem; line-height: 1.7; color: var(--ink-soft); }
+  @media (max-width: 420px) { .wert { padding: 24px 22px 26px; } }
+
+  /* 6 VERTRAUEN */
+  .vertrauen { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px 32px; }
+  @media (min-width: 640px) { .vertrauen { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .vertrauen { grid-template-columns: repeat(3, 1fr); } }
+  .vertrauen li { display: flex; gap: 14px; align-items: flex-start; }
+  .vertrauen strong { display: block; font-family: var(--font-head); font-size: 1rem; margin-bottom: 2px; }
+  .vertrauen li span:not(.vertrauen__icon) { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; }
+
+  /* 7 PRODUKTE – eine ruhige Karte, statische Grafik */
+  .produkt { background: var(--white); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: grid; }
+  @media (min-width: 900px) { .produkt { grid-template-columns: 0.85fr 1.15fr; } }
+  .produkt__art { min-height: 240px; display: grid; place-items: center; background: var(--dark); padding: 24px; }
+  .produkt__body { padding: clamp(24px, 3.5vw, 36px); display: grid; gap: 8px; justify-items: start; align-content: center; }
+  .produkt__body h3 { margin: 0; font-size: clamp(1.4rem, 2.4vw, 1.8rem); }
+  .produkt__body p { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+  .produkt__slogan { font-family: var(--font-head); font-weight: 700; color: var(--accent-ink) !important; }
+  .produkt__btn { margin-top: 12px; }
+  .bausteine { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .bausteine li { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: 0.88rem; font-weight: 500; }
+  .bausteine li :global(.icon) { color: var(--accent-ink); }
+  .produkte__hinweis { margin: 20px 0 0; text-align: center; color: var(--ink-soft); }
+  .browser { width: min(260px, 100%); background: var(--white); border-radius: 10px; padding: 8px; display: grid; gap: 7px; box-shadow: 0 16px 32px rgb(0 0 0 / 25%); }
   .browser__bar { display: flex; gap: 4px; }
   .browser__bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
-  .browser__hero { height: 46px; border-radius: 6px; background: linear-gradient(90deg, var(--accent), #6fd3cf); }
+  .browser__hero { height: 52px; border-radius: 6px; background: var(--accent); }
   .browser__line { height: 7px; border-radius: 4px; background: var(--paper-2); width: 90%; }
   .browser__line--kurz { width: 60%; }
   .browser__tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-  .browser__tiles b { height: 26px; border-radius: 5px; background: rgb(0 166 161 / 18%); }
-  .browser > * { animation: aufbau 4.5s ease infinite; }
-  .browser > :nth-child(2) { animation-delay: 0.2s; } .browser > :nth-child(3) { animation-delay: 0.4s; }
-  .browser > :nth-child(4) { animation-delay: 0.6s; } .browser > :nth-child(5) { animation-delay: 0.8s; }
-  @keyframes aufbau { 0% { opacity: 0; transform: translateY(6px); } 15%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-  .bald { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: var(--white); color: var(--ink-soft); border: 2px dashed var(--line); animation: schweben 4s ease-in-out infinite; }
-
-  /* ÜBER UNS */
-  .ueber__text { margin-top: -8px; margin-bottom: 32px; }
-  .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; position: relative; }
-  @media (min-width: 760px) { .flow { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .flow::before { content: ''; position: absolute; left: 16%; right: 16%; top: 38px; height: 3px; background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 18px); animation: band 1.2s linear infinite; background-size: 36px 3px; } }
-  @keyframes band { to { background-position: 36px 0; } }
-  .flow__step { position: relative; display: grid; justify-items: center; text-align: center; gap: 10px; }
-  .flow__icon { display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); color: var(--accent-ink); box-shadow: var(--shadow); }
-  .flow__step strong { font-family: var(--font-head); font-size: 1.05rem; }
+  .browser__tiles b { height: 28px; border-radius: 5px; background: rgb(0 166 161 / 18%); }
 
   @media (prefers-reduced-motion: reduce) {
-    .hub *, .browser > *, .bald, .flow::before, .schwebe { animation: none !important; }
+    .hub *, .ablauf::before { animation: none !important; }
     .sla__bar { animation: none !important; stroke-dashoffset: 0 !important; }
-    .wert:hover { transform: none !important; }
+    .ablauf__schritt { opacity: 1 !important; transform: none !important; }
   }
 </style>
