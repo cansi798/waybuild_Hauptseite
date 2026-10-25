@@ -1,7 +1,8 @@
 # waybuild_Hauptseite
 
 > **Grundgerüst (19.10.2026):** 1:1-Kopie von [`waybuild_website`](https://github.com/cansi798/waybuild_website) (Stand 098019b) – wird Stück für Stück zur neuen waybuild-Hauptseite umgebaut.
-> **Umbau 1 (19.10.2026, Jamil):** Dach-Seite für waybuild IT – Werte, Service-Zusagen, Produkte, Über uns; Inhalte in [`src/config/hauptseite.ts`](src/config/hauptseite.ts). Produktseiten (Preise, Leistungen, Branchen, Ratgeber …) entfernt; viele alte Komponenten/Configs sind noch vorhanden, aber ungenutzt.
+> **Umbau 1 (19.10.2026, Jamil):** Dach-Seite für waybuild IT – Werte, Service-Zusagen, Produkte, Über uns; Inhalte in [`src/config/hauptseite.ts`](src/config/hauptseite.ts). Produktseiten (Preise, Leistungen, Branchen, Ratgeber …) entfernt.
+> **Aufräumen (25.10.2026):** ungenutzte Alt-Komponenten/-Configs der waybuild_website entfernt; Launch-Checkliste (`/checkliste/`), AGB-Entwurf (`/agb/`) und `/llms.txt` ergänzt.
 
 Website der **Waybuild UG (haftungsbeschränkt)** – „Wir bauen keine Websites. Wir bauen digitale Unternehmensplattformen.“ Angebot: **Website as a Service** (B2B, KMU) in zwei Varianten – Website 79 € und Intelligente Website 139 € netto im Monat. Software, Cloud & IT und Beratung als Ausbaustufen auf Anfrage.
 Gebaut mit [Astro](https://astro.build) als rein statische Seite, Quelltext im Branch `quelle`, gebaute Seite (`dist/`) auf `main` → GitHub Pages.
@@ -12,24 +13,23 @@ Gebaut mit [Astro](https://astro.build) als rein statische Seite, Quelltext im B
 
 ## Inhalte pflegen
 
-Fast alles steht zentral in [`src/config/site.ts`](src/config/site.ts):
+Firmendaten, Angebot und FAQ stehen zentral in [`src/config/site.ts`](src/config/site.ts):
 
 | Was | Wo |
 |---|---|
 | Firmendaten (Adresse, HRB, USt-ID, E-Mail, Telefon) | `company` – alle `TODO`-Werte ersetzen |
 | Angebot (Name, Laufzeit) und **Preise der zwei Varianten** (79 € / 139 € netto) | `WAAS`, `PAKETE` |
 | Bestandteile, Geschäftsmodell, Ablauf, Beratungsthemen | `INKLUSIVE`, `MODELL`, `steps`, `BERATUNG_THEMEN` |
-| FAQ (auch als FAQPage-JSON-LD und in `/llms.txt` für KI-Suchen) | `faqs` |
+| FAQ (fließt in `/llms.txt` für KI-Suchen) | `faqs` |
 
 Weitere zentrale Dateien:
 
 | Was | Wo |
 |---|---|
-| Startseite: Hero, Zielgruppen, Vision „intelligente Website“, Plattform-Bausteine | [`src/config/home.ts`](src/config/home.ts) |
-| Säulen, Anbieter-Vergleich; alte Paketpreise nur noch als interne Kalkulationsbasis (nicht auf der Website) | [`src/config/angebot.ts`](src/config/angebot.ts) |
-| Service-Versprechen (SLAs in Alltagssprache) + Geschäftsmodell | [`src/config/versprechen.ts`](src/config/versprechen.ts) |
-| Leistungs-Detailseiten (Texte, Ablauf, FAQ) | [`src/config/leistungen.ts`](src/config/leistungen.ts) |
-| Navigation | [`src/config/nav.ts`](src/config/nav.ts) (Leistungen automatisch nach Säulen gruppiert) |
+| Hauptseite: Hero, Werte, Standards, SLAs, Ticketsystem, Prozesse, Vertrauen, Produkte | [`src/config/hauptseite.ts`](src/config/hauptseite.ts) |
+| Footer-Kopf (Abschluss-CTA) | [`src/config/home.ts`](src/config/home.ts) |
+| Navigation (Ankerlinks der Startseite) | [`src/config/nav.ts`](src/config/nav.ts) |
+| Launch-Checkliste (offene Punkte, Badge unten rechts) | [`src/config/launch.ts`](src/config/launch.ts) |
 | Herleitung der Preise (intern) | [`docs/wettbewerbsanalyse-2026-10.md`](docs/wettbewerbsanalyse-2026-10.md) |
 
 ## Bilder
@@ -97,12 +97,8 @@ Für echten Versand einen Dienst wie Web3Forms oder Formspree nutzen und den Acc
 
 ## Qualität (Lighthouse, mobil)
 
-| Seite | Performance | Accessibility | Best Practices | SEO |
-|---|---|---|---|---|
-| Start | 100 | 100 | 100 | 100 |
-| Leistungen | 97 | 100 | 100 | 100 |
-| Preise | 100 | 100 | 100 | 100 |
-| Kontakt | 100 | 100 | 100 | 100 |
+Vor jedem Veröffentlichen prüfen: `npm run seo` + `npm run check` (fehlerfrei) und Sichtprüfung bei 390 px und 1300 px.
+(Die 100er-Messung von 10/2026 bezog sich auf die alte Seitenstruktur Start/Leistungen/Preise/Kontakt.)
 
 ## SEO-Bausteine
 
@@ -110,10 +106,10 @@ Prüfung: `npm run seo` (läuft auch bei jedem Deploy – bei Fehlern wird nicht
 
 
 - Title, Description, Canonical, Open Graph & Twitter Card pro Seite (`src/layouts/BaseLayout.astro`)
-- JSON-LD: `Organization`, `WebSite`, `Service` mit `Offer`s (netto), `FAQPage`, `BreadcrumbList` (`src/lib/schema.ts`)
+- JSON-LD: `Organization` (ggf. `ProfessionalService`), `WebSite`, `BreadcrumbList` (`src/layouts/BaseLayout.astro`); bewusst **keine** FAQPage-/Angebots-Markups ohne sichtbare Inhalte – das ist Sache der Produktseiten
 - `sitemap-index.xml` (ohne Rechtstexte, Checkliste, Danke-Seite), `robots.txt`
 - Sichtbare Breadcrumbs, `lastmod` in der Sitemap, `max-image-preview:large`
-- `/llms.txt` für KI-Suchen (ChatGPT, Perplexity, Gemini), automatisch aus der Konfiguration erzeugt
+- `/llms.txt` für KI-Suchen (ChatGPT, Perplexity, Gemini), automatisch aus der Konfiguration erzeugt (`src/pages/llms.txt.ts`)
 - Mit vollständiger Adresse wird zusätzlich `ProfessionalService` (lokales Unternehmen) ausgegeben
 - Keine Cookies, kein Tracking, Schriften lokal – kein Cookie-Banner nötig
 - Bewusst **kein** Font-Preload: kostete 300 ms Blocking Time ohne LCP-Gewinn (gemessen)
