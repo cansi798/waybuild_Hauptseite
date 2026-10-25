@@ -1,0 +1,119 @@
+---
+// AGB-Vorlage für das Abo-Modell (B2B), angepasst an das heutige Modell (zwei Varianten,
+// keine Einrichtungskosten, 24 Monate Laufzeit, Website/Code/Domain gehören dem Kunden).
+// Muss vor Verwendung anwaltlich geprüft werden – siehe Launch-Checkliste.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hint from '../components/Hint.astro';
+import { company, WAAS, PAKETE, formatEuro, OFFER } from '../config/site';
+
+const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, netto)`).join(' und ');
+---
+
+<BaseLayout title="Allgemeine Geschäftsbedingungen (AGB)" description={`AGB der ${company.legalName} für Website-Abos, Software, Cloud- und IT-Leistungen sowie Beratung.`} noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Allgemeine Geschäftsbedingungen</h1>
+      <Hint block label="Anwaltliche Prüfung der AGB" where="src/pages/agb.astro">
+        Diese AGB sind eine strukturierte Vorlage für das Abo-Modell und ersetzen keine Rechtsberatung. Vor dem ersten
+        Vertragsabschluss prüfen lassen (z. B. IHK-Beratung oder Fachanwalt für IT-Recht).
+      </Hint>
+
+      <h2>§ 1 Geltungsbereich</h2>
+      <p>
+        Diese AGB gelten für alle Verträge zwischen der {company.legalName} („Waybuild“) und ihren Kunden über die
+        Erstellung und den Betrieb von Websites im Abonnement, die Entwicklung und Pflege von Software, Cloud- und
+        IT-Leistungen (insbesondere Nextcloud-Hosting und IT-Betreuung) sowie Beratungsleistungen. Das Angebot richtet sich ausschließlich an Unternehmer
+        im Sinne des § 14 BGB. Abweichende Bedingungen des Kunden gelten nur bei ausdrücklicher schriftlicher Zustimmung.
+      </p>
+
+      <h2>§ 2 Leistungen</h2>
+      <p>
+        Der Leistungsumfang ergibt sich aus der gewählten Variante ({varianten}) gemäß der zum Vertragsschluss
+        gültigen Leistungsbeschreibung auf der Website bzw. im Angebot. Er umfasst insbesondere die individuelle
+        Gestaltung und Entwicklung der Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups und die
+        laufende Betreuung einschließlich Änderungen ({OFFER}).
+      </p>
+      <Hint block label="Fair-Use-Regel für Änderungen" where="src/pages/agb.astro → § 2">
+        Für die laufenden Änderungen (per Sprache oder Text) eine kurze Fair-Use-Regel festlegen und anwaltlich prüfen
+        lassen – siehe auch „Leistungsbeschreibungen für Abos“ in der Launch-Checkliste.
+      </Hint>
+
+      <h2>§ 2a Software, Cloud, IT und Beratung</h2>
+      <p>
+        Für Software-Projekte, Cloud- und IT-Leistungen sowie Beratung gilt der im jeweiligen Angebot beschriebene
+        Leistungsumfang. Festpreis-Projekte werden nach Fertigstellung vom Kunden abgenommen; die Abnahme darf nur
+        wegen wesentlicher Mängel verweigert werden. Betreuungs- und Pflegeverträge (z. B. Software-Pflege,
+        Nextcloud-Hosting, IT-Betreuung) sind Dienstleistungen mit monatlicher Vergütung. Angegebene Antwortzeiten
+        gelten werktags (Montag bis Freitag, 9 bis 18 Uhr, ausgenommen gesetzliche Feiertage) und bezeichnen den Beginn
+        der Bearbeitung, nicht die Lösungszeit. An individuell entwickelter Software erhält der Kunde nach vollständiger
+        Bezahlung die im Angebot vereinbarten Nutzungsrechte einschließlich Quellcode.
+      </p>
+      <Hint block label="Leistungsbeschreibungen & Fair-Use-Regel" where="src/pages/agb.astro → § 2a">
+        Für IT-Betreuung („Helpdesk Fair Use“), Nextcloud-Hosting (Speicher, Verfügbarkeit) und Software-Pflege je eine
+        kurze Leistungsbeschreibung als Anlage zum Angebot erstellen und anwaltlich prüfen lassen.
+      </Hint>
+
+      <h2>§ 3 Mitwirkung des Kunden</h2>
+      <p>
+        Der Kunde stellt die benötigten Inhalte (Texte, Bilder, Logo) rechtzeitig bereit und stellt sicher, dass er
+        über die erforderlichen Nutzungsrechte verfügt. Die Frist „Live in 14 Tagen“ beginnt mit Eingang aller
+        vollständigen Inhalte.
+      </p>
+      <Hint block label="Folgen bei Fristüberschreitung" where="src/pages/agb.astro → § 3">
+        Was passiert, wenn die 14 Tage nicht eingehalten werden (z. B. Gutschrift eines Monatsbeitrags)?
+        Das sollte hier klar geregelt werden.
+      </Hint>
+
+      <h2>§ 4 Vergütung und Zahlung</h2>
+      <p>
+        Es gelten die Preise der gewählten Variante bzw. des Angebots. Alle Preise verstehen sich netto zuzüglich der
+        gesetzlichen Umsatzsteuer. Es fallen keine Einrichtungskosten an. Die Monatsbeiträge sind jeweils im Voraus zum
+        Monatsersten fällig. Zusätzliche Leistungen werden nur nach vorheriger schriftlicher Absprache gesondert berechnet.
+      </p>
+
+      <h2>§ 5 Laufzeit und Kündigung</h2>
+      <p>
+        Die Mindestlaufzeit von Abonnements beträgt {WAAS.laufzeitMonate} Monate ab Livegang der Website bzw. ab
+        Bereitstellung der Leistung, soweit im Angebot nichts anderes vereinbart ist. Danach verlängert sich der Vertrag
+        auf unbestimmte Zeit und kann mit einer Frist von einem Monat zum Monatsende gekündigt werden. Die Kündigung bedarf
+        der Textform (z. B. E-Mail). Das Recht zur außerordentlichen Kündigung bleibt unberührt.
+      </p>
+
+      <h2>§ 6 Rechte an Website, Code und Domain</h2>
+      <p>
+        Die Domain wird auf den Namen des Kunden registriert und steht in seinem Eigentum. Website und Code gehören dem
+        Kunden. Es gibt keine Übernahmegebühr und keinen künstlichen Lock-in: Der Kunde behält jederzeit die Kontrolle
+        über seine Daten.
+      </p>
+
+      <h2>§ 7 Verfügbarkeit und Haftung</h2>
+      <p>
+        Waybuild bemüht sich um eine möglichst hohe Verfügbarkeit der Website. Wartungsarbeiten werden nach
+        Möglichkeit außerhalb der Geschäftszeiten durchgeführt. Waybuild haftet unbeschränkt bei Vorsatz und grober
+        Fahrlässigkeit. Bei leichter Fahrlässigkeit haftet Waybuild nur bei Verletzung wesentlicher Vertragspflichten
+        und begrenzt auf den vertragstypischen, vorhersehbaren Schaden.
+      </p>
+      <Hint block label="Zugesicherte Verfügbarkeit (z. B. 99,5 %)" where="src/pages/agb.astro → § 7">
+        Abhängig vom gewählten Hosting-Anbieter festlegen.
+      </Hint>
+
+      <h2>§ 8 Datenschutz</h2>
+      <p>
+        Soweit Waybuild im Auftrag des Kunden personenbezogene Daten verarbeitet (z. B. Kontaktformulare), schließen die
+        Parteien einen Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.
+      </p>
+      <Hint block label="AV-Vertrag (Auftragsverarbeitung) als Vorlage" where="Eigenes Dokument – vor dem ersten Kunden erstellen" />
+
+      <h2>§ 9 Schlussbestimmungen</h2>
+      <p>
+        Es gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist, soweit zulässig, der Sitz von Waybuild.
+        Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+      </p>
+      <p class="stand">Stand: Oktober 2026</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stand { color: var(--ink-soft); font-size: 0.9rem; margin-top: 2em; }
+</style>
