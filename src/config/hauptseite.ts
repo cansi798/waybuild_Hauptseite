@@ -72,7 +72,7 @@ export const SLA_KERN: { icon: IconName; label: string; wert: string; text: stri
 ];
 export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr. Alle Zusagen erhalten Sie schriftlich.';
 
-/** Weitere feste Zusagen – Wortlaut aus waybuild_website (src/config/versprechen.ts) */
+/** Weitere feste Zusagen – Wortlaut aus der waybuild_website (Git-Historie) */
 export const ZUSAGEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'user', title: 'Sie erreichen immer einen Menschen', text: 'Kein Callcenter, keine Warteschleife.' },
   { icon: 'mic', title: 'Eine Sprachnachricht genügt', text: 'Kein Formular, keine Screenshots.' },

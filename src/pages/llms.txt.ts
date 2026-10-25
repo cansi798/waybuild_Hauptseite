@@ -16,7 +16,7 @@ export const GET: APIRoute = ({ site }) => {
   const lines = [
     `# ${company.legalName}`,
     '',
-    `> ${HERO.pre.trim()}${HERO.accent} ${HERO.lead} ${UEBER.text}`,
+    `> ${HERO.pre.trim()} ${HERO.accent} ${HERO.lead} ${UEBER.text}`,
     '',
     `Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B). ${company.slogan}`,
     '',
@@ -33,7 +33,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     '## Produkte',
     ...PRODUKTE.map((p) => [
-      `- ${p.name}${p.slogan ? ` – ${p.slogan}` : ''}: ${p.text}`,
+      `- ${p.name}${p.slogan ? ` – ${p.slogan.replace(/[.:]+$/, '')}` : ''}: ${p.text}`,
       ...(p.bausteine ? [`  - Bausteine: ${p.bausteine.map((b) => b.label).join(', ')} (${p.bausteineHinweis ?? 'einzeln buchbar'}).`] : []),
     ]).flat(),
     `- ${PRODUKTE_HINWEIS}`,
@@ -49,7 +49,7 @@ export const GET: APIRoute = ({ site }) => {
     `- [AGB](${url('/agb/')})`,
     '',
     '## Kontakt',
-    `- E-Mail: ${company.email}`,
+    ...(isMissing(company.email) ? [] : [`- E-Mail: ${company.email}`]),
     ...(isMissing(company.phone) || PHONE_IS_PLACEHOLDER ? [] : [`- Telefon: ${company.phone}`]),
     ...adresse,
   ];

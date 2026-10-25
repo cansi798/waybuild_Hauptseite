@@ -34,7 +34,7 @@ const auto: Todo[] = companyFields.map(([key, title, detail]) => ({
 
 const manual: Todo[] = [
   { title: 'Website entwickelt & online', detail: 'Alle Seiten mobil & Desktop, Deployment: Build lokal, dist auf main (GitHub Pages).', where: 'github.com/cansi798/waybuild_Hauptseite', done: true, priority: 'pflicht' },
-  { title: 'SEO-Grundlagen', detail: 'Meta-Daten, strukturierte Daten (JSON-LD), Sitemap, Lighthouse SEO 100.', where: 'src/layouts/BaseLayout.astro, src/lib/schema.ts', done: true, priority: 'pflicht' },
+  { title: 'SEO-Grundlagen', detail: 'Meta-Daten, strukturierte Daten (JSON-LD), Sitemap, Lighthouse SEO 100.', where: 'src/layouts/BaseLayout.astro', done: true, priority: 'pflicht' },
   { title: 'Favicon & Social-Media-Vorschau', detail: 'Icons für Browser, iPhone, Android sowie Vorschaubild für WhatsApp/LinkedIn.', where: 'public/', done: true, priority: 'wichtig' },
   { title: 'CI-Handbuch', detail: 'Logo, Farben, Schriften, Tonalität, Visitenkarte, E-Mail-Signatur – nur intern als PDF.', where: 'intern/Waybuild-CI-Handbuch.pdf (nicht in Git)', done: true, priority: 'wichtig' },
   {

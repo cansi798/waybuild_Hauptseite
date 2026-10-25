@@ -58,7 +58,7 @@ const gruppiert = reihenfolge.map((p) => ({ p, items: offen.filter((t) => t.prio
   .todo h3 { margin: 0 0 6px; font-size: 1.02rem; }
   .todo p { margin: 0 0 8px; color: var(--ink-soft); line-height: 1.6; font-size: 0.95rem; }
   .todo small { display: block; color: var(--ink-soft); font-size: 0.85rem; }
-  .todo code { font-size: 0.9em; }
+  .todo code { font-size: 0.9em; overflow-wrap: anywhere; }
   /* Offene Pflichtpunkte in der Hinweis-Optik (wie Hint.astro) */
   .todo--pflicht { background: #fff4c2; color: #5c4400; border: 1.5px dashed #d4a300; }
   .todo--pflicht p, .todo--pflicht small { color: inherit; opacity: 0.9; }

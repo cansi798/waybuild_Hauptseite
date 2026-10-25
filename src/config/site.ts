@@ -135,7 +135,7 @@ export const INKLUSIVE: { icon: IconName; title: string }[] = [
   { icon: 'mic', title: 'Sprachgesteuerte Änderungen' },
 ];
 
-/** Geschäftsmodell in Stichpunkten (Langfassung als Siegel: config/versprechen.ts). */
+/** Geschäftsmodell in Stichpunkten (Langfassung als Siegel: siehe Git-Historie der waybuild_website). */
 export const MODELL = [
   'Keine Einrichtungskosten',
   'Fester Monatspreis, netto zzgl. MwSt.',
