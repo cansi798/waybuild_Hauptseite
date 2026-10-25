@@ -125,6 +125,9 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     </main>
     <Footer />
     {!hideMobileCta && <StickyBar />}
+    {SHOW_HINTS && openTodos > 0 && (
+      <a class="todo-badge" href={href('/checkliste/')}><span>{openTodos}</span><em>offene Punkte</em></a>
+    )}
     <script data-reveal-script>
       // Reveal beim Scrollen (nur mit JS; ohne JS ist alles sichtbar)
       const reveals = document.querySelectorAll('.reveal');

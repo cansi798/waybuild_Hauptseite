@@ -1,0 +1,68 @@
+---
+// Interne Launch-Checkliste (nur Vorschau). postbuild.mjs entfernt dist/checkliste im Live-Build.
+// Quelle: src/config/launch.ts (+ automatisch geprüfte Firmendaten).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { launchTodos, type Todo } from '../config/launch';
+
+const reihenfolge: Todo['priority'][] = ['pflicht', 'wichtig', 'später'];
+const titel: Record<Todo['priority'], string> = { pflicht: 'Pflicht vor dem Start', wichtig: 'Wichtig', später: 'Später' };
+const offen = launchTodos.filter((t) => !t.done);
+const erledigt = launchTodos.filter((t) => t.done);
+const gruppiert = reihenfolge.map((p) => ({ p, items: offen.filter((t) => t.priority === p) }));
+---
+
+<BaseLayout title="Launch-Checkliste" description="Interne Übersicht der offenen Punkte vor dem offiziellen Start der waybuild-Website." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Launch-Checkliste</h1>
+      <p class="intro">
+        <strong>{offen.length} von {launchTodos.length} Punkten offen.</strong>
+        Diese Übersicht ist nur in der Vorschau erreichbar und wird vor dem Livegang entfernt.
+        Sobald ein Wert in der Konfiguration eingetragen ist, verschwindet der zugehörige Hinweis automatisch.
+      </p>
+
+      {gruppiert.map(({ p, items }) => items.length > 0 && (
+        <h2>{titel[p]} ({items.length})</h2>
+        <ul class="todos">
+          {items.map((t) => (
+            <li class:list={['todo', { 'todo--pflicht': t.priority === 'pflicht' }]}>
+              <h3>{t.title}</h3>
+              <p>{t.detail}</p>
+              <small>Nachtragen in: <code>{t.where}</code></small>
+            </li>
+          ))}
+        </ul>
+      ))}
+
+      {erledigt.length > 0 && (
+        <>
+          <h2>Erledigt ({erledigt.length})</h2>
+          <ul class="todos todos--erledigt">
+            {erledigt.map((t) => (
+              <li class="todo">
+                <h3>{t.title}</h3>
+                <p>{t.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro { margin-bottom: 8px; }
+  .todos { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 14px; }
+  .todo { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .todo h3 { margin: 0 0 6px; font-size: 1.02rem; }
+  .todo p { margin: 0 0 8px; color: var(--ink-soft); line-height: 1.6; font-size: 0.95rem; }
+  .todo small { display: block; color: var(--ink-soft); font-size: 0.85rem; }
+  .todo code { font-size: 0.9em; }
+  /* Offene Pflichtpunkte in der Hinweis-Optik (wie Hint.astro) */
+  .todo--pflicht { background: #fff4c2; color: #5c4400; border: 1.5px dashed #d4a300; }
+  .todo--pflicht p, .todo--pflicht small { color: inherit; opacity: 0.9; }
+  /* Erledigt: dezent, durchgestrichen */
+  .todos--erledigt .todo { background: var(--paper); border-style: solid; }
+  .todos--erledigt h3 { text-decoration: line-through; color: var(--ink-soft); }
+</style>
