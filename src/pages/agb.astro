@@ -9,7 +9,7 @@ import { company, WAAS, PAKETE, formatEuro, OFFER } from '../config/site';
 const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, netto)`).join(' und ');
 ---
 
-<BaseLayout title="Allgemeine Geschäftsbedingungen (AGB)" description={`AGB der ${company.legalName} für Website-Abos, Software, Cloud- und IT-Leistungen sowie Beratung.`} noindex>
+<BaseLayout title="Allgemeine Geschäftsbedingungen (AGB)" description={`AGB der ${company.legalName} für Website-Abos, Software, Cloud- und IT-Leistungen sowie Beratung.`} noindex breadcrumb={[{ name: 'AGB', path: '/agb/' }]}>
   <section class="section">
     <div class="wrap prose">
       <h1>Allgemeine Geschäftsbedingungen</h1>

@@ -81,10 +81,17 @@ const manual: Todo[] = [
   },
   {
     title: 'AGB an Website as a Service anpassen',
-    detail: 'Die AGB beschreiben noch das alte Modell: Tarife Start/Business/Premium (§ 2), Einrichtungsgebühr (§ 4), 12 Monate Mindestlaufzeit (§ 5) und Website-/Code-Übernahme erst nach der Laufzeit gegen Gebühr (§ 6). Neu laut Website: zwei Varianten (79 € / 139 € netto im Monat), keine Einrichtungskosten, 24 Monate, Website/Code/Domain gehören dem Kunden – anwaltlich angleichen lassen.',
+    detail: 'Am 25.10.2026 an das aktuelle Modell angepasst: zwei Varianten (79 € / 139 € netto im Monat), keine Einrichtungskosten, 24 Monate Laufzeit, Website/Code/Domain gehören dem Kunden. Offen bleibt allein die anwaltliche Prüfung (eigener Punkt).',
     where: 'src/pages/agb.astro',
-    done: false,
+    done: true,
     priority: 'pflicht',
+  },
+  {
+    title: 'SLA-Wert für kleine Änderungen eintragen',
+    detail: 'Auf der Startseite ist die Bearbeitungszeit für kleine Änderungen noch als Platzhalter markiert („[Wert einsetzen]“). Wert von Jamil/Can eintragen – dann verschwindet die Markierung.',
+    where: 'src/config/hauptseite.ts → SLA_KERN',
+    done: false,
+    priority: 'wichtig',
   },
   {
     title: 'Leistungsversprechen absichern',
@@ -110,7 +117,7 @@ const manual: Todo[] = [
   {
     title: 'Foto und Kurzvorstellung der Gründer',
     detail: 'Menschen kaufen von Menschen – ein echtes Foto auf „Über uns“ erhöht die Anfragen deutlich.',
-    where: 'src/pages/ueber-uns.astro',
+    where: 'src/pages/index.astro → Abschnitt „Über waybuild IT“ (#ueber)',
     done: false,
     priority: 'wichtig',
   },

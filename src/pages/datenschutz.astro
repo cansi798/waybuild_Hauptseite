@@ -7,7 +7,7 @@ import Hint from '../components/Hint.astro';
 // Hinweis: Vorlage – vor dem Livegang unter eigener Domain rechtlich prüfen lassen.
 ---
 
-<BaseLayout title="Datenschutzerklärung" description={`Datenschutzerklärung der ${company.legalName}.`} noindex>
+<BaseLayout title="Datenschutzerklärung" description={`Datenschutzerklärung der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Datenschutz', path: '/datenschutz/' }]}>
   <section class="section">
     <div class="wrap prose">
       <h1>Datenschutzerklärung</h1>

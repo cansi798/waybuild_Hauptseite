@@ -5,7 +5,7 @@ import Val from '../components/Val.astro';
 import Hint from '../components/Hint.astro';
 ---
 
-<BaseLayout title="Impressum" description={`Impressum der ${company.legalName}.`} noindex>
+<BaseLayout title="Impressum" description={`Impressum der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Impressum', path: '/impressum/' }]}>
   <section class="section">
     <div class="wrap prose">
       <h1>Impressum</h1>
