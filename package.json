@@ -9,7 +9,8 @@
     "preview": "node node_modules/astro/bin/astro.mjs preview",
     "check": "node node_modules/astro/bin/astro.mjs check",
     "seo": "node scripts/seo-audit.mjs",
-    "build:preview": "SITE=https://cansi798.github.io BASE=/waybuild_Hauptseite PUBLIC_PREVIEW=true npm run build"
+    "build:preview": "SITE=https://cansi798.github.io BASE=/waybuild_Hauptseite PUBLIC_PREVIEW=true npm run build",
+    "seo:preview": "SITE=https://cansi798.github.io BASE=/waybuild_Hauptseite PUBLIC_PREVIEW=true npm run seo"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

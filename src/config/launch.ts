@@ -39,7 +39,7 @@ const manual: Todo[] = [
   { title: 'CI-Handbuch', detail: 'Logo, Farben, Schriften, Tonalität, Visitenkarte, E-Mail-Signatur – nur intern als PDF.', where: 'intern/Waybuild-CI-Handbuch.pdf (nicht in Git)', done: true, priority: 'wichtig' },
   {
     title: 'Domain & Server bereitstellen, Website hochladen',
-    detail: 'GitHub Pages ist nur die Vorschau. Live-Build (Actions → Artifacts → waybuild-server-upload) auf den Server laden – Anleitung in der README.',
+    detail: 'GitHub Pages ist nur die Vorschau. Live-Build lokal erzeugen (npm run build) und den Inhalt von dist/ per SFTP/FTP auf den Server laden – Anleitung in der README.',
     where: 'README.md → „Live gehen (eigener Server)“',
     done: false,
     priority: 'pflicht',

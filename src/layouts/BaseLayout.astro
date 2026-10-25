@@ -125,7 +125,8 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     </main>
     <Footer />
     {!hideMobileCta && <StickyBar />}
-    {SHOW_HINTS && openTodos > 0 && (
+    {/* Badge nur, wo es /checkliste/ gibt: Vorschau-Build oder Dev-Server (live löscht postbuild die Seite). */}
+    {(IS_PREVIEW || import.meta.env.DEV) && SHOW_HINTS && openTodos > 0 && (
       <a class="todo-badge" href={href('/checkliste/')}><span>{openTodos}</span><em>offene Punkte</em></a>
     )}
     <script data-reveal-script>

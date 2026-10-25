@@ -53,6 +53,7 @@ Solange Daten fehlen, zeigt die Website gelbe **„Fehlt: …“**-Hinweise gena
 npm install
 npm run dev      # http://localhost:4321/
 npm run build:preview   # Build wie die GitHub-Pages-Vorschau
+npm run seo:preview     # Link-/SEO-Check dieses Builds (braucht dieselbe Env wie build:preview)
 npm run check    # Typprüfung
 npm run build    # statischer Build nach dist/
 ```
@@ -97,12 +98,12 @@ Für echten Versand einen Dienst wie Web3Forms oder Formspree nutzen und den Acc
 
 ## Qualität (Lighthouse, mobil)
 
-Vor jedem Veröffentlichen prüfen: `npm run seo` + `npm run check` (fehlerfrei) und Sichtprüfung bei 390 px und 1300 px.
+Vor jedem Veröffentlichen prüfen: `npm run seo:preview` + `npm run check` (fehlerfrei) und Sichtprüfung bei 390 px und 1300 px.
 (Die 100er-Messung von 10/2026 bezog sich auf die alte Seitenstruktur Start/Leistungen/Preise/Kontakt.)
 
 ## SEO-Bausteine
 
-Prüfung: `npm run seo` (läuft auch bei jedem Deploy – bei Fehlern wird nicht veröffentlicht).
+Prüfung: `npm run seo:preview` nach dem Vorschau-Build bzw. `npm run seo` nach dem Live-Build – bei Fehlern wird nicht veröffentlicht.
 
 
 - Title, Description, Canonical, Open Graph & Twitter Card pro Seite (`src/layouts/BaseLayout.astro`)
