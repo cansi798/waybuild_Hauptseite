@@ -3,22 +3,27 @@ import { company } from '../config/site';
 import { href } from '../lib/paths';
 import Logo from './Logo.astro';
 import FooterKontakt from './FooterKontakt.astro';
-import { PRODUKTE } from '../config/hauptseite';
 
 const year = new Date().getFullYear();
+interface Props { kontakt?: boolean }
+const { kontakt = true } = Astro.props;
 ---
 
 <footer class="footer section--dark">
-  <FooterKontakt />
+  {kontakt && <FooterKontakt />}
   <div class="wrap footer__grid">
     <div>
       <Logo />
-      <p class="footer__claim">Digitale Lösungen für Unternehmen – mit festen Service-Zusagen.</p>
+      <p class="footer__claim">Wir machen Veränderungen einfach.</p>
     </div>
-    <nav aria-label="Produkte">
-      <h2 class="footer__h">Produkte</h2>
+    <nav aria-label="Services">
+      <h2 class="footer__h">Services</h2>
       <ul>
-        {PRODUKTE.map((p) => <li>{p.url ? <a href={p.url}>{p.name}</a> : <span class="footer__soon">{p.name}</span>}</li>)}
+        <li><a href={href('/angebot/')}>Website Service</a></li>
+        <li><span class="footer__soon">Software Service · bald</span></li>
+        <li><span class="footer__soon">Cloud Service · bald</span></li>
+        <li><span class="footer__soon">Workplace Service · bald</span></li>
+        <li><span class="footer__soon">Process Service · bald</span></li>
       </ul>
     </nav>
     <div>
@@ -27,9 +32,9 @@ const year = new Date().getFullYear();
         <li><a href={href('/#arbeiten')}>So arbeiten wir</a></li>
         <li><a href={href('/angebot/')}>Angebot &amp; Preise</a></li>
         <li><a href={href('/angebot/#ablauf')}>So starten wir</a></li>
-        <li><a href={href('/zusagen/')}>Service-Zusagen</a></li>
+        <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
         <li><a href={href('/zusagen/#ticketsystem')}>Ticketsystem</a></li>
-        <li><a href={href('/zusagen/#werte')}>Wofür wir stehen</a></li>
+        <li><a href={href('/zusagen/#werte')}>Unsere Werte</a></li>
         <li><a href={href('/faq/')}>Häufige Fragen</a></li>
         <li><a href={href('/kontakt/')}>Kontakt</a></li>
       </ul>

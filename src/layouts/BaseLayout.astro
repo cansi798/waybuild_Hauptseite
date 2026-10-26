@@ -18,9 +18,11 @@ interface Props {
   breadcrumb?: { name: string; path: string }[];
   /** Mobile Sticky-CTA ausblenden (z. B. auf der Kontaktseite selbst) */
   hideMobileCta?: boolean;
+  /** Dunklen Kontaktblock im Footer weglassen (Startseite hat den Abschluss selbst) */
+  hideFooterKontakt?: boolean;
 }
 
-const { title, description, schema = [], noindex = false, breadcrumb, hideMobileCta = false } = Astro.props;
+const { title, description, schema = [], noindex = false, breadcrumb, hideMobileCta = false, hideFooterKontakt = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const siteRoot = absolute('/', Astro.site);
 const ogImage = absolute('/og-image.png', Astro.site);
@@ -122,7 +124,7 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
       {breadcrumb && <Breadcrumbs items={breadcrumb} />}
       <slot />
     </main>
-    <Footer />
+    <Footer kontakt={!hideFooterKontakt} />
     {!hideMobileCta && <StickyBar />}
     {/* Badge nur, wo es /checkliste/ gibt: Vorschau-Build oder Dev-Server (live löscht postbuild die Seite). */}
     {(IS_PREVIEW || import.meta.env.DEV) && SHOW_HINTS && openTodos > 0 && (

@@ -4,41 +4,17 @@ import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { STANDARDS, SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, WERTE, VERTRAUEN, PRODUKTE, PRODUKTE_HINWEIS, UEBER } from '../config/hauptseite';
+import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, WERTE, VERTRAUEN } from '../config/hauptseite';
 const PLATZHALTER = '[Wert einsetzen]';
 const teile = (t: string) => t.split(PLATZHALTER);
 ---
 
 <BaseLayout
-  title="Service-Zusagen und Ticketsystem"
-  description="Feste Service-Zusagen, Ticketsystem, klare Prozesse und Werte von waybuild IT – klein, aber mit den Standards der Großen."
-  breadcrumb={[{ name: 'Service-Zusagen', path: '/zusagen/' }]}
+  title="Unsere Zusagen"
+  description="Unsere Zusagen: feste Zeiten, ein klarer Ablauf für jede Anfrage und die Werte, nach denen waybuild IT arbeitet."
+  breadcrumb={[{ name: 'Unsere Zusagen', path: '/zusagen/' }]}
 >
-  <PageHeader eyebrow="Service-Zusagen" title="Feste Zusagen. Schriftlich." lead="So arbeiten wir im Alltag: Ticketsystem, klare Abläufe, feste Zeiten." />
-  <!-- 1 KLEIN, ABER MIT DEN STANDARDS DER GROSSEN -->
-  <section class="section section--alt" id="ueber" aria-labelledby="ueber-h">
-    <div class="wrap standards">
-      <div>
-        <SectionHead eyebrow="Über waybuild IT" pre="Klein. " accent="Mit den Standards der Großen." id="ueber-h" />
-        <p class="standards__text">{STANDARDS.text}</p>
-        <p class="standards__text">{UEBER.text}</p>
-      </div>
-      <div class="vergleich reveal" role="table" aria-label="Vergleich: oft üblich und bei waybuild IT">
-        <div class="vergleich__kopf" role="row">
-          <span role="columnheader">Oft üblich</span>
-          <span role="columnheader">Bei waybuild IT</span>
-        </div>
-        {STANDARDS.vergleich.map((v) => (
-          <div class="vergleich__zeile" role="row">
-            <span class="vergleich__thema" role="rowheader">{v.thema}</span>
-            <span class="vergleich__oft" role="cell">{v.oft}</span>
-            <span class="vergleich__wir" role="cell"><Icon name="check" size={18} />{v.wir}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
+  <PageHeader eyebrow="Unsere Zusagen" title="Was Sie von uns erwarten können." lead="Feste Zeiten, ein klarer Ablauf, einfache Worte." />
   <!-- 2 SERVICE-ZUSAGEN (SLAs) -->
   <section class="section section--dark" id="zusagen" aria-labelledby="zusagen-h">
     <div class="wrap">
@@ -128,39 +104,6 @@ const teile = (t: string) => t.split(PLATZHALTER);
     </div>
   </section>
 
-  <!-- 7 PRODUKTE -->
-  <section class="section" id="produkte" aria-labelledby="produkte-h">
-    <div class="wrap">
-      <SectionHead center eyebrow="Unsere Produkte" pre="Eine Marke. " accent="Klare Lösungen." text="Alle Details finden Sie auf den jeweiligen Produktseiten." id="produkte-h" />
-      {PRODUKTE.map((p) => (
-        <article class="produkt reveal">
-          <div class="produkt__art" aria-hidden="true">
-            <div class="browser">
-              <span class="browser__bar"><i></i><i></i><i></i></span>
-              <span class="browser__hero"></span>
-              <span class="browser__line"></span>
-              <span class="browser__line browser__line--kurz"></span>
-              <span class="browser__tiles"><b></b><b></b><b></b></span>
-            </div>
-          </div>
-          <div class="produkt__body">
-            <h3>{p.name}</h3>
-            {p.slogan && <p class="produkt__slogan">{p.slogan}</p>}
-            <p>{p.text}</p>
-            {p.bausteine && (
-              <ul class="bausteine" aria-label="Bausteine">
-                {p.bausteine.map((b) => (
-                  <li><Icon name={b.icon} size={16} />{b.label}</li>
-                ))}
-              </ul>
-            )}
-            {p.url && <a class="btn btn--primary produkt__btn" href={p.url}>Zur Produktseite <Icon name="arrow" size={18} /></a>}
-          </div>
-        </article>
-      ))}
-      <p class="produkte__hinweis">{PRODUKTE_HINWEIS}</p>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>

@@ -7,7 +7,7 @@ import Hint from '../components/Hint.astro';
 import { href } from '../lib/paths';
 import { PRODUKTE } from '../config/hauptseite';
 
-const interessen = PRODUKTE.filter((p) => p.url).map((p) => ({ value: p.name.toLowerCase(), label: p.name }));
+const interessen = [{ value: 'website service', label: 'Website Service' }];
 const websiteSlugs: string[] = [];
 
 // Versand über Web3Forms (kostenlos, ohne eigenen Server). Der Access-Key ist laut Anbieter öffentlich nutzbar.

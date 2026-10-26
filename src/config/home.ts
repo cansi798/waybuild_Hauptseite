@@ -6,7 +6,7 @@ export const FOOTER_KONTAKT = {
   pre: 'Lassen Sie uns ',
   accent: 'sprechen.',
   sub: 'Ein Ansprechpartner. Feste Zusagen. Echte Menschen.',
-  text: 'Sie haben eine Frage zu uns oder einem unserer Produkte? Wir melden uns spätestens am nächsten Werktag.',
+  text: 'Sie planen eine Veränderung oder haben eine Frage? Wir melden uns spätestens am nächsten Werktag.',
   kontaktHead: 'Sprechen Sie mit uns',
-  kontaktText: 'Kurze Frage, konkretes Vorhaben oder erst einmal unverbindlich beraten lassen?',
+  kontaktText: 'Kurze Frage, konkrete Idee oder erst einmal unverbindlich sprechen?',
 };
