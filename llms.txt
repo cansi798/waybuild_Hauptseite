@@ -34,6 +34,9 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis. Website, Hosting, Domai
 
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
+- [Angebot und Preise](https://cansi798.github.io/waybuild_Hauptseite/angebot/)
+- [Service-Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/)
+- [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
 - [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
 - [Impressum](https://cansi798.github.io/waybuild_Hauptseite/impressum/)
 - [Datenschutz](https://cansi798.github.io/waybuild_Hauptseite/datenschutz/)
