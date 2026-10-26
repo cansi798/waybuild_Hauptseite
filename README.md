@@ -2,6 +2,7 @@
 
 > **Grundgerüst (19.10.2026):** 1:1-Kopie von [`waybuild_website`](https://github.com/cansi798/waybuild_website) (Stand 098019b) – wird Stück für Stück zur neuen waybuild-Hauptseite umgebaut.
 > **Umbau 1 (19.10.2026, Jamil):** Dach-Seite für waybuild IT – Werte, Service-Zusagen, Produkte, Über uns; Inhalte in [`src/config/hauptseite.ts`](src/config/hauptseite.ts). Produktseiten (Preise, Leistungen, Branchen, Ratgeber …) entfernt.
+> **Ausbau (26.10.2026):** Startseite um Abschnitte „Angebot“ (79/139 € aus `PAKETE`), „So starten wir“ (`steps`) und „Häufige Fragen“ (`faqs`, mit FAQPage-Markup) erweitert.
 > **Aufräumen (25.10.2026):** ungenutzte Alt-Komponenten/-Configs der waybuild_website entfernt; Launch-Checkliste (`/checkliste/`), AGB-Entwurf (`/agb/`) und `/llms.txt` ergänzt.
 
 Website der **Waybuild UG (haftungsbeschränkt)** – „Wir bauen keine Websites. Wir bauen digitale Unternehmensplattformen.“ Angebot: **Website as a Service** (B2B, KMU) in zwei Varianten – Website 79 € und Intelligente Website 139 € netto im Monat. Software, Cloud & IT und Beratung als Ausbaustufen auf Anfrage.
@@ -107,7 +108,7 @@ Prüfung: `npm run seo:preview` nach dem Vorschau-Build bzw. `npm run seo` nach 
 
 
 - Title, Description, Canonical, Open Graph & Twitter Card pro Seite (`src/layouts/BaseLayout.astro`)
-- JSON-LD: `Organization` (ggf. `ProfessionalService`), `WebSite`, `BreadcrumbList` (`src/layouts/BaseLayout.astro`); bewusst **keine** FAQPage-/Angebots-Markups ohne sichtbare Inhalte – das ist Sache der Produktseiten
+- JSON-LD: `Organization` (ggf. `ProfessionalService`), `WebSite`, `BreadcrumbList` (`src/layouts/BaseLayout.astro`); `FAQPage` (die FAQ sind auf der Startseite sichtbar); bewusst keine Angebots-Markups
 - `sitemap-index.xml` (ohne Rechtstexte, Checkliste, Danke-Seite), `robots.txt`
 - Sichtbare Breadcrumbs, `lastmod` in der Sitemap, `max-image-preview:large`
 - `/llms.txt` für KI-Suchen (ChatGPT, Perplexity, Gemini), automatisch aus der Konfiguration erzeugt (`src/pages/llms.txt.ts`)
