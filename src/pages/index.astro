@@ -3,6 +3,7 @@
 // Roter Faden: „Wir machen Veränderungen einfach.“ Jede Animation erklärt etwas:
 //  2 Neues fließt zu „Fortschritt“ zusammen · 3 Problem-Kette (Warten pulsiert, weil man wartet)
 //  4 Methode + andere Frage/eigene Frage · 5 vier Kreise beim Scrollen · 6 Services (Hover) · 7 Website wächst · 8 Abschluss.
+// 26.10. Jamil (3381–3388): Abschluss-Schrift kleiner, „So arbeiten wir“ und Wachstums-Grafik entfernt, Fortschritt statisch mit Text, Hero-Unterzeile neu.
 // Alles HTML/CSS/Inline-SVG; nur transform/opacity. Ohne JS sichtbar; bei prefers-reduced-motion Endbild.
 // Bisherige Inhalte: /angebot/ (Preise, So starten wir), /faq/, /zusagen/ (Unsere Zusagen).
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -40,20 +41,6 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string }
   { name: 'Process Service', icon: 'layers' },
 ];
 
-const KREISE: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'user', title: 'Verstehen', text: 'Wir hören zu und verstehen Ihr Unternehmen.' },
-  { icon: 'compass', title: 'Planen', text: 'Wir legen gemeinsam fest, was wichtig ist.' },
-  { icon: 'zap', title: 'Umsetzen', text: 'Wir setzen um – Sie prüfen und geben frei.' },
-  { icon: 'refresh', title: 'Verbessern', text: 'Wir verbessern laufend, damit Ihre Lösung mitwächst.' },
-];
-
-// Wachstums-Grafik: Website Service in der Mitte, vier weitere Services in den Ecken (viewBox 360 × 360)
-const ZUKUNFT = [
-  { a: 'Software', x: 72, y: 72 },
-  { a: 'Cloud', x: 288, y: 72 },
-  { a: 'Workplace', x: 72, y: 288 },
-  { a: 'Process', x: 288, y: 288 },
-];
 ---
 
 <BaseLayout
@@ -67,7 +54,7 @@ const ZUKUNFT = [
     <div class="wrap hero__inner">
       <span class="eyebrow">waybuild IT</span>
       <h1 id="hero-h">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
-      <p class="hero__sub">Unternehmen entwickeln sich ständig weiter. Ihre Partner sollten das auch können.</p>
+      <p class="hero__sub">Sie haben eine Idee. Wir hören zu, verstehen und setzen um – ohne endloses Hin und Her.</p>
       <div class="hero__cta">
         <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
         <a class="btn btn--ghost btn--lg" href={href('/angebot/')}>Angebot ansehen</a>
@@ -82,8 +69,9 @@ const ZUKUNFT = [
       <div class="head head--center">
         <span class="eyebrow">Veränderung</span>
         <h2 id="fort-h">Fortschritt beginnt mit <span class="accent">Veränderung.</span></h2>
+        <p class="lead">Ein neuer Mitarbeiter, eine neue Idee, neue Abläufe: In jedem Unternehmen verändert sich ständig etwas. Jede dieser Veränderungen ist Fortschritt – wenn sie einfach umzusetzen ist.</p>
       </div>
-      <div class="fliessen reveal">
+      <div class="fliessen">
         <ul class="fliessen__neu" aria-label="Was sich in einem Unternehmen verändert">
           {NEUES.map((t, i) => <li style={`--i:${i}`}>{t}</li>)}
         </ul>
@@ -144,27 +132,6 @@ const ZUKUNFT = [
     </div>
   </section>
 
-  <!-- 5 SO ARBEITEN WIR – scrollgesteuert -->
-  <section class="arbeiten" id="arbeiten" aria-labelledby="arbeiten-h" data-arbeiten>
-    <div class="arbeiten__sticky">
-      <div class="wrap">
-        <div class="head head--center">
-          <span class="eyebrow">So arbeiten wir</span>
-          <h2 id="arbeiten-h">Unternehmen verändern sich. <span class="accent">Gute Lösungen sollten das auch können.</span></h2>
-        </div>
-        <ol class="kreise">
-          {KREISE.map((k, i) => (
-            <li class="kreis" data-kreis style={`--i:${i}`}>
-              <span class="kreis__ring"><Icon name={k.icon} size={34} /></span>
-              <h3>{k.title}</h3>
-              <p>{k.text}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
-
   <!-- 6 SERVICES – Produktwelt -->
   <section class="section services" id="services" aria-labelledby="services-h">
     <div class="wrap">
@@ -187,36 +154,6 @@ const ZUKUNFT = [
     </div>
   </section>
 
-  <!-- 7 VISION – Waybuild wächst -->
-  <section class="section zukunft" id="zukunft" aria-labelledby="zukunft-h">
-    <div class="wrap zukunft__grid">
-      <div class="head">
-        <span class="eyebrow">Wohin wir uns entwickeln</span>
-        <h2 id="zukunft-h">Das hier ist <span class="accent">der Anfang.</span></h2>
-        <p class="lead">Aus dem Website Service entstehen weitere Services.</p>
-      </div>
-      <div class="baum reveal">
-        <svg viewBox="0 0 360 360" role="img" aria-label="Aus dem Website Service entstehen Software, Cloud, Workplace und Process Service">
-          {ZUKUNFT.map((z, i) => (
-            <line class="baum__linie" style={`--i:${i}`} x1="180" y1="180" x2={z.x} y2={z.y} pathLength="1" />
-          ))}
-          {ZUKUNFT.map((z, i) => (
-            <g class="baum__ast" style={`--i:${i}`}>
-              <circle cx={z.x} cy={z.y} r="50" />
-              <text x={z.x} y={z.y - 3} text-anchor="middle">{z.a}</text>
-              <text x={z.x} y={z.y + 15} text-anchor="middle" class="klein">Service</text>
-            </g>
-          ))}
-          <g class="baum__kern">
-            <circle cx="180" cy="180" r="58" />
-            <text x="180" y="177" text-anchor="middle">Website</text>
-            <text x="180" y="197" text-anchor="middle">Service</text>
-          </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
   <!-- 8 ABSCHLUSS -->
   <section class="abschluss" aria-labelledby="abschluss-h">
     <div class="abschluss__bg" aria-hidden="true"><i></i><i></i></div>
@@ -227,30 +164,6 @@ const ZUKUNFT = [
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  // „So arbeiten wir“: Beim Scrollen durch den Abschnitt aktiviert sich ein Kreis nach dem anderen.
-  // Ohne JS (oder bei reduzierter Bewegung) sind alle vier Kreise sofort aktiv und der Abschnitt ist normal hoch.
-  const sec = document.querySelector<HTMLElement>('[data-arbeiten]');
-  const kreise = sec ? Array.from(sec.querySelectorAll<HTMLElement>('[data-kreis]')) : [];
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (sec && kreise.length && !reduce) {
-    sec.classList.add('arbeiten--scroll');
-    let tick = false;
-    const update = () => {
-      tick = false;
-      const r = sec.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      const p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1;
-      const aktiv = Math.min(kreise.length, Math.floor(p * (kreise.length + 0.6)) + (r.top < window.innerHeight * 0.5 ? 1 : 0));
-      kreise.forEach((k, i) => k.classList.toggle('is-active', i < aktiv));
-    };
-    const onScroll = () => { if (!tick) { tick = true; requestAnimationFrame(update); } };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
-  }
-</script>
 
 <style>
   /* Gemeinsam */
@@ -363,17 +276,6 @@ const ZUKUNFT = [
   .fliessen__pfeil { width: 2px; height: 44px; background: var(--accent); position: relative; transform-origin: top; }
   .fliessen__pfeil::after { content: ''; position: absolute; left: -5px; bottom: -2px; width: 10px; height: 10px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); rotate: 45deg; }
   .fliessen__ziel { margin: 0; padding: 18px 44px; border-radius: 999px; background: var(--accent); color: var(--ink); font-family: var(--font-head); font-weight: 800; font-size: clamp(1.6rem, 4.5vw, 2.6rem); letter-spacing: -0.01em; }
-  :global(html.js) .fliessen.reveal { transform: none; }
-  /* Die vier Begriffe wandern zur Mitte (nach kurzer Lesezeit), der Pfeil zeichnet sich, „Fortschritt“ leuchtet auf */
-  .fliessen.is-visible .fliessen__neu li { animation: zusammen 1.3s cubic-bezier(.5,0,.2,1) 1.6s both; }
-  .fliessen.is-visible .fliessen__neu li:nth-child(2) { animation-delay: 1.75s; }
-  .fliessen.is-visible .fliessen__neu li:nth-child(3) { animation-delay: 1.9s; }
-  .fliessen.is-visible .fliessen__neu li:nth-child(4) { animation-delay: 2.05s; }
-  @keyframes zusammen { 0% { transform: none; opacity: 1; } 100% { transform: translateY(130px) scale(0.55); opacity: 0; } }
-  :global(html.js) .fliessen:not(.is-visible) .fliessen__pfeil { transform: scaleY(0); }
-  :global(html.js) .fliessen:not(.is-visible) .fliessen__ziel { opacity: 0.25; transform: scale(0.9); }
-  .fliessen__pfeil, .fliessen__ziel { transition: transform 700ms ease 1.8s, opacity 700ms ease 1.8s; }
-  @media (max-width: 759px) { @keyframes zusammen { 0% { transform: none; opacity: 1; } 100% { transform: translateY(150px) scale(0.5); opacity: 0; } } }
 
   /* 4 Frage / Antwort */
   .fragen { display: grid; gap: 18px; max-width: 900px; margin: clamp(36px, 6vw, 64px) auto 0; }
@@ -438,14 +340,14 @@ const ZUKUNFT = [
   .abschluss__bg i:nth-child(1) { left: -20%; top: -30%; animation: drift2 26s ease-in-out infinite alternate; }
   .abschluss__bg i:nth-child(2) { right: -20%; bottom: -35%; animation: drift1 30s ease-in-out infinite alternate; }
   .abschluss__inner { position: relative; }
-  .abschluss h2 { color: var(--white); font-size: clamp(2.4rem, 9vw, 6.6rem); line-height: 1.04; letter-spacing: -0.03em; max-width: 15ch; margin-inline: auto; }
+  .abschluss h2 { color: var(--white); font-size: clamp(1.9rem, 5.2vw, 3.8rem); line-height: 1.12; letter-spacing: -0.02em; max-width: 18ch; margin-inline: auto; }
   .abschluss .accent { color: var(--accent); }
-  .abschluss__sub { font-size: clamp(1.2rem, 3vw, 2rem); color: var(--dark-lead); line-height: 1.4; margin: 28px 0 32px; }
+  .abschluss__sub { font-size: clamp(1.1rem, 2.4vw, 1.5rem); color: var(--dark-lead); line-height: 1.4; margin: 28px 0 32px; }
   .reveal { transition-delay: var(--d, 0ms); }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__bg i, .abschluss__bg i, .hero__scroll, .node--warten .node__kreis::after, .baum__ast circle, .fliessen__neu li { animation: none !important; }
-    .fliessen__neu li, .fliessen__pfeil, .fliessen__ziel, .frage--wir li, .karte { transition: none !important; opacity: 1 !important; transform: none !important; }
+    .hero__bg i, .abschluss__bg i, .hero__scroll, .node--warten .node__kreis::after, .baum__ast circle { animation: none !important; }
+    .frage--wir li, .karte { transition: none !important; opacity: 1 !important; transform: none !important; }
     .kette::before, .node, .baum__linie, .baum__ast { transition: none !important; animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
   }
 </style>

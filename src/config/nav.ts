@@ -6,7 +6,6 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 export const NAV: NavItem[] = [
   { label: 'Angebot', path: '/angebot/' },
-  { label: 'So arbeiten wir', path: '/#arbeiten' },
   { label: 'Unsere Zusagen', path: '/zusagen/' },
   { label: 'Häufige Fragen', path: '/faq/' },
   { label: 'Kontakt', path: '/kontakt/' },
