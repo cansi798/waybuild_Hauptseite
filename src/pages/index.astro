@@ -1,7 +1,7 @@
 ---
 // Startseite waybuild IT nach Jamils Konzept (Talk 3373) und Kreativbriefing (Talk 3378, gilt bei Widerspruch).
 // Roter Faden: „Wir machen Veränderungen einfach.“ Jede Animation erklärt etwas:
-//  2 Neues fließt zu „Fortschritt“ zusammen · 3 Problem-Kette (Warten pulsiert, weil man wartet)
+//  Problem-Kette (Warten pulsiert, weil man wartet)
 //  4 Methode + andere Frage/eigene Frage · 5 vier Kreise beim Scrollen · 6 Services (Hover) · 7 Website wächst · 8 Abschluss.
 // 26.10. Jamil (3381–3388): Abschluss-Schrift kleiner, „So arbeiten wir“ und Wachstums-Grafik entfernt, Fortschritt statisch mit Text, Hero-Unterzeile neu.
 // Alles HTML/CSS/Inline-SVG; nur transform/opacity. Ohne JS sichtbar; bei prefers-reduced-motion Endbild.
@@ -10,8 +10,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import type { IconName } from '../config/site';
-
-const NEUES = ['Neue Idee', 'Neue Leistung', 'Neuer Mitarbeiter', 'Neue Abläufe'];
 
 const PROBLEM: { icon: IconName; label: string; warten?: boolean }[] = [
   { icon: 'spark', label: 'Idee' },
@@ -60,25 +58,7 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string }
         <a class="btn btn--ghost btn--lg" href={href('/angebot/')}>Angebot ansehen</a>
       </div>
     </div>
-    <a class="hero__scroll" href={href('/#fortschritt')} aria-label="Nach unten scrollen"><Icon name="chevron" size={22} /></a>
-  </section>
-
-  <!-- 2 FORTSCHRITT BEGINNT MIT VERÄNDERUNG – Neues fließt zusammen -->
-  <section class="section fort" id="fortschritt" aria-labelledby="fort-h">
-    <div class="wrap">
-      <div class="head head--center">
-        <span class="eyebrow">Veränderung</span>
-        <h2 id="fort-h">Fortschritt beginnt mit <span class="accent">Veränderung.</span></h2>
-        <p class="lead">Ein neuer Mitarbeiter, eine neue Idee, neue Abläufe: In jedem Unternehmen verändert sich ständig etwas. Jede dieser Veränderungen ist Fortschritt – wenn sie einfach umzusetzen ist.</p>
-      </div>
-      <div class="fliessen">
-        <ul class="fliessen__neu" aria-label="Was sich in einem Unternehmen verändert">
-          {NEUES.map((t, i) => <li style={`--i:${i}`}>{t}</li>)}
-        </ul>
-        <span class="fliessen__pfeil" aria-hidden="true"></span>
-        <p class="fliessen__ziel">Fortschritt</p>
-      </div>
-    </div>
+    <a class="hero__scroll" href={href('/#warum')} aria-label="Nach unten scrollen"><Icon name="chevron" size={22} /></a>
   </section>
 
   <!-- 3 WARUM ES UNS GIBT – Entstehung + Problem-Kette -->
