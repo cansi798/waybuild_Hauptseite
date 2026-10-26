@@ -12,6 +12,15 @@ import { href } from '../lib/paths';
 import { HOURS, steps, type IconName } from '../config/site';
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN } from '../config/hauptseite';
 
+// Nachdenk-Fragen (Briefing 3401): keine Probleme erfinden, sondern zum Nachdenken anregen.
+const FRAGEN = [
+  'Wie einfach lassen sich Änderungen bei Ihnen heute umsetzen?',
+  'Wie schnell kommen Ideen tatsächlich in die Umsetzung?',
+  'Wie abhängig ist Ihr Unternehmen von einzelnen Personen?',
+  'Wie transparent sind Ihre Dienstleister?',
+  'Wie viel Aufwand entsteht bei kleinen Veränderungen?',
+];
+
 const PROBLEM: { icon: IconName; label: string; warten?: boolean }[] = [
   { icon: 'spark', label: 'Idee' },
   { icon: 'mail', label: 'E-Mail' },
@@ -33,9 +42,9 @@ const METHODE: { icon: IconName; label: string }[] = [
 // Aussagen nur aus belegten Quellen: steps/PAKETE/MODELL (site.ts), ZUSAGEN/WERTE/TICKET (hauptseite.ts).
 const WEG: { icon: IconName; title: string; bekommt: string; nicht: string }[] = [
   { icon: 'chat', title: 'Erstgespräch', bekommt: 'Wir lernen Ihr Unternehmen kennen – kostenlos und unverbindlich.', nicht: 'Keine Einrichtungskosten, keine versteckten Kosten.' },
-  { icon: 'user', title: 'Verstehen & Planen', bekommt: 'Wir klären gemeinsam, was Ihre Website leisten soll.', nicht: 'Sie müssen kein Fachchinesisch verstehen – wir erklären es einfach.' },
-  { icon: 'zap', title: 'Umsetzung', bekommt: 'Wir setzen um, Sie prüfen und geben frei.', nicht: 'Sie müssen sich nicht um Technik, Hosting oder Domain kümmern.' },
-  { icon: 'refresh', title: 'Laufende Betreuung', bekommt: 'Wartung, Updates und Backups laufen im Hintergrund. Änderungen per Sprache oder Text.', nicht: 'Kein Formular, keine Screenshots – eine Sprachnachricht genügt.' },
+  { icon: 'user', title: 'Verstehen & Planen', bekommt: 'Wir klären gemeinsam, was Sie erreichen möchten.', nicht: 'Sie müssen kein Fachchinesisch verstehen – wir erklären es einfach.' },
+  { icon: 'zap', title: 'Umsetzung', bekommt: 'Wir setzen um, Sie prüfen und geben frei.', nicht: 'Sie müssen sich nicht um die Technik kümmern.' },
+  { icon: 'refresh', title: 'Laufende Betreuung', bekommt: 'Wartung und Updates laufen im Hintergrund. Änderungen per Sprache oder Text.', nicht: 'Kein Formular, keine Screenshots – eine Sprachnachricht genügt.' },
 ];
 
 // Zusagen kompakt – nur, was in der Konfiguration als Zusage steht (Bearbeitungszeit für kleine Änderungen fehlt noch → bewusst weggelassen).
@@ -48,7 +57,6 @@ const ZUSAGE_KURZ: { icon: IconName; title: string; text: string }[] = [
   { icon: 'doc', title: 'Schriftlich', text: 'Alle Zusagen erhalten Sie schriftlich.' },
 ];
 
-const ANDERE_VERKAUFEN = ['Websites', 'Hosting', 'Cloud', 'Software'];
 const WIR_VERKAUFEN = ['Klarheit', 'Fortschritt', 'Umsetzung', 'Veränderbarkeit'];
 
 const MEHRWERT_ALLGEMEIN = 'Mehr Klarheit, weniger Aufwand.';
@@ -64,7 +72,7 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
 
 <BaseLayout
   title="Wir machen Veränderungen einfach"
-  description="waybuild IT hilft Unternehmen, Veränderungen einfacher umzusetzen: verstehen, planen, umsetzen, verbessern. Heute mit dem Website Service."
+  description="waybuild IT hilft Unternehmen, Veränderungen einfacher umzusetzen: mit Klarheit, Struktur und einem verlässlichen Partner. Wir beginnen mit Websites."
   hideFooterKontakt
 >
   <!-- 1 HERO -->
@@ -73,13 +81,27 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
     <div class="wrap hero__inner">
       <span class="eyebrow">waybuild IT</span>
       <h1 id="hero-h">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
-      <p class="hero__sub">Sie haben eine Idee. Wir hören zu, verstehen und setzen um – ohne endloses Hin und Her.</p>
+      <p class="hero__sub">Wenn sich etwas verändern soll, sollte die Umsetzung nicht zum Problem werden.</p>
       <div class="hero__cta">
         <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-        <a class="btn btn--ghost btn--lg" href={href('/angebot/')}>Angebot ansehen</a>
+        <a class="btn btn--ghost btn--lg" href={href('/#fragen')}>Wie wir denken</a>
       </div>
     </div>
-    <a class="hero__scroll" href={href('/#warum')} aria-label="Nach unten scrollen"><Icon name="chevron" size={22} /></a>
+    <a class="hero__scroll" href={href('/#fragen')} aria-label="Nach unten scrollen"><Icon name="chevron" size={22} /></a>
+  </section>
+
+  <!-- 2 NACHDENKEN – Fragen statt Verkaufsdruck -->
+  <section class="section fragen-sec" id="fragen" aria-labelledby="fragen-h">
+    <div class="wrap fragen-sec__grid">
+      <div class="head">
+        <span class="eyebrow">Zum Nachdenken</span>
+        <h2 id="fragen-h">Wie leicht ist Veränderung bei Ihnen <span class="accent">heute?</span></h2>
+        <p class="lead">Nicht jede Veränderung braucht neue Software oder eine neue Website. Aber fast jede braucht Klarheit, Struktur und einen verlässlichen Partner.</p>
+      </div>
+      <ul class="fragenliste">
+        {FRAGEN.map((f, i) => <li class="reveal" style={`--d:${i * 120}ms`}>{f}</li>)}
+      </ul>
+    </div>
   </section>
 
   <!-- 3 WARUM ES UNS GIBT – Entstehung + Problem-Kette -->
@@ -88,7 +110,7 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
       <div class="head">
         <span class="eyebrow">Warum es uns gibt</span>
         <h2 id="problem-h">Warum ist eine Veränderung <span class="muted">so kompliziert?</span></h2>
-        <p class="lead">Waybuild ist aus Frust entstanden. Eine Website zu bekommen, war unnötig schwer: E-Mails, Screenshots, WhatsApp-Nachrichten, Abstimmungsschleifen. Die Technik war nie das Problem. Der Weg von der Idee bis zur Umsetzung war es.</p>
+        <p class="lead">Waybuild ist aus Frust entstanden. Eine einfache Änderung bedeutete: Nachrichten, E-Mails, Screenshots, Missverständnisse, Abstimmungsschleifen, Wartezeiten. Nicht die Technik war das Problem – die Umsetzung war es.</p>
       </div>
       <ol class="kette kette--problem reveal" aria-label="So läuft Zusammenarbeit oft">
         {PROBLEM.map((n, i) => (
@@ -118,15 +140,14 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
       </ol>
       <div class="fragen">
         <div class="frage frage--andere reveal">
-          <h3>Andere fragen</h3>
-          <p class="frage__satz">„Welche Software benötigen Sie?“</p>
-          <p class="frage__titel">Sie verkaufen</p>
-          <ul>{ANDERE_VERKAUFEN.map((t) => <li>{t}</li>)}</ul>
+          <h3>Viele fragen</h3>
+          <p class="frage__satz">„Welche Lösung benötigen Sie?“</p>
+          <p class="frage__titel">Und beginnen bei der Lösung.</p>
         </div>
         <div class="frage frage--wir reveal" style="--d:200ms">
           <h3>Wir fragen</h3>
           <p class="frage__satz">„Was möchten Sie erreichen?“</p>
-          <p class="frage__titel">Wir verkaufen</p>
+          <p class="frage__titel">Uns geht es um</p>
           <ul>{WIR_VERKAUFEN.map((t, i) => <li style={`--i:${i}`}>{t}</li>)}</ul>
         </div>
       </div>
@@ -143,7 +164,7 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
       </div>
       <ol class="weg__liste">
         {WEG.map((w, i) => (
-          <li class="weg__schritt">
+          <li class="weg__schritt reveal" style={`--d:${i * 120}ms`}>
             <span class="weg__nr">{i + 1}</span>
             <span class="weg__icon" aria-hidden="true"><Icon name={w.icon} size={26} /></span>
             <h3>{w.title}</h3>
@@ -179,8 +200,8 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
     <div class="wrap">
       <div class="head">
         <span class="eyebrow">Unsere Services</span>
-        <h2 id="services-h">Heute starten wir mit dem <span class="accent">Website Service.</span></h2>
-        <p class="lead">Jeder Service soll Ihnen und Ihrem Unternehmen einen echten Mehrwert bringen. Weitere Angebote folgen.</p>
+        <h2 id="services-h">Wir beginnen mit <span class="accent">Websites.</span></h2>
+        <p class="lead">Das ist der Anfang einer größeren Plattform. Jeder Service soll Ihnen und Ihrem Unternehmen einen echten Mehrwert bringen. Weitere Angebote folgen.</p>
       </div>
       <ul class="karten">
         {SERVICES.map((s, i) => (
@@ -193,7 +214,7 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
               <div><dt>Für Sie</dt><dd>{s.fuerSie}</dd></div>
               <div><dt>Für Ihr Unternehmen</dt><dd>{s.fuerUnternehmen}</dd></div>
             </dl>
-            {s.aktiv && <a class="btn btn--primary" href={href('/angebot/')}>Zum Angebot <Icon name="arrow" size={18} /></a>}
+            {s.aktiv && <a class="btn btn--ghost" href={href('/angebot/')}>Mehr zum Website Service <Icon name="arrow" size={18} /></a>}
           </li>
         ))}
       </ul>
@@ -265,7 +286,7 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
   @keyframes linie-h { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
   /* Problem: Warten-Knoten pulsieren unruhig, danach verblassen die Stationen – „die Grafik verwandelt sich“ */
-  .problem { background: var(--paper-2); }
+  .problem { background: var(--paper); }
   .node--warten .node__kreis { border-color: #b4791f; color: #8a5a10; }
   .node--warten .node__kreis::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid #b4791f; opacity: 0; }
   .kette.is-visible .node--warten .node__kreis::after { animation: unruhe 2.4s ease-out infinite; animation-delay: calc(var(--i) * 260ms + 600ms); }
@@ -284,6 +305,14 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; 
   .methode .node { transition-delay: calc(var(--i) * 140ms); }
   .methode .kette.is-visible::before { animation-duration: 0.9s; }
   .methode__fertig { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 36px 0 0; font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+
+  /* 2 Nachdenken */
+  .fragen-sec { background: var(--paper-2); }
+  .fragen-sec__grid { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 960px) { .fragen-sec__grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+  .fragen-sec .head { margin-bottom: 0; }
+  .fragenliste { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .fragenliste li { background: var(--white); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 14px; padding: 16px 20px; font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; line-height: 1.4; }
 
   /* 5 Kundenweg */
   .weg__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
