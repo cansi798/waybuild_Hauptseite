@@ -7,7 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { WAAS, PAKETE, MODELL, INKLUSIVE, faqs, formatEuro } from '../config/site';
+import { WAAS, PAKETE, MODELL, INKLUSIVE, steps, faqs, formatEuro } from '../config/site';
 import { HERO, STANDARDS, SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, WERTE, VERTRAUEN, PRODUKTE, PRODUKTE_HINWEIS, UEBER } from '../config/hauptseite';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -233,8 +233,25 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
     </div>
   </section>
 
+  <!-- 8b ABLAUF: in vier Schritten zur Website (Quelle: steps) -->
+  <section class="section" id="ablauf" aria-labelledby="ablauf-h">
+    <div class="wrap">
+      <SectionHead center eyebrow="So starten wir" pre="In vier Schritten " accent="zur Website." text="Vom ersten Gespräch bis zur laufenden Betreuung – Sie haben immer einen festen Ansprechpartner." id="ablauf-h" />
+      <ol class="ablauf reveal">
+        {steps.map((t, i) => (
+          <li class="ablauf__schritt" style={`--i:${i}`}>
+            <span class="ablauf__icon"><Icon name={t.icon} size={30} /><span class="ablauf__nr">{i + 1}</span></span>
+            <h3>{t.title}</h3>
+            <p><strong>{t.short}.</strong> {t.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="ablauf__cta"><a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a></p>
+    </div>
+  </section>
+
   <!-- 9 FAQ (sichtbar + FAQPage-JSON-LD, Quelle: faqs) -->
-  <section class="section" id="faq" aria-labelledby="faq-h">
+  <section class="section section--alt" id="faq" aria-labelledby="faq-h">
     <div class="wrap faq">
       <SectionHead center eyebrow="Häufige Fragen" pre="Kurz und " accent="ehrlich beantwortet." id="faq-h" />
       <div class="faq__liste">
@@ -406,6 +423,8 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   .modell { list-style: none; margin: 28px auto 0; padding: 0; max-width: 920px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; }
   .modell li { display: inline-flex; gap: 6px; align-items: center; font-weight: 500; }
   .angebot__inklusive { max-width: 920px; margin: 18px auto 0; text-align: center; color: var(--ink-soft); line-height: 1.7; }
+
+  .ablauf__cta { text-align: center; margin: 36px 0 0; }
 
   /* 9 FAQ */
   .faq__liste { max-width: 780px; margin: 0 auto; display: grid; gap: 10px; }
