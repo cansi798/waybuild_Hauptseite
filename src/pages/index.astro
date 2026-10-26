@@ -9,7 +9,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import type { IconName } from '../config/site';
+import { HOURS, steps, type IconName } from '../config/site';
+import { SLA_KERN, SLA_HINWEIS, ZUSAGEN } from '../config/hauptseite';
 
 const PROBLEM: { icon: IconName; label: string; warten?: boolean }[] = [
   { icon: 'spark', label: 'Idee' },
@@ -28,15 +29,35 @@ const METHODE: { icon: IconName; label: string }[] = [
   { icon: 'chart', label: 'Verbessern' },
 ];
 
+// Kundenweg (Jamil, Talk 3395): je Schritt, was der Kunde bekommt und was er nicht tun muss.
+// Aussagen nur aus belegten Quellen: steps/PAKETE/MODELL (site.ts), ZUSAGEN/WERTE/TICKET (hauptseite.ts).
+const WEG: { icon: IconName; title: string; bekommt: string; nicht: string }[] = [
+  { icon: 'chat', title: 'Erstgespräch', bekommt: 'Wir lernen Ihr Unternehmen kennen – kostenlos und unverbindlich.', nicht: 'Keine Einrichtungskosten, keine versteckten Kosten.' },
+  { icon: 'user', title: 'Verstehen & Planen', bekommt: 'Wir klären gemeinsam, was Ihre Website leisten soll.', nicht: 'Sie müssen kein Fachchinesisch verstehen – wir erklären es einfach.' },
+  { icon: 'zap', title: 'Umsetzung', bekommt: 'Wir setzen um, Sie prüfen und geben frei.', nicht: 'Sie müssen sich nicht um Technik, Hosting oder Domain kümmern.' },
+  { icon: 'refresh', title: 'Laufende Betreuung', bekommt: 'Wartung, Updates und Backups laufen im Hintergrund. Änderungen per Sprache oder Text.', nicht: 'Kein Formular, keine Screenshots – eine Sprachnachricht genügt.' },
+];
+
+// Zusagen kompakt – nur, was in der Konfiguration als Zusage steht (Bearbeitungszeit für kleine Änderungen fehlt noch → bewusst weggelassen).
+const ZUSAGE_KURZ: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'clock', title: SLA_KERN[0].wert, text: 'Auf jede Anfrage bekommen Sie eine persönliche Antwort.' },
+  { icon: 'calendar', title: 'Servicezeiten', text: HOURS },
+  { icon: 'user', title: 'Ein fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.' },
+  { icon: 'ticket', title: 'Nichts geht verloren', text: 'Jede Anfrage läuft über unser Ticketsystem.' },
+  { icon: 'euro', title: ZUSAGEN[3].title, text: ZUSAGEN[3].text },
+  { icon: 'doc', title: 'Schriftlich', text: 'Alle Zusagen erhalten Sie schriftlich.' },
+];
+
 const ANDERE_VERKAUFEN = ['Websites', 'Hosting', 'Cloud', 'Software'];
 const WIR_VERKAUFEN = ['Klarheit', 'Fortschritt', 'Umsetzung', 'Veränderbarkeit'];
 
-const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string }[] = [
-  { name: 'Website Service', icon: 'layout', aktiv: true, text: 'Moderne Websites, die sich mit Ihrem Unternehmen weiterentwickeln.' },
-  { name: 'Software Service', icon: 'code' },
-  { name: 'Cloud Service', icon: 'cloud' },
-  { name: 'Workplace Service', icon: 'users' },
-  { name: 'Process Service', icon: 'layers' },
+const MEHRWERT_ALLGEMEIN = 'Mehr Klarheit, weniger Aufwand.';
+const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; fuerSie: string; fuerUnternehmen: string }[] = [
+  { name: 'Website Service', icon: 'layout', aktiv: true, text: 'Moderne Websites, die sich mit Ihrem Unternehmen weiterentwickeln.', fuerSie: 'Sie müssen sich nicht um Technik kümmern – Betreuung, Wartung und Änderungen übernehmen wir.', fuerUnternehmen: 'Ihr Auftritt bleibt aktuell und wächst mit Ihrem Unternehmen.' },
+  { name: 'Software Service', icon: 'code', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
+  { name: 'Cloud Service', icon: 'cloud', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
+  { name: 'Workplace Service', icon: 'users', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
+  { name: 'Process Service', icon: 'layers', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
 ];
 
 ---
@@ -112,13 +133,54 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string }
     </div>
   </section>
 
-  <!-- 6 SERVICES – Produktwelt -->
+  <!-- 5 SO LEICHT IST DIE ZUSAMMENARBEIT – Kundenweg -->
+  <section class="section weg" id="weg" aria-labelledby="weg-h">
+    <div class="wrap">
+      <div class="head head--center">
+        <span class="eyebrow">Unser Fokus</span>
+        <h2 id="weg-h">So leicht ist die <span class="accent">Zusammenarbeit.</span></h2>
+        <p class="lead">Sie sollen es leicht haben – vom ersten Gespräch bis zur Veränderung.</p>
+      </div>
+      <ol class="weg__liste">
+        {WEG.map((w, i) => (
+          <li class="weg__schritt">
+            <span class="weg__nr">{i + 1}</span>
+            <span class="weg__icon" aria-hidden="true"><Icon name={w.icon} size={26} /></span>
+            <h3>{w.title}</h3>
+            <p class="weg__bekommt"><strong>Das bekommen Sie</strong>{w.bekommt}</p>
+            <p class="weg__nicht"><strong>Das müssen Sie nicht</strong>{w.nicht}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6 UNSERE ZUSAGEN (nur belegte Aussagen, Details auf /zusagen/) -->
+  <section class="section section--alt zusagen" id="zusagen" aria-labelledby="zusagen-h">
+    <div class="wrap">
+      <div class="head head--center">
+        <span class="eyebrow">Unser Serviceversprechen</span>
+        <h2 id="zusagen-h">Darauf können Sie <span class="accent">sich verlassen.</span></h2>
+      </div>
+      <ul class="zus">
+        {ZUSAGE_KURZ.map((z) => (
+          <li>
+            <span class="zus__icon" aria-hidden="true"><Icon name={z.icon} size={22} /></span>
+            <div><strong>{z.title}</strong><span>{z.text}</span></div>
+          </li>
+        ))}
+      </ul>
+      <p class="zus__mehr"><a class="btn btn--ghost" href={href('/zusagen/')}>Alle Zusagen ansehen <Icon name="arrow" size={18} /></a></p>
+    </div>
+  </section>
+
+  <!-- 7 SERVICES – Produktwelt -->
   <section class="section services" id="services" aria-labelledby="services-h">
     <div class="wrap">
       <div class="head">
         <span class="eyebrow">Unsere Services</span>
         <h2 id="services-h">Heute starten wir mit dem <span class="accent">Website Service.</span></h2>
-        <p class="lead">Weitere Angebote folgen.</p>
+        <p class="lead">Jeder Service soll Ihnen und Ihrem Unternehmen einen echten Mehrwert bringen. Weitere Angebote folgen.</p>
       </div>
       <ul class="karten">
         {SERVICES.map((s, i) => (
@@ -127,6 +189,10 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string }
             <span class="karte__icon" aria-hidden="true"><Icon name={s.icon} size={s.aktiv ? 32 : 26} /></span>
             <h3>{s.name}</h3>
             {s.text && <p>{s.text}</p>}
+            <dl class="mehrwert">
+              <div><dt>Für Sie</dt><dd>{s.fuerSie}</dd></div>
+              <div><dt>Für Ihr Unternehmen</dt><dd>{s.fuerUnternehmen}</dd></div>
+            </dl>
             {s.aktiv && <a class="btn btn--primary" href={href('/angebot/')}>Zum Angebot <Icon name="arrow" size={18} /></a>}
           </li>
         ))}
@@ -218,6 +284,38 @@ const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string }
   .methode .node { transition-delay: calc(var(--i) * 140ms); }
   .methode .kette.is-visible::before { animation-duration: 0.9s; }
   .methode__fertig { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 36px 0 0; font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+
+  /* 5 Kundenweg */
+  .weg__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  @media (min-width: 640px) { .weg__liste { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1040px) { .weg__liste { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+  .weg__schritt { position: relative; background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 24px 22px 26px; display: grid; gap: 8px; align-content: start; }
+  .weg__nr { position: absolute; top: 18px; right: 20px; font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--accent-ink); }
+  .weg__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
+  .weg__schritt h3 { margin: 4px 0 4px; font-size: 1.2rem; }
+  .weg__schritt p { margin: 0; line-height: 1.5; font-size: 1rem; }
+  .weg__schritt strong { display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; color: var(--accent-ink); }
+  .weg__nicht { padding-top: 10px; margin-top: 4px !important; border-top: 1px dashed var(--line); color: var(--ink-soft); }
+  .weg__nicht strong { color: var(--ink-soft); }
+
+  /* 6 Zusagen */
+  .zus { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 14px; max-width: 980px; }
+  @media (min-width: 700px) { .zus { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .zus { grid-template-columns: repeat(3, 1fr); } }
+  .zus li { display: flex; gap: 14px; align-items: flex-start; background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+  .zus__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
+  .zus strong { display: block; font-family: var(--font-head); font-size: 1.02rem; line-height: 1.3; margin-bottom: 2px; }
+  .zus span:not(.zus__icon) { color: var(--ink-soft); line-height: 1.45; }
+  .zus__mehr { text-align: center; margin: 28px 0 0; }
+
+  /* Mehrwert in den Service-Karten */
+  .mehrwert { margin: 8px 0 0; display: grid; gap: 8px; width: 100%; }
+  .mehrwert dt { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+  .mehrwert dd { margin: 0; line-height: 1.4; font-size: 0.97rem; }
+  .karte--bald .mehrwert dt { color: #77736a; }
+  .karte--bald .mehrwert dd { font-size: 0.9rem; }
+  .karte--aktiv .mehrwert { grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .karte--aktiv .mehrwert { grid-template-columns: 1fr 1fr; gap: 20px; } }
 
   /* Services */
   .karten { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
