@@ -10,5 +10,6 @@ export const NAV: NavItem[] = [
   { label: 'Ticketsystem', path: '/#ticketsystem' },
   { label: 'Werte', path: '/#werte' },
   { label: 'Produkte', path: '/#produkte' },
+  { label: 'Angebot', path: '/#angebot' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

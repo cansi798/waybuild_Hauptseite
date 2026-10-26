@@ -7,6 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
+import { WAAS, PAKETE, MODELL, INKLUSIVE, faqs, formatEuro } from '../config/site';
 import { HERO, STANDARDS, SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, WERTE, VERTRAUEN, PRODUKTE, PRODUKTE_HINWEIS, UEBER } from '../config/hauptseite';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -21,6 +22,11 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
 
 <BaseLayout
   title="Digitale Lösungen mit festen Service-Zusagen"
+  schema={[{
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  }]}
   description="waybuild IT: klein, aber mit den Standards der Großen – festes Ticketsystem, schriftliche Service-Zusagen (SLAs) und ein fester Ansprechpartner."
 >
   <!-- HERO -->
@@ -201,6 +207,46 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
       <p class="produkte__hinweis">{PRODUKTE_HINWEIS}</p>
     </div>
   </section>
+  <!-- 8 ANGEBOT: WEBSITE AS A SERVICE (Preise nur aus PAKETE) -->
+  <section class="section section--alt" id="angebot" aria-labelledby="angebot-h">
+    <div class="wrap">
+      <SectionHead center eyebrow={WAAS.name} pre="Ein fester Monatspreis. " accent="Alles drin." text={WAAS.claim} id="angebot-h" />
+      <ul class="pakete">
+        {PAKETE.map((p) => (
+          <li class:list={['paket', 'reveal', { 'paket--top': p.empfohlen }]}>
+            {p.empfohlen && <span class="paket__tag">Empfohlen</span>}
+            <h3>{p.name}</h3>
+            <p class="paket__kurz">{p.kurz}</p>
+            <p class="paket__preis"><strong>{formatEuro(p.preis)}</strong> <span>pro Monat, netto zzgl. MwSt.</span></p>
+            <p class="paket__fuer">{p.fuer}</p>
+            <ul class="paket__liste">
+              {p.features.map((f) => <li><Icon name="check" size={18} />{f}</li>)}
+            </ul>
+            <a class="btn btn--primary" href={href('/kontakt/')}>Unverbindlich anfragen <Icon name="arrow" size={18} /></a>
+          </li>
+        ))}
+      </ul>
+      <ul class="modell" aria-label="Rahmenbedingungen">
+        {MODELL.map((m) => <li><Icon name="check" size={16} />{m}</li>)}
+      </ul>
+      <p class="angebot__inklusive"><strong>Enthalten:</strong> {INKLUSIVE.map((i) => i.title).join(' · ')}</p>
+    </div>
+  </section>
+
+  <!-- 9 FAQ (sichtbar + FAQPage-JSON-LD, Quelle: faqs) -->
+  <section class="section" id="faq" aria-labelledby="faq-h">
+    <div class="wrap faq">
+      <SectionHead center eyebrow="Häufige Fragen" pre="Kurz und " accent="ehrlich beantwortet." id="faq-h" />
+      <div class="faq__liste">
+        {faqs.map((f) => (
+          <details class="faq__item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -341,6 +387,34 @@ const knoten = (['layout', 'code', 'cloud', 'chart', 'shield', 'users'] as const
   .browser__line--kurz { width: 60%; }
   .browser__tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
   .browser__tiles b { height: 28px; border-radius: 5px; background: rgb(0 166 161 / 18%); }
+
+  /* 8 ANGEBOT */
+  .pakete { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 20px; max-width: 920px; }
+  @media (min-width: 760px) { .pakete { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  .paket { position: relative; background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 28px 26px; display: grid; gap: 8px; align-content: start; justify-items: start; }
+  .paket--top { border: 2px solid var(--accent); }
+  .paket__tag { position: absolute; top: -13px; right: 22px; background: var(--accent-ink); color: var(--white); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 999px; }
+  .paket h3 { margin: 0; font-size: 1.35rem; }
+  .paket p { margin: 0; }
+  .paket__kurz { color: var(--accent-ink); font-weight: 600; }
+  .paket__preis strong { font-family: var(--font-head); font-size: 2.2rem; }
+  .paket__preis span { color: var(--ink-soft); font-size: 0.9rem; }
+  .paket__fuer { color: var(--ink-soft); line-height: 1.6; }
+  .paket__liste { list-style: none; margin: 8px 0 16px; padding: 0; display: grid; gap: 8px; }
+  .paket__liste li { display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
+  .paket__liste :global(.icon), .modell :global(.icon) { color: var(--accent-ink); flex: none; margin-top: 2px; }
+  .modell { list-style: none; margin: 28px auto 0; padding: 0; max-width: 920px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; }
+  .modell li { display: inline-flex; gap: 6px; align-items: center; font-weight: 500; }
+  .angebot__inklusive { max-width: 920px; margin: 18px auto 0; text-align: center; color: var(--ink-soft); line-height: 1.7; }
+
+  /* 9 FAQ */
+  .faq__liste { max-width: 780px; margin: 0 auto; display: grid; gap: 10px; }
+  .faq__item { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 0 22px; }
+  .faq__item summary { cursor: pointer; padding: 18px 0; font-weight: 600; font-family: var(--font-head); line-height: 1.4; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after { content: '+'; color: var(--accent-ink); font-size: 1.4rem; line-height: 1; flex: none; }
+  .faq__item[open] summary::after { content: '–'; }
+  .faq__item p { margin: 0 0 18px; color: var(--ink-soft); line-height: 1.7; }
 
   @media (prefers-reduced-motion: reduce) {
     .hub *, .ablauf::before { animation: none !important; }
