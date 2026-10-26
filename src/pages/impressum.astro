@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { company, isMissing } from '../config/site';
+import { company, isMissing, SHOW_HINTS } from '../config/site';
+import { href } from '../lib/paths';
 import Val from '../components/Val.astro';
 import Hint from '../components/Hint.astro';
 ---
@@ -27,11 +28,18 @@ import Hint from '../components/Hint.astro';
       </p>
       <h2>Kontakt</h2>
       <p>
-        E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>
-        <br />Telefon: <Val value={company.phone} label="Telefonnummer" where="src/config/site.ts → company.phone" />
+        E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a><br />Kontaktformular: <a href={href('/kontakt/')}>Kontaktseite</a>
       </p>
-      <h2>Umsatzsteuer-ID</h2>
-      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: <Val value={company.vatId} label="USt-ID" where="src/config/site.ts → company.vatId" /></p>
+      {!isMissing(company.vatId) ? (
+        <>
+          <h2>Umsatzsteuer-ID</h2>
+          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: {company.vatId}</p>
+        </>
+      ) : SHOW_HINTS && (
+        <Hint block label="USt-IdNr. (nur falls vorhanden)" where="src/config/site.ts → company.vatId">
+          Noch keine USt-IdNr. belegt. Der Abschnitt „Umsatzsteuer-ID“ erscheint automatisch, sobald sie eingetragen ist; solange keine existiert, darf er entfallen (keine Steuernummer ins Impressum).
+        </Hint>
+      )}
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p><Val value={company.managingDirector} label="Name Geschäftsführung" where="src/config/site.ts → company.managingDirector" />, Anschrift wie oben</p>
       <h2>EU-Streitschlichtung</h2>

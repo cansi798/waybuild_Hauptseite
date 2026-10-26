@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { company, phoneTel, whatsappLink, HOURS } from '../config/site';
+import { company, HOURS } from '../config/site';
 import Val from '../components/Val.astro';
 import Hint from '../components/Hint.astro';
 import { href } from '../lib/paths';
@@ -18,7 +18,7 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
 
 <BaseLayout
   title="Kontakt"
-  description="Kontakt zu waybuild IT: persönlicher Ansprechpartner, Antwort spätestens am nächsten Werktag – per Formular, Telefon, WhatsApp oder E-Mail."
+  description="Kontakt zu waybuild IT: persönlicher Ansprechpartner, Antwort spätestens am nächsten Werktag – per Formular oder E-Mail."
   breadcrumb={[{ name: 'Kontakt', path: '/kontakt/' }]}
   hideMobileCta
 >
@@ -71,10 +71,6 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
         <div class="card side__card">
           <h2>Direkter Draht</h2>
           <p><a href={`mailto:${company.email}`}>{company.email}</a></p>
-          <div class="direct">
-            <a class="btn btn--ghost btn--sm" href={`tel:${phoneTel()}`}>📞 {company.phone}</a>
-            <a class="btn btn--ghost btn--sm" href={whatsappLink()} target="_blank" rel="noopener">💬 WhatsApp</a>
-          </div>
           <p class="muted">{HOURS}</p>
           <p class="muted">{company.legalName}<br /><Val value={company.street} label="Straße" where="src/config/site.ts → company.street" /><br /><Val value={company.zip} label="PLZ" where="src/config/site.ts → company.zip" /> <Val value={company.city} label="Ort" where="src/config/site.ts → company.city" /></p>
         </div>

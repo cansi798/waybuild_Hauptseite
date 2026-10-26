@@ -1,8 +1,8 @@
 ---
 // Dunkler Footer-Kopf auf jeder Seite (Bauwelt-Muster): Leitsatz + Direktkontakt
-// (Erstgespräch, Telefon, WhatsApp, E-Mail). Ersetzt das frühere CTA-Band.
+// (Erstgespräch, E-Mail). Ersetzt das frühere CTA-Band.
 import { href } from '../lib/paths';
-import { company, phoneTel, whatsappLink, HOURS } from '../config/site';
+import { company, HOURS } from '../config/site';
 import { FOOTER_KONTAKT as F } from '../config/home';
 import Icon from './Icon.astro';
 ---
@@ -17,8 +17,6 @@ import Icon from './Icon.astro';
     <p class="fkontakt__text">{F.kontaktText}</p>
     <div class="fkontakt__actions">
       <a class="btn btn--primary" href={href('/kontakt/')}><Icon name="chat" size={18} /> Kontakt aufnehmen</a>
-      <a class="btn fkontakt__ghost" href={`tel:${phoneTel()}`}><Icon name="phone" size={18} /> {company.phone} anrufen</a>
-      <a class="btn fkontakt__ghost" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> Per WhatsApp schreiben</a>
       <a class="btn fkontakt__ghost fkontakt__mail" href={`mailto:${company.email}`}><Icon name="mail" size={18} /> {company.email}</a>
     </div>
     <p class="fkontakt__zeiten">{HOURS}</p>

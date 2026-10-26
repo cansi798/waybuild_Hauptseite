@@ -14,28 +14,22 @@ export const company = {
   legalName: 'Waybuild UG (haftungsbeschränkt)',
   slogan: 'Menschliche Beratung. KI-gestützte Umsetzung. Kontinuierliche Verbesserung.',
   email: 'kontakt@waybuild.de', // Postfach muss noch eingerichtet werden (siehe Checkliste)
-  /** PLATZHALTER (Wunsch 11.10.2026: „erfundene Nummer“) – vor dem Livegang ersetzen, dann PHONE_IS_PLACEHOLDER auf false. */
-  phone: '0151 00000000',
   street: 'Kuno-Liesenberg-Kehre 32a',
   zip: '22844',
   city: 'Norderstedt',
   country: 'DE',
   managingDirector: 'Can Siebert',
-  registerCourt: 'TODO', // z. B. 'Amtsgericht Berlin-Charlottenburg'
-  registerNumber: 'TODO', // z. B. 'HRB 123456 B'
-  vatId: 'TODO', // z. B. 'DE123456789'
-  /** Server-Hoster für die Datenschutzerklärung, z. B. 'IONOS SE, Elgendorfer Str. 57, 56410 Montabaur' */
-  hoster: 'TODO',
+  registerCourt: 'Amtsgericht Kiel', // Eintragungsnachricht AG Kiel vom 29.09.2026
+  registerNumber: 'HRB 29883 KI', // Eintragungsnachricht AG Kiel vom 29.09.2026
+  /** USt-IdNr.: noch nicht erteilt/nicht belegt (Stand 26.10.2026) – erst eintragen, wenn vom Bundeszentralamt für Steuern vorhanden. */
+  vatId: 'TODO',
+  /** Server-Hoster für die Datenschutzerklärung, Quelle: Impressum all-inkl.com, geprüft 26.10.2026 */
+  hoster: 'ALL-INKL.COM – Neue Medien Münnich, Inh. René Münnich, Hauptstraße 68, 02742 Friedersdorf',
   /** Links zu Google-Unternehmensprofil, LinkedIn, Instagram … – stärkt die Marke bei Google (JSON-LD sameAs). */
   sameAs: [] as string[],
 };
 
-/** Solange true, gilt company.phone als erfundene Platzhalter-Nummer (Checkliste offen, nicht an Google melden). */
-export const PHONE_IS_PLACEHOLDER = true;
-/** Telefon-Helfer: tel:-Link und WhatsApp-Link (wa.me) aus company.phone. */
-export const phoneTel = () => '+49' + company.phone.replace(/\s/g, '').replace(/^0/, '');
-export const whatsappLink = (text = 'Hallo waybuild, ich interessiere mich für Website as a Service.') =>
-  `https://wa.me/${phoneTel().replace('+', '')}?text=${encodeURIComponent(text)}`;
+/* Keine Telefonnummer und kein WhatsApp auf der Website (Entscheidung Can 26.10.2026): Kontakt nur per E-Mail und Kontaktformular. */
 /** Erreichbarkeit (Footer-Kopf, Kontakt). */
 export const HOURS = 'Montag – Freitag, 9:00 – 18:00 Uhr';
 

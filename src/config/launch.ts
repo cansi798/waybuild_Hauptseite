@@ -1,6 +1,6 @@
 // Launch-Checkliste: alles, was vor dem offiziellen Start noch erledigt werden muss.
 // Firmendaten werden automatisch geprüft, der Rest wird hier von Hand abgehakt (done: true).
-import { company, isMissing, references, SHOW_HINTS, PHONE_IS_PLACEHOLDER } from './site';
+import { company, isMissing, references, SHOW_HINTS } from './site';
 
 export type Todo = {
   title: string;
@@ -19,8 +19,7 @@ const companyFields: [TextField, string, string][] = [
   ['city', 'Ort', 'Teil der Anschrift im Impressum.'],
   ['registerCourt', 'Registergericht', 'Steht im Handelsregisterauszug, z. B. „Amtsgericht München“.'],
   ['registerNumber', 'Handelsregisternummer (HRB)', 'Steht im Handelsregisterauszug.'],
-  ['vatId', 'Umsatzsteuer-ID', 'Kommt vom Bundeszentralamt für Steuern. Falls noch nicht vorhanden: Zeile im Impressum vorerst entfernen.'],
-  ['phone', 'Telefonnummer (aktuell erfundener Platzhalter 0151 00000000)', 'Echte Nummer eintragen und PHONE_IS_PLACEHOLDER auf false setzen – die Nummer steht in Header, Footer, WhatsApp-Links und Kontakt.'],
+  ['vatId', 'Umsatzsteuer-ID (nur falls vorhanden)', 'Kommt vom Bundeszentralamt für Steuern. Solange keine existiert, entfällt der Abschnitt im Impressum von selbst (eine Steuernummer gehört nicht ins Impressum).'],
   ['hoster', 'Server-Hoster (Name & Anschrift)', 'Pflichtangabe in der Datenschutzerklärung, sobald die Website auf dem eigenen Server liegt.'],
 ];
 
@@ -28,8 +27,8 @@ const auto: Todo[] = companyFields.map(([key, title, detail]) => ({
   title,
   detail,
   where: `src/config/site.ts → company.${key}`,
-  done: !isMissing(company[key]) && !(key === 'phone' && PHONE_IS_PLACEHOLDER),
-  priority: key === 'phone' ? 'wichtig' : 'pflicht',
+  done: !isMissing(company[key]),
+  priority: key === 'vatId' ? 'wichtig' : 'pflicht',
 }));
 
 const manual: Todo[] = [
@@ -60,7 +59,7 @@ const manual: Todo[] = [
   },
   {
     title: 'Datenschutzerklärung prüfen lassen',
-    detail: 'Web3Forms und WhatsApp sind jetzt beschrieben (Oktober 2026). Vor dem Start prüfen lassen: Anbieterangaben/AV-Vertrag Web3Forms und Abschnitt Hosting nach Umzug auf den eigenen Server.',
+    detail: 'Web3Forms ist beschrieben (Oktober 2026). Vor dem Start prüfen lassen: Anbieterangaben/AV-Vertrag Web3Forms und Abschnitt Hosting nach Umzug auf den eigenen Server.',
     where: 'src/pages/datenschutz.astro',
     done: false,
     priority: 'pflicht',

@@ -1,15 +1,15 @@
 ---
 // Feste Leiste unten (mobil + Tablet), dauerhaft sichtbar (Bauwelt-Muster):
-// Erstgespräch (Haupt-CTA) + WhatsApp. Doppelte Buttons im Inhalt sind mobil ausgeblendet (.nur-desktop).
+// Erstgespräch (Haupt-CTA) + E-Mail. Doppelte Buttons im Inhalt sind mobil ausgeblendet (.nur-desktop).
 import { href } from '../lib/paths';
-import { whatsappLink } from '../config/site';
+import { company } from '../config/site';
 import Icon from './Icon.astro';
 ---
 
 <div class="sticky-bar">
   <a class="btn btn--primary btn--sm sticky-bar__btn" href={href('/kontakt/')}>Kontakt aufnehmen</a>
-  <a class="btn btn--ghost btn--sm sticky-bar__btn sticky-bar__wa" href={whatsappLink()} target="_blank" rel="noopener" aria-label="Per WhatsApp schreiben">
-    <Icon name="whatsapp" size={18} /> WhatsApp
+  <a class="btn btn--ghost btn--sm sticky-bar__btn sticky-bar__wa" href={`mailto:${company.email}`} aria-label="E-Mail schreiben">
+    <Icon name="mail" size={18} /> E-Mail
   </a>
 </div>
 

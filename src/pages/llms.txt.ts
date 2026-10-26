@@ -2,7 +2,7 @@
 // Wird beim Build aus der Konfiguration erzeugt, damit Angebot & Zusagen immer aktuell sind.
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
-import { company, faqs, isMissing, PHONE_IS_PLACEHOLDER, WAAS, INKLUSIVE, MODELL, OFFER, PAKETE, formatEuro } from '../config/site';
+import { company, faqs, isMissing, WAAS, INKLUSIVE, MODELL, OFFER, PAKETE, formatEuro } from '../config/site';
 import { HERO, UEBER, SLA_KERN, SLA_HINWEIS, PRODUKTE, PRODUKTE_HINWEIS } from '../config/hauptseite';
 import { absolute } from '../lib/paths';
 
@@ -50,7 +50,6 @@ export const GET: APIRoute = ({ site }) => {
     '',
     '## Kontakt',
     ...(isMissing(company.email) ? [] : [`- E-Mail: ${company.email}`]),
-    ...(isMissing(company.phone) || PHONE_IS_PLACEHOLDER ? [] : [`- Telefon: ${company.phone}`]),
     ...adresse,
   ];
   return new Response(lines.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

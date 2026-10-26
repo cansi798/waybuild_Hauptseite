@@ -18,7 +18,7 @@ Firmendaten, Angebot und FAQ stehen zentral in [`src/config/site.ts`](src/config
 
 | Was | Wo |
 |---|---|
-| Firmendaten (Adresse, HRB, USt-ID, E-Mail, Telefon) | `company` – alle `TODO`-Werte ersetzen |
+| Firmendaten (Adresse, HRB, USt-ID, E-Mail) | `company` – alle `TODO`-Werte ersetzen |
 | Angebot (Name, Laufzeit) und **Preise der zwei Varianten** (79 € / 139 € netto) | `WAAS`, `PAKETE` |
 | Bestandteile, Geschäftsmodell, Ablauf, Beratungsthemen | `INKLUSIVE`, `MODELL`, `steps`, `BERATUNG_THEMEN` |
 | FAQ (fließt in `/llms.txt` für KI-Suchen) | `faqs` |
@@ -89,7 +89,8 @@ des Servers laden (z. B. `htdocs/` oder `/var/www/waybuild`).
 | Apache (IONOS, Strato, all-inkl …) | `.htaccess` liegt automatisch im Build: HTTPS, 404, Caching, Sicherheits-Header |
 | nginx (VPS) | Vorlage: [`server/nginx.conf.example`](server/nginx.conf.example) |
 
-Vor dem Live-Gang: Hoster in `src/config/site.ts → company.hoster` eintragen (Datenschutz), `SHOW_HINTS = false`.
+Hoster: **ALL-INKL.COM** (in `company.hoster` und Datenschutz eingetragen; die `.htaccess` aus `server/` passt für dessen Apache). Vor dem Live-Gang: `SHOW_HINTS = false`.
+Keine Telefonnummer/kein WhatsApp auf der Website (Entscheidung Can 26.10.2026) – Kontakt nur per E-Mail und Kontaktformular.
 Andere Domain als waybuild.de? → `SITE` beim Build setzen und die Domain in `server/.htaccess` anpassen.
 
 ### Kontaktformular

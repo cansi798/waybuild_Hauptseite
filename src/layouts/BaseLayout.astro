@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import StickyBar from '../components/StickyBar.astro';
-import { company, isMissing, SHOW_HINTS, PHONE_IS_PLACEHOLDER } from '../config/site';
+import { company, isMissing, SHOW_HINTS } from '../config/site';
 import { launchTodos } from '../config/launch';
 import { href, absolute } from '../lib/paths';
 import { IS_PREVIEW } from '../lib/env';
@@ -43,7 +43,6 @@ const organization = {
   ...(hasAddress ? { priceRange: '€€', areaServed: { '@type': 'Country', name: 'Deutschland' } } : {}),
   email: company.email,
   // Platzhalter-Nummer nie an Google melden
-  ...(!isMissing(company.phone) && !PHONE_IS_PLACEHOLDER ? { telephone: company.phone } : {}),
   // Adresse erst ausgeben, wenn sie vollständig ist – nie Platzhalter an Google melden
   ...(!hasAddress
     ? {}

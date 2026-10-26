@@ -171,7 +171,7 @@ html.js .slider__nav { display: flex; }
 html.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 600ms ease, transform 600ms ease; }
 html.js .reveal.is-visible { opacity: 1; transform: none; }
 
-/* Mobil stehen Erstgespräch + WhatsApp dauerhaft in der festen Leiste unten */
+/* Mobil stehen Erstgespräch + E-Mail dauerhaft in der festen Leiste unten */
 @media (max-width: 959px) { .nur-desktop { display: none !important; } body { padding-bottom: calc(var(--stickybar-h) + env(safe-area-inset-bottom)); } }
 .text-center { text-align: center; }
 
