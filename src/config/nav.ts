@@ -5,11 +5,9 @@ export type NavChild = { label: string; path: string; icon?: IconName; desc?: st
 export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 export const NAV: NavItem[] = [
-  { label: 'Über uns', path: '/#ueber' },
-  { label: 'Service-Zusagen', path: '/#zusagen' },
-  { label: 'Ticketsystem', path: '/#ticketsystem' },
-  { label: 'Werte', path: '/#werte' },
-  { label: 'Produkte', path: '/#produkte' },
-  { label: 'Angebot', path: '/#angebot' },
+  { label: 'Angebot', path: '/angebot/' },
+  { label: 'So arbeiten wir', path: '/#arbeiten' },
+  { label: 'Service-Zusagen', path: '/zusagen/' },
+  { label: 'Häufige Fragen', path: '/faq/' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];
