@@ -15,7 +15,7 @@ import Weg from '../components/Weg.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
-import { company, HOURS, type IconName } from '../config/site';
+import { HOURS, type IconName } from '../config/site';
 import { HERO, SLA_KERN, WEG } from '../config/hauptseite';
 
 const UMWEG = ['Idee', 'E-Mail', 'Warten', 'Missverständnis', 'Korrektur', 'Warten', 'Umsetzung'];
@@ -72,9 +72,11 @@ const FRAGEN = [
 
       <figure class="linie" aria-labelledby="linie-cap">
         <figcaption id="linie-cap" class="sr-only">Grafik: Eine verknotete graue Linie steht für den üblichen Weg mit E-Mails, Screenshots, Rückfragen und Warten. Sie wird zu einer geraden türkisen Linie über Verstehen und Umsetzen bis „Erledigt“ – der Weg mit Waybuild.</figcaption>
-        <svg class="linie__svg linie__svg--breit" viewBox="0 0 1160 250" aria-hidden="true" focusable="false">
-          <text class="linie__cap" x="10" y="22">So läuft es oft</text>
-          <text class="linie__cap linie__cap--wir" x="470" y="22">So läuft es mit Waybuild</text>
+        <div class="linie__kopf">
+          <p class="linie__label linie__label--oft"><span aria-hidden="true"></span>So läuft es oft</p>
+          <p class="linie__label linie__label--wir"><span aria-hidden="true"></span>So läuft es mit Waybuild</p>
+        </div>
+        <svg class="linie__svg linie__svg--breit" viewBox="0 24 1160 216" aria-hidden="true" focusable="false">
           <path class="linie__knoten" pathLength="1" d="M 10 130 C 60 130, 80 60, 130 70 C 190 82, 170 190, 120 180 C 70 170, 110 44, 200 54 C 290 64, 250 200, 200 190 C 150 180, 230 84, 300 110 C 350 130, 330 190, 290 172 C 250 154, 330 125, 420 125" />
           <path class="linie__gerade" pathLength="1" d="M 420 125 L 1130 125" />
           <text class="linie__wort" x="44" y="58">E-Mails</text>
@@ -88,9 +90,7 @@ const FRAGEN = [
           <circle class="linie__ziel" cx="1130" cy="125" r="13" />
           <text class="linie__erledigt" x="1140" y="94" text-anchor="end">Erledigt.</text>
         </svg>
-        <svg class="linie__svg linie__svg--schmal" viewBox="0 0 360 200" aria-hidden="true" focusable="false">
-          <text class="linie__cap" x="6" y="16">So läuft es oft</text>
-          <text class="linie__cap linie__cap--wir" x="354" y="16" text-anchor="end">Mit Waybuild</text>
+        <svg class="linie__svg linie__svg--schmal" viewBox="0 22 360 168" aria-hidden="true" focusable="false">
           <path class="linie__knoten" pathLength="1" d="M 6 105 C 30 105, 40 55, 70 60 C 105 66, 95 140, 65 135 C 35 130, 60 42, 110 50 C 160 58, 140 150, 110 140 C 85 132, 130 104, 175 106" />
           <path class="linie__gerade" pathLength="1" d="M 175 106 L 336 106" />
           <text class="linie__wort" x="8" y="48">E-Mails</text>
@@ -102,11 +102,6 @@ const FRAGEN = [
         </svg>
       </figure>
 
-      <ul class="hero__fakten" aria-label="Zur Firma">
-        <li><Icon name="shield" size={16} /> {company.legalName}, Norderstedt</li>
-        <li><Icon name="doc" size={16} /> {company.registerCourt}, {company.registerNumber}</li>
-        <li><Icon name="server" size={16} /> Server in Deutschland</li>
-      </ul>
     </div>
   </section>
 
@@ -196,7 +191,7 @@ const FRAGEN = [
 
 <style>
   /* 1 HERO */
-  .hero { position: relative; overflow: hidden; padding-block: clamp(36px, 7vw, 84px) 0; background: var(--paper);
+  .hero { position: relative; overflow: hidden; padding-block: clamp(36px, 7vw, 84px) clamp(40px, 6vw, 72px); background: var(--paper);
     background-image: radial-gradient(45% 55% at 92% 8%, rgb(0 166 161 / 14%), transparent 70%); }
   .hero h1 { font-size: clamp(2.5rem, 7.6vw, 5.4rem); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 22px; max-width: 13ch; }
   .hero__was { font-size: clamp(1.12rem, 2.3vw, 1.4rem); line-height: 1.5; color: var(--ink-soft); max-width: 40ch; margin: 0 0 28px; }
@@ -215,13 +210,20 @@ const FRAGEN = [
   .linie__svg--schmal { display: none; }
   @media (max-width: 700px) { .linie__svg--breit { display: none; } .linie__svg--schmal { display: block; } }
   .linie__knoten, .linie__gerade { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
-  .linie__knoten { stroke: #a8a191; stroke-width: 3; }
+  .linie__knoten { stroke: #a8a191; stroke-width: 5; } /* gleich dick wie die gerade Linie (Jamil, Talk 3503) */
   .linie__gerade { stroke: var(--accent); stroke-width: 5; }
-  .linie__cap { font: 700 13px var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; fill: #6f6a60; }
-  .linie__cap--wir { fill: var(--accent-ink); }
+  /* Zwischenüberschriften der Linie, deutlich hervorgehoben (Jamil, Talk 3503) */
+  .linie__kopf { display: grid; grid-template-columns: 40.5% 1fr; gap: 12px; margin-bottom: 4px; align-items: start; }
+  @media (max-width: 700px) { .linie__kopf { grid-template-columns: 48% 1fr; } }
+  .linie__label { margin: 0; display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-head); font-weight: 700; font-size: clamp(1rem, 1.9vw, 1.3rem); line-height: 1.25; letter-spacing: -0.01em; }
+  .linie__label span { flex: none; width: 28px; height: 5px; border-radius: 3px; margin-top: 0.5em; }
+  .linie__label--oft { color: #57534b; }
+  .linie__label--oft span { background: #a8a191; }
+  .linie__label--wir { color: var(--accent-ink); }
+  .linie__label--wir span { background: var(--accent); }
+  @media (max-width: 420px) { .linie__label span { width: 18px; } .linie__label { gap: 8px; } }
   .linie__wort { font: 500 16px var(--font-body); fill: #6f6a60; }
   .linie__svg--schmal .linie__wort { font-size: 14px; }
-  .linie__svg--schmal .linie__cap { font-size: 11px; }
   .linie__stationen circle { fill: var(--white); stroke: var(--accent); stroke-width: 4; }
   .linie__stationen text { font: 600 16px var(--font-body); fill: var(--ink); }
   .linie__ziel { fill: var(--accent); }
@@ -234,9 +236,6 @@ const FRAGEN = [
   @keyframes zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   @keyframes auftauchen { from { opacity: 0; } to { opacity: 1; } }
 
-  .hero__fakten { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 24px; margin: clamp(28px, 5vw, 48px) 0 0; padding: 18px 0; border-top: 1px solid var(--line); font-size: 0.92rem; color: var(--ink-soft); }
-  .hero__fakten li { display: inline-flex; align-items: center; gap: 8px; }
-  .hero__fakten :global(.icon) { color: var(--accent-ink); flex: none; }
 
   /* 2 DER WEG */
   .weg-sec { background: var(--white); }
