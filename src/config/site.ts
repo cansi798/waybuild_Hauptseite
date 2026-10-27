@@ -143,7 +143,7 @@ export const MODELL = [
 export const steps: { icon: IconName; title: string; short: string; text: string }[] = [
   { icon: 'calendar', title: 'Erstgespräch', short: 'Kostenlos, unverbindlich', text: 'Wir lernen Ihr Unternehmen kennen und klären, was Ihre Website leisten soll.' },
   { icon: 'chat', title: 'Beratung', short: 'Persönlich, mit Ihnen', text: 'Zielgruppen, Positionierung, Customer Journey, Vertrauensaufbau und Lead-Generierung – gemeinsam entwickelt.' },
-  { icon: 'spark', title: 'KI-Umsetzung', short: 'Sie prüfen und geben frei', text: 'Unsere KI setzt die Ergebnisse in Rekordzeit um. Sie prüfen, wir feilen – bis alles passt.' },
+  { icon: 'spark', title: 'Umsetzung', short: 'Sie prüfen und geben frei', text: 'Unsere KI setzt die Ergebnisse in Rekordzeit um. Sie prüfen, wir feilen – bis alles passt.' },
   { icon: 'chart', title: 'Live & betreut', short: 'Laufend verbessert', text: 'Ihre Website geht online. Wir betreuen, pflegen und entwickeln sie laufend weiter.' },
 ];
 

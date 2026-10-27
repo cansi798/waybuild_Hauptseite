@@ -1,18 +1,19 @@
 ---
-// Startseite waybuild IT nach Jamils Konzept (Talk 3373) und Kreativbriefing (Talk 3378, gilt bei Widerspruch).
-// Roter Faden: „Wir machen Veränderungen einfach.“ Jede Animation erklärt etwas:
-//  Problem-Kette (Warten pulsiert, weil man wartet)
-//  4 Methode + andere Frage/eigene Frage · 5 vier Kreise beim Scrollen · 6 Services (Hover) · 7 Website wächst · 8 Abschluss.
-// 26.10. Jamil (3381–3388): Abschluss-Schrift kleiner, „So arbeiten wir“ und Wachstums-Grafik entfernt, Fortschritt statisch mit Text, Hero-Unterzeile neu.
-// Alles HTML/CSS/Inline-SVG; nur transform/opacity. Ohne JS sichtbar; bei prefers-reduced-motion Endbild.
-// Bisherige Inhalte: /angebot/ (Preise, So starten wir), /faq/, /zusagen/ (Unsere Zusagen).
+// Startseite waybuild IT – Neufassung 27.10.2026 (Jamil, Talk 3467), basierend auf den Texten 3373, 3378, 3395, 3401.
+// Zwei Fragen müssen in 10/30/60 Sekunden beantwortet sein: WAS macht Waybuild (Website Service, Nutzen, Preise)
+// und WARUM Waybuild (Haltung „Veränderungen einfach“, Leichtigkeit im Prozess, feste Zusagen, klare Bedingungen).
+// Aufbau: Hero → Haltung → Angebot → Warum → So läuft es → Roadmap → Vertrauen/FAQ → Abschluss.
+// Bewegung nur dreimal und erklärend: Status-Linie im Hero-Beispiel, Prozess-Linie in „So läuft es“, sanftes Einblenden.
+// Alles HTML/CSS/Inline-SVG, ohne JS sichtbar, bei prefers-reduced-motion sofort Endzustand.
+// Zahlen/Zusagen NUR aus src/config (site.ts, hauptseite.ts). Vorherige Fassung: Tag startseite-v2-2026-10-27.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { HOURS, steps, type IconName } from '../config/site';
-import { SLA_KERN, SLA_HINWEIS, ZUSAGEN } from '../config/hauptseite';
+import { company, HOURS, PAKETE, MODELL, faqs, formatEuro, type IconName } from '../config/site';
+import { SLA_KERN, ZUSAGEN } from '../config/hauptseite';
 
-// Nachdenk-Fragen (Briefing 3401): keine Probleme erfinden, sondern zum Nachdenken anregen.
+const FRUST = ['E-Mails', 'Screenshots', 'WhatsApp-Nachrichten', 'Abstimmungsschleifen', 'Wartezeiten'];
+
 const FRAGEN = [
   'Wie einfach lassen sich Änderungen bei Ihnen heute umsetzen?',
   'Wie schnell kommen Ideen tatsächlich in die Umsetzung?',
@@ -21,440 +22,407 @@ const FRAGEN = [
   'Wie viel Aufwand entsteht bei kleinen Veränderungen?',
 ];
 
-const PROBLEM: { icon: IconName; label: string; warten?: boolean }[] = [
-  { icon: 'spark', label: 'Idee' },
-  { icon: 'mail', label: 'E-Mail' },
-  { icon: 'clock', label: 'Warten', warten: true },
-  { icon: 'chat', label: 'Missverständnisse' },
-  { icon: 'refresh', label: 'Korrekturen' },
-  { icon: 'clock', label: 'Warten', warten: true },
-  { icon: 'check', label: 'Umsetzung' },
-];
-
-const METHODE: { icon: IconName; label: string }[] = [
-  { icon: 'spark', label: 'Idee' },
-  { icon: 'eye', label: 'Verstehen' },
-  { icon: 'zap', label: 'Umsetzen' },
-  { icon: 'chart', label: 'Verbessern' },
-];
-
-// Kundenweg (Jamil, Talk 3395): je Schritt, was der Kunde bekommt und was er nicht tun muss.
-// Aussagen nur aus belegten Quellen: steps/PAKETE/MODELL (site.ts), ZUSAGEN/WERTE/TICKET (hauptseite.ts).
-const WEG: { icon: IconName; title: string; bekommt: string; nicht: string }[] = [
-  { icon: 'chat', title: 'Erstgespräch', bekommt: 'Wir lernen Ihr Unternehmen kennen – kostenlos und unverbindlich.', nicht: 'Keine Einrichtungskosten, keine versteckten Kosten.' },
-  { icon: 'user', title: 'Verstehen & Planen', bekommt: 'Wir klären gemeinsam, was Sie erreichen möchten.', nicht: 'Sie müssen kein Fachchinesisch verstehen – wir erklären es einfach.' },
-  { icon: 'zap', title: 'Umsetzung', bekommt: 'Wir setzen um, Sie prüfen und geben frei.', nicht: 'Sie müssen sich nicht um die Technik kümmern.' },
-  { icon: 'refresh', title: 'Laufende Betreuung', bekommt: 'Wartung und Updates laufen im Hintergrund. Änderungen per Sprache oder Text.', nicht: 'Kein Formular, keine Screenshots – eine Sprachnachricht genügt.' },
-];
-
-// Zusagen kompakt – nur, was in der Konfiguration als Zusage steht (Bearbeitungszeit für kleine Änderungen fehlt noch → bewusst weggelassen).
-const ZUSAGE_KURZ: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'clock', title: SLA_KERN[0].wert, text: 'Auf jede Anfrage bekommen Sie eine persönliche Antwort.' },
-  { icon: 'calendar', title: 'Servicezeiten', text: HOURS },
+const NUTZEN: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'layout', title: 'Eine professionelle Website', text: 'Nach persönlicher Beratung – passend zu Ihrem Unternehmen.' },
+  { icon: 'server', title: 'Alles Technische inklusive', text: 'Hosting, Domain, SSL, Wartung, Updates und Backups.' },
+  { icon: 'mic', title: 'Änderungen per Sprache oder Text', text: 'Eine Nachricht genügt. Kein Formular, keine Screenshots.' },
   { icon: 'user', title: 'Ein fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.' },
-  { icon: 'ticket', title: 'Nichts geht verloren', text: 'Jede Anfrage läuft über unser Ticketsystem.' },
-  { icon: 'euro', title: ZUSAGEN[3].title, text: ZUSAGEN[3].text },
-  { icon: 'doc', title: 'Schriftlich', text: 'Alle Zusagen erhalten Sie schriftlich.' },
 ];
 
-const WIR_VERKAUFEN = ['Klarheit', 'Fortschritt', 'Umsetzung', 'Veränderbarkeit'];
-
-const MEHRWERT_ALLGEMEIN = 'Mehr Klarheit, weniger Aufwand.';
-const SERVICES: { name: string; icon: IconName; aktiv?: boolean; text?: string; fuerSie: string; fuerUnternehmen: string }[] = [
-  { name: 'Website Service', icon: 'layout', aktiv: true, text: 'Moderne Websites, die sich mit Ihrem Unternehmen weiterentwickeln.', fuerSie: 'Sie müssen sich nicht um Technik kümmern – Betreuung, Wartung und Änderungen übernehmen wir.', fuerUnternehmen: 'Ihr Auftritt bleibt aktuell und wächst mit Ihrem Unternehmen.' },
-  { name: 'Software Service', icon: 'code', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
-  { name: 'Cloud Service', icon: 'cloud', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
-  { name: 'Workplace Service', icon: 'users', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
-  { name: 'Process Service', icon: 'layers', fuerSie: MEHRWERT_ALLGEMEIN, fuerUnternehmen: 'Veränderungen werden einfacher umsetzbar.' },
+const GRUENDE: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'mic', title: 'Eine Nachricht genügt', text: 'Sie sagen, was sich ändern soll. Wir kümmern uns darum – ohne Schleifen.' },
+  { icon: 'clock', title: 'Feste Zusagen, schriftlich', text: `${SLA_KERN[0].wert} eine persönliche Antwort. Servicezeiten: ${HOURS}.` },
+  { icon: 'user', title: 'Menschlich beraten, schnell umgesetzt', text: 'Wir hören zu und erklären ohne Fachchinesisch. KI beschleunigt die Umsetzung – sie ersetzt keine guten Ideen.' },
+  { icon: 'eye', title: 'Klare Bedingungen', text: 'Fester Monatspreis, keine versteckten Kosten. Website, Code und Domain gehören Ihnen.' },
 ];
 
+const ABLAUF: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'chat', title: 'Erstgespräch', text: 'Kostenlos und unverbindlich. Wir lernen Ihr Unternehmen kennen.' },
+  { icon: 'compass', title: 'Verstehen & Planen', text: 'Wir klären gemeinsam, was Sie erreichen möchten.' },
+  { icon: 'zap', title: 'Umsetzen', text: 'Wir setzen um. Sie prüfen und geben frei.' },
+  { icon: 'refresh', title: 'Laufend betreut', text: 'Änderungen per Sprache oder Text. Wartung und Updates laufen im Hintergrund.' },
+];
+
+const ROADMAP: { name: string; icon: IconName; aktiv?: boolean }[] = [
+  { name: 'Website Service', icon: 'layout', aktiv: true },
+  { name: 'Software Service', icon: 'code' },
+  { name: 'Cloud Service', icon: 'cloud' },
+  { name: 'Workplace Service', icon: 'users' },
+  { name: 'Process Service', icon: 'layers' },
+];
+
+const faqAuszug = faqs.filter((f) => /Was kostet|Vertrag|gehören/.test(f.q));
+const ersteSicht = PAKETE.map((p) => ({ name: p.name, kurz: p.kurz, preis: formatEuro(p.preis), top: p.empfohlen }));
 ---
 
 <BaseLayout
   title="Wir machen Veränderungen einfach"
-  description="waybuild IT hilft Unternehmen, Veränderungen einfacher umzusetzen: mit Klarheit, Struktur und einem verlässlichen Partner. Wir beginnen mit Websites."
+  description="waybuild IT betreut Ihre Website und setzt Änderungen per Sprache oder Text um – mit festen Zusagen und festem Monatspreis."
   hideFooterKontakt
 >
-  <!-- 1 HERO -->
+  <!-- 1 HERO: klare Aussage + was wir tun + Beispiel -->
   <section class="hero" aria-labelledby="hero-h">
-    <div class="hero__bg" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="wrap hero__inner">
-      <span class="eyebrow">waybuild IT</span>
-      <h1 id="hero-h">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
-      <p class="hero__sub">Wenn sich etwas verändern soll, sollte die Umsetzung nicht zum Problem werden.</p>
-      <div class="hero__cta">
-        <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-        <a class="btn btn--ghost btn--lg" href={href('/#fragen')}>Wie wir denken</a>
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <span class="eyebrow">waybuild IT</span>
+        <h1 id="hero-h">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
+        <p class="hero__was">Wir betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zu einem festen Monatspreis.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--ghost btn--lg" href={href('/#angebot')}>Was wir anbieten</a>
+        </div>
       </div>
+      <figure class="demo" aria-label="Beispiel: So läuft eine Änderung bei waybuild">
+        <figcaption>Beispiel: eine Änderung</figcaption>
+        <div class="demo__msg">
+          <span class="demo__mic" aria-hidden="true"><Icon name="mic" size={20} /></span>
+          <div>
+            <strong>Sprachnachricht · 0:08</strong>
+            <span>„Bitte das neue Teamfoto auf die Startseite.“</span>
+          </div>
+        </div>
+        <ol class="demo__status">
+          <li style="--i:0"><span class="dot"></span>Nachricht erhalten</li>
+          <li style="--i:1"><span class="dot"></span>Ticket angelegt</li>
+          <li style="--i:2"><span class="dot"></span>Online</li>
+        </ol>
+        <p class="demo__note">Keine E-Mail-Kette. Keine Screenshots.</p>
+      </figure>
     </div>
-    <a class="hero__scroll" href={href('/#fragen')} aria-label="Nach unten scrollen"><Icon name="chevron" size={22} /></a>
+    <div class="wrap hero__fakten" aria-label="Zur Firma">
+      <span><Icon name="shield" size={16} /> {company.legalName}, Norderstedt</span>
+      <span><Icon name="doc" size={16} /> {company.registerCourt}, {company.registerNumber}</span>
+      <span><Icon name="server" size={16} /> Server in Deutschland</span>
+    </div>
   </section>
 
-  <!-- 2 NACHDENKEN – Fragen statt Verkaufsdruck -->
-  <section class="section fragen-sec" id="fragen" aria-labelledby="fragen-h">
-    <div class="wrap fragen-sec__grid">
-      <div class="head">
-        <span class="eyebrow">Zum Nachdenken</span>
-        <h2 id="fragen-h">Wie leicht ist Veränderung bei Ihnen <span class="accent">heute?</span></h2>
-        <p class="lead">Nicht jede Veränderung braucht neue Software oder eine neue Website. Aber fast jede braucht Klarheit, Struktur und einen verlässlichen Partner.</p>
-      </div>
-      <ul class="fragenliste">
-        {FRAGEN.map((f, i) => <li class="reveal" style={`--d:${i * 120}ms`}>{f}</li>)}
-      </ul>
-    </div>
-  </section>
-
-  <!-- 3 WARUM ES UNS GIBT – Entstehung + Problem-Kette -->
-  <section class="section problem" id="warum" aria-labelledby="problem-h">
-    <div class="wrap">
+  <!-- 2 HALTUNG: warum es uns gibt + Nachdenk-Fragen -->
+  <section class="section haltung" id="haltung" aria-labelledby="haltung-h">
+    <div class="wrap haltung__grid">
       <div class="head">
         <span class="eyebrow">Warum es uns gibt</span>
-        <h2 id="problem-h">Warum ist eine Veränderung <span class="muted">so kompliziert?</span></h2>
-        <p class="lead">Waybuild ist aus Frust entstanden. Eine einfache Änderung bedeutete: Nachrichten, E-Mails, Screenshots, Missverständnisse, Abstimmungsschleifen, Wartezeiten. Nicht die Technik war das Problem – die Umsetzung war es.</p>
+        <h2 id="haltung-h">Nicht die Technik ist das Problem. <span class="muted">Der Weg zur Umsetzung ist es.</span></h2>
+        <p class="lead">Waybuild ist aus Frust entstanden. Eine einfache Änderung bedeutete:</p>
+        <ul class="frust" aria-label="Was früher passierte">
+          {FRUST.map((f) => <li>{f}</li>)}
+        </ul>
+        <p class="haltung__satz">Wir fragen deshalb zuerst: <strong>Was möchten Sie erreichen?</strong> Nicht jede Veränderung braucht neue Software oder eine neue Website. Aber fast jede braucht Klarheit, Struktur und einen verlässlichen Partner.</p>
       </div>
-      <ol class="kette kette--problem reveal" aria-label="So läuft Zusammenarbeit oft">
-        {PROBLEM.map((n, i) => (
-          <li class:list={['node', { 'node--warten': n.warten, 'node--ende': i === PROBLEM.length - 1 }]} style={`--i:${i}`}>
-            <span class="node__kreis"><Icon name={n.icon} size={26} /></span>
-            <span class="node__label">{n.label}</span>
-          </li>
-        ))}
-      </ol>
+      <div class="fragenbox reveal">
+        <h3>Wie leicht ist Veränderung bei Ihnen heute?</h3>
+        <ul>
+          {FRAGEN.map((f) => <li>{f}</li>)}
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- 4 WIE WIR DENKEN – Methode + andere Frage / eigene Frage -->
-  <section class="section methode" id="methode" aria-labelledby="methode-h">
+  <!-- 3 ANGEBOT: Website Service konkret mit Preisen -->
+  <section class="section angebot" id="angebot" aria-labelledby="angebot-h">
     <div class="wrap">
       <div class="head head--center">
-        <span class="eyebrow">Wie wir denken</span>
-        <h2 id="methode-h">Wir beginnen beim <span class="accent">Verstehen.</span></h2>
+        <span class="eyebrow">Was wir heute anbieten</span>
+        <h2 id="angebot-h">Der Website Service: <span class="accent">alles aus einer Hand.</span></h2>
+        <p class="lead">Wir beginnen mit Websites. Sie bekommen Ihre Website – und müssen sich um nichts kümmern.</p>
       </div>
-      <ol class="kette kette--methode reveal" aria-label="Der Weg mit waybuild">
-        {METHODE.map((n, i) => (
-          <li class="node" style={`--i:${i}`}>
-            <span class="node__kreis"><Icon name={n.icon} size={30} /></span>
-            <span class="node__label">{n.label}</span>
-          </li>
-        ))}
-      </ol>
-      <div class="fragen">
-        <div class="frage frage--andere reveal">
-          <h3>Viele fragen</h3>
-          <p class="frage__satz">„Welche Lösung benötigen Sie?“</p>
-          <p class="frage__titel">Und beginnen bei der Lösung.</p>
+      <div class="angebot__grid">
+        <ul class="nutzen">
+          {NUTZEN.map((n) => (
+            <li class="reveal">
+              <span class="nutzen__icon" aria-hidden="true"><Icon name={n.icon} size={24} /></span>
+              <div><h3>{n.title}</h3><p>{n.text}</p></div>
+            </li>
+          ))}
+        </ul>
+        <div class="preise reveal">
+          <h3>Ein fester Monatspreis</h3>
+          <ul class="preise__liste">
+            {ersteSicht.map((p) => (
+              <li class:list={{ 'preise__top': p.top }}>
+                <div>
+                  <strong>{p.name}</strong>
+                  <span>{p.kurz}</span>
+                </div>
+                <p><b>{p.preis}</b><small>pro Monat, netto</small></p>
+              </li>
+            ))}
+          </ul>
+          <ul class="preise__modell">
+            {MODELL.filter((m) => !/Fester Monatspreis/.test(m)).map((m) => <li><Icon name="check" size={16} />{m}</li>)}
+          </ul>
+          <div class="preise__cta">
+            <a class="btn btn--primary" href={href('/kontakt/')}>Erstgespräch anfragen</a>
+            <a class="btn btn--ghost" href={href('/angebot/')}>Alle Details &amp; Preise</a>
+          </div>
         </div>
-        <div class="frage frage--wir reveal" style="--d:200ms">
-          <h3>Wir fragen</h3>
-          <p class="frage__satz">„Was möchten Sie erreichen?“</p>
-          <p class="frage__titel">Uns geht es um</p>
-          <ul>{WIR_VERKAUFEN.map((t, i) => <li style={`--i:${i}`}>{t}</li>)}</ul>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- 5 SO LEICHT IST DIE ZUSAMMENARBEIT – Kundenweg -->
-  <section class="section weg" id="weg" aria-labelledby="weg-h">
+  <!-- 4 WARUM WAYBUILD: vier belegte Gründe -->
+  <section class="section warum" id="warum" aria-labelledby="warum-h">
     <div class="wrap">
       <div class="head head--center">
-        <span class="eyebrow">Unser Fokus</span>
-        <h2 id="weg-h">So leicht ist die <span class="accent">Zusammenarbeit.</span></h2>
-        <p class="lead">Sie sollen es leicht haben – vom ersten Gespräch bis zur Veränderung.</p>
+        <span class="eyebrow">Warum waybuild</span>
+        <h2 id="warum-h">Weil Zusammenarbeit <span class="accent">leicht sein darf.</span></h2>
       </div>
-      <ol class="weg__liste">
-        {WEG.map((w, i) => (
-          <li class="weg__schritt reveal" style={`--d:${i * 120}ms`}>
-            <span class="weg__nr">{i + 1}</span>
-            <span class="weg__icon" aria-hidden="true"><Icon name={w.icon} size={26} /></span>
-            <h3>{w.title}</h3>
-            <p class="weg__bekommt"><strong>Das bekommen Sie</strong>{w.bekommt}</p>
-            <p class="weg__nicht"><strong>Das müssen Sie nicht</strong>{w.nicht}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- 6 UNSERE ZUSAGEN (nur belegte Aussagen, Details auf /zusagen/) -->
-  <section class="section section--alt zusagen" id="zusagen" aria-labelledby="zusagen-h">
-    <div class="wrap">
-      <div class="head head--center">
-        <span class="eyebrow">Unser Serviceversprechen</span>
-        <h2 id="zusagen-h">Darauf können Sie <span class="accent">sich verlassen.</span></h2>
-      </div>
-      <ul class="zus">
-        {ZUSAGE_KURZ.map((z) => (
-          <li>
-            <span class="zus__icon" aria-hidden="true"><Icon name={z.icon} size={22} /></span>
-            <div><strong>{z.title}</strong><span>{z.text}</span></div>
+      <ul class="gruende">
+        {GRUENDE.map((g, i) => (
+          <li class="reveal" style={`--d:${i * 100}ms`}>
+            <span class="gruende__icon" aria-hidden="true"><Icon name={g.icon} size={26} /></span>
+            <h3>{g.title}</h3>
+            <p>{g.text}</p>
           </li>
         ))}
       </ul>
-      <p class="zus__mehr"><a class="btn btn--ghost" href={href('/zusagen/')}>Alle Zusagen ansehen <Icon name="arrow" size={18} /></a></p>
+      <p class="warum__mehr"><a href={href('/zusagen/')}>Alle Zusagen ansehen <Icon name="arrow" size={16} /></a></p>
     </div>
   </section>
 
-  <!-- 7 SERVICES – Produktwelt -->
-  <section class="section services" id="services" aria-labelledby="services-h">
+  <!-- 5 SO LÄUFT ES: vier Schritte mit Prozess-Linie -->
+  <section class="section ablauf" id="ablauf" aria-labelledby="ablauf-h">
     <div class="wrap">
+      <div class="head head--center">
+        <span class="eyebrow">So läuft es</span>
+        <h2 id="ablauf-h">Vier Schritte. <span class="accent">Ohne Umwege.</span></h2>
+      </div>
+      <ol class="schritte reveal">
+        {ABLAUF.map((a, i) => (
+          <li style={`--i:${i}`}>
+            <span class="schritte__kreis"><Icon name={a.icon} size={28} /><b>{i + 1}</b></span>
+            <h3>{a.title}</h3>
+            <p>{a.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6 ROADMAP: Anfang einer größeren Plattform -->
+  <section class="section roadmap" id="roadmap" aria-labelledby="roadmap-h">
+    <div class="wrap">
+      <div class="head head--center">
+        <span class="eyebrow">Wohin wir uns entwickeln</span>
+        <h2 id="roadmap-h">Heute Websites. <span class="accent">Das ist erst der Anfang.</span></h2>
+        <p class="lead">Jeder Service soll Ihnen und Ihrem Unternehmen einen echten Mehrwert bringen. Weitere Angebote folgen.</p>
+      </div>
+      <ol class="rm reveal">
+        {ROADMAP.map((r, i) => (
+          <li class:list={[r.aktiv ? 'rm__aktiv' : 'rm__bald']} style={`--i:${i}`}>
+            <span class="rm__icon" aria-hidden="true"><Icon name={r.icon} size={26} /></span>
+            <strong>{r.name}</strong>
+            <em>{r.aktiv ? 'Aktiv' : 'Bald verfügbar'}</em>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 VERTRAUEN + FAQ-Auszug -->
+  <section class="section vertrauen" id="vertrauen" aria-labelledby="vertrauen-h">
+    <div class="wrap vertrauen__grid">
       <div class="head">
-        <span class="eyebrow">Unsere Services</span>
-        <h2 id="services-h">Wir beginnen mit <span class="accent">Websites.</span></h2>
-        <p class="lead">Das ist der Anfang einer größeren Plattform. Jeder Service soll Ihnen und Ihrem Unternehmen einen echten Mehrwert bringen. Weitere Angebote folgen.</p>
+        <span class="eyebrow">Gut zu wissen</span>
+        <h2 id="vertrauen-h">Offen und <span class="accent">nachprüfbar.</span></h2>
+        <ul class="belege">
+          <li><Icon name="shield" size={18} /><span>{company.legalName}<br />Sitz Norderstedt, {company.registerCourt}, {company.registerNumber}</span></li>
+          <li><Icon name="server" size={18} /><span>Server in Deutschland, Auftragsverarbeitungs-Vertrag auf Anfrage</span></li>
+          <li><Icon name="lock" size={18} /><span>Keine Cookies, kein Tracking auf dieser Seite</span></li>
+          <li><Icon name="unlock" size={18} /><span>Kein künstlicher Lock-in – Sie behalten die Kontrolle über Ihre Daten</span></li>
+        </ul>
       </div>
-      <ul class="karten">
-        {SERVICES.map((s, i) => (
-          <li class:list={['karte', 'reveal', s.aktiv ? 'karte--aktiv' : 'karte--bald']} style={`--i:${i}`}>
-            <span class="karte__status">{s.aktiv ? 'Aktiv' : 'Bald verfügbar'}</span>
-            <span class="karte__icon" aria-hidden="true"><Icon name={s.icon} size={s.aktiv ? 32 : 26} /></span>
-            <h3>{s.name}</h3>
-            {s.text && <p>{s.text}</p>}
-            <dl class="mehrwert">
-              <div><dt>Für Sie</dt><dd>{s.fuerSie}</dd></div>
-              <div><dt>Für Ihr Unternehmen</dt><dd>{s.fuerUnternehmen}</dd></div>
-            </dl>
-            {s.aktiv && <a class="btn btn--ghost" href={href('/angebot/')}>Mehr zum Website Service <Icon name="arrow" size={18} /></a>}
-          </li>
+      <div class="faq-auszug">
+        {faqAuszug.map((f) => (
+          <details class="faq__item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
         ))}
-      </ul>
+        <p class="faq-auszug__mehr"><a href={href('/faq/')}>Alle Fragen ansehen <Icon name="arrow" size={16} /></a></p>
+      </div>
     </div>
   </section>
 
   <!-- 8 ABSCHLUSS -->
   <section class="abschluss" aria-labelledby="abschluss-h">
-    <div class="abschluss__bg" aria-hidden="true"><i></i><i></i></div>
     <div class="wrap abschluss__inner">
-      <h2 id="abschluss-h" class="reveal">Veränderungen gehören zu jedem <span class="accent">Unternehmen.</span></h2>
-      <p class="abschluss__sub reveal" style="--d:150ms">Wir sorgen dafür, dass sie einfacher werden.</p>
-      <p class="reveal" style="--d:300ms"><a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a></p>
+      <h2 id="abschluss-h">Wenn sich etwas verändern soll, <span class="accent">sprechen wir darüber.</span></h2>
+      <p class="abschluss__sub">Das Erstgespräch ist kostenlos und unverbindlich. Wir melden uns spätestens am nächsten Werktag.</p>
+      <p class="abschluss__cta">
+        <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
+        <a class="btn btn--ghost btn--lg" href={`mailto:${company.email}`}><Icon name="mail" size={18} /> {company.email}</a>
+      </p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Gemeinsam */
-  .head { max-width: 760px; margin-bottom: clamp(28px, 6vw, 64px); }
+  /* Gemeinsame Kopfzeilen */
+  .head { max-width: 760px; margin-bottom: clamp(26px, 5vw, 52px); }
   .head--center { margin-inline: auto; text-align: center; }
-  .head h2 { font-size: clamp(2rem, 6vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em; }
+  .head--center .lead { margin-inline: auto; }
   .head .eyebrow { display: inline-block; margin-bottom: 12px; }
-  .muted { color: #8a857b; }
-  .section--dark .muted { color: var(--dark-soft); }
+  .head h2 { font-size: clamp(1.9rem, 4.8vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .head .lead { margin-top: 16px; }
+  .muted { color: #837e73; }
+  .section h3 { margin: 0 0 6px; }
 
-  /* 1 HERO – Vollbild, ruhige Hintergrundbewegung */
-  .hero { position: relative; overflow: hidden; display: grid; align-items: center; min-height: calc(100svh - var(--header-h, 72px)); padding-block: 48px 96px; background: var(--paper); }
-  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
-  .hero__bg::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgb(0 79 76 / 14%) 1px, transparent 1.4px); background-size: 28px 28px; mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%); }
-  .hero__bg i { position: absolute; border-radius: 50%; will-change: transform; }
-  .hero__bg i:nth-child(1) { width: min(70vw, 640px); aspect-ratio: 1; right: -12%; top: -8%; background: radial-gradient(closest-side, rgb(0 166 161 / 26%), transparent); animation: drift1 22s ease-in-out infinite alternate; }
-  .hero__bg i:nth-child(2) { width: min(60vw, 520px); aspect-ratio: 1; left: -16%; bottom: -14%; background: radial-gradient(closest-side, rgb(0 107 104 / 18%), transparent); animation: drift2 28s ease-in-out infinite alternate; }
-  .hero__bg i:nth-child(3) { width: min(40vw, 360px); aspect-ratio: 1; right: 22%; bottom: 8%; background: radial-gradient(closest-side, rgb(0 166 161 / 14%), transparent); animation: drift3 18s ease-in-out infinite alternate; }
-  @keyframes drift1 { to { transform: translate3d(-8%, 10%, 0) scale(1.1); } }
-  @keyframes drift2 { to { transform: translate3d(12%, -8%, 0) scale(1.15); } }
-  @keyframes drift3 { to { transform: translate3d(-14%, -10%, 0) scale(0.9); } }
-  .hero__inner { position: relative; }
-  .hero h1 { font-size: clamp(2.5rem, 8.6vw, 5.8rem); line-height: 1.04; letter-spacing: -0.03em; max-width: 14ch; margin-bottom: 24px; }
-  .hero__sub { font-size: clamp(1.15rem, 2.6vw, 1.6rem); color: var(--ink-soft); max-width: 36ch; line-height: 1.4; margin: 0 0 32px; }
+  /* 1 HERO */
+  .hero { position: relative; overflow: hidden; padding-block: clamp(36px, 7vw, 88px) 0; background: var(--paper); }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; background:
+    radial-gradient(50% 60% at 85% 20%, rgb(0 166 161 / 16%), transparent 70%),
+    radial-gradient(40% 50% at 0% 100%, rgb(0 107 104 / 10%), transparent 70%); }
+  .hero__grid { position: relative; display: grid; gap: 36px; align-items: center; }
+  @media (min-width: 960px) { .hero__grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; } }
+  .hero h1 { font-size: clamp(2.4rem, 7.4vw, 5rem); line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 14ch; }
+  .hero__was { font-size: clamp(1.1rem, 2.4vw, 1.45rem); line-height: 1.45; color: var(--ink-soft); max-width: 34ch; margin: 0 0 28px; }
   .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
-  .hero__scroll { position: absolute; left: 50%; bottom: 24px; translate: -50% 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgb(255 255 255 / 70%); color: var(--accent-ink); animation: huepfen 2.4s ease-in-out infinite; }
-  @keyframes huepfen { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  .hero__fakten { position: relative; display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: clamp(32px, 6vw, 64px); padding-block: 18px; border-top: 1px solid var(--line); font-size: 0.92rem; color: var(--ink-soft); }
+  .hero__fakten span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero__fakten :global(.icon) { color: var(--accent-ink); }
 
-  /* Ketten (Problem + Methode): Knoten erscheinen nacheinander, die Linie wächst mit */
-  .kette { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; position: relative; counter-reset: k; }
-  .node { position: relative; display: flex; align-items: center; gap: 18px; padding-block: 14px; }
-  .node__kreis { flex: none; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--white); border: 2px solid var(--line); color: var(--ink-soft); position: relative; z-index: 1; }
-  .node__label { font-family: var(--font-head); font-weight: 700; font-size: 1.15rem; }
-  /* mobil: senkrechte Linie */
-  .kette::before { content: ''; position: absolute; left: 31px; top: 36px; bottom: 36px; width: 2px; background: var(--line); transform-origin: top; }
-  .kette.reveal { transform: none; }
-  :global(html.js) .kette:not(.is-visible)::before { transform: scaleY(0); }
-  .kette.is-visible::before { animation: linie-v 1.8s cubic-bezier(.4,0,.2,1) both; }
+  /* Hero-Beispiel (Bewegung 1: Status-Linie) */
+  .demo { margin: 0; background: var(--white); border: 1px solid var(--line); border-radius: 24px; padding: 22px; box-shadow: var(--shadow); display: grid; gap: 16px; max-width: 460px; width: 100%; justify-self: center; }
+  .demo figcaption { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .demo__msg { display: flex; gap: 14px; align-items: flex-start; background: var(--paper); border-radius: 16px; padding: 16px; }
+  .demo__mic { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--ink); }
+  .demo__msg strong { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 2px; }
+  .demo__msg span { font-family: var(--font-head); font-weight: 600; line-height: 1.35; }
+  .demo__status { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; position: relative; }
+  .demo__status li { display: flex; align-items: center; gap: 14px; padding: 9px 0; font-weight: 600; position: relative; color: var(--ink-soft); animation: lit 0.5s ease both; animation-delay: calc(0.8s + var(--i) * 0.9s); }
+  .demo__status li + li::before { content: ''; position: absolute; left: 7px; top: -12px; width: 2px; height: 24px; background: var(--line); }
+  .dot { width: 16px; height: 16px; border-radius: 50%; background: var(--line); flex: none; position: relative; z-index: 1; }
+  .demo__status li:last-child { color: var(--ink); }
+  @keyframes lit { from { color: #aaa49a; } to { color: var(--ink); } }
+  .demo__status li .dot { animation: dotlit 0.5s ease both; animation-delay: calc(0.8s + var(--i) * 0.9s); }
+  @keyframes dotlit { from { background: var(--line); transform: scale(0.8); } to { background: var(--accent); transform: scale(1); } }
+  .demo__note { margin: 0; font-size: 0.95rem; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 12px; }
+
+  /* 2 HALTUNG */
+  .haltung { background: var(--white); }
+  .haltung__grid { display: grid; gap: 32px; align-items: start; }
+  @media (min-width: 960px) { .haltung__grid { grid-template-columns: 1.1fr 0.9fr; gap: 64px; } }
+  .haltung .head { margin-bottom: 0; max-width: none; }
+  .frust { list-style: none; margin: 18px 0 22px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .frust li { padding: 6px 14px; border-radius: 999px; background: var(--paper-2); color: #6f6a60; text-decoration: line-through; text-decoration-color: rgb(160 110 30 / 70%); font-weight: 500; }
+  .haltung__satz { margin: 0; max-width: 56ch; line-height: 1.7; color: var(--ink-soft); font-size: 1.05rem; }
+  .haltung__satz strong { color: var(--ink); }
+  .fragenbox { background: var(--dark); color: var(--white); border-radius: 24px; padding: clamp(24px, 4vw, 40px); }
+  .fragenbox h3 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); color: var(--white); margin-bottom: 18px; line-height: 1.25; }
+  .fragenbox ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .fragenbox li { padding: 14px 0 14px 26px; border-top: 1px solid var(--dark-line); position: relative; color: var(--dark-lead); line-height: 1.45; }
+  .fragenbox li::before { content: ''; position: absolute; left: 0; top: 22px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+
+  /* 3 ANGEBOT */
+  .angebot { background: var(--paper); }
+  .angebot__grid { display: grid; gap: 24px; align-items: stretch; }
+  @media (min-width: 960px) { .angebot__grid { grid-template-columns: 1.1fr 0.9fr; gap: 32px; } }
+  .nutzen { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  @media (min-width: 960px) { .nutzen { height: 100%; grid-template-rows: repeat(4, 1fr); } .nutzen li { align-items: center; } }
+  .nutzen li { display: flex; gap: 16px; align-items: flex-start; background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+  .nutzen__icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
+  .nutzen h3 { font-size: 1.1rem; }
+  .nutzen p { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+  .preise { background: var(--white); border: 2px solid var(--accent); border-radius: 24px; padding: clamp(22px, 3.5vw, 34px); box-shadow: var(--shadow); }
+  .preise h3 { font-size: 1.2rem; margin-bottom: 16px; }
+  .preise__liste { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 10px; }
+  .preise__liste li { display: flex; justify-content: space-between; gap: 14px; align-items: center; padding: 14px 16px; border-radius: 14px; background: var(--paper); }
+  .preise__top { outline: 2px solid rgb(0 166 161 / 40%); }
+  .preise__liste strong { display: block; font-family: var(--font-head); }
+  .preise__liste span { display: block; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.35; }
+  .preise__liste p { margin: 0; text-align: right; flex: none; }
+  .preise__liste b { display: block; font-family: var(--font-head); font-size: 1.7rem; line-height: 1.1; }
+  .preise__liste small { color: var(--ink-soft); font-size: 0.8rem; }
+  .preise__modell { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 6px; }
+  .preise__modell li { display: flex; gap: 8px; align-items: center; line-height: 1.4; }
+  .preise__modell :global(.icon) { color: var(--accent-ink); flex: none; }
+  .preise__cta { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* 4 WARUM */
+  .warum { background: var(--dark); color: var(--paper); }
+  .warum h2, .warum h3 { color: var(--white); }
+  .warum .eyebrow, .warum .accent { color: var(--accent); }
+  .gruende { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  @media (min-width: 640px) { .gruende { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1040px) { .gruende { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+  .gruende li { background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); border-radius: 20px; padding: 26px 22px; }
+  .gruende__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: rgb(0 166 161 / 30%); color: #5fe0da; margin-bottom: 14px; }
+  .gruende h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .gruende p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
+  .warum__mehr { text-align: center; margin: 28px 0 0; }
+  .warum__mehr a { color: var(--accent); font-weight: 600; display: inline-flex; gap: 6px; align-items: center; }
+
+  /* 5 ABLAUF (Bewegung 2: Prozess-Linie) */
+  .schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; position: relative; }
+  .schritte li { position: relative; align-content: start; display: grid; grid-template-columns: 64px 1fr; column-gap: 18px; align-items: start; }
+  .schritte__kreis { grid-row: span 2; position: relative; z-index: 1; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--white); border: 2px solid var(--accent); color: var(--accent-ink); }
+  .schritte__kreis b { position: absolute; right: -6px; top: -6px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-ink); color: var(--white); font-size: 0.78rem; display: grid; place-items: center; }
+  .schritte h3 { margin: 6px 0 2px; font-size: 1.15rem; }
+  .schritte p { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+  .schritte::before { content: ''; position: absolute; left: 31px; top: 32px; bottom: 80px; width: 2px; background: var(--accent); opacity: 0.5; transform-origin: top; }
+  :global(html.js) .schritte.reveal { transform: none; }
+  :global(html.js) .schritte:not(.is-visible)::before { transform: scaleY(0); }
+  .schritte.is-visible::before { animation: linie-v 1.6s cubic-bezier(.4,0,.2,1) both; }
   @keyframes linie-v { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-  :global(html.js) .kette:not(.is-visible) .node { opacity: 0; transform: translateY(14px); }
-  .node { transition: opacity 500ms ease, transform 500ms ease; transition-delay: calc(var(--i) * 260ms); }
-  @media (min-width: 960px) {
-    .kette { grid-template-columns: repeat(var(--n, 7), 1fr); }
-    .kette--problem { --n: 7; }
-    .kette--methode { --n: 4; }
-    .node { flex-direction: column; text-align: center; gap: 14px; padding: 0 4px; }
-    .kette::before { left: 6%; right: 6%; top: 32px; bottom: auto; width: auto; height: 2px; transform-origin: left; }
-    .kette--methode::before { left: 12.5%; right: 12.5%; }
-    .kette--problem::before { left: 7%; right: 7%; }
-    :global(html.js) .kette:not(.is-visible)::before { transform: scaleX(0); }
-    .kette.is-visible::before { animation-name: linie-h; }
+  @media (min-width: 900px) {
+    .schritte { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .schritte li { grid-template-columns: 1fr; justify-items: center; text-align: center; row-gap: 4px; }
+    .schritte__kreis { grid-row: auto; margin-bottom: 10px; }
+    .schritte p { max-width: 26ch; }
+    .schritte::before { left: 12.5%; right: 12.5%; top: 32px; bottom: auto; width: auto; height: 2px; transform-origin: left; }
+    .schritte.is-visible::before { animation-name: linie-h; }
+    :global(html.js) .schritte:not(.is-visible)::before { transform: scaleX(0); }
   }
   @keyframes linie-h { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-  /* Problem: Warten-Knoten pulsieren unruhig, danach verblassen die Stationen – „die Grafik verwandelt sich“ */
-  .problem { background: var(--paper); }
-  .node--warten .node__kreis { border-color: #b4791f; color: #8a5a10; }
-  .node--warten .node__kreis::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid #b4791f; opacity: 0; }
-  .kette.is-visible .node--warten .node__kreis::after { animation: unruhe 2.4s ease-out infinite; animation-delay: calc(var(--i) * 260ms + 600ms); }
-  @keyframes unruhe { 0% { transform: scale(0.85); opacity: 0.5; } 100% { transform: scale(1.25); opacity: 0; } }
-  .node--ende .node__kreis { border-color: var(--accent); color: var(--accent-ink); }
+  /* 6 ROADMAP */
+  .roadmap { background: var(--paper-2); }
+  .rm { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: 1fr 1fr; max-width: 1000px; margin-inline: auto; }
+  .rm__aktiv { grid-column: 1 / -1; }
+  @media (min-width: 900px) { .rm { grid-template-columns: repeat(5, 1fr); } .rm__aktiv { grid-column: auto; } }
+  .rm li { display: grid; justify-items: center; text-align: center; gap: 6px; padding: 22px 12px; border-radius: 20px; transition: transform 250ms ease, border-color 250ms ease; }
+  .rm__aktiv { background: var(--white); border: 2px solid var(--accent); box-shadow: var(--shadow); }
+  .rm__bald { background: transparent; border: 1px dashed #b9b2a2; color: #77736a; }
+  .rm__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; }
+  .rm__aktiv .rm__icon { background: var(--accent); color: var(--ink); }
+  .rm__bald .rm__icon { background: rgb(0 0 0 / 5%); }
+  .rm strong { font-family: var(--font-head); line-height: 1.25; }
+  .rm em { font-style: normal; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+  .rm__bald em { color: #77736a; }
+  @media (hover: hover) { .rm li:hover { transform: translateY(-3px); } .rm__bald:hover { border-color: var(--accent); } }
 
-  /* Methode (dunkel, schnell, türkis) */
-  .methode { background: var(--dark); color: var(--paper); }
-  .methode h2 { color: var(--white); }
-  .methode .eyebrow { color: var(--accent); }
-  .methode .accent { color: var(--accent); }
-  .methode .node__kreis { background: #0a5f5c; border-color: var(--accent); color: var(--accent); width: 72px; height: 72px; }
-  .methode .node__label { color: var(--white); font-size: clamp(1.2rem, 2.4vw, 1.5rem); }
-  .methode .kette::before { background: var(--accent); left: 35px; }
-  @media (min-width: 960px) { .methode .kette::before { left: 12.5%; right: 12.5%; top: 36px; } }
-  .methode .node { transition-delay: calc(var(--i) * 140ms); }
-  .methode .kette.is-visible::before { animation-duration: 0.9s; }
-  .methode__fertig { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 36px 0 0; font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  /* 7 VERTRAUEN */
+  .vertrauen { background: var(--paper); }
+  .vertrauen__grid { display: grid; gap: 32px; align-items: start; }
+  @media (min-width: 960px) { .vertrauen__grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+  .vertrauen .head { margin-bottom: 0; }
+  .belege { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 14px; }
+  .belege li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.45; color: var(--ink-soft); }
+  .belege :global(.icon) { color: var(--accent-ink); flex: none; margin-top: 2px; }
+  .faq-auszug { display: grid; gap: 10px; }
+  .faq__item { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 0 20px; }
+  .faq__item summary { cursor: pointer; padding: 16px 0; font-weight: 600; font-family: var(--font-head); line-height: 1.4; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after { content: '+'; color: var(--accent-ink); font-size: 1.4rem; line-height: 1; flex: none; }
+  .faq__item[open] summary::after { content: '–'; }
+  .faq__item p { margin: 0 0 16px; color: var(--ink-soft); line-height: 1.65; }
+  .faq-auszug__mehr { margin: 6px 0 0; }
+  .faq-auszug__mehr a { color: var(--accent-ink); font-weight: 600; display: inline-flex; gap: 6px; align-items: center; }
 
-  /* 2 Nachdenken */
-  .fragen-sec { background: var(--paper-2); }
-  .fragen-sec__grid { display: grid; gap: 28px; align-items: center; }
-  @media (min-width: 960px) { .fragen-sec__grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
-  .fragen-sec .head { margin-bottom: 0; }
-  .fragenliste { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .fragenliste li { background: var(--white); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 14px; padding: 16px 20px; font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; line-height: 1.4; }
-
-  /* 5 Kundenweg */
-  .weg__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  @media (min-width: 640px) { .weg__liste { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1040px) { .weg__liste { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-  .weg__schritt { position: relative; background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 24px 22px 26px; display: grid; gap: 8px; align-content: start; }
-  .weg__nr { position: absolute; top: 18px; right: 20px; font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--accent-ink); }
-  .weg__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
-  .weg__schritt h3 { margin: 4px 0 4px; font-size: 1.2rem; }
-  .weg__schritt p { margin: 0; line-height: 1.5; font-size: 1rem; }
-  .weg__schritt strong { display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; color: var(--accent-ink); }
-  .weg__nicht { padding-top: 10px; margin-top: 4px !important; border-top: 1px dashed var(--line); color: var(--ink-soft); }
-  .weg__nicht strong { color: var(--ink-soft); }
-
-  /* 6 Zusagen */
-  .zus { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 14px; max-width: 980px; }
-  @media (min-width: 700px) { .zus { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1000px) { .zus { grid-template-columns: repeat(3, 1fr); } }
-  .zus li { display: flex; gap: 14px; align-items: flex-start; background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
-  .zus__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
-  .zus strong { display: block; font-family: var(--font-head); font-size: 1.02rem; line-height: 1.3; margin-bottom: 2px; }
-  .zus span:not(.zus__icon) { color: var(--ink-soft); line-height: 1.45; }
-  .zus__mehr { text-align: center; margin: 28px 0 0; }
-
-  /* Mehrwert in den Service-Karten */
-  .mehrwert { margin: 8px 0 0; display: grid; gap: 8px; width: 100%; }
-  .mehrwert dt { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
-  .mehrwert dd { margin: 0; line-height: 1.4; font-size: 0.97rem; }
-  .karte--bald .mehrwert dt { color: #77736a; }
-  .karte--bald .mehrwert dd { font-size: 0.9rem; }
-  .karte--aktiv .mehrwert { grid-template-columns: 1fr; }
-  @media (min-width: 760px) { .karte--aktiv .mehrwert { grid-template-columns: 1fr 1fr; gap: 20px; } }
-
-  /* Services */
-  .karten { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
-  .karte--aktiv { grid-column: 1 / -1; }
-  @media (min-width: 960px) { .karten { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-  .karte { position: relative; display: grid; gap: 10px; align-content: start; justify-items: start; border-radius: 24px; padding: clamp(20px, 3vw, 36px); overflow: hidden; transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease, background 300ms ease; }
-  .karte--bald { min-height: 190px; }
-  .karte h3 { margin: 0; font-size: clamp(1.1rem, 2.2vw, 1.4rem); letter-spacing: -0.01em; }
-  .karte--aktiv h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
-  .karte p { margin: 0; line-height: 1.55; }
-  .karte__status { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
-  .karte__icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; }
-  .karte--aktiv { background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
-  .karte--aktiv .karte__status { background: rgb(0 166 161 / 16%); color: var(--accent-ink); }
-  .karte--aktiv .karte__icon { background: var(--accent); color: var(--ink); }
-  .karte--aktiv p { color: var(--ink-soft); font-size: 1.1rem; max-width: 32ch; }
-  .karte--aktiv .btn { margin-top: 8px; }
-  .karte--bald { background: var(--paper-2); border: 1px dashed #c9c2b3; color: #77736a; }
-  .karte--bald h3 { color: #77736a; }
-  .karte--bald .karte__status { background: rgb(0 0 0 / 6%); color: #6f6b62; }
-  .karte--bald .karte__icon { background: rgb(0 0 0 / 6%); color: #8a857b; transition: background 300ms ease, color 300ms ease; }
-  /* sanftes Hover: Karten heben sich, die ausgegrauten bekommen einen Hauch Farbe (Bedeutung: hier entsteht noch mehr) */
-  @media (hover: hover) {
-    .karte:hover { transform: translateY(-4px); }
-    .karte--aktiv:hover { box-shadow: 0 2px 4px rgb(0 79 76 / 8%), 0 16px 36px rgb(0 79 76 / 14%); border-color: var(--accent); }
-    .karte--bald:hover { background: #f1eee6; border-color: var(--accent); }
-    .karte--bald:hover .karte__icon { background: rgb(0 166 161 / 16%); color: var(--accent-ink); }
-  }
-
-  /* 2 Fortschritt: Neues fließt zusammen (Bedeutung: aus vielen Veränderungen wird Fortschritt) */
-  .fort { background: var(--paper); }
-  .fliessen { display: grid; justify-items: center; gap: 22px; max-width: 760px; margin-inline: auto; position: relative; }
-  .fliessen__neu { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
-  @media (min-width: 760px) { .fliessen__neu { grid-template-columns: repeat(4, 1fr); } }
-  .fliessen__neu li { text-align: center; padding: 16px 10px; border-radius: 16px; background: var(--white); border: 1px solid var(--line); font-family: var(--font-head); font-weight: 700; font-size: 1.02rem; line-height: 1.25; }
-  .fliessen__pfeil { width: 2px; height: 44px; background: var(--accent); position: relative; transform-origin: top; }
-  .fliessen__pfeil::after { content: ''; position: absolute; left: -5px; bottom: -2px; width: 10px; height: 10px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); rotate: 45deg; }
-  .fliessen__ziel { margin: 0; padding: 18px 44px; border-radius: 999px; background: var(--accent); color: var(--ink); font-family: var(--font-head); font-weight: 800; font-size: clamp(1.6rem, 4.5vw, 2.6rem); letter-spacing: -0.01em; }
-
-  /* 4 Frage / Antwort */
-  .fragen { display: grid; gap: 18px; max-width: 900px; margin: clamp(36px, 6vw, 64px) auto 0; }
-  @media (min-width: 760px) { .fragen { grid-template-columns: 1fr 1fr; gap: 24px; } }
-  .frage { border-radius: 24px; padding: clamp(22px, 4vw, 36px); }
-  .frage h3 { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 14px; }
-  .frage__satz { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.25; margin: 0 0 20px; }
-  .frage__titel { margin: 0 0 8px; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; }
-  .frage ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .frage li { padding: 6px 14px; border-radius: 999px; font-weight: 600; }
-  .frage--andere { background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); color: var(--dark-soft); }
-  .frage--andere h3 { color: var(--dark-soft); }
-  .frage--andere li { border: 1px solid var(--dark-line); }
-  .frage--wir { background: var(--white); color: var(--ink); }
-  .frage--wir h3 { color: var(--accent-ink); }
-  .frage--wir li { background: rgb(0 166 161 / 16%); color: var(--accent-ink); }
-  :global(html.js) .frage--wir:not(.is-visible) li { opacity: 0; transform: translateY(8px); }
-  .frage--wir li { transition: opacity 500ms ease, transform 500ms ease; transition-delay: calc(0.5s + var(--i) * 0.2s); }
-  .frage.reveal { transition-delay: var(--d, 0ms); }
-
-  /* So arbeiten wir – tall + sticky nur mit JS */
-  .arbeiten { padding-block: clamp(44px, 9vw, 120px); }
-  .arbeiten--scroll { height: 300vh; padding-block: 0; }
-  .arbeiten--scroll .arbeiten__sticky { position: sticky; top: var(--header-h, 72px); min-height: calc(100svh - var(--header-h, 72px)); display: grid; align-items: center; padding-block: 24px; }
-  .arbeiten .head { margin-bottom: clamp(20px, 4vw, 48px); }
-  .arbeiten .head h2 { font-size: clamp(1.6rem, 4.4vw, 2.8rem); max-width: 22ch; margin-inline: auto; }
-  .kreise { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; max-width: 1000px; margin-inline: auto; position: relative; }
-  @media (min-width: 860px) { .kreise { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
-  .kreis { display: grid; justify-items: center; text-align: center; gap: 8px; }
-  .kreis__ring { display: grid; place-items: center; width: clamp(84px, 22vw, 132px); aspect-ratio: 1; border-radius: 50%; border: 3px solid var(--line); background: var(--white); color: #8a857b; transition: background 500ms ease, border-color 500ms ease, color 500ms ease, transform 500ms ease, box-shadow 500ms ease; }
-  .kreis h3 { margin: 6px 0 0; font-size: clamp(1.05rem, 2.6vw, 1.3rem); transition: color 400ms ease; }
-  .kreis p { margin: 0; font-size: 0.95rem; line-height: 1.45; color: var(--ink-soft); max-width: 22ch; }
-  .arbeiten--scroll .kreis:not(.is-active) { opacity: 0.45; }
-  .arbeiten--scroll .kreis { transition: opacity 500ms ease; }
-  .arbeiten--scroll .kreis.is-active .kreis__ring, .arbeiten:not(.arbeiten--scroll) .kreis .kreis__ring { background: var(--accent); border-color: var(--accent); color: var(--ink); box-shadow: 0 0 0 10px rgb(0 166 161 / 16%); }
-  .arbeiten--scroll .kreis.is-active .kreis__ring { transform: scale(1.06); }
-
-  /* Zukunft */
-  .zukunft { background: var(--paper-2); }
-  .zukunft__grid { display: grid; gap: 24px; align-items: center; }
-  @media (min-width: 900px) { .zukunft__grid { grid-template-columns: 1fr 1fr; gap: 48px; } }
-  .zukunft .head { margin-bottom: 0; }
-  .baum { width: min(100%, 460px); margin-inline: auto; }
-  .baum svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .baum__linie { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 0; fill: none; }
-  .baum__ast circle { fill: var(--paper); stroke: #a9a395; stroke-width: 2; stroke-dasharray: 5 6; }
-  .baum__ast text { font-family: var(--font-head); font-weight: 700; font-size: 15px; fill: #6f6b62; }
-  .baum__ast text.klein { font-size: 12px; font-weight: 600; }
-  .baum__kern circle { fill: var(--accent); }
-  .baum__kern text { font-family: var(--font-head); font-weight: 700; font-size: 18px; fill: var(--ink); }
-  :global(html.js) .baum:not(.is-visible) .baum__linie { stroke-dashoffset: 1; }
-  :global(html.js) .baum:not(.is-visible) .baum__ast { opacity: 0; transform: scale(0.6); }
-  .baum__linie { transition: stroke-dashoffset 900ms ease; transition-delay: calc(0.5s + var(--i) * 0.3s); }
-  .baum__ast { transition: opacity 600ms ease, transform 600ms ease; transition-delay: calc(0.9s + var(--i) * 0.3s); transform-box: fill-box; transform-origin: center; }
-  .baum.is-visible .baum__ast circle { animation: gestrichelt 18s linear infinite; }
-  @keyframes gestrichelt { to { stroke-dashoffset: -110; } }
-
-  /* Abschluss */
-  .abschluss { position: relative; overflow: hidden; background: var(--dark); color: var(--white); padding-block: clamp(72px, 16vw, 200px); text-align: center; }
-  .abschluss__bg { position: absolute; inset: 0; pointer-events: none; }
-  .abschluss__bg i { position: absolute; border-radius: 50%; width: min(80vw, 700px); aspect-ratio: 1; background: radial-gradient(closest-side, rgb(0 166 161 / 30%), transparent); will-change: transform; }
-  .abschluss__bg i:nth-child(1) { left: -20%; top: -30%; animation: drift2 26s ease-in-out infinite alternate; }
-  .abschluss__bg i:nth-child(2) { right: -20%; bottom: -35%; animation: drift1 30s ease-in-out infinite alternate; }
-  .abschluss__inner { position: relative; }
-  .abschluss h2 { color: var(--white); font-size: clamp(1.9rem, 5.2vw, 3.8rem); line-height: 1.12; letter-spacing: -0.02em; max-width: 18ch; margin-inline: auto; }
+  /* 8 ABSCHLUSS */
+  .abschluss { background: var(--dark); color: var(--white); padding-block: clamp(64px, 12vw, 140px); text-align: center; }
+  .abschluss h2 { color: var(--white); font-size: clamp(2rem, 6vw, 4.2rem); line-height: 1.08; letter-spacing: -0.025em; max-width: 21ch; margin-inline: auto; }
   .abschluss .accent { color: var(--accent); }
-  .abschluss__sub { font-size: clamp(1.1rem, 2.4vw, 1.5rem); color: var(--dark-lead); line-height: 1.4; margin: 28px 0 32px; }
+  .abschluss__sub { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--dark-lead); line-height: 1.5; max-width: 44ch; margin: 22px auto 30px; }
+  .abschluss__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; }
+  .abschluss .btn--ghost { color: var(--white); }
   .reveal { transition-delay: var(--d, 0ms); }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__bg i, .abschluss__bg i, .hero__scroll, .node--warten .node__kreis::after, .baum__ast circle { animation: none !important; }
-    .frage--wir li, .karte { transition: none !important; opacity: 1 !important; transform: none !important; }
-    .kette::before, .node, .baum__linie, .baum__ast { transition: none !important; animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+    .demo__status li, .demo__status li .dot { animation: none !important; }
+    .demo__status li .dot { background: var(--accent); }
+    .schritte::before { animation: none !important; transform: none !important; }
+    .rm li { transition: none !important; }
   }
 </style>

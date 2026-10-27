@@ -3,7 +3,7 @@
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
 import { company, faqs, isMissing, WAAS, INKLUSIVE, MODELL, OFFER, PAKETE, formatEuro } from '../config/site';
-import { HERO, UEBER, SLA_KERN, SLA_HINWEIS, PRODUKTE, PRODUKTE_HINWEIS } from '../config/hauptseite';
+import { HERO, UEBER, SLA_KERN, SLA_HINWEIS } from '../config/hauptseite';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -31,12 +31,9 @@ export const GET: APIRoute = ({ site }) => {
     ...SLA_KERN.filter((z) => !z.wert.includes(PLATZHALTER)).map((z) => `- ${z.label}: ${z.wert}. ${z.text}`),
     `- ${SLA_HINWEIS}`,
     '',
-    '## Produkte',
-    ...PRODUKTE.map((p) => [
-      `- ${p.name}${p.slogan ? ` – ${p.slogan.replace(/[.:]+$/, '')}` : ''}: ${p.text}`,
-      ...(p.bausteine ? [`  - Bausteine: ${p.bausteine.map((b) => b.label).join(', ')} (${p.bausteineHinweis ?? 'einzeln buchbar'}).`] : []),
-    ]).flat(),
-    `- ${PRODUKTE_HINWEIS}`,
+    '## Services',
+    '- Website Service (aktiv): Wir betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.',
+    '- Software Service, Cloud Service, Workplace Service, Process Service: bald verfügbar. Weitere Angebote folgen.',
     '',
     '## Häufige Fragen',
     ...faqs.map((f) => `- ${f.q} ${f.a}`),

@@ -6,9 +6,9 @@ import type { IconName } from './site';
 
 export const HERO = {
   eyebrow: 'waybuild IT',
-  pre: 'Digitale Lösungen. ',
-  accent: 'Verlässlich betreut.',
-  lead: 'Wir entwickeln digitale Produkte für Unternehmen – und stehen mit festen Service-Zusagen dahinter.',
+  pre: 'Wir machen Veränderungen ',
+  accent: 'einfach.',
+  lead: 'Wir betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zu einem festen Monatspreis.',
 };
 
 /** „Wofür wir stehen“ – ein Wort, eine Kernzeile (lead) und 2–3 Sätze, was das konkret für Kunden heißt.
@@ -145,7 +145,7 @@ export const PRODUKTE_HINWEIS = 'Weitere Produkte folgen in Kürze.';
 
 /** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
 export const UEBER = {
-  text: 'waybuild IT ist die IT-Marke der Waybuild UG (haftungsbeschränkt). Wir verbinden persönliche Beratung mit moderner, KI-gestützter Technik – für kleine und mittlere Unternehmen.',
+  text: 'waybuild IT ist eine Marke der Waybuild UG (haftungsbeschränkt). Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner.',
   schritte: [
     { icon: 'users' as IconName, title: 'Menschliche Beratung' },
     { icon: 'bot' as IconName, title: 'KI-gestützte Umsetzung' },
