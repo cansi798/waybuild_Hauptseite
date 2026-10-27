@@ -1,0 +1,77 @@
+---
+// „Unsere Produkte“ als Wegweiser (Dachmarke, Jamil Talk 3475): jedes Produkt eine Karte mit eigenem Namen,
+// Ein-Satz-Nutzen und Link zur Produktseite. Offene Namen erscheinen nur in der Vorschau als Platzhalter
+// (SHOW_HINTS); live steht dann die Kategorie. Produkte „bald“ ohne Link, zurückhaltend.
+import Icon from './Icon.astro';
+import Hint from './Hint.astro';
+import { href } from '../lib/paths';
+import { isMissing, SHOW_HINTS } from '../config/site';
+import { PRODUKTE } from '../config/hauptseite';
+
+const aktiv = PRODUKTE.filter((p) => p.aktiv);
+const bald = PRODUKTE.filter((p) => !p.aktiv);
+const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: true } : { href: href(p.pfad ?? '/'), extern: false });
+const platzhalter = (p: (typeof PRODUKTE)[number]) => `[Produktname ${p.kategorie.replace(' Service', '')}]`;
+---
+
+<div class="produkte">
+  {aktiv.map((p) => {
+    const z = ziel(p);
+    return (
+      <article class="produkt reveal">
+        <span class="produkt__icon" aria-hidden="true"><Icon name={p.icon} size={28} /></span>
+        <div class="produkt__body">
+          <span class="produkt__status">Verfügbar</span>
+          <h3>
+            {isMissing(p.name) ? (SHOW_HINTS ? <mark class="platzhalter">{platzhalter(p)}</mark> : p.kategorie) : p.name}
+          </h3>
+          {(!isMissing(p.name) || SHOW_HINTS) && !p.name.includes(p.kategorie) && <p class="produkt__kategorie">{p.kategorie}</p>}
+          {p.nutzen && <p class="produkt__nutzen">{p.nutzen}</p>}
+          <a class="btn btn--primary" href={z.href} {...(z.extern ? { target: '_blank', rel: 'noopener' } : {})}>
+            Zur Produktseite <Icon name="arrow" size={18} />{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
+          </a>
+          {isMissing(p.name) && <Hint block label="Produktname" where="src/config/hauptseite.ts → PRODUKTE" />}
+          {!p.url && (
+            <Hint block label="Adresse der Produkt-Website" where="src/config/hauptseite.ts → PRODUKTE → url">
+              {' '}– bis dahin führt der Link auf die Übergangsseite /angebot/. Die alte Produktseite waybuild_website zeigt noch Telefon-/WhatsApp-Platzhalter.
+            </Hint>
+          )}
+        </div>
+      </article>
+    );
+  })}
+  <ul class="bald" aria-label="Weitere Produkte, bald verfügbar">
+    {bald.map((p) => (
+      <li>
+        <span class="bald__icon" aria-hidden="true"><Icon name={p.icon} size={22} /></span>
+        <span class="bald__text">
+          <em>Bald</em>
+          <strong>{isMissing(p.name) ? p.kategorie : p.name}</strong>
+          {isMissing(p.name) && SHOW_HINTS && <mark class="platzhalter platzhalter--klein">{platzhalter(p)}</mark>}
+        </span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .produkte { display: grid; gap: 20px; }
+  .produkt { display: grid; gap: 20px; background: var(--white); border: 2px solid var(--accent); border-radius: 20px; padding: clamp(22px, 3.5vw, 36px); box-shadow: var(--shadow); }
+  @media (min-width: 760px) { .produkt { grid-template-columns: auto 1fr; gap: 28px; } }
+  .produkt__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: var(--accent); color: var(--on-accent); }
+  .produkt__body { display: grid; gap: 8px; justify-items: start; }
+  .produkt__status { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
+  .produkt h3 { margin: 0; font-size: clamp(1.4rem, 3vw, 1.9rem); }
+  .produkt__kategorie { margin: 0; font-weight: 600; color: var(--ink-soft); }
+  .produkt__nutzen { margin: 4px 0 10px; color: var(--ink-soft); line-height: 1.6; max-width: 52ch; font-size: 1.05rem; }
+  .platzhalter { background: #ffe58a; color: var(--ink); padding: 0 8px; border-radius: 6px; }
+  .platzhalter--klein { font-size: 0.75rem; padding: 0 6px; font-weight: 600; justify-self: start; }
+  .bald { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 900px) { .bald { grid-template-columns: repeat(4, 1fr); } }
+  .bald li { display: flex; gap: 12px; align-items: center; padding: 16px; border-radius: 16px; border: 1.5px dashed #a8a191; background: transparent; }
+  .bald__icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgb(0 0 0 / 5%); color: #57534b; }
+  .bald__text { display: grid; gap: 2px; }
+  .bald em { font-style: normal; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6f6a60; }
+  .bald strong { font-family: var(--font-head); font-size: 0.98rem; color: #57534b; line-height: 1.25; }
+  @media (max-width: 420px) { .bald { grid-template-columns: 1fr; } }
+</style>

@@ -5,8 +5,9 @@ import { company, HOURS } from '../config/site';
 import Val from '../components/Val.astro';
 import Hint from '../components/Hint.astro';
 import { href } from '../lib/paths';
+import { PRODUKTE, produktName } from '../config/hauptseite';
 
-const interessen = [{ value: 'website service', label: 'Website Service' }];
+const interessen = PRODUKTE.filter((p) => p.aktiv).map((p) => ({ value: p.id === 'website' ? 'website service' : p.id, label: produktName(p) }));
 const websiteSlugs: string[] = [];
 
 // Versand über Web3Forms (kostenlos, ohne eigenen Server). Der Access-Key ist laut Anbieter öffentlich nutzbar.

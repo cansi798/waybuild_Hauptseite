@@ -4,12 +4,13 @@
 // ERSTER VORSCHLAG – Jamil passt Formulierungen an.
 import type { IconName } from './site';
 
-/** Startseiten-Hero (Leitbild „Der Weg“, 27.10.2026): roter Faden + in einem Satz, was wir heute konkret tun. */
+/** Startseiten-Hero (Leitbild „Der Weg“, 27.10.2026): roter Faden + in einem Satz, was Waybuild tut. */
 export const HERO = {
   eyebrow: 'Waybuild',
   pre: 'Wir machen Veränderungen ',
   accent: 'einfach.',
-  lead: 'Wir beginnen mit Websites: Wir bauen und betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zum festen Monatspreis.',
+  // Dachmarke (Talk 3475): gilt für alle Produkte; Websites als erstes Produkt
+  lead: 'Wir helfen Unternehmen, Veränderungen einfach umzusetzen – mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Wir beginnen mit Websites, weitere Produkte folgen.',
 };
 
 /** „Wofür wir stehen“ – ein Wort, eine Kernzeile (lead) und 2–3 Sätze, was das konkret für Kunden heißt.
@@ -72,6 +73,7 @@ export const SLA_KERN: { icon: IconName; label: string; wert: string; text: stri
   { icon: 'zap', label: 'Bearbeitungszeit', wert: 'Kleine Änderungen: [Wert einsetzen]', text: 'Oft schon in Minuten erledigt. Bei größeren Aufgaben nennen wir Ihnen vorher einen festen Fertigtermin.' },
 ];
 // „Alle Zusagen erhalten Sie schriftlich“ am 27.10.2026 entfernt: noch nicht belegt (Launch-Checkliste „Leistungsversprechen absichern“, Frage b an Jamil, Talk 3397).
+/** Gilt für alle Produkte (Jamil, Talk 3475). */
 export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).';
 
 /** Weitere feste Zusagen – Wortlaut aus der waybuild_website (Git-Historie) */
@@ -108,42 +110,53 @@ export const VERTRAUEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'unlock', title: 'Kein künstlicher Lock-in', text: 'Sie behalten die Kontrolle über Ihre Daten.' },
 ];
 
-/** Arbeitsname des Hauptprodukts (Jamil 20.10.2026, Talk 2609/2611) – VORLÄUFIG, finaler Name folgt.
- *  Nur hier ändern; Karte, Footer und Texte übernehmen ihn automatisch. */
-export const START_NAME = 'waybuild Start';
-
-/** Produkte */
-export const PRODUKTE: {
+/* ─────────────────────────────────────────────────────────────────────────────
+ * PRODUKTE der Dachmarke (Jamil 27.10.2026, Talk 3475): Die Hauptseite gilt für ganz Waybuild,
+ * jedes Produkt bekommt einen eigenen Namen und eine eigene Website.
+ * name: 'TODO' = Name noch offen → in der Vorschau als Platzhalter markiert, live wird die Kategorie gezeigt.
+ * url: Adresse der eigenen Produkt-Website (extern). Solange leer, führt der Link auf `pfad` (Übergangsseite).
+ * Hinweis: https://cansi798.github.io/waybuild_website/ existiert (Website as a Service), zeigt aber noch
+ * Telefon-/WhatsApp-Platzhalter (+49 151 00000000) – erst verlinken, wenn das entfernt ist.
+ * (Früherer Arbeitsname „waybuild Start“, Jamil 20.10.2026, Talk 2609/2611 – nicht mehr verwendet.)
+ * ───────────────────────────────────────────────────────────────────────────── */
+export type Produkt = {
+  id: string;
+  /** Eigener Produktname – 'TODO' bis Jamil ihn festlegt */
   name: string;
-  untertitel?: string;
-  slogan?: string;
-  text: string;
+  /** Was es ist (bleibt immer sichtbar) */
+  kategorie: string;
+  /** Ein Satz Nutzen – nur belegte Aussagen */
+  nutzen?: string;
   icon: IconName;
+  aktiv: boolean;
+  /** Externe Produkt-Website */
   url?: string;
-  bausteine?: { icon: IconName; label: string }[];
-  bausteineHinweis?: string;
-}[] = [
-  {
-    name: START_NAME,
-    slogan: 'Alles für Ihren Start. Aus einer Hand.',
-    text: 'Alles, was Ihr Unternehmen für einen professionellen Start braucht – aus einer Hand: Website, Logo, E-Mail-Signatur, Visitenkarten und Kleidung mit Ihrem Logo. Bei Bedarf auch Videos mit unserem Profi-Videografen und die Einrichtung Ihres Buchhaltungs-Tools. Sie buchen nur, was Sie brauchen – auch einzeln, z. B. nur die Website.',
-    icon: 'rocket',
-    url: 'https://cansi798.github.io/waybuild_website/',
-    bausteine: [
-      { icon: 'layout', label: 'Website' },
-      { icon: 'pen', label: 'Logo' },
-      { icon: 'mail', label: 'E-Mail-Signatur' },
-      { icon: 'idcard', label: 'Visitenkarten' },
-      { icon: 'shirt', label: 'Kleidung mit Logo' },
-      { icon: 'video', label: 'Video' },
-      { icon: 'euro', label: 'Buchhaltung einrichten' },
-    ],
-    bausteineHinweis: 'Einzeln oder als Paket',
-  },
+  /** Interne Übergangsseite, solange url fehlt */
+  pfad?: string;
+};
+
+/** Anzeigename: eigener Produktname oder (solange offen) die Kategorie */
+export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO') ? p.name : p.kategorie);
+
+export const PRODUKTE: Produkt[] = [
+  // name = ARBEITSNAME (Jamil 27.10.2026, Talk 3477: „Nenn es erstmal …“) – nur hier ändern, alle Seiten übernehmen ihn.
+  { id: 'website', name: 'Super Duper Website Service', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und immer aktuell. Änderungen schicken Sie per Sprachnachricht oder Text.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/' },
+  { id: 'software', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
+  { id: 'cloud', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
+  { id: 'workplace', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
+  { id: 'process', name: 'TODO', kategorie: 'Process Service', icon: 'layers', aktiv: false },
 ];
 
-/** Hinweis unter den Produkten (statt zwei leerer Platzhalter-Karten) */
-export const PRODUKTE_HINWEIS = 'Weitere Produkte folgen in Kürze.';
+/** Der Weg mit Waybuild – gilt für alle Produkte (Jamils Kette Idee → Verstehen → Umsetzen → Verbessern, Talk 3373). */
+/** Erstes Produkt (Website) – für /angebot/, Footer, llms.txt, JSON-LD */
+export const WEBSITE_PRODUKT = PRODUKTE[0];
+
+export const WEG: { titel: string; text: string; icon: IconName }[] = [
+  { titel: 'Idee', text: 'Sie erzählen uns, was Sie vorhaben – kostenlos und unverbindlich.', icon: 'chat' },
+  { titel: 'Verstehen', text: 'Wir klären gemeinsam, was Sie erreichen möchten.', icon: 'compass' },
+  { titel: 'Umsetzen', text: 'Wir setzen um. Sie prüfen und geben frei.', icon: 'zap' },
+  { titel: 'Verbessern', text: 'Wir bleiben dran: Änderungen per Sprachnachricht oder Text, Pflege im Hintergrund.', icon: 'refresh' },
+];
 
 /** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
 export const UEBER = {

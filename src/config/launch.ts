@@ -114,6 +114,13 @@ const manual: Todo[] = [
     priority: 'wichtig',
   },
   {
+    title: 'Produktnamen und Produkt-Websites',
+    detail: 'Erstes Produkt heißt vorläufig „Super Duper Website Service“ (Arbeitsname, Jamil 27.10.2026). Adresse der eigenen Produkt-Website fehlt – bis dahin führt die Produktkarte auf /angebot/. waybuild_website erst verlinken, wenn Telefon-/WhatsApp-Platzhalter entfernt sind. Namen für Software, Cloud, Workplace und Process Service fehlen.',
+    where: 'src/config/hauptseite.ts → PRODUKTE',
+    done: false,
+    priority: 'wichtig',
+  },
+  {
     title: 'Foto und Kurzvorstellung der Gründer',
     detail: 'Menschen kaufen von Menschen – ein echtes Foto auf „Über uns“ erhöht die Anfragen deutlich.',
     where: 'Startseite (src/pages/index.astro) – eigener Abschnitt, sobald Foto/Text vorliegen',

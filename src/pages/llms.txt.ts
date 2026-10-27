@@ -1,9 +1,9 @@
 // /llms.txt – kompakte Zusammenfassung für KI-Suchen (ChatGPT, Perplexity, Gemini …).
-// Wird beim Build aus der Konfiguration erzeugt, damit Angebot & Zusagen immer aktuell sind.
+// Dachmarke Waybuild (Jamil 27.10.2026, Talk 3475): erst was für ALLE Produkte gilt, dann die Produktliste.
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
-import { company, faqs, isMissing, WAAS, INKLUSIVE, MODELL, OFFER, PAKETE, formatEuro, steps } from '../config/site';
-import { HERO, UEBER, SLA_KERN, SLA_HINWEIS } from '../config/hauptseite';
+import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
+import { HERO, SLA_KERN, SLA_HINWEIS, ZUSAGEN, WEG, PRODUKTE, produktName } from '../config/hauptseite';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -13,37 +13,45 @@ export const GET: APIRoute = ({ site }) => {
   const adresse = [company.street, company.zip, company.city].some(isMissing)
     ? []
     : [`- Anschrift: ${company.legalName}, ${company.street}, ${company.zip} ${company.city}`];
+  const website = PRODUKTE[0];
+  const websiteName = produktName(website);
   const lines = [
     `# ${company.legalName}`,
     '',
-    `> ${HERO.pre.trim()} ${HERO.accent} ${HERO.lead} ${UEBER.text}`,
+    `> ${HERO.pre.trim()} ${HERO.accent} ${HERO.lead}`,
     '',
-    `Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B). ${company.slogan}`,
+    'Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Ablauf gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).',
     '',
-    `## Angebot: ${WAAS.name}`,
-    `${WAAS.claim} ${OFFER}`,
+    '## Für alle Produkte: Service-Zusagen',
+    // Zeilen mit Platzhalter bewusst weglassen – nur zugesagte Werte ausgeben.
+    ...SLA_KERN.filter((z) => !z.wert.includes(PLATZHALTER)).map((z) => `- ${z.label}: ${z.wert}. ${z.text}`),
+    ...ZUSAGEN.map((z) => `- ${z.title}. ${z.text}`),
+    `- ${SLA_HINWEIS}`,
+    '',
+    '## Für alle Produkte: So arbeiten wir',
+    ...WEG.map((w, i) => `${i + 1}. ${w.titel}: ${w.text}`),
+    '',
+    '## Produkte',
+    ...PRODUKTE.map((p) => p.aktiv
+      ? `- ${produktName(p)} (${p.kategorie}, verfügbar): ${p.nutzen ?? ''} Seite: ${p.url || url(p.pfad ?? '/')}`
+      : `- ${produktName(p)}: bald verfügbar.`),
+    '',
+    `## ${websiteName} (erstes Produkt)`,
+    `${WAAS.claim}`,
     `- Enthalten: ${INKLUSIVE.map((i) => i.title).join(', ')}.`,
     `- Geschäftsmodell: ${MODELL.join(', ')}.`,
     ...PAKETE.map((p) => `- ${p.name}: ${formatEuro(p.preis)} pro Monat, netto – ${p.kurz}. ${p.features.join(', ')}.`),
+    ...steps.map((s, i) => `- Schritt ${i + 1}, ${s.title}: ${s.text}`),
     '',
-    '## Service-Zusagen (SLAs)',
-    // Zeilen mit Platzhalter bewusst weglassen – nur zugesagte Werte ausgeben.
-    ...SLA_KERN.filter((z) => !z.wert.includes(PLATZHALTER)).map((z) => `- ${z.label}: ${z.wert}. ${z.text}`),
-    `- ${SLA_HINWEIS}`,
+    '## Häufige Fragen zu Waybuild',
+    ...faqsAllgemein.map((f) => `- ${f.q} ${f.a}`),
     '',
-    '## So arbeiten wir',
-    ...steps.map((s, i) => `${i + 1}. ${s.title}: ${s.text}`),
-    '',
-    '## Services',
-    '- Website Service (aktiv): Wir bauen und betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.',
-    '- Software Service, Cloud Service, Workplace Service, Process Service: bald verfügbar. Weitere Angebote folgen.',
-    '',
-    '## Häufige Fragen',
-    ...faqs.map((f) => `- ${f.q} ${f.a}`),
+    `## Häufige Fragen zum ${websiteName}`,
+    ...faqsWebsite.map((f) => `- ${f.q} ${f.a}`),
     '',
     '## Seiten',
     `- [Startseite](${url('/')})`,
-    `- [Angebot und Preise](${url('/angebot/')})`,
+    `- [${websiteName}](${website.url || url(website.pfad ?? '/')}): Preise und Details`,
     `- [Unsere Zusagen](${url('/zusagen/')}): Service-Zusagen, Ablauf einer Anfrage, Werte`,
     `- [Häufige Fragen](${url('/faq/')})`,
     `- [Kontakt](${url('/kontakt/')}): kostenloses Erstgespräch`,

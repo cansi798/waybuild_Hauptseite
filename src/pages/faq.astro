@@ -1,16 +1,18 @@
 ---
-// /faq/ im Leitbild „Der Weg“ (27.10.2026). FAQPage-Markup NUR hier (Quelle: faqs).
+// /faq/ im Leitbild „Der Weg“ (27.10.2026). Allgemeine Fragen der Dachmarke (faqsAllgemein); FAQPage-Markup NUR hier.
+// Fragen zum Website-Produkt stehen auf dessen Produktseite (/angebot/#fragen).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Faq from '../components/Faq.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { faqs } from '../config/site';
+import { faqsAllgemein as faqs } from '../config/site';
+import { WEBSITE_PRODUKT, produktName } from '../config/hauptseite';
 ---
 
 <BaseLayout
   title="Häufige Fragen"
-  description="Antworten auf häufige Fragen zum Website Service von Waybuild: Preise, Laufzeit, Ablauf, Eigentum an Website und Domain."
+  description="Antworten auf häufige Fragen zu Waybuild: was wir machen, unsere Zusagen für alle Produkte, Antwortzeiten, Erstgespräch und KI."
   breadcrumb={[{ name: 'Häufige Fragen', path: '/faq/' }]}
   schema={[{
     '@context': 'https://schema.org',
@@ -22,7 +24,7 @@ import { faqs } from '../config/site';
   <section class="section section--sand" id="faq" aria-label="Fragen und Antworten">
     <div class="wrap faq-wrap">
       <Faq items={faqs} />
-      <p class="faq-weiter"><a class="pfeil-link" href={href('/angebot/')}>Zum Angebot <Icon name="arrow" size={16} /></a></p>
+      <p class="faq-weiter"><a class="pfeil-link" href={href('/angebot/#fragen')}>Fragen zum {produktName(WEBSITE_PRODUKT)} (Preise, Laufzeit, Domain) <Icon name="arrow" size={16} /></a></p>
     </div>
   </section>
 </BaseLayout>

@@ -1,8 +1,10 @@
 ---
-// Startseite – Leitbild „Der Weg“ (27.10.2026, Jamil Talk 3467/3470; Grundlage 3373, 3378, 3395, 3401).
+// Startseite der DACHMARKE Waybuild – Leitbild „Der Weg“ (27.10.2026, Jamil Talk 3467/3470/3475; Grundlage 3373, 3378, 3395, 3401).
+// Alles hier (Zusagen, Werte, Ablauf) gilt für ALLE Produkte. Produkte haben eigene Namen und eigene Websites –
+// die Startseite ist ihr Wegweiser (Abschnitt „Unsere Produkte“). Preise/Pakete stehen nur auf der Produktseite.
 // Idee: Veränderungen scheitern selten an der Technik, sondern am Weg dorthin (E-Mails, Screenshots, Warten).
 // Waybuild baut diesen Weg gerade. Bildsprache: EINE Linie – verknotet = der übliche Weg, gerade = mit Waybuild.
-// Sie läuft durch die Seite: Hero → Weg mit Stationen (Ablauf) → Gründe → Website Service → Zukunft (gestrichelt) → Abschluss.
+// Aufbau: Hero → Der Weg (Ablauf) → Warum Waybuild → Zusammenarbeit (Ihr Teil / unser Teil) → Unsere Produkte → Fragen → Abschluss.
 // 10 s: Was macht Waybuild? (Hero-Satz)  30 s: Warum gerade Waybuild? (Weg + vier Gründe)
 // Bewegung nur zweimal und erklärend: die Hero-Linie entknotet sich einmal; die Weg-Linie zieht sich durch. Dazu sanftes Einblenden.
 // Ohne JS alles sichtbar, bei prefers-reduced-motion sofort Endzustand. Zahlen/Zusagen NUR aus src/config.
@@ -12,37 +14,30 @@ import SectionHead from '../components/SectionHead.astro';
 import Weg from '../components/Weg.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { company, HOURS, PAKETE, MODELL, steps, formatEuro, type IconName } from '../config/site';
-import { HERO, SLA_KERN } from '../config/hauptseite';
+import Produkte from '../components/Produkte.astro';
+import { company, HOURS, type IconName } from '../config/site';
+import { HERO, SLA_KERN, WEG } from '../config/hauptseite';
 
 const UMWEG = ['Idee', 'E-Mail', 'Warten', 'Missverständnis', 'Korrektur', 'Warten', 'Umsetzung'];
-const WEG = steps.map((s) => ({ titel: s.wort, text: s.kurz, icon: s.icon }));
 
 // Vier Gründe – nur belegte Aussagen (site.ts, hauptseite.ts). „schriftlich“ entfernt (nicht belegt, Launch-Checkliste).
-// Grund 03 nennt KI wie bisher – offene Entscheidung B (Talk 3469) unverändert.
+// Grund 03 nennt KI wie bisher – offene Entscheidung B (Talk 3469) unverändert. Alle Gründe gelten für alle Produkte (Talk 3475).
 const GRUENDE: { nr: string; title: string; text: string }[] = [
   { nr: '01', title: 'Eine Nachricht genügt.', text: 'Sprachnachricht oder Text – Sie sagen, was sich ändern soll. Kein Formular, keine Screenshots, keine Schleifen.' },
   { nr: '02', title: 'Feste Zusagen.', text: `${SLA_KERN[0].wert} bekommen Sie eine persönliche Antwort. Servicezeiten: ${HOURS}.` },
   { nr: '03', title: 'Menschlich beraten, schnell umgesetzt.', text: 'Ein fester Ansprechpartner, der zuhört und ohne Fachchinesisch erklärt. KI beschleunigt die Umsetzung – sie ersetzt keine guten Ideen.' },
-  { nr: '04', title: 'Klare Bedingungen.', text: 'Fester Monatspreis, keine Einrichtungskosten, keine versteckten Kosten. Website, Code und Domain gehören Ihnen.' },
+  { nr: '04', title: 'Klare Bedingungen.', text: 'Sie wissen vorher, was etwas kostet und was enthalten ist. Extras nur nach Absprache. Kein künstlicher Lock-in – Sie behalten die Kontrolle über Ihre Daten.' },
 ];
 
 const IHR_TEIL = ['Im Erstgespräch erzählen, was Sie vorhaben', 'Änderungen per Sprachnachricht oder Text schicken', 'Prüfen und freigeben'];
+// Gilt für alle Produkte – Belege: hauptseite.ts (WERTE, PROZESSE, ZUSAGEN).
 const UNSER_TEIL: { icon: IconName; text: string }[] = [
   { icon: 'compass', text: 'Persönliche Beratung' },
-  { icon: 'layout', text: 'Gestaltung und Aufbau Ihrer Website' },
-  { icon: 'server', text: 'Hosting, Domain und SSL' },
-  { icon: 'tools', text: 'Wartung, Updates und Backups' },
+  { icon: 'zap', text: 'Planung und Umsetzung' },
   { icon: 'pen', text: 'Ihre Änderungen umsetzen' },
+  { icon: 'tools', text: 'Wartung, Updates und Backups im Hintergrund' },
+  { icon: 'doc', text: 'Klare Abläufe – nichts geht verloren' },
   { icon: 'user', text: 'Ein fester Ansprechpartner' },
-];
-
-const ZUKUNFT = [
-  { titel: 'Website Service', marke: 'Heute', icon: 'layout' as IconName },
-  { titel: 'Software Service', marke: 'Bald', icon: 'code' as IconName },
-  { titel: 'Cloud Service', marke: 'Bald', icon: 'cloud' as IconName },
-  { titel: 'Workplace Service', marke: 'Bald', icon: 'users' as IconName },
-  { titel: 'Process Service', marke: 'Bald', icon: 'layers' as IconName },
 ];
 
 const FRAGEN = [
@@ -56,7 +51,7 @@ const FRAGEN = [
 
 <BaseLayout
   title="Wir machen Veränderungen einfach"
-  description="Waybuild baut und betreut Ihre Website und setzt Änderungen per Sprachnachricht oder Text um – mit festen Zusagen und festem Monatspreis."
+  description="Waybuild hilft Unternehmen, Veränderungen einfach umzusetzen: ein fester Ansprechpartner, feste Zusagen, klare Abläufe. Unser erstes Produkt: Websites."
 >
   <!-- 1 HERO: roter Faden, was wir tun, die Linie -->
   <section class="hero" aria-labelledby="hero-h">
@@ -70,7 +65,7 @@ const FRAGEN = [
           <p class="hero__was">{HERO.lead}</p>
           <div class="hero__cta">
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-            <a class="btn btn--ghost btn--lg" href={href('/#weg')}>So einfach geht es</a>
+            <a class="btn btn--ghost btn--lg" href={href('/#produkte')}>Unsere Produkte</a>
           </div>
         </div>
       </div>
@@ -119,7 +114,7 @@ const FRAGEN = [
   <section class="section weg-sec" id="weg" aria-labelledby="weg-h">
     <div class="wrap">
       <SectionHead eyebrow="Warum es uns gibt" pre="Nicht die Technik macht Veränderungen schwer. " accent="Sondern der Weg dorthin." ton="leise" id="weg-h"
-        text="Waybuild ist aus Frust entstanden: Eine einfache Änderung bedeutete Nachrichten, E-Mails, Screenshots, Missverständnisse und Wartezeiten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz." />
+        text="Waybuild ist aus Frust entstanden: Eine einfache Änderung bedeutete Nachrichten, E-Mails, Screenshots, Missverständnisse und Wartezeiten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz – bei jedem unserer Produkte." />
       <div class="weg-vergleich">
         <div class="weg-vergleich__alt reveal">
           <Weg art="umweg" label="Der übliche Weg" stationen={UMWEG.map((t) => ({ titel: t }))} />
@@ -148,11 +143,11 @@ const FRAGEN = [
     </div>
   </section>
 
-  <!-- 4 WAS WIR ANBIETEN: Website Service – Ihr Teil / unser Teil + Preise -->
-  <section class="section angebot" id="angebot" aria-labelledby="angebot-h">
+  <!-- 4 ZUSAMMENARBEIT: Ihr Teil / unser Teil – gilt für alle Produkte -->
+  <section class="section angebot" id="zusammenarbeit" aria-labelledby="zusammenarbeit-h">
     <div class="wrap">
-      <SectionHead eyebrow="Was wir heute anbieten" pre="Der Website Service. " accent="Ihr Teil ist klein." id="angebot-h"
-        text="Wir beginnen mit Websites: Ihre Website wird gebaut, betreut und bleibt aktuell. Sie kümmern sich um Ihr Geschäft – wir um den Rest." />
+      <SectionHead eyebrow="Bei allen unseren Produkten" pre="So arbeiten wir mit Ihnen. " accent="Ihr Teil ist klein." id="zusammenarbeit-h"
+        text="Sie kümmern sich um Ihr Geschäft – wir um den Rest." />
       <div class="teile">
         <div class="teil teil--ihr reveal">
           <h3>Ihr Teil</h3>
@@ -175,37 +170,15 @@ const FRAGEN = [
           </ul>
         </div>
       </div>
-
-      <div class="preise reveal">
-        <div class="preise__kopf">
-          <h3>Ein fester Monatspreis</h3>
-          <ul class="preise__modell">
-            {MODELL.filter((m) => !/Fester Monatspreis/.test(m)).map((m) => <li><Icon name="check" size={16} />{m}</li>)}
-          </ul>
-        </div>
-        <ul class="preise__liste">
-          {PAKETE.map((p) => (
-            <li class:list={{ 'preise__top': p.empfohlen }}>
-              <strong>{p.name}</strong>
-              <span>{p.kurz}</span>
-              <p><b>{formatEuro(p.preis)}</b> <small>pro Monat, netto</small></p>
-            </li>
-          ))}
-        </ul>
-        <div class="preise__cta">
-          <a class="btn btn--primary" href={href('/kontakt/')}>Erstgespräch anfragen</a>
-          <a class="btn btn--ghost" href={href('/angebot/')}>Alle Details zum Angebot</a>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- 5 ZUKUNFT: der Weg geht weiter (zurückhaltend) -->
-  <section class="section section--sand zukunft" id="zukunft" aria-labelledby="zukunft-h">
+  <!-- 5 UNSERE PRODUKTE: Wegweiser zu den Produkt-Websites -->
+  <section class="section section--sand" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
-      <SectionHead eyebrow="Wohin wir uns entwickeln" pre="Heute Websites. " accent="Der Weg geht weiter." id="zukunft-h"
-        text="Weitere Services folgen Schritt für Schritt – jeder mit einem echten Mehrwert für Sie und Ihr Unternehmen." />
-      <Weg art="zukunft" stationen={ZUKUNFT} />
+      <SectionHead eyebrow="Unsere Produkte" pre="Heute Websites. " accent="Der Weg geht weiter." id="produkte-h"
+        text="Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Unsere Zusagen gelten für alle." />
+      <Produkte />
     </div>
   </section>
 
@@ -307,22 +280,6 @@ const FRAGEN = [
   .beispiel__ende i { flex: none; width: 36px; height: 2px; background: var(--accent); position: relative; }
   .beispiel__ende i::after { content: ''; position: absolute; right: -4px; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
 
-  .preise { margin-top: 24px; display: grid; gap: 20px; padding: clamp(22px, 3.2vw, 32px); border-radius: 20px; background: var(--white); border: 1px solid var(--line); }
-  @media (min-width: 960px) { .preise { grid-template-columns: 1fr 1.3fr; align-items: center; column-gap: 40px; } .preise__cta { grid-column: 1 / -1; } }
-  .preise h3 { font-size: 1.35rem; margin: 0 0 12px; }
-  .preise__modell { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .preise__modell li { display: flex; gap: 8px; align-items: center; line-height: 1.4; color: var(--ink-soft); }
-  .preise__modell :global(.icon) { color: var(--accent-ink); flex: none; }
-  .preise__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  @media (min-width: 560px) { .preise__liste { grid-template-columns: 1fr 1fr; } }
-  .preise__liste li { display: grid; gap: 2px; padding: 18px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); }
-  .preise__top { border: 2px solid var(--accent) !important; }
-  .preise__liste strong { font-family: var(--font-head); font-size: 1.05rem; }
-  .preise__liste span { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.35; }
-  .preise__liste p { margin: 10px 0 0; }
-  .preise__liste b { font-family: var(--font-head); font-size: 2rem; line-height: 1; }
-  .preise__liste small { color: var(--ink-soft); font-size: 0.85rem; }
-  .preise__cta { display: flex; flex-wrap: wrap; gap: 10px; }
 
   /* 6 FRAGEN */
   .fragen { background: var(--white); }

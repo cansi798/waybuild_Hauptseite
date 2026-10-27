@@ -1,21 +1,31 @@
 ---
-// /angebot/ – Website Service im Leitbild „Der Weg“ (27.10.2026): gleiche Köpfe, Karten, Linie wie die Startseite.
-// Preise nur aus PAKETE, Ablauf aus steps (eine Quelle mit der Startseite).
+// /angebot/ – ÜBERGANGS-Produktseite des ersten Produkts (Website), bis es eine eigene Produkt-Website hat
+// (Dachmarke, Jamil Talk 3475/3477). Name aus hauptseite.ts → PRODUKTE (Arbeitsname). Preise nur aus PAKETE.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Weg from '../components/Weg.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
-import { WAAS, PAKETE, MODELL, INKLUSIVE, steps, formatEuro } from '../config/site';
+import Faq from '../components/Faq.astro';
+import Hint from '../components/Hint.astro';
+import { WAAS, PAKETE, MODELL, INKLUSIVE, steps, faqsWebsite, formatEuro } from '../config/site';
+import { WEBSITE_PRODUKT as P, produktName } from '../config/hauptseite';
+const NAME = produktName(P);
 ---
 
 <BaseLayout
-  title="Angebot: Website Service"
-  description="Der Website Service von Waybuild: Website, Hosting, Wartung und Betreuung zum festen Monatspreis – 79 € oder 139 € netto, ohne Einrichtungskosten."
-  breadcrumb={[{ name: 'Angebot', path: '/angebot/' }]}
+  title={NAME}
+  description={`${NAME} von Waybuild: Website, Hosting, Wartung und Betreuung zum festen Monatspreis – ${PAKETE.map((p) => formatEuro(p.preis)).join(' oder ')} netto, ohne Einrichtungskosten.`}
+  breadcrumb={[{ name: NAME, path: '/angebot/' }]}
 >
-  <PageHeader eyebrow="Angebot" title="Der Website Service." accent="Alles aus einer Hand." lead="Unser erster Service: Ihre Website – gebaut, betreut und immer aktuell. Zum festen Monatspreis." />
+  <PageHeader eyebrow="Unser erstes Produkt" title={`${NAME}.`} lead="Ihre Website – gebaut, betreut und immer aktuell. Zum festen Monatspreis. Unsere Zusagen gelten wie für alle Produkte von Waybuild.">
+    {!P.url && (
+      <Hint block label="Eigene Produkt-Website" where="src/config/hauptseite.ts → PRODUKTE → url">
+        {' '}– diese Seite ist der Übergang. Sobald die Adresse feststeht, führt die Produktkarte dorthin und die Inhalte ziehen um.
+      </Hint>
+    )}
+  </PageHeader>
 
   <section class="section section--sand" id="angebot" aria-labelledby="angebot-h">
     <div class="wrap">
@@ -56,8 +66,16 @@ import { WAAS, PAKETE, MODELL, INKLUSIVE, steps, formatEuro } from '../config/si
       <Weg art="gerade" stationen={steps.map((s) => ({ titel: s.title, marke: s.short, text: s.text, icon: s.icon }))} zeichnen nummern />
       <p class="ablauf__cta">
         <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-        <a class="pfeil-link" href={href('/faq/')}>Häufige Fragen zum Angebot <Icon name="arrow" size={16} /></a>
+        <a class="pfeil-link" href={href('/zusagen/')}>Unsere Zusagen <Icon name="arrow" size={16} /></a>
       </p>
+    </div>
+  </section>
+
+  <section class="section" id="fragen" aria-labelledby="fragen-h">
+    <div class="wrap">
+      <SectionHead eyebrow="Häufige Fragen" pre="Fragen zur Website. " accent="Kurz beantwortet." id="fragen-h" />
+      <div class="fragen"><Faq items={faqsWebsite} /></div>
+      <p class="fragen__mehr"><a class="pfeil-link" href={href('/faq/')}>Allgemeine Fragen zu Waybuild <Icon name="arrow" size={16} /></a></p>
     </div>
   </section>
 </BaseLayout>
@@ -86,5 +104,7 @@ import { WAAS, PAKETE, MODELL, INKLUSIVE, steps, formatEuro } from '../config/si
   .inklusive li { display: flex; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); font-weight: 600; }
   .inklusive__icon { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
 
+  .fragen { max-width: 820px; }
+  .fragen__mehr { margin: 24px 0 0; }
   .ablauf__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin: 40px 0 0; }
 </style>

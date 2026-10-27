@@ -1,5 +1,6 @@
 ---
 import { company } from '../config/site';
+import { PRODUKTE, produktName } from '../config/hauptseite';
 import { href } from '../lib/paths';
 import Logo from './Logo.astro';
 import FooterKontakt from './FooterKontakt.astro';
@@ -17,14 +18,12 @@ const { kontakt = true } = Astro.props;
       <p class="footer__claim">Wir machen Veränderungen einfach.</p>
       <p class="footer__adr">{company.legalName}<br />{company.street}, {company.zip} {company.city}<br /><a href={`mailto:${company.email}`}>{company.email}</a></p>
     </div>
-    <nav aria-label="Services">
-      <h2 class="footer__h">Services</h2>
+    <nav aria-label="Produkte">
+      <h2 class="footer__h">Produkte</h2>
       <ul>
-        <li><a href={href('/angebot/')}>Website Service</a></li>
-        <li><span class="footer__soon">Software Service · bald</span></li>
-        <li><span class="footer__soon">Cloud Service · bald</span></li>
-        <li><span class="footer__soon">Workplace Service · bald</span></li>
-        <li><span class="footer__soon">Process Service · bald</span></li>
+        {PRODUKTE.map((p) => p.aktiv
+          ? <li><a href={p.url || href(p.pfad ?? '/')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>
+          : <li><span class="footer__soon">{produktName(p)} · bald</span></li>)}
       </ul>
     </nav>
     <div>
@@ -32,7 +31,6 @@ const { kontakt = true } = Astro.props;
       <ul>
         <li><a href={href('/#weg')}>So arbeiten wir</a></li>
         <li><a href={href('/#warum')}>Warum Waybuild</a></li>
-        <li><a href={href('/angebot/')}>Angebot &amp; Preise</a></li>
         <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
         <li><a href={href('/zusagen/#ticketsystem')}>So läuft eine Anfrage</a></li>
         <li><a href={href('/zusagen/#werte')}>Unsere Werte</a></li>

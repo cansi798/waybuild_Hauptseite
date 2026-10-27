@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import StickyBar from '../components/StickyBar.astro';
 import { company, isMissing, SHOW_HINTS } from '../config/site';
+import { PRODUKTE, produktName } from '../config/hauptseite';
 import { launchTodos } from '../config/launch';
 import { href, absolute } from '../lib/paths';
 import { IS_PREVIEW } from '../lib/env';
@@ -44,6 +45,11 @@ const organization = {
   ...(company.sameAs.length ? { sameAs: company.sameAs } : {}),
   ...(hasAddress ? { priceRange: '€€', areaServed: { '@type': 'Country', name: 'Deutschland' } } : {}),
   email: company.email,
+  // Dachmarke: nur verfügbare Produkte als Angebot melden (Name = Arbeitsname aus der Config, keine Preise hier)
+  makesOffer: PRODUKTE.filter((p) => p.aktiv).map((p) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: produktName(p), serviceType: p.kategorie, url: p.url || absolute(p.pfad ?? '/', Astro.site) },
+  })),
   // Platzhalter-Nummer nie an Google melden
   // Adresse erst ausgeben, wenn sie vollständig ist – nie Platzhalter an Google melden
   ...(!hasAddress
