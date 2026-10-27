@@ -135,10 +135,11 @@ img { max-width: 100%; height: auto; display: block; }
 .section--dark .accent, .section--dark .eyebrow { color: var(--accent-light); }
 .section--dark h2, .section--dark h3 { color: var(--white); }
 .section--sand { background: var(--paper-2); }
-/* Wegmarke: kleiner Punkt + Linie vor jeder Eyebrow – das Leitbild „Der Weg“ im Kleinen */
+/* Wegmarke: ein türkiser Punkt vor jeder Eyebrow – das Leitbild „Der Weg“ im Kleinen */
 .eyebrow--weg { display: inline-flex; align-items: center; gap: 10px; }
-.eyebrow--weg::before { content: ''; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 14px 0 0 -4px var(--accent), 24px 0 0 -4px var(--accent); margin-right: 22px; }
-.section--dark .eyebrow--weg::before { background: var(--accent-light); box-shadow: 14px 0 0 -4px var(--accent-light), 24px 0 0 -4px var(--accent-light); }
+/* Nur ein Punkt, etwas kleiner als vorher (Jamil 27.10.2026, Talk 3513) – gilt für alle Seiten */
+.eyebrow--weg::before { content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.section--dark .eyebrow--weg::before { background: var(--accent-light); }
 /* Gemeinsame Abschnitts-Köpfe (SectionHead) */
 .section-head h2, .section-head h1 { font-size: clamp(1.85rem, 4.4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
 .section-head .lead { margin-top: 14px; margin-bottom: 0; }
