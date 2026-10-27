@@ -139,7 +139,7 @@ export const MODELL = [
   'Kein künstlicher Lock-in',
 ];
 
-/** Ablauf beim Website Service in vier Schritten (/angebot/). Der allgemeine Weg für alle Produkte: hauptseite.ts → WEG.
+/** Ablauf beim Website Service in vier Schritten (/angebot/). Die allgemeine Haltung für alle Produkte: hauptseite.ts → HALTUNG.
  *  27.10.2026: Fachbegriffe (Customer Journey, Lead-Generierung) und „Rekordzeit“ ersetzt (Handwerksmeister-Test, Talk 3378). */
 export const steps: { icon: IconName; title: string; short: string; text: string }[] = [
   { icon: 'chat', title: 'Erstgespräch', short: 'Kostenlos, unverbindlich', text: 'Wir lernen Ihr Unternehmen kennen und hören zu, was sich verändern soll.' },

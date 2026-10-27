@@ -147,15 +147,17 @@ export const PRODUKTE: Produkt[] = [
   { id: 'process', name: 'TODO', kategorie: 'Process Service', icon: 'layers', aktiv: false },
 ];
 
-/** Der Weg mit Waybuild – gilt für alle Produkte (Jamils Kette Idee → Verstehen → Umsetzen → Verbessern, Talk 3373). */
 /** Erstes Produkt (Website) – für /angebot/, Footer, llms.txt, JSON-LD */
 export const WEBSITE_PRODUKT = PRODUKTE[0];
 
-export const WEG: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Idee', text: 'Sie erzählen uns, was Sie vorhaben – kostenlos und unverbindlich.', icon: 'chat' },
-  { titel: 'Verstehen', text: 'Wir klären gemeinsam, was Sie erreichen möchten.', icon: 'compass' },
-  { titel: 'Umsetzen', text: 'Wir setzen um. Sie prüfen und geben frei.', icon: 'zap' },
-  { titel: 'Verbessern', text: 'Wir bleiben dran: Änderungen per Sprachnachricht oder Text, Pflege im Hintergrund.', icon: 'refresh' },
+/** Unsere Haltung – gilt für alle Produkte. Überschriften wörtlich aus Jamils Strategiebriefing (Talk 3401: „Wir hören zu.
+ *  Wir denken mit. Wir mögen einfache Lösungen. Wir machen es nicht komplizierter als nötig.“), Sätze aus 3378/3401 und WERTE.
+ *  Ersetzt am 27.10.2026 die Ketten „Der übliche Weg / Der Weg mit Waybuild“ (Jamil, Talk 3519: zu speziell, zu ähnlich zur Hero-Linie). */
+export const HALTUNG: { titel: string; text: string; icon: IconName }[] = [
+  { titel: 'Wir hören zu.', text: 'Am Anfang steht nicht die Technik, sondern Ihre Frage: Was möchten Sie erreichen?', icon: 'chat' },
+  { titel: 'Wir denken mit.', text: 'Nicht jede Veränderung braucht neue Software. Wir klären gemeinsam, was Sie wirklich weiterbringt.', icon: 'compass' },
+  { titel: 'Wir mögen einfache Lösungen.', text: 'Klare Worte statt Fachchinesisch. Klare Abläufe statt Abstimmungsschleifen.', icon: 'check' },
+  { titel: 'Wir machen es nicht komplizierter als nötig.', text: 'Ein fester Ansprechpartner, ein fester Ablauf – und wir bleiben dran, auch nach dem Start.', icon: 'user' },
 ];
 
 /** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
