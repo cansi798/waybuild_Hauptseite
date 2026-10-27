@@ -1,25 +1,38 @@
 # Waybuild UG (haftungsbeschränkt)
 
-> Wir machen Veränderungen einfach. Wir helfen Unternehmen, Veränderungen einfach umzusetzen – mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Wir beginnen mit Websites, weitere Produkte folgen.
+> Wir machen Veränderungen einfach. Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner an ihrer Seite.
 
 Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Ablauf gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Spätestens am nächsten Werktag. Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.
 - Sie erreichen immer einen Menschen. Kein Callcenter, keine Warteschleife.
-- Eine Sprachnachricht genügt. Kein Formular, keine Screenshots.
+- Eine Nachricht genügt. Kein Formular nötig – melden Sie sich so, wie es für Sie am einfachsten ist.
 - Die Technik läuft – wir kümmern uns. Wartung, Updates und Backups im Hintergrund.
 - Keine Überraschungen auf der Rechnung. Extras nur nach schriftlicher Absprache.
 - Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).
 
 ## Für alle Produkte: Unsere Haltung
-- Wir hören zu. Am Anfang steht nicht die Technik, sondern Ihre Frage: Was möchten Sie erreichen?
-- Wir denken mit. Nicht jede Veränderung braucht neue Software. Wir klären gemeinsam, was Sie wirklich weiterbringt.
-- Wir mögen einfache Lösungen. Klare Worte statt Fachchinesisch. Klare Abläufe statt Abstimmungsschleifen.
-- Wir machen es nicht komplizierter als nötig. Ein fester Ansprechpartner, ein fester Ablauf – und wir bleiben dran, auch nach dem Start.
+- Wir hören zu. Erst verstehen, dann handeln.
+- Wir denken mit. Wir fragen nicht zuerst nach der Lösung, sondern danach, was Sie erreichen möchten.
+- Wir mögen einfache Lösungen. Wenn sich etwas verändern soll, sollte die Umsetzung nicht zum Problem werden.
+- Wir machen es nicht komplizierter als nötig. Klarheit, Struktur und gute Kommunikation – mehr braucht Veränderung oft nicht.
+
+## Unsere Qualitäten (was jede Veränderung braucht)
+- Klarheit: Sie wissen jederzeit, woran Sie sind.
+- Struktur: Feste Abläufe statt Zufall. Nichts hängt an einer einzelnen Person.
+- Verständnis: Sie sollen sich verstanden fühlen – nicht beeindruckt.
+- Gute Kommunikation: Klare Worte statt Fachchinesisch.
+- Ein verlässlicher Partner: Was wir zusagen, halten wir ein.
+
+## Zusammenarbeit
+- Ein fester Ansprechpartner: Eine Person, die Ihr Unternehmen kennt.
+- Verbindliche Zusagen: Feste Zusagen statt vager Versprechen.
+- Klare Abläufe: Jedes Anliegen geht denselben festen Weg.
+- Echter Mehrwert: Was wir anbieten, soll Ihnen und Ihrem Unternehmen etwas bringen.
 
 ## Produkte
-- Super Duper Website Service (Website Service, verfügbar): Ihre Website – gebaut, betreut und immer aktuell. Änderungen schicken Sie per Sprachnachricht oder Text. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
+- Super Duper Website Service (Website Service, verfügbar): Ihre Website – gebaut, betreut und jederzeit veränderbar. Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt. Jederzeit anpassbar, ganz entspannt: per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
 - Software Service: bald verfügbar.
 - Cloud Service: bald verfügbar.
 - Workplace Service: bald verfügbar.
