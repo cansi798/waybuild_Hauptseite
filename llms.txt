@@ -1,6 +1,6 @@
 # Waybuild UG (haftungsbeschränkt)
 
-> Digitale Lösungen. Verlässlich betreut. Wir entwickeln digitale Produkte für Unternehmen – und stehen mit festen Service-Zusagen dahinter. waybuild IT ist die IT-Marke der Waybuild UG (haftungsbeschränkt). Wir verbinden persönliche Beratung mit moderner, KI-gestützter Technik – für kleine und mittlere Unternehmen.
+> Wir machen Veränderungen einfach. Wir betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zu einem festen Monatspreis. waybuild IT ist eine Marke der Waybuild UG (haftungsbeschränkt). Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner.
 
 Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B). Wir machen Veränderungen einfach.
 
@@ -15,10 +15,9 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis. Website, Hosting, Domai
 - Reaktionszeit: Spätestens am nächsten Werktag. Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.
 - Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr. Alle Zusagen erhalten Sie schriftlich.
 
-## Produkte
-- waybuild Start – Alles für Ihren Start. Aus einer Hand: Alles, was Ihr Unternehmen für einen professionellen Start braucht – aus einer Hand: Website, Logo, E-Mail-Signatur, Visitenkarten und Kleidung mit Ihrem Logo. Bei Bedarf auch Videos mit unserem Profi-Videografen und die Einrichtung Ihres Buchhaltungs-Tools. Sie buchen nur, was Sie brauchen – auch einzeln, z. B. nur die Website.
-  - Bausteine: Website, Logo, E-Mail-Signatur, Visitenkarten, Kleidung mit Logo, Video, Buchhaltung einrichten (Einzeln oder als Paket).
-- Weitere Produkte folgen in Kürze.
+## Services
+- Website Service (aktiv): Wir betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.
+- Software Service, Cloud Service, Workplace Service, Process Service: bald verfügbar. Weitere Angebote folgen.
 
 ## Häufige Fragen
 - Was kostet eine Website bei waybuild? Website: 79 € im Monat. Intelligente Website: 139 € im Monat. Alle Preise netto zzgl. MwSt., ohne Einrichtungskosten und ohne versteckte Kosten.
