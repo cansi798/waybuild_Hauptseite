@@ -1,6 +1,6 @@
 # Waybuild UG (haftungsbeschränkt)
 
-> Wir machen Veränderungen einfach. Wir betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zu einem festen Monatspreis. waybuild IT ist eine Marke der Waybuild UG (haftungsbeschränkt). Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner.
+> Wir machen Veränderungen einfach. Wir beginnen mit Websites: Wir bauen und betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zum festen Monatspreis. waybuild IT ist eine Marke der Waybuild UG (haftungsbeschränkt). Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner.
 
 Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B). Wir machen Veränderungen einfach.
 
@@ -13,28 +13,34 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis. Website, Hosting, Domai
 
 ## Service-Zusagen (SLAs)
 - Reaktionszeit: Spätestens am nächsten Werktag. Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.
-- Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr. Alle Zusagen erhalten Sie schriftlich.
+- Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).
+
+## So arbeiten wir
+1. Erstgespräch: Wir lernen Ihr Unternehmen kennen und hören zu, was sich verändern soll.
+2. Verstehen & Planen: Wen möchten Sie erreichen? Was soll Ihre Website leisten? Wie wird aus einem Besucher eine Anfrage? Das klären wir gemeinsam.
+3. Umsetzen: Wir gestalten und bauen Ihre Website – mit KI-gestützten Werkzeugen geht das schnell. Sie prüfen, wir feilen, bis alles passt.
+4. Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text – wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
 
 ## Services
-- Website Service (aktiv): Wir betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.
+- Website Service (aktiv): Wir bauen und betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.
 - Software Service, Cloud Service, Workplace Service, Process Service: bald verfügbar. Weitere Angebote folgen.
 
 ## Häufige Fragen
-- Was kostet eine Website bei waybuild? Website: 79 € im Monat. Intelligente Website: 139 € im Monat. Alle Preise netto zzgl. MwSt., ohne Einrichtungskosten und ohne versteckte Kosten.
+- Was kostet eine Website bei Waybuild? Website: 79 € im Monat. Intelligente Website: 139 € im Monat. Alle Preise netto zzgl. MwSt., ohne Einrichtungskosten und ohne versteckte Kosten.
 - Was ist der Unterschied zwischen 79 € und 139 €? Die Website für 79 € ist Ihr professioneller Auftritt – wir pflegen und betreuen ihn. Die intelligente Website für 139 € macht zusätzlich mit: Sie wertet aus, woher Anfragen kommen und was Besucher interessiert, und passt Inhalte und Aufbau laufend daran an.
-- Was ist bei Website as a Service enthalten? Persönliche Beratung, KI-gestützte Erstellung, Hosting, Domainverwaltung, SSL, Wartung, Backups und laufende Betreuung – zu einem festen Monatspreis und ohne Einrichtungskosten.
+- Was ist beim Website Service enthalten? Persönliche Beratung, KI-gestützte Erstellung, Hosting, Domainverwaltung, SSL, Wartung, Backups und laufende Betreuung – zu einem festen Monatspreis und ohne Einrichtungskosten.
 - Wie lange läuft der Vertrag? Die Laufzeit beträgt 24 Monate. Wir möchten langfristiges Vertrauen aufbauen – keine künstliche Abhängigkeit.
 - Wie schnell ist meine Website online? Spätestens 14 Tage, nachdem Ihre Inhalte (Texte, Bilder, Logo) vorliegen. Auf Wunsch erarbeiten wir die Inhalte gemeinsam mit Ihnen.
 - Wem gehören Website, Code und Domain? Ihnen. Die Domain läuft auf Ihren Namen, Website und Code gehören Ihrem Unternehmen.
-- Welche Rolle spielt KI? KI ersetzt keine guten Ideen – sie beschleunigt die Umsetzung. Strategie, Positionierung und Inhalte erarbeiten wir persönlich mit Ihnen. Danach setzt unsere KI die Ergebnisse in Rekordzeit um.
+- Welche Rolle spielt KI? KI ersetzt keine guten Ideen – sie beschleunigt die Umsetzung. Ziele, Inhalte und Auftritt erarbeiten wir persönlich mit Ihnen. Danach helfen uns KI-gestützte Werkzeuge, die Ergebnisse schnell umzusetzen.
 - Kann ich meine bestehende Domain mitnehmen? Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall – sie bleibt auf Ihren Namen registriert.
-- Bietet waybuild auch Software, Cloud und IT an? Unser Angebot startet mit Website as a Service. Daraus entwickeln wir Schritt für Schritt eine digitale Unternehmensplattform. Individuelle Software, Nextcloud und IT-Betreuung setzen wir schon heute als individuelles Projekt um – auf Anfrage.
+- Bietet Waybuild auch Software, Cloud und IT an? Heute starten wir mit dem Website Service. Software, Cloud, Workplace und Process Service folgen Schritt für Schritt. Einzelne Projekte – etwa individuelle Software, Nextcloud oder IT-Betreuung – setzen wir schon heute auf Anfrage um.
 - Sind die Preise netto? Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Unser Angebot richtet sich ausschließlich an Unternehmen und Selbstständige (B2B).
 
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
 - [Angebot und Preise](https://cansi798.github.io/waybuild_Hauptseite/angebot/)
-- [Service-Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/)
+- [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Ablauf einer Anfrage, Werte
 - [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
 - [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
 - [Impressum](https://cansi798.github.io/waybuild_Hauptseite/impressum/)
