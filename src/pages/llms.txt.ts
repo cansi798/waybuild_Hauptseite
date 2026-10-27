@@ -2,7 +2,7 @@
 // Wird beim Build aus der Konfiguration erzeugt, damit Angebot & Zusagen immer aktuell sind.
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
-import { company, faqs, isMissing, WAAS, INKLUSIVE, MODELL, OFFER, PAKETE, formatEuro } from '../config/site';
+import { company, faqs, isMissing, WAAS, INKLUSIVE, MODELL, OFFER, PAKETE, formatEuro, steps } from '../config/site';
 import { HERO, UEBER, SLA_KERN, SLA_HINWEIS } from '../config/hauptseite';
 import { absolute } from '../lib/paths';
 
@@ -31,8 +31,11 @@ export const GET: APIRoute = ({ site }) => {
     ...SLA_KERN.filter((z) => !z.wert.includes(PLATZHALTER)).map((z) => `- ${z.label}: ${z.wert}. ${z.text}`),
     `- ${SLA_HINWEIS}`,
     '',
+    '## So arbeiten wir',
+    ...steps.map((s, i) => `${i + 1}. ${s.title}: ${s.text}`),
+    '',
     '## Services',
-    '- Website Service (aktiv): Wir betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.',
+    '- Website Service (aktiv): Wir bauen und betreuen Ihre Website und setzen Änderungen per Sprachnachricht oder Text um, zum festen Monatspreis.',
     '- Software Service, Cloud Service, Workplace Service, Process Service: bald verfügbar. Weitere Angebote folgen.',
     '',
     '## Häufige Fragen',
@@ -41,7 +44,7 @@ export const GET: APIRoute = ({ site }) => {
     '## Seiten',
     `- [Startseite](${url('/')})`,
     `- [Angebot und Preise](${url('/angebot/')})`,
-    `- [Service-Zusagen](${url('/zusagen/')})`,
+    `- [Unsere Zusagen](${url('/zusagen/')}): Service-Zusagen, Ablauf einer Anfrage, Werte`,
     `- [Häufige Fragen](${url('/faq/')})`,
     `- [Kontakt](${url('/kontakt/')}): kostenloses Erstgespräch`,
     `- [Impressum](${url('/impressum/')})`,

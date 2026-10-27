@@ -1,0 +1,109 @@
+---
+// „Der Weg“ – die Bildsprache der Seite (Leitbild 27.10.2026, Jamil Talk 3467/3470):
+// Stationen auf einer Linie. Drei Arten:
+//  - umweg:   der übliche Weg (graue Kette mit Umwegen, z. B. E-Mail → Warten → Missverständnis …)
+//  - gerade:  der Weg mit Waybuild (türkise Linie, Stationen mit Symbol, optional Text)
+//  - zukunft: heute aktiv (voller Punkt), danach gestrichelt „bald“
+// Bewegung (optional, zeichnen): die Linie zieht sich einmal von Station zu Station, sobald sie sichtbar wird.
+// Ohne JS und bei reduzierter Bewegung steht sofort der Endzustand.
+import Icon from './Icon.astro';
+import type { IconName } from '../config/site';
+
+export type Station = { titel: string; text?: string; icon?: IconName; marke?: string };
+interface Props {
+  stationen: Station[];
+  art?: 'umweg' | 'gerade' | 'zukunft';
+  label?: string;
+  zeichnen?: boolean;
+  nummern?: boolean;
+  /** dunkler Hintergrund */
+  dunkel?: boolean;
+  class?: string;
+}
+const { stationen, art = 'gerade', label, zeichnen = false, nummern = false, dunkel = false, class: cls } = Astro.props;
+const n = stationen.length;
+---
+
+<figure class:list={['weg', `weg--${art}`, { 'weg--dunkel': dunkel }, cls]} style={`--n:${n}`}>
+  {label && <figcaption class="weg__label">{label}</figcaption>}
+  {art === 'umweg' ? (
+    <ol class="weg__kette">
+      {stationen.map((s) => <li class:list={{ warten: /Warten/.test(s.titel) }}>{/Warten/.test(s.titel) && <Icon name="clock" size={15} />}{s.titel}</li>)}
+    </ol>
+  ) : (
+    <ol class:list={['weg__liste', { reveal: zeichnen, 'weg__liste--zeichnen': zeichnen }]}>
+      {stationen.map((s, i) => (
+        <li class:list={['weg__station', { 'weg__station--aktiv': art === 'zukunft' && i === 0, 'weg__station--bald': art === 'zukunft' && i > 0 }]} style={`--i:${i}`}>
+          <span class="weg__punkt" aria-hidden="true">
+            {s.icon ? <Icon name={s.icon} size={24} /> : null}
+            {nummern && <b>{i + 1}</b>}
+          </span>
+          <span class="weg__inhalt">
+            {s.marke && <em class="weg__marke">{s.marke}</em>}
+            <strong class="weg__titel">{s.titel}</strong>
+            {s.text && <span class="weg__text">{s.text}</span>}
+          </span>
+        </li>
+      ))}
+    </ol>
+  )}
+</figure>
+
+<style>
+  .weg { margin: 0; }
+  .weg__label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 16px; }
+  .weg--gerade .weg__label, .weg--zukunft .weg__label { color: var(--accent-ink); }
+  .weg--dunkel .weg__label { color: var(--accent-light); }
+
+  /* UMWEG: graue Kette, jede Station mit Pfeil zur nächsten */
+  .weg__kette { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 6px; align-items: center; }
+  .weg__kette li { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; border: 1.5px dashed #b4ad9f; color: #5f5a51; font-weight: 500; font-size: 0.97rem; background: var(--white); }
+  .weg__kette li:not(:last-child)::after { content: '→'; margin-left: 10px; margin-right: -2px; color: #9a9384; }
+  .weg__kette li.warten { background: #f3eee4; }
+  .weg__kette :global(.icon) { color: #8a6d2f; }
+
+  /* GERADE / ZUKUNFT: Stationen auf einer Linie – mobil senkrecht, ab 900 px waagerecht */
+  .weg__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; position: relative; }
+  /* Linie als Teilstück von Station zu Station (endet genau am letzten Punkt) */
+  .weg__station:not(:last-child)::before { content: ''; position: absolute; left: 27px; top: 28px; width: 2px; height: calc(100% + 22px); background: var(--accent); transform-origin: top; }
+  .weg--zukunft .weg__station:not(:last-child)::before { background: repeating-linear-gradient(180deg, #a8a191 0 6px, transparent 6px 12px); }
+  .weg--dunkel .weg__station:not(:last-child)::before { background: var(--accent-light); opacity: 0.6; }
+  .weg__station { position: relative; display: grid; grid-template-columns: 56px 1fr; column-gap: 18px; align-items: start; align-content: start; }
+  .weg__punkt { position: relative; z-index: 1; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--white); border: 2px solid var(--accent); color: var(--accent-ink); }
+  .weg__punkt b { position: absolute; right: -6px; top: -6px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-ink); color: var(--white); font-size: 0.75rem; display: grid; place-items: center; }
+  .weg--dunkel .weg__punkt { background: var(--dark); border-color: var(--accent-light); color: var(--accent-light); }
+  .weg__inhalt { display: grid; gap: 3px; padding-top: 6px; }
+  .weg__marke { font-style: normal; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .weg__titel { font-family: var(--font-head); font-size: 1.12rem; line-height: 1.3; }
+  .weg__text { color: var(--ink-soft); line-height: 1.55; }
+  .weg--dunkel .weg__titel { color: var(--white); }
+  .weg--dunkel .weg__text { color: var(--dark-lead); }
+
+  .weg__station--aktiv .weg__punkt { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 0 0 6px rgb(0 166 161 / 18%); }
+  .weg__station--bald .weg__punkt { border: 2px dashed #a8a191; color: #6f6a60; background: var(--paper-2); }
+  .weg__station--bald .weg__titel { color: #57534b; }
+  .weg__station--bald .weg__marke { color: #6f6a60; }
+
+  @media (min-width: 900px) {
+    .weg__liste { grid-template-columns: repeat(var(--n), 1fr); gap: 20px; }
+    .weg__station:not(:last-child)::before { left: 50%; top: 27px; width: calc(100% + 20px); height: 2px; transform-origin: left; }
+    .weg--zukunft .weg__station:not(:last-child)::before { background: repeating-linear-gradient(90deg, #a8a191 0 6px, transparent 6px 12px); }
+    .weg__station { grid-template-columns: 1fr; justify-items: center; text-align: center; row-gap: 12px; }
+    .weg__inhalt { padding-top: 0; justify-items: center; }
+    .weg__text { max-width: 26ch; }
+  }
+
+  /* Bewegung: Linie zieht sich einmal von Station zu Station, wenn sichtbar (nur mit JS) */
+  :global(html.js) .weg__liste--zeichnen.reveal { opacity: 1; transform: none; }
+  :global(html.js) .weg__liste--zeichnen:not(.is-visible) .weg__station::before { transform: scaleY(0); }
+  .weg__liste--zeichnen.is-visible .weg__station::before { animation: weg-v 0.5s cubic-bezier(.4,0,.2,1) both; animation-delay: calc(var(--i) * 0.45s); }
+  @keyframes weg-v { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @media (min-width: 900px) {
+    :global(html.js) .weg__liste--zeichnen:not(.is-visible) .weg__station::before { transform: scaleX(0); }
+    .weg__liste--zeichnen.is-visible .weg__station::before { animation-name: weg-h; }
+  }
+  @keyframes weg-h { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .weg__station::before { animation: none !important; transform: none !important; }
+  }
+</style>

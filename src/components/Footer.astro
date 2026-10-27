@@ -15,6 +15,7 @@ const { kontakt = true } = Astro.props;
     <div>
       <Logo />
       <p class="footer__claim">Wir machen Veränderungen einfach.</p>
+      <p class="footer__adr">{company.legalName}<br />{company.street}, {company.zip} {company.city}<br /><a href={`mailto:${company.email}`}>{company.email}</a></p>
     </div>
     <nav aria-label="Services">
       <h2 class="footer__h">Services</h2>
@@ -27,13 +28,13 @@ const { kontakt = true } = Astro.props;
       </ul>
     </nav>
     <div>
-      <h2 class="footer__h">waybuild IT</h2>
+      <h2 class="footer__h">Waybuild</h2>
       <ul>
-        <li><a href={href('/#warum')}>Warum waybuild</a></li>
+        <li><a href={href('/#weg')}>So arbeiten wir</a></li>
+        <li><a href={href('/#warum')}>Warum Waybuild</a></li>
         <li><a href={href('/angebot/')}>Angebot &amp; Preise</a></li>
-        <li><a href={href('/angebot/#ablauf')}>So starten wir</a></li>
         <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
-        <li><a href={href('/zusagen/#ticketsystem')}>Ticketsystem</a></li>
+        <li><a href={href('/zusagen/#ticketsystem')}>So läuft eine Anfrage</a></li>
         <li><a href={href('/zusagen/#werte')}>Unsere Werte</a></li>
         <li><a href={href('/faq/')}>Häufige Fragen</a></li>
         <li><a href={href('/kontakt/')}>Kontakt</a></li>
@@ -59,12 +60,14 @@ const { kontakt = true } = Astro.props;
   .footer__grid > :first-child { grid-column: 1 / -1; }
   @media (min-width: 900px) { .footer__grid { grid-template-columns: 1.6fr 1.2fr 1fr 1fr; gap: 36px; } .footer__grid > :first-child { grid-column: auto; } }
   .footer :global(.logo) { background: var(--white); border-radius: 12px; padding: 8px 12px; }
-  .footer__claim { color: var(--dark-soft); margin-top: 16px; max-width: 32ch; }
+  .footer__claim { color: var(--white); font-family: var(--font-head); font-weight: 650; margin: 16px 0 8px; max-width: 32ch; }
+  .footer__adr { color: var(--dark-soft); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+  .footer__adr a { color: var(--dark-lead); }
   .footer__h { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-soft); margin-bottom: 12px; }
   .footer ul { list-style: none; margin: 0; padding: 0; }
   .footer li a, .footer__soon { display: inline-block; padding: 6px 0; text-decoration: none; }
   .footer__soon { color: var(--dark-soft); }
-  .footer li a:hover { color: var(--accent); }
+  .footer li a:hover { color: var(--accent-light); }
   .footer__bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--dark-line); color: var(--dark-soft); }
   @media (max-width: 599px) { .footer__bottom { margin-top: 28px; } }
 </style>

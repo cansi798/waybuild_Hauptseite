@@ -87,14 +87,14 @@ const manual: Todo[] = [
   },
   {
     title: 'SLA-Wert für kleine Änderungen eintragen',
-    detail: 'Auf der Startseite ist die Bearbeitungszeit für kleine Änderungen noch als Platzhalter markiert („[Wert einsetzen]“). Wert von Jamil/Can eintragen – dann verschwindet die Markierung.',
+    detail: 'Auf /zusagen/ ist die Bearbeitungszeit für kleine Änderungen noch als Platzhalter markiert („[Wert einsetzen]“, nur in der Vorschau sichtbar; mit SHOW_HINTS = false wird die Karte ausgeblendet). Wert von Jamil/Can eintragen.',
     where: 'src/config/hauptseite.ts → SLA_KERN',
     done: false,
     priority: 'wichtig',
   },
   {
     title: 'Leistungsversprechen absichern',
-    detail: '„Live in 14 Tagen“, „Sprachgesteuerte Änderungen“, „KI-gestützte Erstellung“, die Service-Versprechen (u. a. „kleine Änderungen oft in Minuten online“, „Antwort spätestens am nächsten Werktag“) und die selbstoptimierende „Intelligente Website“ stehen auf der Website. Für die Auswertung von Besucherdaten Datenschutzerklärung/Einwilligung prüfen. Prozesse und Werkzeuge so aufsetzen, dass das eingehalten wird.',
+    detail: '„Live in 14 Tagen“, „Sprachgesteuerte Änderungen“, „KI-gestützte Erstellung“, die Service-Versprechen (u. a. „kleine Änderungen oft in Minuten online“, „Antwort spätestens am nächsten Werktag“, Ticketsystem auf /zusagen/; „schriftliche Zusagen“ wurde am 27.10.2026 bis zur Klärung entfernt) und die selbstoptimierende „Intelligente Website“ stehen auf der Website. Für die Auswertung von Besucherdaten Datenschutzerklärung/Einwilligung prüfen. Prozesse und Werkzeuge so aufsetzen, dass das eingehalten wird.',
     where: 'src/config/site.ts → INKLUSIVE, faqs',
     done: false,
     priority: 'wichtig',
@@ -116,7 +116,7 @@ const manual: Todo[] = [
   {
     title: 'Foto und Kurzvorstellung der Gründer',
     detail: 'Menschen kaufen von Menschen – ein echtes Foto auf „Über uns“ erhöht die Anfragen deutlich.',
-    where: 'src/pages/index.astro → Abschnitt „Über waybuild IT“ (#ueber)',
+    where: 'Startseite (src/pages/index.astro) – eigener Abschnitt, sobald Foto/Text vorliegen',
     done: false,
     priority: 'wichtig',
   },

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { company, isMissing, SHOW_HINTS } from '../config/site';
 import { href } from '../lib/paths';
 import Val from '../components/Val.astro';
@@ -7,9 +8,9 @@ import Hint from '../components/Hint.astro';
 ---
 
 <BaseLayout title="Impressum" description={`Impressum der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Impressum', path: '/impressum/' }]}>
-  <section class="section">
-    <div class="wrap prose">
-      <h1>Impressum</h1>
+  <PageHeader eyebrow="Rechtliches" title="Impressum" lead="Angaben zur Waybuild UG (haftungsbeschränkt)." />
+  <section class="section section--legal">
+    <div class="wrap"><div class="prose">
       {[company.street, company.managingDirector, company.registerNumber].some(isMissing) && (
         <Hint block label="Pflichtangaben im Impressum" where="src/config/site.ts → company">
           Ohne vollständiges Impressum drohen Abmahnungen. Bitte vor dem offiziellen Start ergänzen.
@@ -47,6 +48,6 @@ import Hint from '../components/Hint.astro';
         Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
         Verbraucherschlichtungsstelle teilzunehmen.
       </p>
-    </div>
+    </div></div>
   </section>
 </BaseLayout>

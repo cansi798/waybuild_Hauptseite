@@ -14,6 +14,8 @@
   --white: #ffffff;
   --accent: #00a6a1;  /* waybuild-IT-Türkis (Wunsch 10.10.2026, vorher Orange) */
   --accent-ink: #006b68;
+  --accent-light: #5fe0da; /* Türkis als Text auf dunklem Grund (Kontrast ≥ 4.5:1) */
+  --on-accent: #0b2a29;    /* Schrift auf Türkis-Flächen (Kontrast ≥ 4.5:1, vorher #3a3a3a = 3,8:1) */
   --line: #ddd6c9;
   --ok: #177049;
   --radius: 14px;
@@ -67,11 +69,11 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--accent-ink);
   margin-bottom: 0.9rem;
 }
-.section--dark .eyebrow { color: var(--accent); }
+.section--dark .eyebrow { color: var(--accent-light); }
 .lead { font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: var(--ink-soft); max-width: 60ch; }
 .section--dark .lead { color: var(--dark-lead); }
 .section-head { max-width: 720px; margin-bottom: clamp(22px, 5vw, 56px); }
-@media (max-width: 599px) { .section-head .lead { font-size: 1.02rem; } h2 { font-size: 1.75rem; } }
+@media (max-width: 599px) { .section-head .lead { font-size: 1.05rem; } }
 
 .btn {
   display: inline-flex;
@@ -89,7 +91,7 @@ img { max-width: 100%; height: auto; display: block; }
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
 .btn:hover { transform: translateY(-1px); }
-.btn--primary { background: var(--accent); color: var(--ink); }
+.btn--primary { background: var(--accent); color: var(--on-accent); }
 .btn--primary:hover { background: #1fbab5; }
 .btn--ghost { border-color: currentColor; background: transparent; }
 .btn--dark { background: var(--dark); color: var(--paper); }
@@ -109,13 +111,17 @@ img { max-width: 100%; height: auto; display: block; }
 .card {
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 20px;
   padding: clamp(22px, 3vw, 30px);
 }
 
 .prose { max-width: 72ch; }
 .prose h1 { font-size: clamp(2rem, 8vw, 4.4rem); hyphens: auto; overflow-wrap: break-word; }
-.prose h2 { font-size: 1.5rem; margin-top: 2em; overflow-wrap: break-word; }
+.prose h2 { font-size: 1.35rem; margin-top: 2em; overflow-wrap: break-word; }
+.prose > h2:first-child, .prose > .hint:first-child + h2 { margin-top: 0; }
+.prose p { line-height: 1.7; }
+.prose a { color: var(--accent-ink); font-weight: 600; }
+.section--legal { padding-block: clamp(36px, 6vw, 72px); background: var(--white); }
 .prose h3 { margin-top: 1.5em; }
 
 .sr-only {
@@ -126,10 +132,22 @@ img { max-width: 100%; height: auto; display: block; }
 /* ---------- Umbau nach Bauwelt-Muster (11.10.2026): Sektions-Köpfe, Häkchen, Slider, Reveal ---------- */
 :root { --header-h: 72px; --stickybar-h: 64px; }
 .accent { color: var(--accent-ink); }
-.section--dark .accent, .section--dark .eyebrow { color: var(--accent); }
+.section--dark .accent, .section--dark .eyebrow { color: var(--accent-light); }
 .section--dark h2, .section--dark h3 { color: var(--white); }
 .section--sand { background: var(--paper-2); }
-.rule::after { content: ''; display: block; width: 56px; height: 3px; border-radius: 2px; background: var(--accent); margin-top: 14px; }
+/* Wegmarke: kleiner Punkt + Linie vor jeder Eyebrow – das Leitbild „Der Weg“ im Kleinen */
+.eyebrow--weg { display: inline-flex; align-items: center; gap: 10px; }
+.eyebrow--weg::before { content: ''; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 14px 0 0 -4px var(--accent), 24px 0 0 -4px var(--accent); margin-right: 22px; }
+.section--dark .eyebrow--weg::before { background: var(--accent-light); box-shadow: 14px 0 0 -4px var(--accent-light), 24px 0 0 -4px var(--accent-light); }
+/* Gemeinsame Abschnitts-Köpfe (SectionHead) */
+.section-head h2, .section-head h1 { font-size: clamp(1.85rem, 4.4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
+.section-head .lead { margin-top: 14px; margin-bottom: 0; }
+.muted-head { color: #6f6a60; }
+.section--dark .muted-head { color: var(--dark-soft); }
+/* Text-Link mit Pfeil */
+.pfeil-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 650; color: var(--accent-ink); text-decoration: none; border-bottom: 2px solid transparent; }
+.pfeil-link:hover { border-bottom-color: currentColor; }
+.section--dark .pfeil-link { color: var(--accent-light); }
 .section-head.center { margin-inline: auto; text-align: center; }
 .section-head.center .rule::after, .section-head.center .lead { margin-inline: auto; }
 @media (max-width: 767px) {

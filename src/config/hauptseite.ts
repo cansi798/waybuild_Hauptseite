@@ -4,11 +4,12 @@
 // ERSTER VORSCHLAG – Jamil passt Formulierungen an.
 import type { IconName } from './site';
 
+/** Startseiten-Hero (Leitbild „Der Weg“, 27.10.2026): roter Faden + in einem Satz, was wir heute konkret tun. */
 export const HERO = {
-  eyebrow: 'waybuild IT',
+  eyebrow: 'Waybuild',
   pre: 'Wir machen Veränderungen ',
   accent: 'einfach.',
-  lead: 'Wir betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zu einem festen Monatspreis.',
+  lead: 'Wir beginnen mit Websites: Wir bauen und betreuen Ihre Website und setzen Änderungen für Sie um – per Sprachnachricht oder Text, zum festen Monatspreis.',
 };
 
 /** „Wofür wir stehen“ – ein Wort, eine Kernzeile (lead) und 2–3 Sätze, was das konkret für Kunden heißt.
@@ -18,13 +19,13 @@ export const WERTE: { icon: IconName; title: string; lead: string; text: string 
     icon: 'user',
     title: 'Persönlich',
     lead: 'Ein fester Ansprechpartner statt Hotline.',
-    text: 'Sie haben eine feste Person, die Ihr Unternehmen und Ihr Projekt kennt. Sie müssen nichts zweimal erklären und landen nie in einer Warteschleife. Ein Anruf oder eine Sprachnachricht genügt.',
+    text: 'Sie haben eine feste Person, die Ihr Unternehmen und Ihr Projekt kennt. Sie müssen nichts zweimal erklären und landen nie in einer Warteschleife. Eine Sprachnachricht oder kurze Nachricht genügt.',
   },
   {
     icon: 'shield',
     title: 'Verlässlich',
-    lead: 'Feste Zusagen – schriftlich.',
-    text: 'Was wir zusagen, halten wir ein – schwarz auf weiß. Sie bekommen spätestens am nächsten Werktag eine persönliche Antwort. Bei größeren Aufgaben sagen wir Ihnen vorher, wann sie fertig sind.',
+    lead: 'Feste Zusagen, klare Zeiten.',
+    text: 'Was wir zusagen, halten wir ein. Sie bekommen spätestens am nächsten Werktag eine persönliche Antwort. Bei größeren Aufgaben sagen wir Ihnen vorher, wann sie fertig sind.',
   },
   {
     icon: 'chat',
@@ -70,7 +71,8 @@ export const SLA_KERN: { icon: IconName; label: string; wert: string; text: stri
   { icon: 'clock', label: 'Reaktionszeit', wert: 'Spätestens am nächsten Werktag', text: 'Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.' },
   { icon: 'zap', label: 'Bearbeitungszeit', wert: 'Kleine Änderungen: [Wert einsetzen]', text: 'Oft schon in Minuten erledigt. Bei größeren Aufgaben nennen wir Ihnen vorher einen festen Fertigtermin.' },
 ];
-export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr. Alle Zusagen erhalten Sie schriftlich.';
+// „Alle Zusagen erhalten Sie schriftlich“ am 27.10.2026 entfernt: noch nicht belegt (Launch-Checkliste „Leistungsversprechen absichern“, Frage b an Jamil, Talk 3397).
+export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).';
 
 /** Weitere feste Zusagen – Wortlaut aus der waybuild_website (Git-Historie) */
 export const ZUSAGEN: { icon: IconName; title: string; text: string }[] = [
@@ -99,7 +101,7 @@ export const PROZESSE: { icon: IconName; title: string; text: string }[] = [
 /** Vertrauen – nur Aussagen, die bereits im Seiten-Quelltext stehen (keine Zertifikate, Kundenzahlen, Bewertungen). */
 export const VERTRAUEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'user', title: 'Fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.' },
-  { icon: 'doc', title: 'Schriftliche Service-Zusagen', text: 'Reaktions- und Bearbeitungszeiten schwarz auf weiß.' },
+  { icon: 'doc', title: 'Feste Service-Zusagen', text: 'Eine feste Reaktionszeit statt vager Versprechen.' },
   { icon: 'euro', title: 'Transparente Preise', text: 'Keine versteckten Kosten, Extras nur nach Absprache.' },
   { icon: 'server', title: 'Server in Deutschland', text: 'Unsere Lösungen laufen auf Servern in Deutschland.' },
   { icon: 'lock', title: 'DSGVO-konform', text: 'Auftragsverarbeitungs-Vertrag (AV-Vertrag) auf Anfrage.' },

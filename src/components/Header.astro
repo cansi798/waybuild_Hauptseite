@@ -1,5 +1,5 @@
 ---
-// Site-Header nach Bauwelt-Muster: Desktop-Dropdown-Navigation + CTA „Kontakt aufnehmen“,
+// Site-Header nach Bauwelt-Muster: Desktop-Dropdown-Navigation + CTA „Erstgespräch anfragen“,
 // mobil Burger → Vollbild-Menü (MobileMenu).
 import { href } from '../lib/paths';
 import { NAV } from '../config/nav';
@@ -13,7 +13,7 @@ const isCurrent = (path?: string) => path && current === href(path);
 
 <header class="hdr" id="siteHeader">
   <div class="wrap hdr__inner">
-    <a href={href('/')} class="hdr__logo" aria-label="waybuild – Startseite"><Logo /></a>
+    <a href={href('/')} class="hdr__logo" aria-label="Waybuild – zur Startseite"><Logo /></a>
 
     <nav class="hdr__nav" aria-label="Hauptnavigation">
       <ul>
@@ -73,7 +73,7 @@ const isCurrent = (path?: string) => path && current === href(path);
     </nav>
 
     <div class="hdr__actions">
-      <a class="btn btn--primary btn--sm hdr__cta" href={href('/kontakt/')}>Kontakt aufnehmen</a>
+      <a class="btn btn--primary btn--sm hdr__cta" href={href('/kontakt/')}>Erstgespräch anfragen</a>
       <button class="hdr__iconbtn hdr__burger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">
         <Icon name="menu" size={26} class="hdr__burger-open" />
         <Icon name="close" size={26} class="hdr__burger-close" />

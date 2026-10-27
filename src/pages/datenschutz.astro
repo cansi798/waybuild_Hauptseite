@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { company } from '../config/site';
 import { IS_PREVIEW } from '../lib/env';
 import Val from '../components/Val.astro';
@@ -8,9 +9,9 @@ import Hint from '../components/Hint.astro';
 ---
 
 <BaseLayout title="Datenschutzerklärung" description={`Datenschutzerklärung der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Datenschutz', path: '/datenschutz/' }]}>
-  <section class="section">
-    <div class="wrap prose">
-      <h1>Datenschutzerklärung</h1>
+  <PageHeader eyebrow="Rechtliches" title="Datenschutzerklärung" lead="So wenig Daten wie möglich: keine Cookies, kein Tracking." />
+  <section class="section section--legal">
+    <div class="wrap"><div class="prose">
       <Hint block label="Rechtliche Prüfung" where="src/pages/datenschutz.astro">
         Vorlage – vor dem Start prüfen lassen. Bei eigener Domain/eigenem Hoster muss Abschnitt 3 angepasst werden.
       </Hint>
@@ -73,6 +74,6 @@ import Hint from '../components/Hint.astro';
         Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht auf Beschwerde bei einer
         Datenschutz-Aufsichtsbehörde.
       </p>
-    </div>
+    </div></div>
   </section>
 </BaseLayout>

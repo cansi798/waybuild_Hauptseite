@@ -3,6 +3,7 @@
 > **Grundgerüst (19.10.2026):** 1:1-Kopie von [`waybuild_website`](https://github.com/cansi798/waybuild_website) (Stand 098019b) – wird Stück für Stück zur neuen waybuild-Hauptseite umgebaut.
 > **Umbau 1 (19.10.2026, Jamil):** Dach-Seite für waybuild IT – Werte, Service-Zusagen, Produkte, Über uns; Inhalte in [`src/config/hauptseite.ts`](src/config/hauptseite.ts). Produktseiten (Preise, Leistungen, Branchen, Ratgeber …) entfernt.
 > **Ausbau (26.10.2026):** Startseite um Abschnitte „Angebot“ (79/139 € aus `PAKETE`), „So starten wir“ (`steps`) und „Häufige Fragen“ (`faqs`, mit FAQPage-Markup) erweitert.
+> **Leitbild „Der Weg“ (27.10.2026, Jamil Talk 3467/3470):** Startseite und alle Unterseiten neu im selben Stil – eine Linie als Bildsprache (verknotet = der übliche Weg, gerade = mit Waybuild). Gemeinsame Bausteine: `SectionHead`, `PageHeader`, `Weg` (Stationen-Linie), `Faq`, `FooterKontakt` (Abschluss „Was möchten Sie verändern?“). Vorschaubild `public/og-image.png` neu (ohne Preis).
 > **Aufräumen (25.10.2026):** ungenutzte Alt-Komponenten/-Configs der waybuild_website entfernt; Launch-Checkliste (`/checkliste/`), AGB-Entwurf (`/agb/`) und `/llms.txt` ergänzt.
 
 Website der **Waybuild UG (haftungsbeschränkt)** – „Wir bauen keine Websites. Wir bauen digitale Unternehmensplattformen.“ Angebot: **Website as a Service** (B2B, KMU) in zwei Varianten – Website 79 € und Intelligente Website 139 € netto im Monat. Software, Cloud & IT und Beratung als Ausbaustufen auf Anfrage.

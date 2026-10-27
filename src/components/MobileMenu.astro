@@ -32,11 +32,11 @@ import Icon from './Icon.astro';
   </nav>
 
   <div class="mm__footer">
-    <a class="btn btn--primary btn--lg mm__cta" href={href('/kontakt/')}>Kontakt aufnehmen</a>
+    <a class="btn btn--primary btn--lg mm__cta" href={href('/kontakt/')}>Erstgespräch anfragen</a>
     <div class="mm__contact">
       <a class="btn btn--ghost" href={`mailto:${company.email}`}><Icon name="mail" size={20} /> {company.email}</a>
     </div>
-    <p class="mm__hours">{HOURS} · Antwort in einem Werktag</p>
+    <p class="mm__hours">{HOURS} · Antwort spätestens am nächsten Werktag</p>
   </div>
 </div>
 
@@ -65,7 +65,7 @@ import Icon from './Icon.astro';
   .mm__gh { padding: 12px 8px 2px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
   .mm__footer { display: grid; gap: 14px; margin-top: auto; }
   .mm__cta { width: 100%; }
-  .mm__contact { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mm__contact { display: grid; gap: 10px; }
   .mm__contact .btn { font-size: 0.92rem; padding-inline: 0.8em; }
   .mm__hours { text-align: center; margin: 0; font-size: 0.85rem; color: var(--ink-soft); }
 </style>

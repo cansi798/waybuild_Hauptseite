@@ -139,12 +139,14 @@ export const MODELL = [
   'Kein künstlicher Lock-in',
 ];
 
-/** Ablauf aus Kundensicht in vier Schritten (auch Grundlage der animierten Ablauf-Szene). */
-export const steps: { icon: IconName; title: string; short: string; text: string }[] = [
-  { icon: 'calendar', title: 'Erstgespräch', short: 'Kostenlos, unverbindlich', text: 'Wir lernen Ihr Unternehmen kennen und klären, was Ihre Website leisten soll.' },
-  { icon: 'chat', title: 'Beratung', short: 'Persönlich, mit Ihnen', text: 'Zielgruppen, Positionierung, Customer Journey, Vertrauensaufbau und Lead-Generierung – gemeinsam entwickelt.' },
-  { icon: 'spark', title: 'Umsetzung', short: 'Sie prüfen und geben frei', text: 'Unsere KI setzt die Ergebnisse in Rekordzeit um. Sie prüfen, wir feilen – bis alles passt.' },
-  { icon: 'chart', title: 'Live & betreut', short: 'Laufend verbessert', text: 'Ihre Website geht online. Wir betreuen, pflegen und entwickeln sie laufend weiter.' },
+/** Ablauf aus Kundensicht in vier Schritten – EINE Quelle für Startseite („Der Weg“) und /angebot/.
+ *  wort/kurz = Startseite (Jamils Kette Idee → Verstehen → Umsetzen → Verbessern, Talk 3373), title/short/text = /angebot/.
+ *  27.10.2026: Fachbegriffe (Customer Journey, Lead-Generierung) und „Rekordzeit“ ersetzt (Handwerksmeister-Test, Talk 3378). */
+export const steps: { icon: IconName; title: string; wort: string; short: string; kurz: string; text: string }[] = [
+  { icon: 'chat', title: 'Erstgespräch', wort: 'Idee', short: 'Kostenlos, unverbindlich', kurz: 'Sie erzählen uns, was Sie vorhaben – kostenlos und unverbindlich.', text: 'Wir lernen Ihr Unternehmen kennen und hören zu, was sich verändern soll.' },
+  { icon: 'compass', title: 'Verstehen & Planen', wort: 'Verstehen', short: 'Persönlich, mit Ihnen', kurz: 'Wir klären gemeinsam, was Sie erreichen möchten.', text: 'Wen möchten Sie erreichen? Was soll Ihre Website leisten? Wie wird aus einem Besucher eine Anfrage? Das klären wir gemeinsam.' },
+  { icon: 'zap', title: 'Umsetzen', wort: 'Umsetzen', short: 'Sie prüfen und geben frei', kurz: 'Wir setzen um. Sie prüfen und geben frei.', text: 'Wir gestalten und bauen Ihre Website – mit KI-gestützten Werkzeugen geht das schnell. Sie prüfen, wir feilen, bis alles passt.' },
+  { icon: 'refresh', title: 'Laufend betreut', wort: 'Verbessern', short: 'Immer aktuell', kurz: 'Änderungen per Sprache oder Text. Wartung und Updates laufen im Hintergrund.', text: 'Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text – wir setzen sie um und kümmern uns um Wartung, Updates und Backups.' },
 ];
 
 /** Gemeinsam in der Beratung erarbeitet. */
@@ -152,7 +154,7 @@ export const BERATUNG_THEMEN = ['Zielgruppen', 'Positionierung', 'Customer Journ
 
 export const faqs = [
   {
-    q: 'Was kostet eine Website bei waybuild?',
+    q: 'Was kostet eine Website bei Waybuild?',
     a: `${PAKETE.map((p) => `${p.name}: ${formatEuro(p.preis)} im Monat`).join('. ')}. Alle Preise netto zzgl. MwSt., ohne Einrichtungskosten und ohne versteckte Kosten.`,
   },
   {
@@ -161,7 +163,7 @@ export const faqs = [
       .replace('79 €', formatEuro(PAKETE[0].preis)).replace('139 €', formatEuro(PAKETE[1].preis)),
   },
   {
-    q: 'Was ist bei Website as a Service enthalten?',
+    q: 'Was ist beim Website Service enthalten?',
     a: 'Persönliche Beratung, KI-gestützte Erstellung, Hosting, Domainverwaltung, SSL, Wartung, Backups und laufende Betreuung – zu einem festen Monatspreis und ohne Einrichtungskosten.',
   },
   {
@@ -178,15 +180,16 @@ export const faqs = [
   },
   {
     q: 'Welche Rolle spielt KI?',
-    a: 'KI ersetzt keine guten Ideen – sie beschleunigt die Umsetzung. Strategie, Positionierung und Inhalte erarbeiten wir persönlich mit Ihnen. Danach setzt unsere KI die Ergebnisse in Rekordzeit um.',
+    a: 'KI ersetzt keine guten Ideen – sie beschleunigt die Umsetzung. Ziele, Inhalte und Auftritt erarbeiten wir persönlich mit Ihnen. Danach helfen uns KI-gestützte Werkzeuge, die Ergebnisse schnell umzusetzen.',
   },
   {
     q: 'Kann ich meine bestehende Domain mitnehmen?',
     a: 'Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall – sie bleibt auf Ihren Namen registriert.',
   },
   {
-    q: 'Bietet waybuild auch Software, Cloud und IT an?',
-    a: 'Unser Angebot startet mit Website as a Service. Daraus entwickeln wir Schritt für Schritt eine digitale Unternehmensplattform. Individuelle Software, Nextcloud und IT-Betreuung setzen wir schon heute als individuelles Projekt um – auf Anfrage.',
+    q: 'Bietet Waybuild auch Software, Cloud und IT an?',
+    // 27.10.2026: an die Startseite angeglichen (Software/Cloud/Workplace/Process Service „bald verfügbar“); Fakt „auf Anfrage“ (README, AGB § 2a) bleibt.
+    a: 'Heute starten wir mit dem Website Service. Software, Cloud, Workplace und Process Service folgen Schritt für Schritt. Einzelne Projekte – etwa individuelle Software, Nextcloud oder IT-Betreuung – setzen wir schon heute auf Anfrage um.',
   },
   {
     q: 'Sind die Preise netto?',

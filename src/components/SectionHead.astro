@@ -1,20 +1,24 @@
 ---
-// Sektions-Überschrift (Bauwelt-Muster): Eyebrow + Headline mit farbigem Akzentwort + kurzer Türkis-Linie.
+// Gemeinsamer Abschnitts-Kopf für alle Seiten (Leitbild „Der Weg“, 27.10.2026):
+// Eyebrow mit Wegmarke (Punkt + Linie) · Überschrift mit Akzent-Teil · optionaler Einleitungssatz.
 interface Props {
   eyebrow?: string;
   pre: string;
   accent?: string;
+  /** Akzent-Teil türkis (Standard) oder zurückgenommen grau */
+  ton?: 'akzent' | 'leise';
   text?: string;
   center?: boolean;
   centerMobile?: boolean;
   as?: 'h1' | 'h2';
   id?: string;
 }
-const { eyebrow, pre, accent = '', text, center = false, centerMobile = false, as: Tag = 'h2', id } = Astro.props;
+const { eyebrow, pre, accent = '', ton = 'akzent', text, center = false, centerMobile = false, as: Tag = 'h2', id } = Astro.props;
 ---
 
 <div class:list={['section-head', { center, 'center-mobile': centerMobile }]}>
-  {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-  <Tag class="rule" id={id}>{pre}{accent && <span class="accent">{accent}</span>}</Tag>
+  {eyebrow && <span class="eyebrow eyebrow--weg">{eyebrow}</span>}
+  <Tag id={id}>{pre}{accent && <span class={ton === 'akzent' ? 'accent' : 'muted-head'}>{accent}</span>}</Tag>
   {text && <p class="lead">{text}</p>}
+  <slot />
 </div>

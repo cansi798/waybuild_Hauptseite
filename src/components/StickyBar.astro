@@ -6,12 +6,12 @@ import { company } from '../config/site';
 import Icon from './Icon.astro';
 ---
 
-<div class="sticky-bar">
-  <a class="btn btn--primary btn--sm sticky-bar__btn" href={href('/kontakt/')}>Kontakt aufnehmen</a>
+<nav class="sticky-bar" aria-label="Schnellkontakt">
+  <a class="btn btn--primary btn--sm sticky-bar__btn" href={href('/kontakt/')}>Erstgespräch anfragen</a>
   <a class="btn btn--ghost btn--sm sticky-bar__btn sticky-bar__wa" href={`mailto:${company.email}`} aria-label="E-Mail schreiben">
     <Icon name="mail" size={18} /> E-Mail
   </a>
-</div>
+</nav>
 
 <style>
   .sticky-bar {
