@@ -12,11 +12,11 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Keine Überraschungen auf der Rechnung. Extras nur nach schriftlicher Absprache.
 - Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).
 
-## Für alle Produkte: So arbeiten wir
-1. Idee: Sie erzählen uns, was Sie vorhaben – kostenlos und unverbindlich.
-2. Verstehen: Wir klären gemeinsam, was Sie erreichen möchten.
-3. Umsetzen: Wir setzen um. Sie prüfen und geben frei.
-4. Verbessern: Wir bleiben dran: Änderungen per Sprachnachricht oder Text, Pflege im Hintergrund.
+## Für alle Produkte: Unsere Haltung
+- Wir hören zu. Am Anfang steht nicht die Technik, sondern Ihre Frage: Was möchten Sie erreichen?
+- Wir denken mit. Nicht jede Veränderung braucht neue Software. Wir klären gemeinsam, was Sie wirklich weiterbringt.
+- Wir mögen einfache Lösungen. Klare Worte statt Fachchinesisch. Klare Abläufe statt Abstimmungsschleifen.
+- Wir machen es nicht komplizierter als nötig. Ein fester Ansprechpartner, ein fester Ablauf – und wir bleiben dran, auch nach dem Start.
 
 ## Produkte
 - Super Duper Website Service (Website Service, verfügbar): Ihre Website – gebaut, betreut und immer aktuell. Änderungen schicken Sie per Sprachnachricht oder Text. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
