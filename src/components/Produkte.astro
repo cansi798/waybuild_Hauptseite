@@ -27,6 +27,19 @@ const platzhalter = (p: (typeof PRODUKTE)[number]) => `[Produktname ${p.kategori
           </h3>
           {(!isMissing(p.name) || SHOW_HINTS) && !p.name.includes(p.kategorie) && <p class="produkt__kategorie">{p.kategorie}</p>}
           {p.nutzen && <p class="produkt__nutzen">{p.nutzen}</p>}
+          {p.punkte && (
+            <div class="produkt__warum">
+              {p.frage && <h4>{p.frage}</h4>}
+              <ul>
+                {p.punkte.map((pt) => (
+                  <li>
+                    <span class="produkt__punkt-icon" aria-hidden="true"><Icon name={pt.icon} size={20} /></span>
+                    {pt.link ? <a href={href(pt.link)}>{pt.text}</a> : <span>{pt.text}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <a class="btn btn--primary" href={z.href} {...(z.extern ? { target: '_blank', rel: 'noopener' } : {})}>
             Zur Produktseite <Icon name="arrow" size={18} />{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
           </a>
@@ -64,6 +77,13 @@ const platzhalter = (p: (typeof PRODUKTE)[number]) => `[Produktname ${p.kategori
   .produkt h3 { margin: 0; font-size: clamp(1.4rem, 3vw, 1.9rem); }
   .produkt__kategorie { margin: 0; font-weight: 600; color: var(--ink-soft); }
   .produkt__nutzen { margin: 4px 0 10px; color: var(--ink-soft); line-height: 1.6; max-width: 52ch; font-size: 1.05rem; }
+  .produkt__warum { width: 100%; margin: 4px 0 14px; padding: 18px 20px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); }
+  .produkt__warum h4 { margin: 0 0 12px; font-family: var(--font-head); font-size: 1.02rem; color: var(--accent-ink); }
+  .produkt__warum ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  @media (min-width: 900px) { .produkt__warum ul { grid-template-columns: 1fr 1fr; column-gap: 24px; } }
+  .produkt__warum li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.45; font-weight: 500; }
+  .produkt__warum a { color: var(--accent-ink); font-weight: 650; }
+  .produkt__punkt-icon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
   .platzhalter { background: #ffe58a; color: var(--ink); padding: 0 8px; border-radius: 6px; }
   .platzhalter--klein { font-size: 0.75rem; padding: 0 6px; font-weight: 600; justify-self: start; }
   .bald { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }

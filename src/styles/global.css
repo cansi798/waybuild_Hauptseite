@@ -14,6 +14,7 @@
   --white: #ffffff;
   --accent: #00a6a1;  /* waybuild-IT-Türkis (Wunsch 10.10.2026, vorher Orange) */
   --accent-ink: #006b68;
+  --accent-mid: #008f8a;   /* Türkis für Linien-Bildsymbole auf hellem Grund (≥ 3:1) */
   --accent-light: #5fe0da; /* Türkis als Text auf dunklem Grund (Kontrast ≥ 4.5:1) */
   --on-accent: #0b2a29;    /* Schrift auf Türkis-Flächen (Kontrast ≥ 4.5:1, vorher #3a3a3a = 3,8:1) */
   --line: #ddd6c9;

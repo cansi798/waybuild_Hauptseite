@@ -9,8 +9,8 @@ export const HERO = {
   eyebrow: 'Waybuild',
   pre: 'Wir machen Veränderungen ',
   accent: 'einfach.',
-  // Dachmarke (Talk 3475): gilt für alle Produkte; Websites als erstes Produkt
-  lead: 'Wir helfen Unternehmen, Veränderungen einfach umzusetzen – mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Wir beginnen mit Websites, weitere Produkte folgen.',
+  // Dachmarke: nur über uns (Jamil, Talk 3540/3541); Wortlaut nach Strategiebriefing 3401 („Wir helfen Unternehmen dabei, Veränderungen einfacher umzusetzen“, „Klarheit, Struktur, … einen zuverlässigen Partner“)
+  lead: 'Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner an ihrer Seite.',
 };
 
 /** „Wofür wir stehen“ – ein Wort, eine Kernzeile (lead) und 2–3 Sätze, was das konkret für Kunden heißt.
@@ -79,7 +79,7 @@ export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uh
 /** Weitere feste Zusagen – Wortlaut aus der waybuild_website (Git-Historie) */
 export const ZUSAGEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'user', title: 'Sie erreichen immer einen Menschen', text: 'Kein Callcenter, keine Warteschleife.' },
-  { icon: 'mic', title: 'Eine Sprachnachricht genügt', text: 'Kein Formular, keine Screenshots.' },
+  { icon: 'mic', title: 'Eine Nachricht genügt', text: 'Kein Formular nötig – melden Sie sich so, wie es für Sie am einfachsten ist.' },
   { icon: 'server', title: 'Die Technik läuft – wir kümmern uns', text: 'Wartung, Updates und Backups im Hintergrund.' },
   { icon: 'euro', title: 'Keine Überraschungen auf der Rechnung', text: 'Extras nur nach schriftlicher Absprache.' },
 ];
@@ -133,6 +133,9 @@ export type Produkt = {
   url?: string;
   /** Interne Übergangsseite, solange url fehlt */
   pfad?: string;
+  /** Kurze Nutzenpunkte auf der Produktkarte (nur aktive Produkte) */
+  frage?: string;
+  punkte?: { icon: IconName; text: string; link?: string }[];
 };
 
 /** Anzeigename: eigener Produktname oder (solange offen) die Kategorie */
@@ -140,7 +143,17 @@ export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO')
 
 export const PRODUKTE: Produkt[] = [
   // name = ARBEITSNAME (Jamil 27.10.2026, Talk 3477: „Nenn es erstmal …“) – nur hier ändern, alle Seiten übernehmen ihn.
-  { id: 'website', name: 'Super Duper Website Service', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und immer aktuell. Änderungen schicken Sie per Sprachnachricht oder Text.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/' },
+  // Punkte: Jamil, Talk 3543 („Änderungen per Sprachnachricht in Minuten … per Sprache, Text, Screenshot, kurzes Video …
+  // sich selbst optimierende Websites … mit unserem Serviceversprechen“). „oft in wenigen Minuten“ = keine garantierte Frist
+  // (passt zu SLA_KERN „Oft schon in Minuten erledigt“). Selbstoptimierung nach PAKETE „Intelligente Website“.
+  { id: 'website', name: 'Super Duper Website Service', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/',
+    frage: 'Warum Ihre Website mit uns?',
+    punkte: [
+      { icon: 'mic', text: 'Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt.' },
+      { icon: 'video', text: 'Jederzeit anpassbar, ganz entspannt: per Sprache, Text, Screenshot oder kurzem Video.' },
+      { icon: 'chart', text: 'Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an.' },
+      { icon: 'shield', text: 'Alles mit unserem Serviceversprechen.', link: '/zusagen/' },
+    ] },
   { id: 'software', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
   { id: 'cloud', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
   { id: 'workplace', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
@@ -150,14 +163,13 @@ export const PRODUKTE: Produkt[] = [
 /** Erstes Produkt (Website) – für /angebot/, Footer, llms.txt, JSON-LD */
 export const WEBSITE_PRODUKT = PRODUKTE[0];
 
-/** Unsere Haltung – gilt für alle Produkte. Überschriften wörtlich aus Jamils Strategiebriefing (Talk 3401: „Wir hören zu.
- *  Wir denken mit. Wir mögen einfache Lösungen. Wir machen es nicht komplizierter als nötig.“), Sätze aus 3378/3401 und WERTE.
- *  Ersetzt am 27.10.2026 die Ketten „Der übliche Weg / Der Weg mit Waybuild“ (Jamil, Talk 3519: zu speziell, zu ähnlich zur Hero-Linie). */
-export const HALTUNG: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Wir hören zu.', text: 'Am Anfang steht nicht die Technik, sondern Ihre Frage: Was möchten Sie erreichen?', icon: 'chat' },
-  { titel: 'Wir denken mit.', text: 'Nicht jede Veränderung braucht neue Software. Wir klären gemeinsam, was Sie wirklich weiterbringt.', icon: 'compass' },
-  { titel: 'Wir mögen einfache Lösungen.', text: 'Klare Worte statt Fachchinesisch. Klare Abläufe statt Abstimmungsschleifen.', icon: 'check' },
-  { titel: 'Wir machen es nicht komplizierter als nötig.', text: 'Ein fester Ansprechpartner, ein fester Ablauf – und wir bleiben dran, auch nach dem Start.', icon: 'user' },
+/** Unsere Haltung – Dachmarke, ganz allgemein (Jamil, Talk 3538/3540: nur Werte, Prinzipien, Philosophie – keine Leistung).
+ *  Überschriften wörtlich aus Jamils Strategiebriefing (Talk 3401), Sätze aus 3378/3401. Bildsymbole: Talk 3537. */
+export const HALTUNG: { titel: string; text: string; bild: 'ohr' | 'gehirn' | 'licht' | 'knoten' }[] = [
+  { titel: 'Wir hören zu.', text: 'Erst verstehen, dann handeln.', bild: 'ohr' },
+  { titel: 'Wir denken mit.', text: 'Wir fragen nicht zuerst nach der Lösung, sondern danach, was Sie erreichen möchten.', bild: 'gehirn' },
+  { titel: 'Wir mögen einfache Lösungen.', text: 'Wenn sich etwas verändern soll, sollte die Umsetzung nicht zum Problem werden.', bild: 'licht' },
+  { titel: 'Wir machen es nicht komplizierter als nötig.', text: 'Klarheit, Struktur und gute Kommunikation – mehr braucht Veränderung oft nicht.', bild: 'knoten' },
 ];
 
 /** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
@@ -169,3 +181,24 @@ export const UEBER = {
     { icon: 'refresh' as IconName, title: 'Kontinuierliche Verbesserung' },
   ],
 };
+
+/** UNSERE QUALITÄTEN – Jamils Strategiebriefing (Talk 3401): „Fast jede Veränderung braucht: Klarheit, Struktur,
+ *  Verständnis, gute Kommunikation, einen zuverlässigen Partner. Genau dafür steht Waybuild.“
+ *  Sätze aus 3401 („Der Besucher soll sich verstanden fühlen“), PROZESSE und WERTE. Dachmarke, ohne Produktbezug. */
+export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
+  { titel: 'Klarheit', text: 'Sie wissen jederzeit, woran Sie sind.', icon: 'eye' },
+  { titel: 'Struktur', text: 'Feste Abläufe statt Zufall. Nichts hängt an einer einzelnen Person.', icon: 'layers' },
+  { titel: 'Verständnis', text: 'Sie sollen sich verstanden fühlen – nicht beeindruckt.', icon: 'users' },
+  { titel: 'Gute Kommunikation', text: 'Klare Worte statt Fachchinesisch.', icon: 'chat' },
+  { titel: 'Ein verlässlicher Partner', text: 'Was wir zusagen, halten wir ein.', icon: 'shield' },
+];
+
+/** LEICHTIGKEIT IN DER ZUSAMMENARBEIT – Jamil, Talk 3395 („Die Leichtigkeit des Kunden im gesamten Prozess der
+ *  Zusammenarbeit ist unser Fokus“, „jeder Service soll einen Mehrwert für den Kunden und das Unternehmen haben“).
+ *  Serviceversprechen bewusst allgemein; Details (Zeiten usw.) nur auf /zusagen/. */
+export const ZUSAMMENARBEIT: { titel: string; text: string; icon: IconName }[] = [
+  { titel: 'Ein fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.', icon: 'user' },
+  { titel: 'Verbindliche Zusagen', text: 'Feste Zusagen statt vager Versprechen.', icon: 'doc' },
+  { titel: 'Klare Abläufe', text: 'Jedes Anliegen geht denselben festen Weg.', icon: 'refresh' },
+  { titel: 'Echter Mehrwert', text: 'Was wir anbieten, soll Ihnen und Ihrem Unternehmen etwas bringen.', icon: 'spark' },
+];

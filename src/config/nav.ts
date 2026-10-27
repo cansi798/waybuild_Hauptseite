@@ -5,8 +5,8 @@ export type NavChild = { label: string; path: string; icon?: IconName; desc?: st
 export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 export const NAV: NavItem[] = [
-  { label: 'So arbeiten wir', path: '/#weg' },
-  { label: 'Warum Waybuild', path: '/#warum' },
+  { label: 'Unsere Haltung', path: '/#haltung' },
+  { label: 'Qualitäten', path: '/#qualitaeten' },
   { label: 'Produkte', path: '/#produkte' },
   { label: 'Unsere Zusagen', path: '/zusagen/' },
   { label: 'Häufige Fragen', path: '/faq/' },
