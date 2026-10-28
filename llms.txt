@@ -27,10 +27,10 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Echter Mehrwert: Was wir anbieten, soll Ihnen und Ihrem Unternehmen spürbar etwas bringen.
 
 ## Produkte
-- Super Duper Website Service (Website Service, verfügbar): Ihre Website – gebaut, betreut und jederzeit veränderbar. Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt. Maximale Flexibilität: jederzeit anpassbar – per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
-- Kundenverwaltung für Handwerksbetriebe: bald verfügbar.
-- Apps für App Store und Google Play: bald verfügbar.
-- Kundenverwaltung für AZAV-Bildungsträger: bald verfügbar.
+- Super Duper Website Service (Website Service), verfügbar: Ihre Website – gebaut, betreut und jederzeit veränderbar. Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt. Maximale Flexibilität: jederzeit anpassbar – per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
+- Kundenverwaltung für Handwerksbetriebe, verfügbar: Ein CRM, gemacht für den Alltag im Handwerk.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
+- Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
+- Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Software Service: bald verfügbar.
 - Cloud Service: bald verfügbar.
 - Workplace Service: bald verfügbar.
