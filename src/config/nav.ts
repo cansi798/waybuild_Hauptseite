@@ -5,11 +5,10 @@ export type NavChild = { label: string; path: string; icon?: IconName; desc?: st
 export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
 // Hauptnavigation nach Jamils kompaktem Design-Briefing (Talk 3636): Unternehmen, So arbeiten wir, Produkte,
-// Referenzen oder Einblicke (noch keine freigegebenen Referenzen → „Einblicke“), Kontakt. Zusagen/FAQ stehen im Footer.
+// Kontakt. „Einblicke“ am 29.10.2026 mit dem Abschnitt entfernt (Jamil, Talk 3651). Zusagen/FAQ stehen im Footer.
 export const NAV: NavItem[] = [
   { label: 'Unternehmen', path: '/#unternehmen' },
   { label: 'So arbeiten wir', path: '/#so-arbeiten-wir' },
   { label: 'Produkte', path: '/#produkte' },
-  { label: 'Einblicke', path: '/#einblicke' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

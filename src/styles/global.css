@@ -266,7 +266,7 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
     section.kapitel::before { animation-timeline: --kapitel; animation-range: entry 40% exit 40%; }
     section.kapitel--anschluss::before { animation-range: entry 0% exit 40%; }
     .halt::after, .halt::before { animation: halt-auf linear both; }
-    .pfad .halt::after, .pfad .halt::before { animation-timeline: --halt; animation-range: cover 30vh cover calc(30vh + 60px); }
+    .pfad .halt::after, .pfad .halt::before { animation-timeline: --halt; animation-range: cover 40vh cover calc(40vh + 50px); }
   }
 }
 @keyframes rueckgrat { from { transform: scaleY(0); } to { transform: scaleY(1); } }
@@ -298,3 +298,21 @@ html.zug-js .halt::after, html.zug-js .halt::before { transition: opacity 300ms 
   }
 }
 @keyframes trenner-zeichnen { from { transform: scaleX(0); } to { transform: none; } }
+
+/* Kästchen leuchten dezent türkis auf, sobald die Linie sie erreicht (Jamil, Talk 3645/3646) –
+ * gleiche Scroll-Logik wie die Punkte, rückwärts wieder neutral; ohne Unterstützung / reduzierte Bewegung: neutral. */
+.leuchtet { --leucht-rand: rgb(0 166 161 / 70%); --leucht-bg: rgb(0 166 161 / 6%); --leucht-glanz: rgb(0 166 161 / 14%); }
+.kapitel--dunkel .leuchtet { --leucht-rand: rgb(95 224 218 / 75%); --leucht-bg: rgb(95 224 218 / 8%); --leucht-glanz: rgb(95 224 218 / 16%); }
+@keyframes leuchten {
+  from { border-color: var(--leucht-aus, var(--line)); box-shadow: 0 0 0 0 transparent, inset 0 0 0 999px transparent; }
+  to { border-color: var(--leucht-rand); box-shadow: 0 0 0 4px var(--leucht-glanz), inset 0 0 0 999px var(--leucht-bg); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .leuchtet { animation: leuchten linear both; }
+    /* eigene Regel: animation-timeline darf nicht in die Kurzschreibweise zusammengefasst werden */
+    .pfad .halt.leuchtet { animation-timeline: --halt; animation-range: cover 40vh cover calc(40vh + 90px); }
+  }
+}
+html.zug-js .leuchtet { transition: border-color 400ms ease, box-shadow 400ms ease; }
+html.zug-js .leuchtet.halt--da { border-color: var(--leucht-rand); box-shadow: 0 0 0 4px var(--leucht-glanz), inset 0 0 0 999px var(--leucht-bg); }

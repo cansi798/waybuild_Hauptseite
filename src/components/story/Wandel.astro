@@ -36,8 +36,9 @@ const SCHRITTE = [
   { titel: 'Verlässlich umgesetzt.', text: 'Sie erhalten eine klare Rückmeldung und ein nachvollziehbares Ergebnis.' },
 ];
 
-// Verknotete Linie: Stützpunkte (x 0…1 = Linie…rechter Rand, y 0…1 = oben…unten), 20 kubische Abschnitte (Catmull-Rom).
-const K: number[][] = [[0.012, 0.016, -0.05, 0.072, 0.06, 0.08], [0.17, 0.088, 0.39, 0.024, 0.55, 0.04], [0.71, 0.056, 0.846, 0.114, 0.86, 0.16], [0.874, 0.206, 0.732, 0.268, 0.62, 0.27], [0.508, 0.272, 0.328, 0.21, 0.3, 0.17], [0.272, 0.13, 0.4, 0.038, 0.48, 0.07], [0.56, 0.102, 0.604, 0.256, 0.7, 0.33], [0.796, 0.404, 0.98, 0.402, 0.96, 0.44], [0.94, 0.478, 0.764, 0.528, 0.6, 0.52], [0.436, 0.512, 0.184, 0.444, 0.14, 0.4], [0.096, 0.356, 0.298, 0.26, 0.38, 0.3], [0.462, 0.34, 0.454, 0.528, 0.55, 0.6], [0.646, 0.672, 0.83, 0.616, 0.86, 0.66], [0.89, 0.704, 0.824, 0.808, 0.7, 0.82], [0.576, 0.832, 0.3, 0.764, 0.24, 0.72], [0.18, 0.676, 0.348, 0.564, 0.4, 0.6], [0.452, 0.636, 0.4, 0.844, 0.5, 0.9], [0.6, 0.956, 0.904, 0.866, 0.9, 0.88], [0.896, 0.894, 0.66, 0.946, 0.48, 0.97], [0.3, 0.994, 0.096, 0.994, 0, 1]];
+// Unruhige Linie: Stützpunkte (x 0…1 = Linie…rechter Rand, y 0…1 = oben…unten), 17 kubische Abschnitte (Catmull-Rom).
+// Nur noch eine Schleife, sonst Wellen (Jamil, Talk 3639: „Hier auch nicht übertreiben mit den Loopings.“).
+const K: number[][] = [[0.016, 0.014, -0.02, 0.058, 0.08, 0.07], [0.18, 0.082, 0.352, 0.042, 0.5, 0.06], [0.648, 0.078, 0.8, 0.12, 0.82, 0.16], [0.84, 0.2, 0.684, 0.252, 0.6, 0.26], [0.516, 0.268, 0.42, 0.226, 0.4, 0.2], [0.38, 0.174, 0.45, 0.11, 0.5, 0.13], [0.55, 0.15, 0.57, 0.242, 0.65, 0.3], [0.73, 0.358, 0.92, 0.38, 0.9, 0.42], [0.88, 0.46, 0.69, 0.488, 0.55, 0.5], [0.41, 0.512, 0.25, 0.46, 0.2, 0.48], [0.15, 0.5, 0.19, 0.564, 0.3, 0.6], [0.41, 0.636, 0.64, 0.628, 0.75, 0.66], [0.86, 0.692, 0.9, 0.728, 0.85, 0.76], [0.8, 0.792, 0.62, 0.796, 0.5, 0.82], [0.38, 0.844, 0.24, 0.856, 0.25, 0.88], [0.26, 0.904, 0.6, 0.916, 0.55, 0.94], [0.5, 0.964, 0.11, 0.988, 0, 1]];
 const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).join(' ')}`).join('');
 ---
 
@@ -54,7 +55,7 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
       </div>
       <div class="wtext wtext--b">
         <span class="schritt-kenn">Dann kommt Waybuild</span>
-        <h2>Schritt für Schritt kommt Ordnung hinein.</h2>
+        <h2>Schritt für Schritt entsteht Ordnung.</h2>
         <p class="kern">Keine Projekte für jede Kleinigkeit. Keine Weiterleitungen ohne Ende. Sagen Sie einfach, was Sie verändern möchten.</p>
       </div>
     </div>
@@ -63,8 +64,7 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
       <div class="tafel">
         <div class="tafel__teil tafel__chaos">
           <div class="tafel__kopf" aria-hidden="true">
-            <p class="kenn kenn--mobil" data-phase="0"><span>Schritt 1 · Vorher</span>So fühlt sich Veränderung oft an.</p>
-            <p class="kenn kenn--mobil kenn--mitte" data-phase="1"><span>Dann kommt Waybuild</span>Schritt für Schritt kommt Ordnung hinein.</p>
+            <p class="kenn kenn--mobil kenn--mitte" data-phase="1"><span>Dann kommt Waybuild</span>Schritt für Schritt entsteht Ordnung.</p>
           </div>
           <div class="tafel__flaeche">
             <svg class="knoten" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -105,6 +105,8 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
   // Scrollgebundene Bühne: Fortschritt p (0…1) der stehenden Arbeitsfläche. Phasen:
   // 0–0,27 Situationen erscheinen (Desktop) · 0,30–0,90 Linie entwirrt sich, Karten bündeln sich zu Schritten · danach Ruhe.
   const root = document.querySelector<HTMLElement>('[data-start]');
+  // Verbindungsstück der Hauptlinie über der Fläche (auch im statischen Zustand)
+  if (root) { const t = root.querySelector<HTMLElement>('.tafel'), f = root.querySelector<HTMLElement>('.tafel__flaeche'); const s = () => t && f && t.style.setProperty('--stub-h', `${f.offsetTop}px`); s(); addEventListener('resize', s); document.fonts?.ready.then(s); }
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const niedrig = window.matchMedia('(max-height: 559px)');
   const breit = window.matchMedia('(min-width: 960px)');
@@ -202,13 +204,15 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
       const sicht = [1 - clamp((p - 0.24) / 0.05), clamp((p - 0.3) / 0.05) * (1 - clamp((p - 0.8) / 0.05)), clamp((p - 0.84) / 0.05)];
       kennzeilen.forEach((k) => { k.style.opacity = String(sicht[Number(k.dataset.phase)]); });
       hinweis.style.opacity = String(1 - clamp(p / 0.04));
+      root.classList.toggle('wandel--klar', p > A + 0.01);
       if (breit.matches) {
         lagen.forEach((l, i) => { const t = clamp((p - 0.02 - i * 0.045) / 0.035); l.style.opacity = String(t); l.style.transform = `translateY(${((1 - t) * 10).toFixed(1)}px)`; });
-        const b = clamp((p - 0.27) / 0.05);
-        textA.style.opacity = String(1 - b);
-        textB.style.opacity = String(b);
-        textA.style.visibility = b >= 1 ? 'hidden' : '';
-        textB.style.visibility = b <= 0 ? 'hidden' : '';
+        // nacheinander statt überblendet: erst A aus, dann B ein (keine doppelten Texte)
+        const aus = clamp((p - 0.26) / 0.03), ein = clamp((p - 0.29) / 0.03);
+        textA.style.opacity = String(1 - aus);
+        textB.style.opacity = String(ein);
+        textA.style.visibility = aus >= 1 ? 'hidden' : '';
+        textB.style.visibility = ein <= 0 ? 'hidden' : '';
       } else {
         lagen.forEach((l) => { l.style.opacity = ''; l.style.transform = ''; });
         [textA, textB].forEach((x) => { x.style.opacity = ''; x.style.visibility = ''; });
@@ -217,7 +221,8 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
 
     let laeuft = false;
     const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(() => { laeuft = false; zeichnen(); }); } };
-    const neu = () => { zettel.forEach((z) => (z.style.transform = '')); schritte.forEach((s) => (s.style.transform = '')); messen(); zeichnen(true); };
+    const stubSetzen = () => tafel.style.setProperty('--stub-h', `${flaeche.offsetTop}px`);
+    const neu = () => { zettel.forEach((z) => (z.style.transform = '')); schritte.forEach((s) => (s.style.transform = '')); messen(); stubSetzen(); zeichnen(true); };
     neu();
     window.addEventListener('scroll', anfordern, { passive: true });
     window.addEventListener('resize', () => requestAnimationFrame(neu));
@@ -238,6 +243,9 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
 
   /* Arbeitsfläche */
   .tafel { --linie-x: 14px; position: relative; display: grid; gap: 28px; padding-bottom: 8px; }
+  /* Die Hauptlinie kommt aus dem Hero: Verbindungsstück von oben bis zum Beginn der unruhigen Linie (Talk 3639) */
+  .tafel::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.5px); top: 0; width: 3px; height: var(--stub-h, 0px); background: #b4ad9e; transition: background 300ms ease; }
+  :global(.wandel--klar) .tafel::before { background: var(--accent); }
   .tafel__kopf { position: relative; padding-left: calc(var(--linie-x) + 30px); }
   .kenn { margin: 0; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); }
   .kenn span { display: block; margin-bottom: 4px; font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
@@ -270,8 +278,11 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).j
 
   /* Handy: Text A vor der Bühne, Text B (Kernbotschaft) danach */
   @media (max-width: 959px) {
+    .wandel { padding-top: 40px; }
     .wandel__text { display: contents; }
-    .wtext--a { order: 1; }
+    .wtext--a { order: 1; position: relative; padding-left: 44px; }
+    /* Handy: die Hauptlinie läuft links neben dem Text weiter zur Arbeitsfläche */
+    .wtext--a::before { content: ''; position: absolute; left: 12.5px; top: -40px; bottom: -28px; width: 3px; background: #b4ad9e; }
     .wandel__spur { order: 2; }
     .wtext--b { order: 3; padding-bottom: 8px; }
   }

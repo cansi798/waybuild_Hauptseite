@@ -7,6 +7,7 @@ import { href } from '../lib/paths';
 import { company, HOURS } from '../config/site';
 import { FOOTER_KONTAKT as F } from '../config/home';
 import Icon from './Icon.astro';
+import Hint from './Hint.astro';
 interface Props { rueckgrat?: boolean }
 const { rueckgrat = false } = Astro.props;
 ---
@@ -29,6 +30,15 @@ const { rueckgrat = false } = Astro.props;
       {F.hinweise.map((h) => <li><Icon name="check" size={16} /> {h}</li>)}
     </ul>
     <p class="fkontakt__zeiten">{company.email} · Servicezeiten: {HOURS}</p>
+    {rueckgrat && (
+      <div class="fkontakt__menschen">
+        {/* „Menschen hinter Waybuild“ mit dem Abschluss kombiniert (Jamil, Talk 3653) – Text wörtlich aus Talk 3636 */}
+        <span class="fkontakt__kenn">Menschen hinter Waybuild</span>
+        <h3>Wer kümmert sich eigentlich?</h3>
+        <p>Wenn Sie Waybuild schreiben, landen Sie nicht anonym in einem System. Sie sprechen mit Menschen, die Ihr Anliegen verstehen und Verantwortung für den nächsten Schritt übernehmen.</p>
+        <Hint block label="Echte Teamfotos, Namen, Aufgaben und kurze persönliche Aussagen (keine Stockfotos)" where="src/components/FooterKontakt.astro → fkontakt__menschen" />
+      </div>
+    )}
   </div>
 </section>
 
@@ -47,20 +57,20 @@ const { rueckgrat = false } = Astro.props;
     .fkontakt--rueckgrat .zielweg { left: calc(var(--spine-x) - 1.5px); right: 50%; width: auto; }
     .fkontakt--rueckgrat .zielweg__gerade { display: none; }
     .fkontakt--rueckgrat .zielweg__bogen { display: block; width: 100%; height: 100%; overflow: visible; }
-    .zielweg__bogen path { fill: none; stroke: var(--accent-light); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; }
+    .zielweg__bogen path { fill: none; stroke: var(--accent-light); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
   }
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .zielweg__gerade { animation: ziel-wachsen linear both; }
-      .zielweg__bogen path { animation: ziel-zeichnen linear both; }
+      .zielweg__bogen { animation: ziel-aufdecken linear both; }
       .zielpunkt { animation: ziel-auf linear both; }
-      section.fkontakt span.zielweg__gerade, section.fkontakt .zielweg__bogen path { animation-timeline: --ziel; animation-range: entry 0% entry 45%; }
+      section.fkontakt span.zielweg__gerade, section.fkontakt svg.zielweg__bogen { animation-timeline: --ziel; animation-range: entry 0% entry 45%; }
       section.fkontakt svg.zielpunkt { animation-timeline: --ziel; animation-range: entry 40% entry 55%; }
       section.fkontakt .zielpunkt__puls { animation: ziel-puls linear both; animation-timeline: --ziel; animation-range: entry 55% entry 80%; }
     }
   }
   @keyframes ziel-wachsen { from { transform: scaleY(0); } to { transform: none; } }
-  @keyframes ziel-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes ziel-aufdecken { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 -10px 0); } }
   /* Der Zielpunkt pulsiert einmal (ein Ring weitet sich und verblasst), danach Ruhe (Talk 3636) */
   .zielpunkt__puls { fill: none !important; stroke: var(--accent-light); stroke-width: 2 !important; opacity: 0; transform-box: fill-box; transform-origin: center; }
   @keyframes ziel-puls { 0% { opacity: 0; transform: scale(1); } 15% { opacity: 0.9; } 100% { opacity: 0; transform: scale(1.9); } }
@@ -76,5 +86,9 @@ const { rueckgrat = false } = Astro.props;
   .fkontakt__hinweise :global(.icon) { color: var(--accent-light); }
   .fkontakt__zeiten { overflow-wrap: anywhere; }
   .fkontakt__zeiten { color: var(--dark-soft); font-size: 0.92rem; }
+  .fkontakt__menschen { display: grid; justify-items: center; gap: 10px; width: min(100%, 640px); margin-top: clamp(28px, 4vw, 44px); padding-top: clamp(28px, 4vw, 44px); border-top: 1px solid var(--dark-line); }
+  .fkontakt__menschen h3 { margin: 0; font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--white); }
+  .fkontakt__menschen p { color: var(--dark-lead); line-height: 1.65; max-width: 52ch; }
+  .fkontakt__menschen :global(.hint) { text-align: left; }
   @media (max-width: 480px) { .fkontakt__actions { display: grid; width: 100%; } }
 </style>

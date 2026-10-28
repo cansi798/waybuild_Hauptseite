@@ -5,40 +5,22 @@
 //   Hero (Hero.astro): Text + Weg-Illustration (graue Linie durch E-Mail … Freigabe, am Ende kurz türkis)
 //   Schritt 1 · Vorher → Dann kommt Waybuild (Wandel.astro): Chaos-Karten, Situationen, die Linie wird geordnet
 //   Schritt 2 · Verständnis (+ Illustration Schleife → Übergabe → Strecke → Ziel) · Selbstreflexion (Selbstcheck.astro)
-//   Schritt 3 · Orientierung · Schritt 4 · Vertrauen (Petrol) · Einblicke (Beweise) · Menschen hinter Waybuild
-//   Schritt 5 · Produkte · Schritt 6 · Ziel (FooterKontakt: Zielpunkt)
-// Nichts erfunden: Einblicke = typische Situationen (ausdrücklich keine Kundenfälle) + nachprüfbare Fakten aus der Config;
-// Teamfotos/Namen und echte Kundenbeispiele sind in der Vorschau als „Fehlt“ markiert. Keine Preise, keine Telefonnummer.
+//   Schritt 3 · Orientierung · Schritt 4 · Vertrauen (Petrol) · Schritt 5 · Produkte ·
+//   Schritt 6 · Ziel + „Wer kümmert sich eigentlich?“ (FooterKontakt: Zielpunkt).
+// 29.10.2026 (Jamil, Talk 3639–3654): eine durchgehende Linie ab dem Hero, Abschnitt „Einblicke“ und Verständnis-Bild
+// entfernt, keine Abzweigungen zu Überschriften/Texten, Kästchen leuchten bei Berührung, Menschen in Schritt 6.
+// Keine Preise, keine Telefonnummer, nichts erfunden.
 // Frühere Fassungen: Git-Historie (bec9a95 Storytelling, ffa6292 davor).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/story/Hero.astro';
 import Wandel from '../components/story/Wandel.astro';
-import WegBild from '../components/story/WegBild.astro';
 import Selbstcheck from '../components/story/Selbstcheck.astro';
-import SkizzeWhiteboard from '../components/SkizzeWhiteboard.astro';
-import Hint from '../components/Hint.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
 import HaltungBild from '../components/HaltungBild.astro';
 import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
-import { company } from '../config/site';
 
-// Einblicke: typische Vorher/Nachher-Situationen (Talk 3636, Beispiele 1–3) – im Präsens, als Beispiele gekennzeichnet,
-// bis echte, freigegebene Kundenfälle vorliegen („Sobald reale Kundenbeispiele vorhanden sind, müssen …“).
-const GESCHICHTEN = [
-  { vorher: 'Eine kleine Websiteänderung führt zu mehreren E-Mails.', nachher: 'Eine kurze Nachricht genügt.' },
-  { vorher: 'Niemand weiß, welcher Dienstleister zuständig ist.', nachher: 'Ein fester Ansprechpartner übernimmt die Klärung.' },
-  { vorher: 'Der aktuelle Stand muss regelmäßig erfragt werden.', nachher: 'Zuständigkeit und nächster Schritt sind jederzeit bekannt.' },
-];
-// Nachprüfbare Fakten – nur Belegtes: Handelsregister (site.ts company), Zusagen (/zusagen/), Server in Deutschland
-// (hauptseite.ts VERTRAUEN), keine Cookies/kein Tracking (Datenschutzerklärung), verfügbare eigene Produkte.
-const FAKTEN = [
-  { icon: 'doc', text: `Eingetragen im Handelsregister: ${company.registerCourt}, ${company.registerNumber}.`, link: '/impressum/', linkText: 'Impressum' },
-  { icon: 'clock', text: 'Antwort spätestens am nächsten Werktag – unsere Zusagen stehen offen auf dieser Website.', link: '/zusagen/', linkText: 'Zusagen' },
-  { icon: 'server', text: 'Unsere Lösungen laufen auf Servern in Deutschland.' },
-  { icon: 'lock', text: 'Diese Website setzt keine Cookies und kein Tracking ein.', link: '/datenschutz/', linkText: 'Datenschutz' },
-] as const;
 ---
 
 <BaseLayout
@@ -59,11 +41,10 @@ const FAKTEN = [
           <span class="schritt-kenn">Schritt 2 · Verständnis</span>
           <h2 id="weg-h" class="plakat">Nicht die Technik macht Veränderungen schwer. <span class="accent">Sondern der Weg dorthin.</span></h2>
         </div>
-        <div class="halt halt--r entstehung">
+        <div class="halt halt--r halt--text entstehung">
           <p class="lead">Waybuild ist aus einer einfachen Beobachtung entstanden: Kleine Veränderungen führen häufig zu vielen Nachrichten, unklaren Zuständigkeiten und langen Wartezeiten.</p>
           <p class="lead">Deshalb fragen wir zuerst: Was möchten Sie erreichen? Anschließend suchen wir den einfachsten und sinnvollsten Weg dorthin.</p>
         </div>
-        <div class="halt halt--voll halt--still wegbild-halt"><WegBild /></div>
       </div>
       <Selbstcheck />
     </div>
@@ -79,7 +60,7 @@ const FAKTEN = [
           <p class="lead">Vier Grundsätze, nach denen wir arbeiten. Bei jedem Produkt, jedem Anliegen und jeder Veränderung.</p>
         </div>
         {HALTUNG.map((h, i) => (
-          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'karte']} style={`--zeile:${i + 2}`}>
+          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'karte', 'leuchtet']} style={`--zeile:${i + 2}`}>
             <span class="haltung__icon"><HaltungBild art={h.bild} /></span>
             <div>
               <h3>{h.titel}</h3>
@@ -99,10 +80,10 @@ const FAKTEN = [
           <span class="schritt-kenn">Schritt 4 · Vertrauen</span>
           <h2 id="qual-h">Weil Zusammenarbeit <span class="accent">leicht sein darf.</span></h2>
         </div>
-        <p class="halt halt--r halt--still lead kopf__text">Digitale Veränderungen brauchen Klarheit, Struktur und einen verlässlichen Partner. Daran lassen wir uns im Alltag messen.</p>
+        <p class="halt halt--r halt--text lead kopf__text">Digitale Veränderungen brauchen Klarheit, Struktur und einen verlässlichen Partner. Daran lassen wir uns im Alltag messen.</p>
         <ul class="pfad qual" aria-label="Unsere Zusagen">
           {QUALITAETEN.map((q, i) => (
-            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'qual__q']}>
+            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'qual__q', 'leuchtet']}>
               <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={34} /></span>
               <div>
                 <h3>{q.titel}</h3>
@@ -116,53 +97,6 @@ const FAKTEN = [
     </div>
   </section>
 
-  <!-- BEWEISE → EINBLICKE (keine erfundenen Kundenfälle) -->
-  <section class="kapitel" id="einblicke" aria-labelledby="einblicke-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Einblicke</span>
-          <h2 id="einblicke-h">Nicht nur versprochen. <span class="accent">So sieht es konkret aus.</span></h2>
-        </div>
-        <p class="halt halt--r halt--still lead kopf__text">Drei typische Situationen – so, wie sie vielen Unternehmen begegnen. Echte Kundenbeispiele zeigen wir hier, sobald sie freigegeben sind.</p>
-        <div class="halt halt--voll halt--still"><Hint block label="Echte Kundenbeispiele (Fall, Aussage, Ergebnis – mit schriftlicher Freigabe des Kunden)" where="src/pages/index.astro → GESCHICHTEN" /></div>
-        <ol class="pfad geschichten" aria-label="Typische Situationen vorher und mit Waybuild">
-          {GESCHICHTEN.map((g, i) => (
-            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'geschichte']}>
-              <p class="geschichte__vorher"><svg viewBox="0 0 48 20" aria-hidden="true" focusable="false"><path d="M2 10 C 8 2, 14 18, 18 10 S 26 0, 28 10 S 34 20, 38 8 S 44 6, 46 10" /></svg><span><strong>Vorher:</strong> {g.vorher}</span></p>
-              <p class="geschichte__nachher"><svg viewBox="0 0 48 20" aria-hidden="true" focusable="false"><path d="M2 10 L 40 10" /><circle cx="42" cy="10" r="4" /></svg><span><strong>Mit Waybuild:</strong> {g.nachher}</span></p>
-            </li>
-          ))}
-        </ol>
-        <div class="halt halt--voll halt--still fakten">
-          <h3>Was Sie heute schon nachprüfen können</h3>
-          <ul>
-            {FAKTEN.map((f) => (
-              <li><span class="fakten__icon" aria-hidden="true"><Icon name={f.icon} size={22} /></span><span>{f.text}{'link' in f && f.link && <> <a href={href(f.link)}>{f.linkText}</a></>}</span></li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MENSCHEN HINTER WAYBUILD -->
-  <section class="kapitel kapitel--weiss" id="menschen" aria-labelledby="menschen-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Menschen hinter Waybuild</span>
-          <h2 id="menschen-h">Wer kümmert sich <span class="accent">eigentlich?</span></h2>
-        </div>
-        <div class="halt halt--r menschen">
-          <p class="lead">Wenn Sie Waybuild schreiben, landen Sie nicht anonym in einem System. Sie sprechen mit Menschen, die Ihr Anliegen verstehen und Verantwortung für den nächsten Schritt übernehmen.</p>
-          <Hint block label="Echte Teamfotos, Namen, Aufgaben und kurze persönliche Aussagen (keine Stockfotos)" where="src/pages/index.astro → Abschnitt „menschen“" />
-          <SkizzeWhiteboard />
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- SCHRITT 5 · PRODUKTE -->
   <section class="kapitel kapitel--sand" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
@@ -171,12 +105,12 @@ const FAKTEN = [
           <span class="schritt-kenn">Schritt 5 · Produkte</span>
           <h2 id="produkte-h">Eine Haltung. <span class="accent">Unterschiedliche Produkte.</span></h2>
         </div>
-        <p class="halt halt--r halt--still lead kopf__text">Jedes Waybuild-Produkt löst ein konkretes Problem und besitzt einen eigenen Namen und Auftritt. Was alle Produkte verbindet, sind dieselben Werte, Zusagen und Arbeitsweisen.</p>
+        <p class="halt halt--r halt--text lead kopf__text">Jedes Waybuild-Produkt löst ein konkretes Problem und besitzt einen eigenen Namen und Auftritt. Was alle Produkte verbindet, sind dieselben Werte, Zusagen und Arbeitsweisen.</p>
       </div>
       <Produkte />
     </div>
   </section>
-  <!-- SCHRITT 6 · ZIEL: FooterKontakt (Petrol, die Linie erreicht den Zielpunkt) -->
+  <!-- SCHRITT 6 · ZIEL + Menschen hinter Waybuild: FooterKontakt (Petrol, die Linie erreicht den Zielpunkt; Jamil, Talk 3653) -->
 </BaseLayout>
 
 <script>
@@ -195,7 +129,7 @@ const FAKTEN = [
         const z = Math.min(1, Math.max(0, (start - r.top) / (r.height + start - vh * 0.6)));
         k.style.setProperty('--zug', z.toFixed(3));
       });
-      halte.forEach((h) => { if (h.getBoundingClientRect().top < vh * 0.7) h.classList.add('halt--da'); });
+      halte.forEach((h) => { h.classList.toggle('halt--da', h.getBoundingClientRect().top < vh * 0.6); });
     };
     window.addEventListener('scroll', () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } }, { passive: true });
     zeichnen();
@@ -203,20 +137,23 @@ const FAKTEN = [
 </script>
 
 <style>
-  .kopf { --hy: 10px; }
+  /* Einheitlicher Rhythmus (Jamil, Talk 3641: „Abstände ins Verhältnis bringen“): Station = erste Zeile der Überschrift;
+     Text rechts beginnt auf Höhe der Überschrift, Verbinder enden mit Abstand vor dem Text. */
+  .kopf { --hy: 54px; }
   .kopf h2 { margin-bottom: 0; }
-  .kopf .lead { margin-top: 18px; margin-bottom: 0; }
-  .kopf__text { margin: 0; align-self: end; }
+  .kopf .lead { margin-top: 20px; margin-bottom: 0; }
+  .kopf__text { margin: 0; }
+  .halt--text { --hy: 54px; align-self: start; }
+  @media (min-width: 960px) { .halt--text { padding-top: 36px; } }
+  /* Keine Abzweigungen zu Überschriften und Fließtexten (Jamil, Talk 3647–3649): nur Kästchen hängen an der Linie */
+  .kopf::before, .kopf::after, .halt--text::before, .halt--text::after { display: none !important; }
   .kapitel--dunkel .lead { color: var(--dark-lead); }
   .kapitel--dunkel .pfeil-link { color: var(--accent-light); }
   .plakat { font-size: clamp(2.1rem, 3.9vw, 3.3rem) !important; line-height: 1.06; }
 
   /* Verständnis */
-  .entstehung { --hy: 10px; display: grid; gap: 14px; align-content: start; }
+  .entstehung { display: grid; gap: 16px; align-content: start; }
   .entstehung .lead { margin: 0; }
-  @media (min-width: 960px) { .entstehung .lead:first-child { margin-top: -6px; } }
-  .wegbild-halt { margin-top: clamp(16px, 3vw, 32px); }
-  @media (min-width: 960px) { .wegbild-halt { position: relative; z-index: 1; } }
 
   /* Karten an der Linie (Orientierung) */
   .karte { --hy: 40px; align-self: start; display: flex; gap: 16px; align-items: flex-start; padding: 22px 22px 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 14px; }
@@ -228,34 +165,13 @@ const FAKTEN = [
 
   /* Vertrauen */
   .qual { list-style: none; margin: 0; padding: 0; row-gap: 18px; }
-  .qual__q { --hy: 30px; display: flex; gap: 16px; align-items: flex-start; padding: 20px 20px 18px; border: 1px solid var(--dark-line); border-radius: 18px; }
+  .qual__q { --leucht-aus: var(--dark-line); --hy: 30px; display: flex; gap: 16px; align-items: flex-start; padding: 20px 20px 18px; border: 1px solid var(--dark-line); border-radius: 18px; }
   .qual__icon { flex: none; color: var(--accent-light); margin-top: 2px; }
   .qual__q h3 { margin: 0 0 6px; font-size: 1.18rem; line-height: 1.25; }
   .qual__q p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
   .qual__mehr { margin: 0; }
-  @media (min-width: 960px) { .qual, .geschichten { grid-column: 1 / -1; } }
+  @media (min-width: 960px) { .qual { grid-column: 1 / -1; } }
 
-  /* Einblicke */
-  .geschichten { list-style: none; margin: 0; padding: 0; row-gap: 18px; }
-  .geschichte { --hy: 28px; display: grid; gap: 10px; padding: 18px 20px; background: var(--white); border: 1px solid var(--line); border-radius: 18px; }
-  .geschichte p { margin: 0; display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
-  .geschichte svg { flex: none; width: 44px; height: 20px; margin-top: 2px; overflow: visible; }
-  .geschichte path { fill: none; stroke-width: 2.5; stroke-linecap: round; }
-  .geschichte__vorher { color: #57534b; }
-  .geschichte__vorher path { stroke: #b4ad9e; }
-  .geschichte__nachher path { stroke: var(--accent); }
-  .geschichte__nachher circle { fill: var(--accent); }
-  .geschichte__nachher strong { color: var(--accent-ink); }
-  .fakten { margin-top: 10px; padding: 22px 24px; border-radius: 18px; border: 1px solid var(--line); background: var(--sec-bg); position: relative; z-index: 1; }
-  .fakten h3 { margin: 0 0 14px; font-size: 1.15rem; }
-  .fakten ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  @media (min-width: 760px) { .fakten ul { grid-template-columns: 1fr 1fr; column-gap: 28px; } }
-  .fakten li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
-  .fakten__icon { flex: none; color: var(--accent-ink); margin-top: 1px; }
-  .fakten a { color: var(--accent-ink); font-weight: 650; }
-
-  /* Menschen */
-  .menschen { --hy: 10px; display: grid; gap: 18px; align-content: start; }
-  .menschen .lead { margin: 0; }
-  .menschen :global(.skizze) { max-width: 360px; margin: 0; }
+  /* Produkte */
+  .kapitel--sand .pfad + :global(.pweg) { margin-top: clamp(48px, 6vw, 80px); }
 </style>
