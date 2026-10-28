@@ -16,16 +16,19 @@ const { rueckgrat = false } = Astro.props;
     <svg class="zielweg__bogen" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path pathLength="1" d="M0 0 C 0 55, 100 40, 100 100" /></svg>
     <span class="zielweg__gerade"></span>
   </div>
-  <svg class="zielpunkt" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="20" /><circle cx="24" cy="24" r="11" /><circle class="zielpunkt__mitte" cx="24" cy="24" r="4.5" /></svg>
+  <svg class="zielpunkt" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="20" /><circle cx="24" cy="24" r="11" /><circle class="zielpunkt__mitte" cx="24" cy="24" r="4.5" /><circle class="zielpunkt__puls" cx="24" cy="24" r="20" /></svg>
   <div class="wrap fkontakt__inner">
     {rueckgrat && <span class="fkontakt__kenn">Schritt 6 · Ziel</span>}
     <h2 id="fkontakt-titel">{F.pre}<span class="accent">{F.accent}</span></h2>
     <p class="fkontakt__text">{F.text}</p>
     <div class="fkontakt__actions">
-      <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-      <a class="btn btn--ghost btn--lg fkontakt__mail" href={`mailto:${company.email}`}><Icon name="mail" size={18} /> {company.email}</a>
+      <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Kostenloses Erstgespräch <Icon name="arrow" size={18} /></a>
+      <a class="btn btn--ghost btn--lg" href={`mailto:${company.email}`}><Icon name="mail" size={18} /> E-Mail schreiben<span class="sr-only"> an {company.email}</span></a>
     </div>
-    <p class="fkontakt__zeiten">Servicezeiten: {HOURS}</p>
+    <ul class="fkontakt__hinweise" aria-label="Gut zu wissen">
+      {F.hinweise.map((h) => <li><Icon name="check" size={16} /> {h}</li>)}
+    </ul>
+    <p class="fkontakt__zeiten">{company.email} · Servicezeiten: {HOURS}</p>
   </div>
 </section>
 
@@ -53,10 +56,14 @@ const { rueckgrat = false } = Astro.props;
       .zielpunkt { animation: ziel-auf linear both; }
       section.fkontakt span.zielweg__gerade, section.fkontakt .zielweg__bogen path { animation-timeline: --ziel; animation-range: entry 0% entry 45%; }
       section.fkontakt svg.zielpunkt { animation-timeline: --ziel; animation-range: entry 40% entry 55%; }
+      section.fkontakt .zielpunkt__puls { animation: ziel-puls linear both; animation-timeline: --ziel; animation-range: entry 55% entry 80%; }
     }
   }
   @keyframes ziel-wachsen { from { transform: scaleY(0); } to { transform: none; } }
   @keyframes ziel-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  /* Der Zielpunkt pulsiert einmal (ein Ring weitet sich und verblasst), danach Ruhe (Talk 3636) */
+  .zielpunkt__puls { fill: none !important; stroke: var(--accent-light); stroke-width: 2 !important; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  @keyframes ziel-puls { 0% { opacity: 0; transform: scale(1); } 15% { opacity: 0.9; } 100% { opacity: 0; transform: scale(1.9); } }
   @keyframes ziel-auf { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
   .fkontakt__inner { display: grid; justify-items: center; text-align: center; gap: 18px; }
   .fkontakt__inner h2, .fkontakt__inner p { margin: 0; }
@@ -64,7 +71,10 @@ const { rueckgrat = false } = Astro.props;
   .fkontakt h2 { font-size: clamp(2rem, 5.4vw, 3.6rem); line-height: 1.08; letter-spacing: -0.025em; max-width: 18ch; }
   .fkontakt__text { color: var(--dark-lead); max-width: 46ch; font-size: clamp(1.05rem, 2vw, 1.2rem); line-height: 1.6; }
   .fkontakt__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px; }
-  .fkontakt__mail { overflow-wrap: anywhere; }
+  .fkontakt__hinweise { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; color: var(--dark-lead); font-size: 0.95rem; }
+  .fkontakt__hinweise li { display: inline-flex; align-items: center; gap: 6px; }
+  .fkontakt__hinweise :global(.icon) { color: var(--accent-light); }
+  .fkontakt__zeiten { overflow-wrap: anywhere; }
   .fkontakt__zeiten { color: var(--dark-soft); font-size: 0.92rem; }
   @media (max-width: 480px) { .fkontakt__actions { display: grid; width: 100%; } }
 </style>

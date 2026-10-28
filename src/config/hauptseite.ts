@@ -12,7 +12,8 @@ export const HERO = {
   accent: 'einfach.',
   // Dachmarke: nur über uns (Jamil, Talk 3540/3541); Wortlaut nach Strategiebriefing 3401 („Wir helfen Unternehmen dabei, Veränderungen einfacher umzusetzen“, „Klarheit, Struktur, … einen zuverlässigen Partner“)
   // Bezugsrahmen „digital“ ohne Technik-Jargon (Jamil, Talk 3589); Beispiele = heutige/angekündigte Produkte (Website, Process, Workplace)
-  lead: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen – ob Website, Abläufe oder die Werkzeuge im Arbeitsalltag. Verständlich, verlässlich und ohne Fachchinesisch.',
+  // Subheadline wörtlich aus Jamils kompaktem Design-Briefing (Talk 3636, 28.10.2026)
+  lead: 'Wir entwickeln digitale Produkte und Lösungen, die Veränderungen verständlich, verlässlich und einfach machen.',
 };
 
 /** „Wofür wir stehen“ – ein Wort, eine Kernzeile (lead) und 2–3 Sätze, was das konkret für Kunden heißt.
@@ -142,17 +143,23 @@ export type Produkt = {
   /** Kurze Nutzenpunkte auf der Produktkarte (nur aktive Produkte) */
   frage?: string;
   punkte?: { icon: IconName; text: string; link?: string }[];
+  /** Kurze Erklärung auf der Produktkarte der Startseite (nur belegte Aussagen) */
+  erklaerung?: string;
+  /** Knopftext zur eigenen Produktseite (Talk 3636: „Produkt kennenlernen“ u. ä., nicht „Erstgespräch anfragen“) */
+  cta?: string;
 };
 
 /** Anzeigename: eigener Produktname oder (solange offen) die Kategorie */
 export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO') ? p.name : p.kategorie);
 
 export const PRODUKTE: Produkt[] = [
-  // name = ARBEITSNAME (Jamil 27.10.2026, Talk 3477: „Nenn es erstmal …“) – nur hier ändern, alle Seiten übernehmen ihn.
+  // name: Arbeitsname „Super Duper Website Service“ (Talk 3477) am 28.10.2026 entfernt – Jamil, Talk 3636: „Ersetzen: Super Duper“.
+  // Bis ein eigener Name feststeht, zeigt die Seite die Kategorie „Website Service“.
   // Punkte: Jamil, Talk 3543 („Änderungen per Sprachnachricht in Minuten … per Sprache, Text, Screenshot, kurzes Video …
   // sich selbst optimierende Websites … mit unserem Serviceversprechen“). „oft in wenigen Minuten“ = keine garantierte Frist
   // (passt zu SLA_KERN „Oft schon in Minuten erledigt“). Selbstoptimierung nach PAKETE „Intelligente Website“.
-  { id: 'website', art: 'produkt', name: 'Super Duper Website Service', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/',
+  { id: 'website', art: 'produkt', name: 'TODO', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/', cta: 'Produkt kennenlernen',
+    erklaerung: 'Änderungen schicken Sie per Sprachnachricht, Text, Screenshot oder kurzem Video. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.',
     frage: 'Warum Ihre Website mit uns?',
     punkte: [
       { icon: 'mic', text: 'Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt.' },
@@ -178,11 +185,12 @@ export const WEBSITE_PRODUKT = PRODUKTE[0];
 
 /** Unsere Haltung – Dachmarke, ganz allgemein (Jamil, Talk 3538/3540: nur Werte, Prinzipien, Philosophie – keine Leistung).
  *  Überschriften wörtlich aus Jamils Strategiebriefing (Talk 3401), Sätze aus 3378/3401. Bildsymbole: Talk 3537. */
+/** Texte ab 28.10.2026 wörtlich aus Jamils kompaktem Design-Briefing (Talk 3636). */
 export const HALTUNG: { titel: string; text: string; bild: 'ohr' | 'gehirn' | 'licht' | 'knoten' }[] = [
-  { titel: 'Wir hören zu.', text: 'Erst verstehen, dann handeln.', bild: 'ohr' },
-  { titel: 'Wir denken mit.', text: 'Wir fragen nicht zuerst nach der Lösung, sondern danach, was Sie erreichen möchten.', bild: 'gehirn' },
-  { titel: 'Wir mögen einfache Lösungen.', text: 'Wenn sich etwas verändern soll, sollte die Umsetzung nicht zum Problem werden.', bild: 'licht' },
-  { titel: 'Wir machen es nicht komplizierter als nötig.', text: 'Klarheit, Struktur und gute Kommunikation – mehr braucht Veränderung oft nicht.', bild: 'knoten' },
+  { titel: 'Wir hören zu.', text: 'Wir beginnen nicht mit einer fertigen Lösung. Wir möchten zuerst verstehen, was Sie erreichen wollen.', bild: 'ohr' },
+  { titel: 'Wir denken mit.', text: 'Wir setzen nicht nur Anforderungen um. Wir weisen auch auf einfachere oder sinnvollere Wege hin.', bild: 'gehirn' },
+  { titel: 'Wir mögen einfache Lösungen.', text: 'Wenn sich etwas verändern soll, sollte die Umsetzung nicht selbst zum Problem werden.', bild: 'licht' },
+  { titel: 'Wir machen es nicht komplizierter als nötig.', text: 'Klarheit, Struktur und gute Kommunikation reichen häufig weiter als zusätzliche Systeme und Prozesse.', bild: 'knoten' },
 ];
 
 /** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
@@ -199,11 +207,12 @@ export const UEBER = {
  *  Quellen: Strategiebriefing 3401 (Klarheit, Struktur, Verständnis, gute Kommunikation, zuverlässiger Partner),
  *  3395 (Leichtigkeit, Serviceversprechen, Mehrwert je Service), PROZESSE/WERTE. „Verlässlichkeit“ statt
  *  „Ein verlässlicher Partner“ (Talk 3583). Details der Zusagen nur auf /zusagen/. */
+/** Ab 28.10.2026 als überprüfbare Zusagen formuliert – wörtlich aus Jamils kompaktem Design-Briefing (Talk 3636). */
 export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Klarheit', text: 'Sie wissen jederzeit, woran Sie sind.', icon: 'eye' },
-  { titel: 'Struktur', text: 'Klare Abläufe statt Zufall: Jedes Anliegen geht denselben festen Weg.', icon: 'layers' },
-  { titel: 'Verständnis', text: 'Sie sollen sich verstanden fühlen – nicht beeindruckt.', icon: 'users' },
-  { titel: 'Gute Kommunikation', text: 'Klare Worte statt Fachchinesisch – und ein fester Ansprechpartner, der Ihr Unternehmen kennt.', icon: 'chat' },
-  { titel: 'Verlässlichkeit', text: 'Verbindliche Zusagen statt vager Versprechen. Was wir zusagen, halten wir ein.', icon: 'shield' },
-  { titel: 'Echter Mehrwert', text: 'Was wir anbieten, soll Ihnen und Ihrem Unternehmen spürbar etwas bringen.', icon: 'spark' },
+  { titel: 'Klarheit', text: 'Sie wissen jederzeit, wer zuständig ist und was als Nächstes passiert.', icon: 'eye' },
+  { titel: 'Struktur', text: 'Jedes Anliegen folgt einem nachvollziehbaren Ablauf.', icon: 'layers' },
+  { titel: 'Verständnis', text: 'Wir erklären Entscheidungen ohne unnötige Fachsprache.', icon: 'users' },
+  { titel: 'Gute Kommunikation', text: 'Sie haben einen festen Ansprechpartner, der Ihr Unternehmen kennt.', icon: 'chat' },
+  { titel: 'Verlässlichkeit', text: 'Wir antworten spätestens am nächsten Werktag und nennen den nächsten konkreten Schritt.', icon: 'shield' },
+  { titel: 'Echter Mehrwert', text: 'Was wir umsetzen, soll Zeit sparen, Abläufe erleichtern oder ein konkretes Problem lösen.', icon: 'spark' },
 ];

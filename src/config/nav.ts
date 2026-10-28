@@ -4,11 +4,12 @@ import type { IconName } from './site';
 export type NavChild = { label: string; path: string; icon?: IconName; desc?: string; group?: string };
 export type NavItem = { label: string; path?: string; children?: NavChild[] };
 
+// Hauptnavigation nach Jamils kompaktem Design-Briefing (Talk 3636): Unternehmen, So arbeiten wir, Produkte,
+// Referenzen oder Einblicke (noch keine freigegebenen Referenzen → „Einblicke“), Kontakt. Zusagen/FAQ stehen im Footer.
 export const NAV: NavItem[] = [
-  { label: 'Unsere Haltung', path: '/#haltung' },
-  { label: 'Qualitäten', path: '/#qualitaeten' },
+  { label: 'Unternehmen', path: '/#unternehmen' },
+  { label: 'So arbeiten wir', path: '/#so-arbeiten-wir' },
   { label: 'Produkte', path: '/#produkte' },
-  { label: 'Unsere Zusagen', path: '/zusagen/' },
-  { label: 'Häufige Fragen', path: '/faq/' },
+  { label: 'Einblicke', path: '/#einblicke' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

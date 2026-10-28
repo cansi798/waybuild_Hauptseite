@@ -1,46 +1,58 @@
 ---
-// Startseite der Dachmarke Waybuild – NEUAUFBAU als Scroll-Geschichte (Jamil, Sprachnachricht Talk 3632, 28.10.2026:
-// „Diese Linie soll den Weg mit Waybuild darstellen. Vorher Chaos und dann kommt langsam die Ordnung mit Waybuild.
-// Gerade Prozesse.“; Design-System Talk 3622: „Die Linie erzählt die komplette Geschichte von Waybuild.“).
-//
-// Die Linie ist das Rückgrat der Seite, nicht Randverzierung:
-//   START (Start.astro): Versprechen + Arbeitsfläche voller Chaos (Zettel, verknotete Linie). Beim Scrollen entwirrt
-//          sich die Linie, wird türkis, die Zettel sortieren sich in vier klare Schritte an der geraden Linie.
-//   Danach läuft die gerade Linie mittig (Handy: links) durch die Kapitel; die Inhalte hängen an ihr:
-//   2 Verständnis → 3 Orientierung (Haltung) → 4 Vertrauen (Qualitäten) → 5 Produkte (alle an der Marke) → 6 Ziel
-//   (FooterKontakt: die Linie endet im Zielpunkt, „Was möchten Sie verändern?“).
-// Ohne JS / bei reduzierter Bewegung: statischer Endzustand (Chaos oben als Bild, Ordnung darunter), alles lesbar.
-// Inhalte und Entscheidungen aus Jamils/Cans früheren Runden bleiben (Zielgruppe, digital, Haltung, Qualitäten,
-// Nachdenk-Fragen, Produkte alle verfügbar, keine Preise, keine Telefonnummer). Frühere Fassung: Git-Historie (ffa6292).
+// Startseite der Dachmarke Waybuild – Aufbau GENAU nach Jamils kompaktem Design- und Strukturbriefing (Talk 3636,
+// 28.10.2026; hat Vorrang vor früheren Briefings). Texte wörtlich, wo das Briefing sie vorgibt.
+// Leitidee: eine durchgehende Linie – vom Chaos über Klarheit und Vertrauen bis zum Ziel.
+//   Hero (Hero.astro): Text + Weg-Illustration (graue Linie durch E-Mail … Freigabe, am Ende kurz türkis)
+//   Schritt 1 · Vorher → Dann kommt Waybuild (Wandel.astro): Chaos-Karten, Situationen, die Linie wird geordnet
+//   Schritt 2 · Verständnis (+ Illustration Schleife → Übergabe → Strecke → Ziel) · Selbstreflexion (Selbstcheck.astro)
+//   Schritt 3 · Orientierung · Schritt 4 · Vertrauen (Petrol) · Einblicke (Beweise) · Menschen hinter Waybuild
+//   Schritt 5 · Produkte · Schritt 6 · Ziel (FooterKontakt: Zielpunkt)
+// Nichts erfunden: Einblicke = typische Situationen (ausdrücklich keine Kundenfälle) + nachprüfbare Fakten aus der Config;
+// Teamfotos/Namen und echte Kundenbeispiele sind in der Vorschau als „Fehlt“ markiert. Keine Preise, keine Telefonnummer.
+// Frühere Fassungen: Git-Historie (bec9a95 Storytelling, ffa6292 davor).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Start from '../components/story/Start.astro';
+import Hero from '../components/story/Hero.astro';
+import Wandel from '../components/story/Wandel.astro';
+import WegBild from '../components/story/WegBild.astro';
+import Selbstcheck from '../components/story/Selbstcheck.astro';
 import SkizzeWhiteboard from '../components/SkizzeWhiteboard.astro';
+import Hint from '../components/Hint.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
 import HaltungBild from '../components/HaltungBild.astro';
 import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
+import { company } from '../config/site';
 
-// Nachdenk-Fragen – Strategiebriefing Talk 3401
-const FRAGEN = [
-  'Wie einfach lassen sich Änderungen bei Ihnen heute umsetzen?',
-  'Wie schnell kommen Ideen tatsächlich in die Umsetzung?',
-  'Wie abhängig ist Ihr Unternehmen von einzelnen Personen?',
-  'Wie transparent sind Ihre Dienstleister?',
-  'Wie viel Aufwand entsteht bei kleinen Veränderungen?',
+// Einblicke: typische Vorher/Nachher-Situationen (Talk 3636, Beispiele 1–3) – im Präsens, als Beispiele gekennzeichnet,
+// bis echte, freigegebene Kundenfälle vorliegen („Sobald reale Kundenbeispiele vorhanden sind, müssen …“).
+const GESCHICHTEN = [
+  { vorher: 'Eine kleine Websiteänderung führt zu mehreren E-Mails.', nachher: 'Eine kurze Nachricht genügt.' },
+  { vorher: 'Niemand weiß, welcher Dienstleister zuständig ist.', nachher: 'Ein fester Ansprechpartner übernimmt die Klärung.' },
+  { vorher: 'Der aktuelle Stand muss regelmäßig erfragt werden.', nachher: 'Zuständigkeit und nächster Schritt sind jederzeit bekannt.' },
 ];
+// Nachprüfbare Fakten – nur Belegtes: Handelsregister (site.ts company), Zusagen (/zusagen/), Server in Deutschland
+// (hauptseite.ts VERTRAUEN), keine Cookies/kein Tracking (Datenschutzerklärung), verfügbare eigene Produkte.
+const FAKTEN = [
+  { icon: 'doc', text: `Eingetragen im Handelsregister: ${company.registerCourt}, ${company.registerNumber}.`, link: '/impressum/', linkText: 'Impressum' },
+  { icon: 'clock', text: 'Antwort spätestens am nächsten Werktag – unsere Zusagen stehen offen auf dieser Website.', link: '/zusagen/', linkText: 'Zusagen' },
+  { icon: 'server', text: 'Unsere Lösungen laufen auf Servern in Deutschland.' },
+  { icon: 'lock', text: 'Diese Website setzt keine Cookies und kein Tracking ein.', link: '/datenschutz/', linkText: 'Datenschutz' },
+] as const;
 ---
 
 <BaseLayout
   title="Wir machen Veränderungen einfach"
-  description="Waybuild macht digitale Veränderungen für Unternehmen einfach – verständlich, verlässlich und ohne Fachchinesisch. Mit festem Ansprechpartner, klaren Abläufen."
+  description="Waybuild entwickelt digitale Produkte und Lösungen, die Veränderungen verständlich, verlässlich und einfach machen. Ein fester Ansprechpartner, klare Abläufe."
   rueckgrat
 >
-  <!-- SCHRITT 1 – CHAOS → ORDNUNG (die Linie entwirrt sich) -->
-  <Start />
+  <Hero />
 
-  <!-- SCHRITT 2 – VERSTÄNDNIS: Waybuild versteht das Problem -->
-  <section class="kapitel kapitel--anschluss" id="verstaendnis" aria-labelledby="weg-h">
+  <!-- SCHRITT 1 · VORHER → DANN KOMMT WAYBUILD -->
+  <Wandel />
+
+  <!-- SCHRITT 2 · VERSTÄNDNIS + SELBSTREFLEXION -->
+  <section class="kapitel kapitel--anschluss" id="unternehmen" aria-labelledby="weg-h">
     <div class="wrap">
       <div class="pfad">
         <div class="halt halt--l kopf">
@@ -48,33 +60,26 @@ const FRAGEN = [
           <h2 id="weg-h" class="plakat">Nicht die Technik macht Veränderungen schwer. <span class="accent">Sondern der Weg dorthin.</span></h2>
         </div>
         <div class="halt halt--r entstehung">
-          <p class="lead">Waybuild ist aus Frust entstanden: Eine einfache Veränderung bedeutete viele Nachrichten, Missverständnisse und Warten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz und einfach.</p>
-          <SkizzeWhiteboard />
+          <p class="lead">Waybuild ist aus einer einfachen Beobachtung entstanden: Kleine Veränderungen führen häufig zu vielen Nachrichten, unklaren Zuständigkeiten und langen Wartezeiten.</p>
+          <p class="lead">Deshalb fragen wir zuerst: Was möchten Sie erreichen? Anschließend suchen wir den einfachsten und sinnvollsten Weg dorthin.</p>
         </div>
+        <div class="halt halt--voll halt--still wegbild-halt"><WegBild /></div>
       </div>
-
-      <div class="pfad fragen">
-        <h3 class="halt halt--voll fragen__marke">Wie leicht ist Veränderung bei Ihnen heute?</h3>
-        <ol class="pfad pfad--zickzack fragen__liste">
-          {FRAGEN.map((f, i) => (
-            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'frage']} style={`--zeile:${i + 1}`}>{f}</li>
-          ))}
-        </ol>
-      </div>
+      <Selbstcheck />
     </div>
   </section>
 
-  <!-- SCHRITT 3 – ORIENTIERUNG: es gibt einen klaren Weg (unsere Haltung) -->
+  <!-- SCHRITT 3 · ORIENTIERUNG -->
   <section class="kapitel kapitel--weiss" id="haltung" aria-labelledby="haltung-h">
     <div class="wrap">
       <div class="pfad pfad--zickzack">
         <div class="halt halt--l kopf" style="--zeile:1">
           <span class="schritt-kenn">Schritt 3 · Orientierung</span>
           <h2 id="haltung-h">Es gibt <span class="accent">einen klaren Weg.</span></h2>
-          <p class="lead">Vier Sätze, nach denen wir arbeiten – bei allem, was wir tun.</p>
+          <p class="lead">Vier Grundsätze, nach denen wir arbeiten. Bei jedem Produkt, jedem Anliegen und jeder Veränderung.</p>
         </div>
         {HALTUNG.map((h, i) => (
-          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'karte', 'haltung']} style={`--zeile:${i + 2}`}>
+          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'karte']} style={`--zeile:${i + 2}`}>
             <span class="haltung__icon"><HaltungBild art={h.bild} /></span>
             <div>
               <h3>{h.titel}</h3>
@@ -86,7 +91,7 @@ const FRAGEN = [
     </div>
   </section>
 
-  <!-- SCHRITT 4 – VERTRAUEN: so arbeiten wir (Qualitäten) -->
+  <!-- SCHRITT 4 · VERTRAUEN (Petrol) -->
   <section class="kapitel kapitel--dunkel" id="qualitaeten" aria-labelledby="qual-h">
     <div class="wrap">
       <div class="pfad">
@@ -94,8 +99,8 @@ const FRAGEN = [
           <span class="schritt-kenn">Schritt 4 · Vertrauen</span>
           <h2 id="qual-h">Weil Zusammenarbeit <span class="accent">leicht sein darf.</span></h2>
         </div>
-        <p class="halt halt--r halt--still lead kopf__text">Fast jede digitale Veränderung braucht Klarheit, Struktur und einen verlässlichen Partner. Ihre Leichtigkeit in der Zusammenarbeit ist unser Maßstab.</p>
-        <ul class="pfad qual">
+        <p class="halt halt--r halt--still lead kopf__text">Digitale Veränderungen brauchen Klarheit, Struktur und einen verlässlichen Partner. Daran lassen wir uns im Alltag messen.</p>
+        <ul class="pfad qual" aria-label="Unsere Zusagen">
           {QUALITAETEN.map((q, i) => (
             <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'qual__q']}>
               <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={34} /></span>
@@ -111,20 +116,67 @@ const FRAGEN = [
     </div>
   </section>
 
-  <!-- SCHRITT 5 – PRODUKTE: so setzen wir den Weg um, alle mit der Marke verbunden -->
+  <!-- BEWEISE → EINBLICKE (keine erfundenen Kundenfälle) -->
+  <section class="kapitel" id="einblicke" aria-labelledby="einblicke-h">
+    <div class="wrap">
+      <div class="pfad">
+        <div class="halt halt--l kopf">
+          <span class="schritt-kenn">Einblicke</span>
+          <h2 id="einblicke-h">Nicht nur versprochen. <span class="accent">So sieht es konkret aus.</span></h2>
+        </div>
+        <p class="halt halt--r halt--still lead kopf__text">Drei typische Situationen – so, wie sie vielen Unternehmen begegnen. Echte Kundenbeispiele zeigen wir hier, sobald sie freigegeben sind.</p>
+        <div class="halt halt--voll halt--still"><Hint block label="Echte Kundenbeispiele (Fall, Aussage, Ergebnis – mit schriftlicher Freigabe des Kunden)" where="src/pages/index.astro → GESCHICHTEN" /></div>
+        <ol class="pfad geschichten" aria-label="Typische Situationen vorher und mit Waybuild">
+          {GESCHICHTEN.map((g, i) => (
+            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'geschichte']}>
+              <p class="geschichte__vorher"><svg viewBox="0 0 48 20" aria-hidden="true" focusable="false"><path d="M2 10 C 8 2, 14 18, 18 10 S 26 0, 28 10 S 34 20, 38 8 S 44 6, 46 10" /></svg><span><strong>Vorher:</strong> {g.vorher}</span></p>
+              <p class="geschichte__nachher"><svg viewBox="0 0 48 20" aria-hidden="true" focusable="false"><path d="M2 10 L 40 10" /><circle cx="42" cy="10" r="4" /></svg><span><strong>Mit Waybuild:</strong> {g.nachher}</span></p>
+            </li>
+          ))}
+        </ol>
+        <div class="halt halt--voll halt--still fakten">
+          <h3>Was Sie heute schon nachprüfen können</h3>
+          <ul>
+            {FAKTEN.map((f) => (
+              <li><span class="fakten__icon" aria-hidden="true"><Icon name={f.icon} size={22} /></span><span>{f.text}{'link' in f && f.link && <> <a href={href(f.link)}>{f.linkText}</a></>}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENSCHEN HINTER WAYBUILD -->
+  <section class="kapitel kapitel--weiss" id="menschen" aria-labelledby="menschen-h">
+    <div class="wrap">
+      <div class="pfad">
+        <div class="halt halt--l kopf">
+          <span class="schritt-kenn">Menschen hinter Waybuild</span>
+          <h2 id="menschen-h">Wer kümmert sich <span class="accent">eigentlich?</span></h2>
+        </div>
+        <div class="halt halt--r menschen">
+          <p class="lead">Wenn Sie Waybuild schreiben, landen Sie nicht anonym in einem System. Sie sprechen mit Menschen, die Ihr Anliegen verstehen und Verantwortung für den nächsten Schritt übernehmen.</p>
+          <Hint block label="Echte Teamfotos, Namen, Aufgaben und kurze persönliche Aussagen (keine Stockfotos)" where="src/pages/index.astro → Abschnitt „menschen“" />
+          <SkizzeWhiteboard />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHRITT 5 · PRODUKTE -->
   <section class="kapitel kapitel--sand" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
       <div class="pfad">
         <div class="halt halt--l kopf">
           <span class="schritt-kenn">Schritt 5 · Produkte</span>
-          <h2 id="produkte-h">Jetzt starten wir. <span class="accent">Und das ist erst der Anfang.</span></h2>
+          <h2 id="produkte-h">Eine Haltung. <span class="accent">Unterschiedliche Produkte.</span></h2>
         </div>
-        <p class="halt halt--r halt--still lead kopf__text">Jedes unserer Produkte trägt einen eigenen Namen und hat einen eigenen Auftritt. Was sie verbindet, sind dieselben Werte und dieselben Zusagen.</p>
+        <p class="halt halt--r halt--still lead kopf__text">Jedes Waybuild-Produkt löst ein konkretes Problem und besitzt einen eigenen Namen und Auftritt. Was alle Produkte verbindet, sind dieselben Werte, Zusagen und Arbeitsweisen.</p>
       </div>
       <Produkte />
     </div>
   </section>
-  <!-- SCHRITT 6 – ZIEL: Kontakt (FooterKontakt, die Linie endet im Zielpunkt) -->
+  <!-- SCHRITT 6 · ZIEL: FooterKontakt (Petrol, die Linie erreicht den Zielpunkt) -->
 </BaseLayout>
 
 <script>
@@ -151,32 +203,22 @@ const FRAGEN = [
 </script>
 
 <style>
-  /* Kapitel-Köpfe */
   .kopf { --hy: 10px; }
-  .kopf__text { margin: 0; align-self: end; }
-  .kapitel--dunkel .pfeil-link { color: var(--accent-light); }
   .kopf h2 { margin-bottom: 0; }
   .kopf .lead { margin-top: 18px; margin-bottom: 0; }
+  .kopf__text { margin: 0; align-self: end; }
   .kapitel--dunkel .lead { color: var(--dark-lead); }
+  .kapitel--dunkel .pfeil-link { color: var(--accent-light); }
   .plakat { font-size: clamp(2.1rem, 3.9vw, 3.3rem) !important; line-height: 1.06; }
 
   /* Verständnis */
-  .entstehung { --hy: 10px; display: grid; gap: 24px; padding-top: 0; }
-  @media (min-width: 960px) { .entstehung .lead { margin-top: -6px !important; } }
+  .entstehung { --hy: 10px; display: grid; gap: 14px; }
   .entstehung .lead { margin: 0; }
-  .entstehung :global(.skizze) { max-width: 420px; margin: 0; }
-  .fragen { margin-top: clamp(56px, 8vw, 96px); row-gap: 20px; }
-  .fragen__marke { --hy: 50%; margin: 0; font-size: clamp(1.15rem, 2vw, 1.35rem); color: var(--accent-ink); }
-  @media (min-width: 960px) {
-    .fragen__marke { justify-self: center; text-align: center; background: var(--sec-bg); border: 3px solid var(--accent); border-radius: 999px; padding: 12px 26px; }
-    .fragen__marke::before, .fragen__marke::after { display: none; }
-  }
-  .fragen__liste { list-style: none; margin: 0; padding: 0; row-gap: 0; }
-  @media (min-width: 960px) { .fragen__liste { grid-column: 1 / -1; } }
-  .frage { --hy: 50%; align-self: start; margin: 0 0 12px; padding: 14px 18px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; font-family: var(--font-head); font-weight: 600; font-size: 1.04rem; line-height: 1.4; }
-  @media (min-width: 960px) { .frage { margin: 0 0 18px; } .frage.halt--l { text-align: right; } }
+  @media (min-width: 960px) { .entstehung .lead:first-child { margin-top: -6px; } }
+  .wegbild-halt { margin-top: clamp(16px, 3vw, 32px); }
+  @media (min-width: 960px) { .wegbild-halt { position: relative; z-index: 1; } }
 
-  /* Karten an der Linie (Haltung) */
+  /* Karten an der Linie (Orientierung) */
   .karte { --hy: 40px; align-self: start; display: flex; gap: 16px; align-items: flex-start; padding: 22px 22px 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 14px; }
   .karte h3 { margin: 4px 0 6px; font-size: clamp(1.12rem, 1.8vw, 1.28rem); line-height: 1.25; }
   .karte p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
@@ -191,8 +233,29 @@ const FRAGEN = [
   .qual__q h3 { margin: 0 0 6px; font-size: 1.18rem; line-height: 1.25; }
   .qual__q p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
   .qual__mehr { margin: 0; }
-  @media (min-width: 960px) { .qual { grid-column: 1 / -1; } }
+  @media (min-width: 960px) { .qual, .geschichten { grid-column: 1 / -1; } }
 
-  /* Produkte */
-  .kapitel--sand .pfad + :global(.pweg) { margin-top: clamp(32px, 5vw, 56px); }
+  /* Einblicke */
+  .geschichten { list-style: none; margin: 0; padding: 0; row-gap: 18px; }
+  .geschichte { --hy: 28px; display: grid; gap: 10px; padding: 18px 20px; background: var(--white); border: 1px solid var(--line); border-radius: 18px; }
+  .geschichte p { margin: 0; display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
+  .geschichte svg { flex: none; width: 44px; height: 20px; margin-top: 2px; overflow: visible; }
+  .geschichte path { fill: none; stroke-width: 2.5; stroke-linecap: round; }
+  .geschichte__vorher { color: #57534b; }
+  .geschichte__vorher path { stroke: #b4ad9e; }
+  .geschichte__nachher path { stroke: var(--accent); }
+  .geschichte__nachher circle { fill: var(--accent); }
+  .geschichte__nachher strong { color: var(--accent-ink); }
+  .fakten { margin-top: 10px; padding: 22px 24px; border-radius: 18px; border: 1px solid var(--line); background: var(--sec-bg); position: relative; z-index: 1; }
+  .fakten h3 { margin: 0 0 14px; font-size: 1.15rem; }
+  .fakten ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  @media (min-width: 760px) { .fakten ul { grid-template-columns: 1fr 1fr; column-gap: 28px; } }
+  .fakten li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
+  .fakten__icon { flex: none; color: var(--accent-ink); margin-top: 1px; }
+  .fakten a { color: var(--accent-ink); font-weight: 650; }
+
+  /* Menschen */
+  .menschen { --hy: 10px; display: grid; gap: 18px; }
+  .menschen .lead { margin: 0; }
+  .menschen :global(.skizze) { max-width: 360px; margin: 0; }
 </style>

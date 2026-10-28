@@ -4,9 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import StickyBar from '../components/StickyBar.astro';
-import { company, isMissing, SHOW_HINTS } from '../config/site';
+import { company, isMissing } from '../config/site';
 import { PRODUKTE, produktName } from '../config/hauptseite';
-import { launchTodos } from '../config/launch';
 import { href, absolute } from '../lib/paths';
 import { IS_PREVIEW } from '../lib/env';
 
@@ -88,7 +87,6 @@ const breadcrumbSchema = breadcrumb && {
   })),
 };
 
-const openTodos = launchTodos.filter((t) => !t.done).length;
 
 const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...schema];
 ---
@@ -134,10 +132,7 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     </main>
     <Footer kontakt={!hideFooterKontakt} rueckgrat={rueckgrat} />
     {!hideMobileCta && <StickyBar />}
-    {/* Badge nur, wo es /checkliste/ gibt: Vorschau-Build oder Dev-Server (live löscht postbuild die Seite). */}
-    {(IS_PREVIEW || import.meta.env.DEV) && SHOW_HINTS && openTodos > 0 && (
-      <aside aria-label="Launch-Checkliste"><a class="todo-badge" href={href('/checkliste/')}><span>{openTodos}</span><em>offene Punkte</em></a></aside>
-    )}
+    {/* Schwebendes „offene Punkte“-Badge entfernt (Jamil, Talk 3636: „unklare schwebende 16-Markierung“). Die Launch-Checkliste bleibt unter /checkliste/ (Vorschau). */}
     <script data-reveal-script>
       // Reveal beim Scrollen (nur mit JS; ohne JS ist alles sichtbar)
       const reveals = document.querySelectorAll('.reveal');
@@ -150,17 +145,5 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
 </html>
 
 <style>
-  .todo-badge {
-    position: fixed; right: 16px; bottom: 16px; z-index: 60;
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #fff4c2; color: #5c4400; border: 1.5px dashed #d4a300; border-radius: 99px;
-    padding: 8px 14px; font-size: 0.85rem; font-weight: 650; text-decoration: none;
-    box-shadow: 0 8px 24px rgb(0 79 76 / 18%);
-  }
-  .todo-badge span { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #7a5c00; color: #fff; font-size: 0.72rem; font-weight: 800; }
-  @media print { .todo-badge { display: none; } }
   .preview-bar { background: var(--dark); color: var(--dark-soft); text-align: center; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 16px; }
-  /* Mobil: über der Sticky-CTA-Leiste, kompakter */
-  .todo-badge em { font-style: normal; }
-  @media (max-width: 959px) { .todo-badge { bottom: 84px; right: 10px; padding: 6px 10px; font-size: 0.8rem; } .todo-badge em { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } }
 </style>

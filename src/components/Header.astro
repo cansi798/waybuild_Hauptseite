@@ -73,7 +73,7 @@ const isCurrent = (path?: string) => path && current === href(path);
     </nav>
 
     <div class="hdr__actions">
-      <a class="btn btn--primary btn--sm hdr__cta" href={href('/kontakt/')}>Erstgespräch anfragen</a>
+      <a class="btn btn--primary btn--sm hdr__cta" href={href('/kontakt/')}>Kostenloses Erstgespräch</a>
       <button class="hdr__iconbtn hdr__burger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">
         <Icon name="menu" size={26} class="hdr__burger-open" />
         <Icon name="close" size={26} class="hdr__burger-close" />
@@ -90,7 +90,9 @@ const isCurrent = (path?: string) => path && current === href(path);
     background: var(--paper);
   }
   .hdr.is-scrolled { box-shadow: var(--shadow); }
-  .hdr__inner { display: flex; align-items: center; gap: 16px; min-height: var(--header-h); }
+  .hdr__inner { display: flex; align-items: center; gap: 16px; min-height: var(--header-h); transition: min-height 0.2s ease; }
+  .hdr__logo :global(svg), .hdr__logo :global(img) { transition: transform 0.2s ease; transform-origin: left center; }
+  .hdr.is-scrolled .hdr__logo :global(svg), .hdr.is-scrolled .hdr__logo :global(img) { transform: scale(0.86); }
   .hdr__logo { flex: none; display: inline-flex; text-decoration: none; }
 
   .hdr__nav { display: none; flex: 1; justify-content: center; }
@@ -160,7 +162,7 @@ const isCurrent = (path?: string) => path && current === href(path);
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(() => { hdr.classList.toggle('is-scrolled', window.scrollY > 24); ticking = false; });
+    requestAnimationFrame(() => { const klein = window.scrollY > 24; hdr.classList.toggle('is-scrolled', klein); document.documentElement.classList.toggle('hdr-klein', klein); ticking = false; });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();

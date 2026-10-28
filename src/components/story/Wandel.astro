@@ -1,0 +1,327 @@
+---
+// SCHRITT 1 · VORHER → DANN KOMMT WAYBUILD (Jamils kompaktes Design-Briefing, Talk 3636; Storytelling Talk 3632).
+// Eine stehende Bühne (sticky): links der Text (Handy: davor/danach), rechts eine Arbeitsfläche voller Chaos –
+// Karten mit Frust-Begriffen auf einer verknoteten grauen Linie. Beim Scrollen erscheinen zuerst konkrete Situationen,
+// dann kommt Waybuild: die Linie entwirrt sich abschnittsweise von oben, wird türkis, die Karten werden gebündelt und
+// gehen in vier klaren Schritten auf. Am Ende: gerade türkise Linie, darüber „Mit Waybuild: Ein klarer Weg. Gerade Abläufe.“
+// Alles hängt am Scroll-Fortschritt p – rückwärts beim Hochscrollen. Ohne JS, bei reduzierter Bewegung oder sehr
+// niedrigem Fenster: statischer Endzustand (Chaos oben, Ordnung darunter), alle Texte lesbar. Texte wörtlich aus Talk 3636.
+import Icon from '../Icon.astro';
+
+// Karten: x/y/r = Desktop, mx/my/mr = Handy (Prozent der Fläche); ziel = Schritt, in dem die Karte aufgeht.
+const ZETTEL = [
+  { t: 'E-Mails', x: 20, y: 9, r: -8, mx: 22, my: 7, mr: -8, ziel: 0 },
+  { t: 'Screenshots', x: 58, y: 7, r: 6, mx: 70, my: 5, mr: 6, ziel: 0 },
+  { t: 'WhatsApp-Nachrichten', x: 40, y: 20, r: -3, mx: 44, my: 16, mr: -4, ziel: 0 },
+  { t: 'Wer ist zuständig?', x: 22, y: 36, r: 5, mx: 24, my: 29, mr: 5, ziel: 1 },
+  { t: 'Viele Dienstleister', x: 79, y: 24, r: 9, mx: 78, my: 26, mr: 7, ziel: 1 },
+  { t: 'Rückfragen', x: 62, y: 41, r: -10, mx: 62, my: 39, mr: -9, ziel: 2 },
+  { t: 'Missverständnisse', x: 40, y: 54, r: 7, mx: 30, my: 47, mr: 6, ziel: 2 },
+  { t: 'Abstimmungsschleifen', x: 76, y: 60, r: -5, mx: 70, my: 55, mr: -5, ziel: 2 },
+  { t: 'Fachchinesisch', x: 19, y: 68, r: -6, mx: 22, my: 63, mr: -6, ziel: 2 },
+  { t: 'Warten', x: 50, y: 79, r: 4, mx: 56, my: 71, mr: 5, ziel: 3 },
+  { t: 'Wann ist es fertig?', x: 79, y: 86, r: -8, mx: 76, my: 80, mr: -7, ziel: 3 },
+];
+const LAGEN = [
+  'Für kleine Änderungen müssen Sie Tickets schreiben.',
+  'Niemand weiß, wer zuständig ist.',
+  'Webseiten bleiben monatelang unverändert.',
+  'Jede Anpassung wird zu einem eigenen Projekt.',
+  'Rückfragen kosten mehr Zeit als die eigentliche Änderung.',
+];
+const SCHRITTE = [
+  { titel: 'Eine Nachricht genügt.', text: 'Text, Screenshot, Video oder Sprachnachricht.' },
+  { titel: 'Ein fester Ansprechpartner.', text: 'Keine Weiterleitung zwischen unterschiedlichen Zuständigkeiten.' },
+  { titel: 'Ein klarer Ablauf.', text: 'Sie kennen jederzeit den nächsten Schritt.' },
+  { titel: 'Verlässlich umgesetzt.', text: 'Sie erhalten eine klare Rückmeldung und ein nachvollziehbares Ergebnis.' },
+];
+
+// Verknotete Linie: Stützpunkte (x 0…1 = Linie…rechter Rand, y 0…1 = oben…unten), 20 kubische Abschnitte (Catmull-Rom).
+const K: number[][] = [[0.012, 0.016, -0.05, 0.072, 0.06, 0.08], [0.17, 0.088, 0.39, 0.024, 0.55, 0.04], [0.71, 0.056, 0.846, 0.114, 0.86, 0.16], [0.874, 0.206, 0.732, 0.268, 0.62, 0.27], [0.508, 0.272, 0.328, 0.21, 0.3, 0.17], [0.272, 0.13, 0.4, 0.038, 0.48, 0.07], [0.56, 0.102, 0.604, 0.256, 0.7, 0.33], [0.796, 0.404, 0.98, 0.402, 0.96, 0.44], [0.94, 0.478, 0.764, 0.528, 0.6, 0.52], [0.436, 0.512, 0.184, 0.444, 0.14, 0.4], [0.096, 0.356, 0.298, 0.26, 0.38, 0.3], [0.462, 0.34, 0.454, 0.528, 0.55, 0.6], [0.646, 0.672, 0.83, 0.616, 0.86, 0.66], [0.89, 0.704, 0.824, 0.808, 0.7, 0.82], [0.576, 0.832, 0.3, 0.764, 0.24, 0.72], [0.18, 0.676, 0.348, 0.564, 0.4, 0.6], [0.452, 0.636, 0.4, 0.844, 0.5, 0.9], [0.6, 0.956, 0.904, 0.866, 0.9, 0.88], [0.896, 0.894, 0.66, 0.946, 0.48, 0.97], [0.3, 0.994, 0.096, 0.994, 0, 1]];
+const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).join(' ')}`).join('');
+---
+
+<section class="wandel" id="so-arbeiten-wir" aria-labelledby="vorher-h" data-start data-knoten={JSON.stringify(K)}>
+  <div class="wrap wandel__grid">
+    <div class="wandel__text">
+      <div class="wtext wtext--a">
+        <span class="schritt-kenn">Schritt 1 · Vorher</span>
+        <h2 id="vorher-h">So fühlt sich Veränderung oft an.</h2>
+        <p class="lead">Eine kleine Änderung beginnt mit einer Nachricht. Dann folgen Rückfragen, Weiterleitungen, Abstimmungen und Warten.</p>
+        <ul class="lagen" aria-label="Typische Situationen">
+          {LAGEN.map((l) => <li class="lage">{l}</li>)}
+        </ul>
+      </div>
+      <div class="wtext wtext--b">
+        <span class="schritt-kenn">Dann kommt Waybuild</span>
+        <h2>Schritt für Schritt kommt Ordnung hinein.</h2>
+        <p class="kern">Keine Projekte für jede Kleinigkeit. Keine Weiterleitungen ohne Ende. Sagen Sie einfach, was Sie verändern möchten.</p>
+      </div>
+    </div>
+
+    <div class="wandel__spur">
+      <div class="tafel">
+        <div class="tafel__teil tafel__chaos">
+          <div class="tafel__kopf" aria-hidden="true">
+            <p class="kenn kenn--mobil" data-phase="0"><span>Schritt 1 · Vorher</span>So fühlt sich Veränderung oft an.</p>
+            <p class="kenn kenn--mobil kenn--mitte" data-phase="1"><span>Dann kommt Waybuild</span>Schritt für Schritt kommt Ordnung hinein.</p>
+          </div>
+          <div class="tafel__flaeche">
+            <svg class="knoten" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path class="knoten__grau" d={KNOTEN} />
+              <path class="knoten__tuerkis" pathLength="1" d={KNOTEN} />
+            </svg>
+            <ul class="zettel" aria-label="Was Veränderung oft schwer macht">
+              {ZETTEL.map((z, i) => (
+                <li class="zettel__z" data-ziel={z.ziel} style={`--x:${z.x}%;--y:${z.y}%;--r:${z.r}deg;--mx:${z.mx}%;--my:${z.my}%;--mr:${z.mr}deg;--i:${i}`}>{z.t}</li>
+              ))}
+            </ul>
+            <p class="tafel__hinweis" aria-hidden="true"><Icon name="chevron" size={18} /> Weiterscrollen – und das Chaos ordnet sich</p>
+          </div>
+        </div>
+
+        <div class="tafel__teil tafel__ordnung">
+          <div class="tafel__kopf">
+            <p class="kenn kenn--tuerkis" data-phase="2"><span>Mit Waybuild:</span>Ein klarer Weg. Gerade Abläufe.</p>
+          </div>
+          <ol class="schritte" aria-label="So läuft es mit Waybuild">
+            {SCHRITTE.map((s, i) => (
+              <li class="schritt" data-schritt={i}>
+                <span class="schritt__nr" aria-hidden="true">{i + 1}</span>
+                <div>
+                  <h3 class="schritt__titel">{s.titel}</h3>
+                  <p>{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scrollgebundene Bühne: Fortschritt p (0…1) der stehenden Arbeitsfläche. Phasen:
+  // 0–0,27 Situationen erscheinen (Desktop) · 0,30–0,90 Linie entwirrt sich, Karten bündeln sich zu Schritten · danach Ruhe.
+  const root = document.querySelector<HTMLElement>('[data-start]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const niedrig = window.matchMedia('(max-height: 559px)');
+  const breit = window.matchMedia('(min-width: 960px)');
+  if (root && !reduce.matches && !niedrig.matches) {
+    root.classList.add('wandel--live');
+    const spur = root.querySelector<HTMLElement>('.wandel__spur')!;
+    const tafel = root.querySelector<HTMLElement>('.tafel')!;
+    const flaeche = root.querySelector<HTMLElement>('.tafel__flaeche')!;
+    const svg = root.querySelector<SVGSVGElement>('.knoten')!;
+    const grau = svg.querySelector<SVGPathElement>('.knoten__grau')!;
+    const tuerkis = svg.querySelector<SVGPathElement>('.knoten__tuerkis')!;
+    const zettel = Array.from(root.querySelectorAll<HTMLElement>('.zettel__z'));
+    const schritte = Array.from(root.querySelectorAll<HTMLElement>('.schritt'));
+    const kennzeilen = Array.from(root.querySelectorAll<HTMLElement>('.kenn'));
+    const lagen = Array.from(root.querySelectorAll<HTMLElement>('.lage'));
+    const textA = root.querySelector<HTMLElement>('.wtext--a')!;
+    const textB = root.querySelector<HTMLElement>('.wtext--b')!;
+    const hinweis = root.querySelector<HTMLElement>('.tafel__hinweis')!;
+    const kopf = document.getElementById('siteHeader');
+
+    const K: number[][] = JSON.parse(root.dataset.knoten || '[]');
+    const n = K.length;
+    const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const glatt = (t: number) => t * t * (3 - 2 * t);
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const A = 0.3, S = 0.44, D = 0.16;
+    const tAbschnitt = (p: number, i: number) => glatt(clamp((p - A - (S * i) / n) / D));
+
+    let w = 0, h = 0, lx = 0;
+    let basis: { x: number; y: number }[] = [];
+    let slots: { x: number; y: number; p: number }[] = [];
+
+    const messen = () => {
+      w = flaeche.clientWidth;
+      h = flaeche.clientHeight;
+      lx = parseFloat(getComputedStyle(tafel).getPropertyValue('--linie-x')) || 0;
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      const fr = flaeche.getBoundingClientRect();
+      basis = zettel.map((z) => ({ x: z.offsetLeft, y: z.offsetTop }));
+      slots = schritte.map((s) => {
+        const r = s.getBoundingClientRect();
+        const y = r.top + r.height / 2 - fr.top;
+        return { x: r.left + Math.min(r.width, 260) / 2 - fr.left, y, p: A + S * clamp(y / h) + D * 0.75 };
+      });
+    };
+
+    const pfad = (p: number) => {
+      const X = (u: number) => lx + u * (w - lx - 8);
+      const Y = (v: number) => v * h;
+      let d = `M ${lx} 0`;
+      for (let i = 0; i < n; i++) {
+        const t = tAbschnitt(p, i);
+        const y0 = (h * i) / n, y1 = (h * (i + 1)) / n;
+        const [c1x, c1y, c2x, c2y, ex, ey] = K[i];
+        const pts = [
+          [lerp(X(c1x), lx, t), lerp(Y(c1y), y0 + (y1 - y0) / 3, t)],
+          [lerp(X(c2x), lx, t), lerp(Y(c2y), y0 + (2 * (y1 - y0)) / 3, t)],
+          [lerp(X(ex), lx, t), lerp(Y(ey), y1, t)],
+        ];
+        d += ` C ${pts.map((q) => q.map((v) => v.toFixed(1)).join(' ')).join(', ')}`;
+      }
+      return d;
+    };
+
+    let zuletzt = -1;
+    const zeichnen = (erzwingen = false) => {
+      const oben = kopf ? kopf.getBoundingClientRect().bottom : 72;
+      const r = spur.getBoundingClientRect();
+      const weg = Math.max(1, spur.offsetHeight - tafel.offsetHeight);
+      const p = clamp((oben - r.top) / weg);
+      if (!erzwingen && Math.abs(p - zuletzt) < 0.0005) return;
+      zuletzt = p;
+      const d = pfad(p);
+      grau.setAttribute('d', d);
+      tuerkis.setAttribute('d', d);
+      tuerkis.style.strokeDashoffset = String(1 - clamp((p - A - D * 0.5) / S));
+      zettel.forEach((z, i) => {
+        const s = slots[Number(z.dataset.ziel)];
+        if (!s) return;
+        const t = glatt(clamp((p - (s.p - 0.16)) / 0.16));
+        const jitter = (i % 3) * 6 - 6;
+        const dx = (s.x - basis[i].x + jitter) * t;
+        const dy = (s.y - basis[i].y + jitter * 0.5) * t;
+        const rot = parseFloat(z.style.getPropertyValue(breit.matches ? '--r' : '--mr')) * (1 - t);
+        z.style.transform = `translate(-50%, -50%) translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(1 - 0.2 * t).toFixed(3)})`;
+        // Karten werden gebündelt und blenden aus, bevor sie sich überlagern (keine unlesbaren Überlagerungen)
+        z.style.opacity = String(1 - clamp((t - 0.3) / 0.35));
+      });
+      schritte.forEach((sEl, k) => {
+        const t = clamp((p - slots[k].p + 0.03) / 0.06);
+        sEl.style.opacity = String(t);
+        sEl.style.transform = `translateX(${((1 - t) * 14).toFixed(1)}px)`;
+        sEl.classList.toggle('schritt--da', t > 0.5);
+      });
+      const sicht = [1 - clamp((p - 0.24) / 0.05), clamp((p - 0.3) / 0.05) * (1 - clamp((p - 0.8) / 0.05)), clamp((p - 0.84) / 0.05)];
+      kennzeilen.forEach((k) => { k.style.opacity = String(sicht[Number(k.dataset.phase)]); });
+      hinweis.style.opacity = String(1 - clamp(p / 0.04));
+      if (breit.matches) {
+        lagen.forEach((l, i) => { const t = clamp((p - 0.02 - i * 0.045) / 0.035); l.style.opacity = String(t); l.style.transform = `translateY(${((1 - t) * 10).toFixed(1)}px)`; });
+        const b = clamp((p - 0.27) / 0.05);
+        textA.style.opacity = String(1 - b);
+        textB.style.opacity = String(b);
+        textA.style.visibility = b >= 1 ? 'hidden' : '';
+        textB.style.visibility = b <= 0 ? 'hidden' : '';
+      } else {
+        lagen.forEach((l) => { l.style.opacity = ''; l.style.transform = ''; });
+        [textA, textB].forEach((x) => { x.style.opacity = ''; x.style.visibility = ''; });
+      }
+    };
+
+    let laeuft = false;
+    const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(() => { laeuft = false; zeichnen(); }); } };
+    const neu = () => { zettel.forEach((z) => (z.style.transform = '')); schritte.forEach((s) => (s.style.transform = '')); messen(); zeichnen(true); };
+    neu();
+    window.addEventListener('scroll', anfordern, { passive: true });
+    window.addEventListener('resize', () => requestAnimationFrame(neu));
+    if (document.fonts) document.fonts.ready.then(neu);
+    reduce.addEventListener?.('change', () => location.reload());
+  }
+</script>
+
+<style>
+  .wandel { position: relative; background: var(--paper); padding-top: clamp(48px, 7vw, 96px); }
+  .wandel__grid { display: grid; gap: 28px; }
+  .wtext h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 16px; }
+  .wtext .lead { margin: 0 0 22px; max-width: 46ch; }
+  .lagen { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .lage { position: relative; padding: 10px 14px 10px 40px; border-left: 3px solid #cfc7b6; background: #fffdf8; border-radius: 0 10px 10px 0; font-weight: 500; line-height: 1.45; color: #4a4741; }
+  .lage::before { content: '“'; position: absolute; left: 14px; top: 4px; font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; color: #b4ad9e; }
+  .kern { margin: 0; font-family: var(--font-head); font-weight: 650; font-size: clamp(1.15rem, 2vw, 1.45rem); line-height: 1.4; color: var(--accent-ink); max-width: 30ch; }
+
+  /* Arbeitsfläche */
+  .tafel { --linie-x: 14px; position: relative; display: grid; gap: 28px; padding-bottom: 8px; }
+  .tafel__kopf { position: relative; padding-left: calc(var(--linie-x) + 30px); }
+  .kenn { margin: 0; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); }
+  .kenn span { display: block; margin-bottom: 4px; font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
+  .kenn--mobil { display: none; }
+
+  .tafel__flaeche { position: relative; height: clamp(380px, 100vw, 480px); }
+  .knoten { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .knoten path { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .knoten__grau { stroke: #b4ad9e; }
+  .knoten__tuerkis { stroke: var(--accent); stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .zettel { list-style: none; margin: 0; padding: 0; }
+  .zettel__z {
+    position: absolute; left: var(--mx); top: var(--my); transform: translate(-50%, -50%) rotate(var(--mr));
+    max-width: 10.5em; padding: 7px 12px 8px; border-radius: 4px; background: #fffdf8; border: 1px solid #d8d1c3;
+    font-family: var(--font-head); font-weight: 600; font-size: 0.86rem; line-height: 1.25; color: #5b574f; text-align: center; will-change: transform, opacity;
+  }
+  .zettel__z:nth-child(3n + 2) { background: #f3efe6; }
+  .zettel__z:nth-child(4n + 1) { border-top: 3px solid #cfc7b6; }
+  .tafel__hinweis { display: none; }
+
+  .tafel__ordnung { position: relative; }
+  .schritte { list-style: none; margin: 0; padding: 0 0 0 calc(var(--linie-x) + 30px); display: grid; gap: 14px; position: relative; }
+  .tafel__ordnung::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.5px); top: 0; bottom: -8px; width: 3px; background: var(--accent); border-radius: 2px; }
+  .schritt { position: relative; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: var(--white); border: 1px solid rgb(0 166 161 / 40%); border-radius: 14px; }
+  .schritt::before { content: ''; position: absolute; left: -30px; top: 50%; width: 30px; height: 3px; margin-top: -1.5px; background: var(--accent); }
+  .schritt::after { content: ''; position: absolute; left: -37px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent); box-sizing: border-box; }
+  .schritt__nr { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; }
+  .schritt__titel { margin: 2px 0 2px; font-size: 1.08rem; line-height: 1.3; letter-spacing: -0.01em; }
+  .schritt p { margin: 0; color: var(--ink-soft); line-height: 1.5; font-size: 0.97rem; }
+
+  /* Handy: Text A vor der Bühne, Text B (Kernbotschaft) danach */
+  @media (max-width: 959px) {
+    .wandel__text { display: contents; }
+    .wtext--a { order: 1; }
+    .wandel__spur { order: 2; }
+    .wtext--b { order: 3; padding-bottom: 8px; }
+  }
+  /* Desktop: zwei Spalten, die Linie sitzt in der Mitte (= Rückgrat der ganzen Seite) */
+  @media (min-width: 960px) {
+    .wandel { --g: 56px; padding-top: 0; }
+    .wandel__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: calc(2 * var(--g)); align-items: start; }
+    .wandel__text { display: grid; gap: 48px; padding-block: clamp(48px, 7vw, 96px); }
+    .wandel__spur { margin-left: calc(-1 * var(--g)); }
+    .tafel { --linie-x: 0px; padding-top: clamp(48px, 7vw, 96px); }
+    .tafel__kopf, .schritte { padding-left: calc(var(--g) + 4px); }
+    .schritt::before { left: calc(-1 * var(--g) - 4px); width: calc(var(--g) + 4px); }
+    .schritt::after { left: calc(-1 * var(--g) - 11px); }
+    .tafel__flaeche { height: 480px; }
+    .zettel__z { left: var(--x); top: var(--y); transform: translate(-50%, -50%) rotate(var(--r)); font-size: 0.95rem; padding: 9px 15px 10px; }
+  }
+
+  /* ───── Bühne mit Bewegung ───── */
+  :global(.wandel--live) .wandel__spur { height: calc(100svh - var(--header-h) - var(--stickybar-h) + 230svh); }
+  :global(.wandel--live) .tafel { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h) - var(--stickybar-h)); padding-block: 18px 0; gap: 0; }
+  :global(.wandel--live) .tafel__teil { grid-area: 1 / 1; display: flex; flex-direction: column; min-height: 0; }
+  :global(.wandel--live) .tafel__flaeche { flex: 1; height: auto; min-height: 0; }
+  :global(.wandel--live) .tafel__kopf { min-height: 3.6em; }
+  :global(.wandel--live) .tafel__kopf .kenn { position: absolute; left: calc(var(--linie-x) + 30px); right: 0; top: 0; opacity: 0; }
+  :global(.wandel--live) .tafel__ordnung { pointer-events: none; }
+  :global(.wandel--live) .tafel__ordnung::before { display: none; }
+  :global(.wandel--live) .schritte { flex: 1; align-content: space-evenly; padding-bottom: 12px; }
+  :global(.wandel--live) .schritt { opacity: 0; }
+  :global(.wandel--live) .schritt::before, :global(.wandel--live) .schritt::after { transition: transform 200ms ease, opacity 200ms ease; transform: scale(0.4); opacity: 0; }
+  :global(.wandel--live) .schritt--da::before, :global(.wandel--live) .schritt--da::after { transform: none; opacity: 1; }
+  :global(.wandel--live) .tafel__hinweis { display: flex; position: absolute; left: calc(var(--linie-x) + 30px); bottom: 10px; align-items: center; gap: 6px; margin: 0; font-size: 0.88rem; font-weight: 600; color: #6f6a60; }
+  @media (max-width: 959px) {
+    :global(.wandel--live) .kenn--mobil { display: block; }
+    :global(.wandel--live) .tafel__kopf { min-height: 4.6em; }
+  }
+  @media (min-width: 960px) {
+    :global(.wandel--live) .wandel__grid { align-items: stretch; }
+    :global(.wandel--live) .wandel__text { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); display: grid; align-content: center; padding-block: 24px; }
+    :global(.wandel--live) .wtext { grid-area: 1 / 1; }
+    :global(.wandel--live) .wtext--b { opacity: 0; }
+    :global(.wandel--live) .lage { opacity: 0; }
+    :global(.wandel--live) .tafel { padding-top: clamp(28px, 5vh, 56px); }
+    :global(.wandel--live) .tafel__kopf .kenn, :global(.wandel--live) .tafel__hinweis { left: calc(var(--g) + 4px); }
+  }
+  @media (max-width: 959px) and (max-height: 760px) {
+    :global(.wandel--live) .schritt p { display: none; }
+    :global(.wandel--live) .schritt { padding: 10px 14px; align-items: center; }
+  }
+  @media (min-width: 960px) and (max-height: 820px) {
+    :global(.wandel--live) .lage { padding-block: 7px; font-size: 0.95rem; }
+    :global(.wandel--live) .wtext .lead { margin-bottom: 14px; }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+// HERO nach Jamils kompaktem Design-Briefing (Talk 3636): Text links (Handy oben), rechts (Handy darunter) eine große
+// Weg-Illustration – etwa 70 % Bild, 30 % Text. Eine graue, unruhige Linie zieht sich durch Begriffe wie E-Mail, Screenshot,
+// Rückfrage, Ticket, Freigabe; am Ende deutet eine kurze türkise Linie mit Zielpunkt bereits die Lösung an.
+// Bewegung: Die Linie zeichnet sich einmal (Begriffe erscheinen, wenn die Linie sie erreicht), danach Ruhe.
+// Ohne JS egal (reines CSS); bei reduzierter Bewegung sofort fertig. Pfad: Kritzel-Folge per Catmull-Rom, Anteile = Bogenlänge.
+import Icon from '../Icon.astro';
+import { href } from '../../lib/paths';
+import { HERO } from '../../config/hauptseite';
+
+const D = 'M 10 60 C 26 56, 62 38, 90 40 C 118 42, 128 50, 150 70 C 172 90, 208 124, 200 140 C 192 156, 124 159, 110 150 C 96 141, 100 113, 130 95 C 160 77, 214 61, 260 60 C 306 59, 318 88, 360 90 C 402 92, 438 60, 470 70 C 502 80, 528 120, 520 140 C 512 160, 470 168, 430 170 C 390 172, 366 141, 320 150 C 274 159, 246 195, 200 215 C 154 235, 102 233, 90 250 C 78 267, 108 300, 140 300 C 172 300, 200 258, 250 250 C 300 242, 340 250, 390 260 C 440 270, 488 282, 500 300 C 512 318, 484 346, 450 350 C 416 354, 378 318, 330 320 C 282 322, 252 347, 210 360 C 168 373, 122 375, 120 385 C 118 395, 158 407, 200 410 C 242 413, 304 402, 330 400';
+const DAUER = 2.4; // Sekunden für die graue Linie
+const BEGRIFFE = [
+  { t: 'E-Mail', x: 150, y: 70, f: 0.063 },
+  { t: 'Screenshot', x: 360, y: 90, f: 0.266 },
+  { t: 'Rückfrage', x: 200, y: 215, f: 0.495 },
+  { t: 'Ticket', x: 390, y: 260, f: 0.685 },
+  { t: 'Freigabe', x: 210, y: 360, f: 0.871 },
+];
+const W = 600, H = 440;
+---
+
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <span class="eyebrow eyebrow--weg">{HERO.eyebrow}</span>
+      <h1 id="hero-h">{HERO.pre}<span class="accent">{HERO.accent}</span></h1>
+      <p class="hero__lead">{HERO.lead}</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Kostenloses Erstgespräch <Icon name="arrow" size={18} /></a>
+        <a class="btn btn--ghost btn--lg" href="#so-arbeiten-wir">So arbeiten wir <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+    <figure class="hbild" aria-label="Grafik: Eine graue, verschlungene Linie führt durch E-Mail, Screenshot, Rückfrage, Ticket und Freigabe. Am Ende wird sie zu einer kurzen geraden türkisen Linie mit Zielpunkt.">
+      <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+        <path class="hbild__grau" pathLength="1" d={D} style={`--dauer:${DAUER}s`} />
+        <path class="hbild__tuerkis" pathLength="1" d="M 330 400 L 540 400" />
+        <g class="hbild__ziel"><circle cx="560" cy="400" r="17" /><circle cx="560" cy="400" r="9" /><circle class="hbild__mitte" cx="560" cy="400" r="3.6" /></g>
+      </svg>
+      <ul class="hbild__begriffe" aria-hidden="true">
+        {BEGRIFFE.map((b, i) => (
+          <li style={`left:${(b.x / W) * 100}%;top:${(b.y / H) * 100}%;--t:${(0.25 + b.f * DAUER).toFixed(2)}s;--r:${i % 2 ? 4 : -5}deg`}>{b.t}</li>
+        ))}
+      </ul>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero { background: var(--paper); padding-block: clamp(28px, 5vw, 64px) clamp(36px, 6vw, 72px); overflow: hidden; }
+  .hero__grid { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 960px) { .hero__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 40px; } }
+  .hero h1 { font-size: clamp(2.5rem, 10.5vw, 4.3rem); line-height: 1.02; letter-spacing: -0.04em; margin: 4px 0 20px; max-width: 12ch; }
+  @media (min-width: 960px) { .hero h1 { font-size: clamp(2.6rem, 4.3vw, 4.3rem); } }
+  .hero__lead { font-size: clamp(1.08rem, 1.8vw, 1.25rem); line-height: 1.65; color: var(--ink-soft); max-width: 40ch; margin: 0 0 26px; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  @media (min-width: 960px) { .hero__cta .btn--lg { padding-inline: 1.4em; } }
+  @media (max-width: 480px) { .hero__cta .btn { width: 100%; } }
+
+  .hbild { position: relative; margin: 0; }
+  .hbild svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .hbild path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+  .hbild__grau { stroke: #b4ad9e; stroke-width: 3.5; animation: hzeichnen var(--dauer) linear both 0.25s; }
+  .hbild__tuerkis { stroke: var(--accent); stroke-width: 5; animation: hzeichnen 0.6s ease-out both calc(0.25s + 2.4s); }
+  .hbild__ziel circle { fill: var(--paper); stroke: var(--accent); stroke-width: 4; }
+  .hbild__ziel .hbild__mitte { fill: var(--accent-ink); stroke: none; }
+  .hbild__ziel { transform-box: fill-box; transform-origin: center; animation: hauf 0.3s ease-out both 3.2s; }
+  .hbild__begriffe { list-style: none; margin: 0; padding: 0; }
+  .hbild__begriffe li {
+    position: absolute; transform: translate(-50%, -50%) rotate(var(--r)); padding: 6px 12px 7px; border-radius: 4px;
+    background: #fffdf8; border: 1px solid #d8d1c3; font-family: var(--font-head); font-weight: 600; font-size: clamp(0.78rem, 1.4vw, 1rem); color: #5b574f;
+    white-space: nowrap; animation: hauf 0.3s ease-out both var(--t);
+  }
+  @keyframes hzeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes hauf { from { opacity: 0; transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(0.6); } to { opacity: 1; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); } }
+  .hbild__ziel { animation-name: hziel; }
+  @keyframes hziel { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
+</style>

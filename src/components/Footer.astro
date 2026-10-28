@@ -3,6 +3,8 @@ import { company } from '../config/site';
 import { PRODUKTE, produktName } from '../config/hauptseite';
 import { href } from '../lib/paths';
 import Logo from './Logo.astro';
+import { IS_PREVIEW } from '../lib/env';
+import { SHOW_HINTS } from '../config/site';
 import FooterKontakt from './FooterKontakt.astro';
 
 const year = new Date().getFullYear();
@@ -21,9 +23,9 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
     <nav aria-label="Produkte">
       <h2 class="footer__h">Produkte</h2>
       <ul>
-        {PRODUKTE.map((p) => p.aktiv
-          ? <li><a href={p.url || href(p.pfad ?? '/#produkte')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>
-          : <li><span class="footer__soon">{produktName(p)} · bald</span></li>)}
+        {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/#produkte')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
+        {/* Kommende Produkte als Satz statt interner Kategorien (Talk 3636) */}
+        <li><span class="footer__soon">Weitere Produkte entstehen</span></li>
       </ul>
     </nav>
     <div>
@@ -49,6 +51,7 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
   </div>
   <div class="wrap footer__bottom">
     <small>© {year} {company.legalName}</small>
+    {IS_PREVIEW && SHOW_HINTS && <small> · <a href={href('/checkliste/')}>Launch-Checkliste (nur Vorschau)</a></small>}
   </div>
 </footer>
 

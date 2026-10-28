@@ -133,6 +133,8 @@ img { max-width: 100%; height: auto; display: block; }
 /* ---------- Umbau nach Bauwelt-Muster (11.10.2026): Sektions-Köpfe, Häkchen, Slider, Reveal ---------- */
 :root { --header-h: 72px; --stickybar-h: 64px; }
 @media (min-width: 960px) { :root { --stickybar-h: 0px; } }
+/* Kopfzeile wird beim Scrollen leicht kleiner (Talk 3636); sticky Elemente folgen über --header-h */
+html.hdr-klein { --header-h: 62px; }
 .accent { color: var(--accent-ink); }
 .section--dark .accent, .section--dark .eyebrow { color: var(--accent-light); }
 .section--dark h2, .section--dark h3 { color: var(--white); }

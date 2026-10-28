@@ -1,28 +1,48 @@
 ---
-// Feste Leiste unten (mobil + Tablet), dauerhaft sichtbar (Bauwelt-Muster):
-// Erstgespräch (Haupt-CTA) + E-Mail. Doppelte Buttons im Inhalt sind mobil ausgeblendet (.nur-desktop).
+// Kompakte Kontaktleiste unten (Handy/Tablet) nach Jamils kompaktem Design-Briefing (Talk 3636):
+// im ersten Viewport (Hero) unsichtbar, danach kompakt eingeblendet – Knopf „Erstgespräch“ + kleines Mail-Symbol,
+// Safe Area berücksichtigt, im Abschlussbereich (Kontakt-Block) ausgeblendet. So stehen nie zwei gleiche CTAs übereinander.
+// Ohne JS bleibt sie einfach sichtbar.
 import { href } from '../lib/paths';
 import { company } from '../config/site';
 import Icon from './Icon.astro';
 ---
 
-<nav class="sticky-bar" aria-label="Schnellkontakt">
-  <a class="btn btn--primary btn--sm sticky-bar__btn" href={href('/kontakt/')}>Erstgespräch anfragen</a>
-  <a class="btn btn--ghost btn--sm sticky-bar__btn sticky-bar__wa" href={`mailto:${company.email}`} aria-label="E-Mail schreiben">
-    <Icon name="mail" size={18} /> E-Mail
-  </a>
+<nav class="sticky-bar" aria-label="Schnellkontakt" data-leiste>
+  <a class="btn btn--primary btn--sm sticky-bar__btn" href={href('/kontakt/')}>Erstgespräch</a>
+  <a class="sticky-bar__mail" href={`mailto:${company.email}`} aria-label="E-Mail schreiben"><Icon name="mail" size={22} /></a>
 </nav>
+
+<script>
+  const leiste = document.querySelector<HTMLElement>('[data-leiste]');
+  if (leiste) {
+    const ziel = document.querySelector('.fkontakt');
+    let imZiel = false;
+    const pruefen = () => {
+      const zeigen = window.scrollY > window.innerHeight * 0.6 && !imZiel;
+      leiste.classList.toggle('sticky-bar--an', zeigen);
+      leiste.toggleAttribute('inert', !zeigen);
+    };
+    if (ziel && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { imZiel = e.isIntersecting; pruefen(); }).observe(ziel);
+    }
+    window.addEventListener('scroll', pruefen, { passive: true });
+    pruefen();
+  }
+</script>
 
 <style>
   .sticky-bar {
     position: fixed; inset: auto 0 0 0; z-index: 48;
-    background: rgb(255 255 255 / 97%); border-top: 1px solid var(--line);
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
-    display: flex; gap: 8px; align-items: center;
+    background: var(--paper); border-top: 1px solid var(--line);
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    display: flex; gap: 10px; align-items: center;
     height: calc(var(--stickybar-h) + env(safe-area-inset-bottom));
-    box-shadow: 0 -8px 24px rgb(0 79 76 / 8%);
+    transition: transform 0.25s ease, opacity 0.25s ease;
   }
-  .sticky-bar__btn { flex: 1 1 0; min-width: 0; padding: 9px 10px; font-size: 0.88rem; line-height: 1.15; text-align: center; white-space: normal; }
-  .sticky-bar__wa { flex: 0 0 auto; border-color: var(--line); }
+  :global(html.js) .sticky-bar:not(.sticky-bar--an) { transform: translateY(100%); opacity: 0; }
+  .sticky-bar__btn { flex: 1 1 0; min-width: 0; min-height: 44px; font-size: 0.95rem; }
+  .sticky-bar__mail { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--line); color: var(--ink); }
+  .sticky-bar__mail:hover { border-color: var(--accent); }
   @media (min-width: 960px) { .sticky-bar { display: none; } }
 </style>
