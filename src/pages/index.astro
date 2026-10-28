@@ -212,7 +212,7 @@ const FAKTEN = [
   .plakat { font-size: clamp(2.1rem, 3.9vw, 3.3rem) !important; line-height: 1.06; }
 
   /* Verständnis */
-  .entstehung { --hy: 10px; display: grid; gap: 14px; }
+  .entstehung { --hy: 10px; display: grid; gap: 14px; align-content: start; }
   .entstehung .lead { margin: 0; }
   @media (min-width: 960px) { .entstehung .lead:first-child { margin-top: -6px; } }
   .wegbild-halt { margin-top: clamp(16px, 3vw, 32px); }
@@ -255,7 +255,7 @@ const FAKTEN = [
   .fakten a { color: var(--accent-ink); font-weight: 650; }
 
   /* Menschen */
-  .menschen { --hy: 10px; display: grid; gap: 18px; }
+  .menschen { --hy: 10px; display: grid; gap: 18px; align-content: start; }
   .menschen .lead { margin: 0; }
   .menschen :global(.skizze) { max-width: 360px; margin: 0; }
 </style>
