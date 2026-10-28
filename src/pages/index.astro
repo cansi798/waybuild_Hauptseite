@@ -60,9 +60,9 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
           <p class="lead">Vier Grundsätze, nach denen wir arbeiten. Bei jedem Produkt, jedem Anliegen und jeder Veränderung.</p>
         </div>
         {HALTUNG.map((h, i) => (
-          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'karte', 'leuchtet']} style={`--zeile:${i + 2}`}>
-            <span class="haltung__icon"><HaltungBild art={h.bild} /></span>
-            <div>
+          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'k', 'karte', 'leuchtet']} style={`--zeile:${i + 2}`}>
+            <span class="k__icon haltung__icon"><HaltungBild art={h.bild} /></span>
+            <div class="k__inhalt">
               <h3>{h.titel}</h3>
               <p>{h.text}</p>
             </div>
@@ -83,9 +83,9 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
         <p class="halt halt--r halt--text lead kopf__text">Digitale Veränderungen brauchen Klarheit, Struktur und einen verlässlichen Partner. Daran lassen wir uns im Alltag messen.</p>
         <ul class="pfad qual" aria-label="Unsere Zusagen">
           {QUALITAETEN.map((q, i) => (
-            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'qual__q', 'leuchtet']}>
-              <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={34} /></span>
-              <div>
+            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'k', 'qual__q', 'leuchtet']}>
+              <span class="k__icon" aria-hidden="true"><Icon name={q.icon} size={24} /></span>
+              <div class="k__inhalt">
                 <h3>{q.titel}</h3>
                 <p>{q.text}</p>
               </div>
@@ -155,20 +155,14 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
   .entstehung { display: grid; gap: 16px; align-content: start; }
   .entstehung .lead { margin: 0; }
 
-  /* Karten an der Linie (Orientierung) */
-  .karte { --hy: 40px; align-self: start; display: flex; gap: 16px; align-items: flex-start; padding: 22px 22px 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 14px; }
-  .karte h3 { margin: 4px 0 6px; font-size: clamp(1.12rem, 1.8vw, 1.28rem); line-height: 1.25; }
-  .karte p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
-  .haltung__icon { flex: none; display: block; width: 56px; height: 56px; }
-  .haltung__icon :global(.hbild) { width: 56px; height: 56px; }
+  /* Karten an der Linie: Basis-Karte .k aus global.css, hier nur Lage */
+  .karte { --hy: 36px; align-self: start; margin-bottom: 14px; }
+  .haltung__icon :global(.hbild) { width: 30px; height: 30px; }
   .kapitel--weiss .kopf { padding-bottom: 20px; }
 
   /* Vertrauen */
   .qual { list-style: none; margin: 0; padding: 0; row-gap: 18px; }
-  .qual__q { --leucht-aus: var(--dark-line); --hy: 30px; display: flex; gap: 16px; align-items: flex-start; padding: 20px 20px 18px; border: 1px solid var(--dark-line); border-radius: 18px; }
-  .qual__icon { flex: none; color: var(--accent-light); margin-top: 2px; }
-  .qual__q h3 { margin: 0 0 6px; font-size: 1.18rem; line-height: 1.25; }
-  .qual__q p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
+  .qual__q { --hy: 36px; }
   .qual__mehr { margin: 0; }
   @media (min-width: 960px) { .qual { grid-column: 1 / -1; } }
 

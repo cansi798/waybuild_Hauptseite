@@ -316,3 +316,29 @@ html.zug-js .halt::after, html.zug-js .halt::before { transition: opacity 300ms 
 }
 html.zug-js .leuchtet { transition: border-color 400ms ease, box-shadow 400ms ease; }
 html.zug-js .leuchtet.halt--da { border-color: var(--leucht-rand); box-shadow: 0 0 0 4px var(--leucht-glanz), inset 0 0 0 999px var(--leucht-bg); }
+
+/* ───────── Karten-System (Jamil, Talk 3668: „vereinheitlichen mit dezenten Unterschieden, nicht monoton“) ─────────
+ * Eine Basis-Karte .k mit gemeinsamen Tokens (Radius, Innenabstand, Rahmen, Typo, Icon-Kachel, Aufleuchten) und
+ * zwei dezenten Varianten: .k--akzent (türkiser Rahmen, für Ergebnisse: Schritte, Produkte) und .k--flaeche
+ * (ohne Rahmen, getönte Fläche, für Zitate/Hinweise). Abwechslung entsteht über Layout und Abschnittsfarben. */
+:root {
+  --k-radius: 16px;
+  --k-pad: clamp(18px, 2.2vw, 24px);
+  --k-gap: 14px;
+  --k-bg: var(--white);
+  --k-rand: var(--line);
+  --k-icon: 44px;
+}
+.kapitel--weiss { --k-bg: var(--paper); }
+.kapitel--dunkel { --k-bg: rgb(255 255 255 / 4%); --k-rand: var(--dark-line); }
+.k { position: relative; display: flex; gap: var(--k-gap); align-items: flex-start; padding: var(--k-pad); background: var(--k-bg); border: 1px solid var(--k-rand); border-radius: var(--k-radius); --leucht-aus: var(--k-rand); }
+.k--akzent { --k-rand: rgb(0 166 161 / 40%); }
+.k--flaeche { --k-bg: rgb(0 79 76 / 4%); --k-rand: transparent; }
+.k h3, .k .k__titel { margin: 0 0 4px; font-family: var(--font-head); font-size: 1.12rem; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; }
+.k p { margin: 0; color: var(--ink-soft); line-height: 1.55; }
+.kapitel--dunkel .k p { color: var(--dark-lead); }
+.k__icon { flex: none; display: grid; place-items: center; width: var(--k-icon); height: var(--k-icon); border-radius: 12px; background: rgb(0 166 161 / 10%); color: var(--accent-ink); }
+.kapitel--dunkel .k__icon { background: rgb(95 224 218 / 12%); color: var(--accent-light); }
+.k__nr { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: rgb(0 166 161 / 12%); color: var(--accent-ink); font-family: var(--font-head); font-weight: 700; font-size: 0.88rem; }
+.k__inhalt { min-width: 0; }
+.card { border-radius: var(--k-radius); padding: var(--k-pad); }

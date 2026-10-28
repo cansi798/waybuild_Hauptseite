@@ -47,7 +47,7 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
         <h2 id="vorher-h">So fühlt sich Veränderung oft an.</h2>
         <p class="lead">Eine kleine Änderung beginnt mit einer Nachricht. Dann folgen Rückfragen, Weiterleitungen, Abstimmungen und Warten.</p>
         <ul class="lagen" aria-label="Typische Situationen">
-          {LAGEN.map((l) => <li class="lage">{l}</li>)}
+          {LAGEN.map((l) => <li class="k k--flaeche lage">{l}</li>)}
         </ul>
       </div>
       <div class="wtext wtext--b">
@@ -83,9 +83,9 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
           </div>
           <ol class="schritte" aria-label="So läuft es mit Waybuild">
             {SCHRITTE.map((s, i) => (
-              <li class="schritt" data-schritt={i}>
-                <span class="schritt__nr" aria-hidden="true">{i + 1}</span>
-                <div>
+              <li class="k k--akzent schritt" data-schritt={i}>
+                <span class="k__nr" aria-hidden="true">{i + 1}</span>
+                <div class="k__inhalt">
                   <h3 class="schritt__titel">{s.titel}</h3>
                   <p>{s.text}</p>
                 </div>
@@ -234,8 +234,7 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
   .wtext h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 16px; }
   .wtext .lead { margin: 0 0 22px; max-width: 46ch; }
   .lagen { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-  .lage { position: relative; padding: 10px 14px 10px 40px; border-left: 3px solid #cfc7b6; background: #fffdf8; border-radius: 0 10px 10px 0; font-weight: 500; line-height: 1.45; color: #4a4741; }
-  .lage::before { content: '“'; position: absolute; left: 14px; top: 4px; font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; color: #b4ad9e; }
+  .lage { --k-pad: 12px 16px; display: block; font-weight: 500; line-height: 1.45; color: #4a4741; }
   .kern { margin: 0; font-family: var(--font-head); font-weight: 650; font-size: clamp(1.15rem, 2vw, 1.45rem); line-height: 1.4; color: var(--accent-ink); max-width: 30ch; }
 
   /* Arbeitsfläche */
@@ -266,12 +265,10 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
   .tafel__ordnung { position: relative; }
   .schritte { list-style: none; margin: 0; padding: 0 0 0 calc(var(--linie-x) + 30px); display: grid; gap: 14px; position: relative; }
   .tafel__ordnung::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.5px); top: 0; bottom: -8px; width: 3px; background: var(--accent); border-radius: 2px; }
-  .schritt { position: relative; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: var(--white); border: 1px solid rgb(0 166 161 / 40%); border-radius: 14px; }
+  .schritt { --k-pad: 14px 16px; }
   .schritt::before { content: ''; position: absolute; left: -30px; top: 50%; width: 30px; height: 3px; margin-top: -1.5px; background: var(--accent); }
   .schritt::after { content: ''; position: absolute; left: -37px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent); box-sizing: border-box; }
-  .schritt__nr { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; }
-  .schritt__titel { margin: 2px 0 2px; font-size: 1.08rem; line-height: 1.3; letter-spacing: -0.01em; }
-  .schritt p { margin: 0; color: var(--ink-soft); line-height: 1.5; font-size: 0.97rem; }
+  .schritt .schritt__titel { margin-top: 3px; }
 
   /* Handy: Text A vor der Bühne, Text B (Kernbotschaft) danach */
   @media (max-width: 959px) {
