@@ -6,7 +6,8 @@ import type { IconName } from './site';
 
 /** Startseiten-Hero (Leitbild „Der Weg“, 27.10.2026): roter Faden + in einem Satz, was Waybuild tut. */
 export const HERO = {
-  eyebrow: 'Waybuild',
+  // Zielgruppe (Jamil, Talk 3580). Beleg: Angebot ausschließlich für Unternehmen und Selbstständige (B2B), faqs + AGB § 1.
+  eyebrow: 'Für Unternehmen und Selbstständige',
   pre: 'Wir machen Veränderungen ',
   accent: 'einfach.',
   // Dachmarke: nur über uns (Jamil, Talk 3540/3541); Wortlaut nach Strategiebriefing 3401 („Wir helfen Unternehmen dabei, Veränderungen einfacher umzusetzen“, „Klarheit, Struktur, … einen zuverlässigen Partner“)
@@ -150,8 +151,10 @@ export const PRODUKTE: Produkt[] = [
     frage: 'Warum Ihre Website mit uns?',
     punkte: [
       { icon: 'mic', text: 'Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt.' },
-      { icon: 'video', text: 'Jederzeit anpassbar, ganz entspannt: per Sprache, Text, Screenshot oder kurzem Video.' },
+      { icon: 'video', text: 'Maximale Flexibilität: jederzeit anpassbar – per Sprache, Text, Screenshot oder kurzem Video.' },
       { icon: 'chart', text: 'Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an.' },
+      // Jamil, Talk 3586. Belegt: WAAS.einrichtung = 0, fester Monatspreis (MODELL). „monatlich kündbar“ NICHT belegt (24 Monate Laufzeit).
+      { icon: 'euro', text: 'Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.' },
       { icon: 'shield', text: 'Alles mit unserem Serviceversprechen.', link: '/zusagen/' },
     ] },
   { id: 'software', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
@@ -182,23 +185,15 @@ export const UEBER = {
   ],
 };
 
-/** UNSERE QUALITÄTEN – Jamils Strategiebriefing (Talk 3401): „Fast jede Veränderung braucht: Klarheit, Struktur,
- *  Verständnis, gute Kommunikation, einen zuverlässigen Partner. Genau dafür steht Waybuild.“
- *  Sätze aus 3401 („Der Besucher soll sich verstanden fühlen“), PROZESSE und WERTE. Dachmarke, ohne Produktbezug. */
+/** UNSERE QUALITÄTEN – zusammengeführt mit „Leichtigkeit in der Zusammenarbeit“ (Jamil, Talk 3584).
+ *  Quellen: Strategiebriefing 3401 (Klarheit, Struktur, Verständnis, gute Kommunikation, zuverlässiger Partner),
+ *  3395 (Leichtigkeit, Serviceversprechen, Mehrwert je Service), PROZESSE/WERTE. „Verlässlichkeit“ statt
+ *  „Ein verlässlicher Partner“ (Talk 3583). Details der Zusagen nur auf /zusagen/. */
 export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
   { titel: 'Klarheit', text: 'Sie wissen jederzeit, woran Sie sind.', icon: 'eye' },
-  { titel: 'Struktur', text: 'Feste Abläufe statt Zufall. Nichts hängt an einer einzelnen Person.', icon: 'layers' },
+  { titel: 'Struktur', text: 'Klare Abläufe statt Zufall: Jedes Anliegen geht denselben festen Weg.', icon: 'layers' },
   { titel: 'Verständnis', text: 'Sie sollen sich verstanden fühlen – nicht beeindruckt.', icon: 'users' },
-  { titel: 'Gute Kommunikation', text: 'Klare Worte statt Fachchinesisch.', icon: 'chat' },
-  { titel: 'Ein verlässlicher Partner', text: 'Was wir zusagen, halten wir ein.', icon: 'shield' },
-];
-
-/** LEICHTIGKEIT IN DER ZUSAMMENARBEIT – Jamil, Talk 3395 („Die Leichtigkeit des Kunden im gesamten Prozess der
- *  Zusammenarbeit ist unser Fokus“, „jeder Service soll einen Mehrwert für den Kunden und das Unternehmen haben“).
- *  Serviceversprechen bewusst allgemein; Details (Zeiten usw.) nur auf /zusagen/. */
-export const ZUSAMMENARBEIT: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Ein fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.', icon: 'user' },
-  { titel: 'Verbindliche Zusagen', text: 'Feste Zusagen statt vager Versprechen.', icon: 'doc' },
-  { titel: 'Klare Abläufe', text: 'Jedes Anliegen geht denselben festen Weg.', icon: 'refresh' },
-  { titel: 'Echter Mehrwert', text: 'Was wir anbieten, soll Ihnen und Ihrem Unternehmen etwas bringen.', icon: 'spark' },
+  { titel: 'Gute Kommunikation', text: 'Klare Worte statt Fachchinesisch – und ein fester Ansprechpartner, der Ihr Unternehmen kennt.', icon: 'chat' },
+  { titel: 'Verlässlichkeit', text: 'Verbindliche Zusagen statt vager Versprechen. Was wir zusagen, halten wir ein.', icon: 'shield' },
+  { titel: 'Echter Mehrwert', text: 'Was wir anbieten, soll Ihnen und Ihrem Unternehmen spürbar etwas bringen.', icon: 'spark' },
 ];

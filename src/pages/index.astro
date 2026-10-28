@@ -4,7 +4,7 @@
 // Einzige Ausnahme: „Unsere Produkte“ als zurückhaltender Wegweiser. Leistungsdetails stehen auf Produkt- und Unterseiten.
 // Idee: Veränderungen scheitern selten an der Technik, sondern am Weg dorthin (E-Mails, Screenshots, Warten).
 // Waybuild baut diesen Weg gerade. Bildsprache: EINE Linie – verknotet = der übliche Weg, gerade = mit Waybuild.
-// Aufbau: Hero (Linie) → Unsere Haltung (Entstehung + vier Sätze mit Bildsymbolen) → Unsere Qualitäten → Leichtigkeit in der Zusammenarbeit → Unsere Produkte → Fragen → Abschluss.
+// Aufbau: Hero (Linie) → Unsere Haltung (Entstehung + vier Sätze mit Bildsymbolen) → Unsere Qualitäten (inkl. Zusammenarbeit) → Unsere Produkte → Fragen → Abschluss.
 // 10 s: Was macht Waybuild? (Hero-Satz)  30 s: Warum gerade Waybuild? (Weg + vier Gründe)
 // Bewegung nur zweimal und erklärend: die Hero-Linie entknotet sich einmal; die Weg-Linie zieht sich durch. Dazu sanftes Einblenden.
 // Ohne JS alles sichtbar, bei prefers-reduced-motion sofort Endzustand. Zahlen/Zusagen NUR aus src/config.
@@ -15,7 +15,7 @@ import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
 import HaltungBild from '../components/HaltungBild.astro';
-import { HERO, HALTUNG, QUALITAETEN, ZUSAMMENARBEIT } from '../config/hauptseite';
+import { HERO, HALTUNG, QUALITAETEN } from '../config/hauptseite';
 
 
 // Vier Gründe – nur belegte Aussagen (site.ts, hauptseite.ts). „schriftlich“ entfernt (nicht belegt, Launch-Checkliste).
@@ -51,20 +51,20 @@ const FRAGEN = [
       </div>
 
       <figure class="linie" aria-labelledby="linie-cap">
-        <figcaption id="linie-cap" class="sr-only">Grafik: Eine verknotete graue Linie mit vielen Zwischenschritten steht für den üblichen, umständlichen Weg. Sie geht über in eine gerade türkise Linie mit nur zwei Schritten – Verstehen und Umsetzen – bis zu einem Ziel-Zeichen: der Weg mit Waybuild.</figcaption>
+        <figcaption id="linie-cap" class="sr-only">Grafik: Eine verknotete graue Linie mit vielen Zwischenschritten steht für den üblichen, umständlichen Weg. Sie geht über in eine gerade türkise Linie mit nur zwei Zwischenschritten bis zu einem Ziel-Zeichen: der Weg mit Waybuild. Die Schritte erscheinen, sobald die Linie sie erreicht.</figcaption>
         <div class="linie__kopf">
           <p class="linie__label linie__label--oft"><span aria-hidden="true"></span>So läuft es oft</p>
           <p class="linie__label linie__label--wir"><span aria-hidden="true"></span>So läuft es mit Waybuild</p>
         </div>
-        <svg class="linie__svg linie__svg--breit" viewBox="0 34 1160 166" aria-hidden="true" focusable="false">
+        <svg class="linie__svg linie__svg--breit" viewBox="0 30 1160 178" aria-hidden="true" focusable="false">
           <path class="linie__knoten" pathLength="1" d="M 10 130 C 60 130, 80 60, 130 70 C 190 82, 170 190, 120 180 C 70 170, 110 44, 200 54 C 290 64, 250 200, 200 190 C 150 180, 230 84, 300 110 C 350 130, 330 190, 290 172 C 250 154, 330 125, 420 125" />
           <path class="linie__gerade" pathLength="1" d="M 420 125 L 1108 125" />
-          <g class="linie__umwege"><circle cx="130" cy="70" r="8" /><circle cx="120" cy="180" r="8" /><circle cx="200" cy="54" r="8" /><circle cx="200" cy="190" r="8" /><circle cx="300" cy="110" r="8" /></g>
+          <g class="linie__umwege"><circle style="--t:0.372s" cx="130" cy="70" r="8" /><circle style="--t:0.564s" cx="120" cy="180" r="8" /><circle style="--t:0.809s" cx="200" cy="54" r="8" /><circle style="--t:1.048s" cx="200" cy="190" r="8" /><circle style="--t:1.261s" cx="300" cy="110" r="8" /></g>
           <g class="linie__stationen">
-            <circle cx="640" cy="125" r="8" /><text x="640" y="165" text-anchor="middle">Verstehen</text>
-            <circle cx="880" cy="125" r="8" /><text x="880" y="165" text-anchor="middle">Umsetzen</text>
+            <circle style="--t:1.888s" cx="640" cy="125" r="8" />
+            <circle style="--t:2.202s" cx="880" cy="125" r="8" />
           </g>
-          <g class="linie__ziel" aria-hidden="true">
+          <g class="linie__ziel" aria-hidden="true" style="--t:2.5s">
             <circle class="linie__ziel-ring" cx="1130" cy="125" r="22" />
             <circle class="linie__ziel-ring" cx="1130" cy="125" r="12.1" />
             <circle class="linie__ziel-mitte" cx="1130" cy="125" r="4.8" />
@@ -73,8 +73,8 @@ const FRAGEN = [
         <svg class="linie__svg linie__svg--schmal" viewBox="0 36 360 124" aria-hidden="true" focusable="false">
           <path class="linie__knoten" pathLength="1" d="M 6 105 C 30 105, 40 55, 70 60 C 105 66, 95 140, 65 135 C 35 130, 60 42, 110 50 C 160 58, 140 150, 110 140 C 85 132, 130 104, 175 106" />
           <path class="linie__gerade" pathLength="1" d="M 175 106 L 322 106" />
-          <g class="linie__umwege"><circle cx="70" cy="60" r="6" /><circle cx="65" cy="135" r="6" /><circle cx="110" cy="50" r="6" /><circle cx="110" cy="140" r="6" /></g>
-          <g class="linie__ziel" aria-hidden="true">
+          <g class="linie__umwege"><circle style="--t:0.421s" cx="70" cy="60" r="6" /><circle style="--t:0.69s" cx="65" cy="135" r="6" /><circle style="--t:1.025s" cx="110" cy="50" r="6" /><circle style="--t:1.352s" cx="110" cy="140" r="6" /></g>
+          <g class="linie__ziel" aria-hidden="true" style="--t:2.1s">
             <circle class="linie__ziel-ring" cx="338" cy="106" r="16" />
             <circle class="linie__ziel-ring" cx="338" cy="106" r="8.8" />
             <circle class="linie__ziel-mitte" cx="338" cy="106" r="3.5" />
@@ -102,38 +102,21 @@ const FRAGEN = [
     </div>
   </section>
 
-  <!-- 3 UNSERE QUALITÄTEN: was jede Veränderung braucht (3401) -->
+  <!-- 3 UNSERE QUALITÄTEN + Leichtigkeit in der Zusammenarbeit (zusammengeführt, Talk 3584) -->
   <section class="section section--dark qual" id="qualitaeten" aria-labelledby="qual-h">
     <div class="wrap">
-      <SectionHead eyebrow="Unsere Qualitäten" pre="Was jede Veränderung braucht. " accent="Dafür stehen wir." id="qual-h"
-        text="Klarheit, Fortschritt, Umsetzung – und die Freiheit, sich weiter zu verändern." />
+      <SectionHead eyebrow="Unsere Qualitäten" pre="Weil Zusammenarbeit " accent="leicht sein darf." id="qual-h"
+        text="Fast jede Veränderung braucht Klarheit, Struktur und einen verlässlichen Partner. Ihre Leichtigkeit in der Zusammenarbeit ist unser Maßstab." />
       <ul class="qual__liste">
         {QUALITAETEN.map((q, i) => (
           <li class="reveal" style={`--d:${i * 80}ms`}>
-            <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={26} /></span>
+            <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={40} /></span>
             <h3>{q.titel}</h3>
             <p>{q.text}</p>
           </li>
         ))}
       </ul>
-    </div>
-  </section>
-
-  <!-- 4 LEICHTIGKEIT IN DER ZUSAMMENARBEIT (3395) – Serviceversprechen allgemein, Details auf /zusagen/ -->
-  <section class="section leicht" id="zusammenarbeit" aria-labelledby="leicht-h">
-    <div class="wrap leicht__grid">
-      <SectionHead eyebrow="Zusammenarbeit" pre="Weil Zusammenarbeit " accent="leicht sein darf." id="leicht-h"
-        text="Ihre Leichtigkeit in der ganzen Zusammenarbeit ist unser Maßstab – vom ersten Gespräch an.">
-        <p class="leicht__mehr"><a class="pfeil-link" href={href('/zusagen/')}>Unsere Zusagen im Detail <Icon name="arrow" size={16} /></a></p>
-      </SectionHead>
-      <ul class="leicht__liste">
-        {ZUSAMMENARBEIT.map((z, i) => (
-          <li class="reveal" style={`--d:${i * 80}ms`}>
-            <span class="leicht__icon" aria-hidden="true"><Icon name={z.icon} size={24} /></span>
-            <div><h3>{z.titel}</h3><p>{z.text}</p></div>
-          </li>
-        ))}
-      </ul>
+      <p class="qual__mehr"><a class="pfeil-link" href={href('/zusagen/')}>Unsere Zusagen im Detail <Icon name="arrow" size={16} /></a></p>
     </div>
   </section>
 
@@ -141,7 +124,7 @@ const FRAGEN = [
   <section class="section section--sand" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
       <SectionHead eyebrow="Unsere Produkte" pre="Jetzt starten wir. " accent="Und das ist erst der Anfang." id="produkte-h"
-        text="Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Unsere Werte und Zusagen gelten für alle." />
+        text="Jedes unserer Produkte trägt einen eigenen Namen und hat einen eigenen Auftritt. Was sie verbindet, sind dieselben Werte und dieselben Zusagen." />
       <Produkte />
     </div>
   </section>
@@ -194,16 +177,18 @@ const FRAGEN = [
   .linie__umwege circle { fill: var(--paper); stroke: #a8a191; stroke-width: 4; }
   .linie__svg--schmal .linie__umwege circle { stroke-width: 3.5; }
   .linie__stationen circle { fill: var(--white); stroke: var(--accent); stroke-width: 4; }
-  .linie__stationen text { font: 600 16px var(--font-body); fill: var(--ink); }
   /* Ziel-Zeichen (Zielscheibe) statt Endpunkt + „Erledigt.“ (Jamil, Talk 3512) */
   .linie__ziel-ring { fill: var(--paper); stroke: var(--accent); stroke-width: 5; }
   .linie__svg--schmal .linie__ziel-ring { stroke-width: 4; }
   .linie__ziel-mitte { fill: var(--accent-ink); }
   /* Bewegung 1: Knoten erscheint, dann zieht sich die gerade Linie bis „Erledigt“ – einmal, ohne Schleife */
-  .linie__knoten { animation: zeichnen 1.1s ease-out both 0.2s; }
-  .linie__gerade { animation: zeichnen 1.2s cubic-bezier(.4,0,.2,1) both 1.2s; }
-  .linie__umwege { animation: auftauchen 0.4s ease both 1.0s; }
-  .linie__stationen, .linie__ziel { animation: auftauchen 0.4s ease both 2.2s; }
+  /* Linien zeichnen sich gleichmäßig (linear), damit die Kreise genau dann erscheinen, wenn die Linie sie erreicht (Jamil, Talk 3579).
+     Verzögerungen --t je Kreis aus der Lage auf dem Pfad berechnet: Kringel 0,2–1,6 s, Gerade 1,6–2,5 s (Handy 1,6–2,1 s). */
+  .linie__knoten { animation: zeichnen 1.4s linear both 0.2s; }
+  .linie__gerade { animation: zeichnen 0.9s linear both 1.6s; }
+  .linie__svg--schmal .linie__gerade { animation-duration: 0.5s; }
+  .linie__umwege circle, .linie__stationen circle, .linie__ziel { transform-box: fill-box; transform-origin: center; animation: punkt 0.22s ease-out both; animation-delay: var(--t, 0s); }
+  @keyframes punkt { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
   @keyframes zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   @keyframes auftauchen { from { opacity: 0; } to { opacity: 1; } }
 
@@ -214,30 +199,30 @@ const FRAGEN = [
   .haltung { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
   @media (min-width: 680px) { .haltung { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1060px) { .haltung { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-  .haltung li { display: grid; align-content: start; gap: 10px; padding: clamp(22px, 2.6vw, 28px); border-radius: 20px; background: var(--paper); border: 1px solid var(--line); transition-delay: var(--d, 0ms); }
-  .haltung__icon { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 22px; background: var(--white); border: 1px solid rgb(0 166 161 / 30%); margin-bottom: 6px; }
+  /* dezent (Jamil, Talk 3582): keine Kartenfläche, nur feine Linie oben und Weißraum; Symbole frei ohne Hintergrund */
+  .haltung li { display: grid; align-content: start; gap: 10px; padding: 26px 4px 8px; border-top: 1px solid var(--line); transition-delay: var(--d, 0ms); }
+  .haltung__icon { display: block; width: 64px; height: 64px; margin: 0 0 8px -4px; transition: transform 400ms cubic-bezier(.3,.7,.4,1.3); }
+  .haltung__icon :global(.hbild) { width: 64px; height: 64px; }
+  @media (hover: hover) { .haltung li:hover .haltung__icon { transform: translateY(-4px) rotate(-4deg); } }
   .haltung h3 { margin: 0; font-size: clamp(1.15rem, 1.8vw, 1.3rem); line-height: 1.25; }
   .haltung p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
 
   /* 3 QUALITÄTEN */
   .qual__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
   @media (min-width: 640px) { .qual__liste { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1060px) { .qual__liste { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
-  .qual__liste li { display: grid; align-content: start; gap: 8px; padding: 24px 22px; border-radius: 20px; background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); transition-delay: var(--d, 0ms); }
-  .qual__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--accent-light); color: var(--accent-light); margin-bottom: 6px; }
+  @media (min-width: 1000px) { .qual__liste { grid-template-columns: repeat(3, 1fr); column-gap: clamp(32px, 4vw, 56px); row-gap: 12px; } }
+  .qual__mehr { margin: 32px 0 0; }
+  .qual__liste li { display: grid; align-content: start; gap: 8px; padding: 24px 4px 8px; border-top: 1px solid var(--dark-line); transition-delay: var(--d, 0ms); }
+  .qual__icon { display: block; color: var(--accent-light); margin-bottom: 6px; transition: transform 400ms cubic-bezier(.3,.7,.4,1.3); }
+  @media (hover: hover) { .qual__liste li:hover .qual__icon { transform: translateY(-4px); } }
+  /* einmaliges Zeichnen der Linien-Icons beim Einblenden (nur mit JS) */
+  .qual__icon :global(path) { stroke-dasharray: 120; stroke-width: 1.6; }
+  :global(html.js) .qual__liste li:not(.is-visible) .qual__icon :global(path) { stroke-dashoffset: 120; }
+  .qual__liste li.is-visible .qual__icon :global(path) { animation: qual-zeichnen 1s cubic-bezier(.4,0,.2,1) both; animation-delay: calc(var(--d, 0ms) + 150ms); }
+  @keyframes qual-zeichnen { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
   .qual__liste h3 { margin: 0; color: var(--white); font-size: 1.2rem; line-height: 1.25; }
   .qual__liste p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
 
-  /* 4 LEICHTIGKEIT */
-  .leicht { background: var(--paper); }
-  .leicht__grid { display: grid; gap: 28px; }
-  @media (min-width: 960px) { .leicht__grid { grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: start; } .leicht__grid :global(.section-head) { margin-bottom: 0; } }
-  .leicht__mehr { margin: 22px 0 0; }
-  .leicht__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .leicht__liste li { display: flex; gap: 16px; align-items: flex-start; padding: 20px 22px; border-radius: 18px; background: var(--white); border: 1px solid var(--line); transition-delay: var(--d, 0ms); }
-  .leicht__icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: rgb(0 166 161 / 14%); color: var(--accent-ink); }
-  .leicht__liste h3 { margin: 0 0 4px; font-size: 1.15rem; }
-  .leicht__liste p { margin: 0; color: var(--ink-soft); line-height: 1.55; }
 
   /* 6 FRAGEN */
   .fragen { background: var(--white); }
@@ -249,6 +234,6 @@ const FRAGEN = [
   .fragen__liste li::before { content: '?'; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent-ink); font-size: 0.9rem; }
 
   @media (prefers-reduced-motion: reduce) {
-    .linie__knoten, .linie__gerade, .linie__umwege, .linie__stationen, .linie__ziel { animation: none !important; }
+    .linie__knoten, .linie__gerade, .linie__umwege circle, .linie__stationen circle, .linie__ziel { animation: none !important; }
   }
 </style>
