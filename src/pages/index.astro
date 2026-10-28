@@ -1,25 +1,28 @@
 ---
-// Startseite der DACHMARKE Waybuild – Leitbild „Der Weg“ (27.10.2026, Jamil Talk 3467/3470/3475; Grundlage 3373, 3378, 3395, 3401).
-// Die Startseite spricht NUR über uns: Haltung, Werte, Prinzipien, Philosophie, Qualitäten (Jamil, Talk 3540/3541).
-// Einzige Ausnahme: „Unsere Produkte“ als zurückhaltender Wegweiser. Leistungsdetails stehen auf Produkt- und Unterseiten.
-// Idee: Veränderungen scheitern selten an der Technik, sondern am Weg dorthin (E-Mails, Screenshots, Warten).
-// Waybuild baut diesen Weg gerade. Bildsprache: EINE Linie – verknotet = der übliche Weg, gerade = mit Waybuild.
-// Aufbau: Hero (Linie) → Unsere Haltung (Entstehung + vier Sätze mit Bildsymbolen) → Unsere Qualitäten (inkl. Zusammenarbeit) → Unsere Produkte → Fragen → Abschluss.
-// 10 s: Was macht Waybuild? (Hero-Satz)  30 s: Warum gerade Waybuild? (Weg + vier Gründe)
-// Bewegung nur zweimal und erklärend: die Hero-Linie entknotet sich einmal; die Weg-Linie zieht sich durch. Dazu sanftes Einblenden.
-// Ohne JS alles sichtbar, bei prefers-reduced-motion sofort Endzustand. Zahlen/Zusagen NUR aus src/config.
-// Frühere Fassungen: Tag startseite-v2-2026-10-27, Commit 863d489.
+// Startseite der Dachmarke Waybuild – NEUAUFBAU nach Jamils Design-System „Die Linie“ (Talk 3621/3622, 28.10.2026).
+// Motto: „Das gesamte Design ist die visuelle Übersetzung von ‚Wir machen Veränderungen einfach.‘
+//         Vom Chaos zur Klarheit. Schritt für Schritt. Mit einem verlässlichen Partner an der Seite.“
+// Die Seite ist ein Weg, jede Sektion ein Schritt: Hero (Linie Chaos → Klarheit) → Ausgangspunkt (Chaos + Nachdenk-Fragen)
+// → Verständnis („Nicht die Technik …“, Entstehung, Whiteboard-Skizze) → Orientierung (Haltung) → Vertrauen (So arbeiten wir)
+// → Umsetzung (Produkte, alle mit der Marke verbunden) → Ziel (Kontakt „Was möchten Sie verändern?“, Linie endet im Zielpunkt).
+// Roter Faden: .etappe (Weglinie links, Stationen an den Kennzeilen) + WegTrenner (organische Linien) – CSS, scrollgebunden
+// wo unterstützt; ohne JS und bei reduzierter Bewegung steht alles da. Inhalte/Entscheidungen aus Jamils früheren Runden
+// (Zielgruppe, digital, Haltung, Qualitäten inkl. Verlässlichkeit, Produkte als Wegweiser, keine Preise) bleiben.
+// Frühere Fassungen: Git-Historie (u. a. dbf2e2c, Tag startseite-v2-2026-10-27).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHead from '../components/SectionHead.astro';
+import WegTrenner from '../components/WegTrenner.astro';
+import SkizzeWhiteboard from '../components/SkizzeWhiteboard.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
 import HaltungBild from '../components/HaltungBild.astro';
 import { HERO, HALTUNG, QUALITAETEN } from '../config/hauptseite';
 
-
-// Vier Gründe – nur belegte Aussagen (site.ts, hauptseite.ts). „schriftlich“ entfernt (nicht belegt, Launch-Checkliste).
-// Grund 03 nennt KI wie bisher – offene Entscheidung B (Talk 3469) unverändert. Alle Gründe gelten für alle Produkte (Talk 3475).
+// Ausgangspunkt – wörtlich aus dem Design-System (Talk 3622: „Frust. Unklare Prozesse. Komplizierte Änderungen.
+// Viele Dienstleister. Viel Abstimmung.“)
+const CHAOS = ['Frust', 'Unklare Prozesse', 'Komplizierte Änderungen', 'Viele Dienstleister', 'Viel Abstimmung'];
+// Nachdenk-Fragen – Strategiebriefing Talk 3401
 const FRAGEN = [
   'Wie einfach lassen sich Änderungen bei Ihnen heute umsetzen?',
   'Wie schnell kommen Ideen tatsächlich in die Umsetzung?',
@@ -33,23 +36,18 @@ const FRAGEN = [
   title="Wir machen Veränderungen einfach"
   description="Waybuild macht digitale Veränderungen für Unternehmen einfach – verständlich, verlässlich und ohne Fachchinesisch. Mit festem Ansprechpartner, klaren Abläufen."
 >
-  <!-- 1 HERO: roter Faden, was wir tun, die Linie -->
+  <!-- START: die Linie – chaotisch beginnend, klar endend -->
   <section class="hero" aria-labelledby="hero-h">
     <div class="wrap">
-      <div class="hero__kopf">
-        <div>
-          <span class="eyebrow eyebrow--weg">{HERO.eyebrow}</span>
-          <h1 id="hero-h">{HERO.pre}<span class="accent">{HERO.accent}</span></h1>
-        </div>
-        <div class="hero__rechts">
-          <p class="hero__was">{HERO.lead}</p>
-          <div class="hero__cta">
-            <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-            <a class="btn btn--ghost btn--lg" href={href('/#produkte')}>Unsere Produkte</a>
-          </div>
+      <span class="eyebrow eyebrow--weg">{HERO.eyebrow}</span>
+      <h1 id="hero-h">{HERO.pre}<span class="accent">{HERO.accent}</span></h1>
+      <div class="hero__unten">
+        <p class="hero__was">{HERO.lead}</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--ghost btn--lg" href={href('/#produkte')}>Unsere Produkte</a>
         </div>
       </div>
-
       <figure class="linie" aria-labelledby="linie-cap">
         <figcaption id="linie-cap" class="sr-only">Grafik: Eine verknotete graue Linie mit vielen Zwischenschritten steht für den üblichen, umständlichen Weg. Sie geht über in eine gerade türkise Linie mit nur zwei Zwischenschritten bis zu einem Ziel-Zeichen: der Weg mit Waybuild. Die Schritte erscheinen, sobald die Linie sie erreicht.</figcaption>
         <div class="linie__kopf">
@@ -81,15 +79,46 @@ const FRAGEN = [
           </g>
         </svg>
       </figure>
-
     </div>
   </section>
 
-  <!-- 2 UNSERE HALTUNG: Entstehung + vier Sätze aus dem Strategiebriefing (3401) mit animierten Bildsymbolen (3537) -->
-  <section class="section weg-sec" id="haltung" aria-labelledby="weg-h">
+  <!-- SCHRITT 1 – AUSGANGSPUNKT: das Chaos, das viele kennen -->
+  <section class="section etappe chaos" id="ausgangspunkt" aria-labelledby="chaos-h">
+    <WegTrenner variante={1} />
+    <div class="wrap chaos__grid">
+      <div>
+        <SectionHead eyebrow="Der Ausgangspunkt" pre="Veränderung fühlt sich oft " accent="kompliziert an." id="chaos-h" />
+        <ul class="chaos__woerter" aria-label="Was viele erleben">
+          {CHAOS.map((w) => <li>{w}</li>)}
+        </ul>
+      </div>
+      <div class="chaos__fragen">
+        <h3>Wie leicht ist Veränderung bei Ihnen heute?</h3>
+        <ol>
+          {FRAGEN.map((f) => <li class="reveal">{f}</li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHRITT 2 – VERSTÄNDNIS: Waybuild versteht das Problem -->
+  <section class="section etappe verstehen" id="verstaendnis" aria-labelledby="weg-h">
+    <WegTrenner variante={2} />
+    <div class="wrap verstehen__grid">
+      <div class="plakat">
+        <SectionHead eyebrow="Verständnis" pre="Nicht die Technik macht Veränderungen schwer. " accent="Sondern der Weg dorthin." id="weg-h"
+          text="Waybuild ist aus Frust entstanden: Eine einfache Veränderung bedeutete viele Nachrichten, Missverständnisse und Warten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz und einfach." />
+      </div>
+      <SkizzeWhiteboard />
+    </div>
+  </section>
+
+  <!-- SCHRITT 3 – ORIENTIERUNG: es gibt einen klaren Weg (unsere Haltung) -->
+  <section class="section etappe weg-sec" id="haltung" aria-labelledby="haltung-h">
+    <WegTrenner variante={1} />
     <div class="wrap">
-      <SectionHead eyebrow="Unsere Haltung" pre="Nicht die Technik macht Veränderungen schwer. " accent="Sondern der Weg dorthin." id="weg-h"
-        text="Waybuild ist aus Frust entstanden: Eine einfache Veränderung bedeutete viele Nachrichten, Missverständnisse und Warten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz und einfach." />
+      <SectionHead eyebrow="Orientierung · Unsere Haltung" pre="Es gibt " accent="einen klaren Weg." id="haltung-h"
+        text="Vier Sätze, nach denen wir arbeiten – bei allem, was wir tun." />
       <ul class="haltung">
         {HALTUNG.map((h, i) => (
           <li class="reveal" style={`--d:${i * 90}ms`}>
@@ -102,10 +131,11 @@ const FRAGEN = [
     </div>
   </section>
 
-  <!-- 3 UNSERE QUALITÄTEN + Leichtigkeit in der Zusammenarbeit (zusammengeführt, Talk 3584) -->
-  <section class="section section--dark qual" id="qualitaeten" aria-labelledby="qual-h">
+  <!-- SCHRITT 4 – VERTRAUEN: so arbeiten wir (Qualitäten + Zusammenarbeit) -->
+  <section class="section section--dark etappe qual" id="qualitaeten" aria-labelledby="qual-h">
+    <WegTrenner variante={2} />
     <div class="wrap">
-      <SectionHead eyebrow="Unsere Qualitäten" pre="Weil Zusammenarbeit " accent="leicht sein darf." id="qual-h"
+      <SectionHead eyebrow="Vertrauen · So arbeiten wir" pre="Weil Zusammenarbeit " accent="leicht sein darf." id="qual-h"
         text="Fast jede digitale Veränderung braucht Klarheit, Struktur und einen verlässlichen Partner. Ihre Leichtigkeit in der Zusammenarbeit ist unser Maßstab." />
       <ul class="qual__liste">
         {QUALITAETEN.map((q, i) => (
@@ -120,43 +150,27 @@ const FRAGEN = [
     </div>
   </section>
 
-  <!-- 5 UNSERE PRODUKTE: Wegweiser zu den Produkt-Websites -->
-  <section class="section section--sand" id="produkte" aria-labelledby="produkte-h">
+  <!-- SCHRITT 5 – UMSETZUNG: unsere Produkte, alle mit der Marke verbunden -->
+  <section class="section section--sand etappe" id="produkte" aria-labelledby="produkte-h">
+    <WegTrenner variante={1} />
     <div class="wrap">
-      <SectionHead eyebrow="Unsere Produkte" pre="Jetzt starten wir. " accent="Und das ist erst der Anfang." id="produkte-h"
+      <SectionHead eyebrow="Umsetzung · Unsere Produkte" pre="Jetzt starten wir. " accent="Und das ist erst der Anfang." id="produkte-h"
         text="Jedes unserer Produkte trägt einen eigenen Namen und hat einen eigenen Auftritt. Was sie verbindet, sind dieselben Werte und dieselben Zusagen." />
       <Produkte />
     </div>
   </section>
-
-  <!-- 6 ZUM NACHDENKEN: Fragen statt Druck -->
-  <section class="section fragen" id="fragen" aria-labelledby="fragen-h">
-    <div class="wrap fragen__grid">
-      <SectionHead eyebrow="Zum Nachdenken" pre="Wie leicht ist Veränderung " accent="bei Ihnen heute?" id="fragen-h"
-        text="Nicht jede digitale Veränderung braucht etwas Neues. Aber fast jede braucht Klarheit, Struktur und einen verlässlichen Partner." />
-      <ol class="fragen__liste">
-        {FRAGEN.map((f) => <li class="reveal">{f}</li>)}
-      </ol>
-    </div>
-  </section>
+  <!-- SCHRITT 6 – ZIEL: Kontakt (FooterKontakt, die Linie endet im Zielpunkt) -->
 </BaseLayout>
 
 <style>
-  /* 1 HERO */
-  .hero { position: relative; overflow: hidden; padding-block: clamp(36px, 7vw, 84px) clamp(40px, 6vw, 72px); background: var(--paper);
-    background-image: radial-gradient(45% 55% at 92% 8%, rgb(0 166 161 / 14%), transparent 70%); }
-  .hero h1 { font-size: clamp(2.5rem, 7.6vw, 5.4rem); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 22px; max-width: 13ch; }
-  .hero__was { font-size: clamp(1.12rem, 2.3vw, 1.4rem); line-height: 1.5; color: var(--ink-soft); max-width: 40ch; margin: 0 0 28px; }
+  /* START */
+  .hero { position: relative; overflow: hidden; padding-block: clamp(36px, 7vw, 88px) clamp(40px, 6vw, 72px); background: var(--paper);
+    background-image: radial-gradient(45% 55% at 92% 8%, rgb(0 166 161 / 12%), transparent 70%); }
+  .hero h1 { font-size: clamp(2.6rem, 8.4vw, 6.4rem); line-height: 1; letter-spacing: -0.04em; margin: 4px 0 28px; max-width: 12ch; }
+  .hero__unten { display: grid; gap: 24px; }
+  @media (min-width: 1000px) { .hero__unten { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 56px; } }
+  .hero__was { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.6; color: var(--ink-soft); max-width: 48ch; margin: 0; }
   .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
-  @media (min-width: 1000px) {
-    .hero__kopf { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; }
-    .hero h1 { margin-bottom: 0; }
-    .hero__rechts { padding-bottom: 12px; }
-    .hero__rechts .hero__was { font-size: 1.22rem; margin-bottom: 22px; }
-    .hero__rechts .btn--lg { min-height: 50px; padding: 0.8em 1.4em; font-size: 1rem; }
-    .hero__rechts .hero__cta { flex-wrap: nowrap; }
-  }
-
   .linie { margin: clamp(36px, 6vw, 64px) 0 0; }
   .linie__svg { display: block; width: 100%; height: auto; overflow: visible; }
   .linie__svg--schmal { display: none; }
@@ -192,14 +206,31 @@ const FRAGEN = [
   @keyframes zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   @keyframes auftauchen { from { opacity: 0; } to { opacity: 1; } }
 
+  /* SCHRITT 1 – AUSGANGSPUNKT */
+  .chaos { background: var(--white); }
+  .chaos__grid { display: grid; gap: 36px; }
+  @media (min-width: 980px) { .chaos__grid { grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; } }
+  .chaos__woerter { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 4px; font-family: var(--font-head); font-weight: 600; font-size: clamp(1.2rem, 2.4vw, 1.6rem); line-height: 1.35; color: #8a8478; }
+  .chaos__woerter li:not(:last-child)::after { content: '·'; margin: 0 10px 0 14px; color: #b9b2a2; }
+  .chaos__fragen h3 { font-size: 1.15rem; margin: 6px 0 14px; color: var(--accent-ink); }
+  .chaos__fragen ol { list-style: none; margin: 0; padding: 0; }
+  .chaos__fragen li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 15px 0; border-top: 1px solid var(--line); font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; line-height: 1.4; }
+  .chaos__fragen li:last-child { border-bottom: 1px solid var(--line); }
+  .chaos__fragen li::before { content: '?'; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent-ink); font-size: 0.85rem; }
 
-  /* 2 DER WEG */
+  /* SCHRITT 2 – VERSTÄNDNIS */
+  .verstehen { background: var(--paper); }
+  .verstehen__grid { display: grid; gap: 36px; align-items: center; }
+  @media (min-width: 980px) { .verstehen__grid { grid-template-columns: 1.25fr 0.75fr; gap: 56px; } }
+  .plakat :global(.section-head) { max-width: none; margin-bottom: 0; }
+  .plakat :global(h2) { font-size: clamp(2.3rem, 5.6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.03em; }
+  .plakat :global(.lead) { margin-top: 26px; max-width: 54ch; }
+
+  /* SCHRITT 3 – ORIENTIERUNG */
   .weg-sec { background: var(--white); }
-  /* Vier Haltungs-Sätze: bewusst ohne Linie/Stationen, damit sie sich klar von der Hero-Linie unterscheiden */
   .haltung { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
   @media (min-width: 680px) { .haltung { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1060px) { .haltung { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-  /* dezent (Jamil, Talk 3582): keine Kartenfläche, nur feine Linie oben und Weißraum; Symbole frei ohne Hintergrund */
+  @media (min-width: 1060px) { .haltung { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
   .haltung li { display: grid; align-content: start; gap: 10px; padding: 26px 4px 8px; border-top: 1px solid var(--line); transition-delay: var(--d, 0ms); }
   .haltung__icon { display: block; width: 64px; height: 64px; margin: 0 0 8px -4px; transition: transform 400ms cubic-bezier(.3,.7,.4,1.3); }
   .haltung__icon :global(.hbild) { width: 64px; height: 64px; }
@@ -207,7 +238,7 @@ const FRAGEN = [
   .haltung h3 { margin: 0; font-size: clamp(1.15rem, 1.8vw, 1.3rem); line-height: 1.25; }
   .haltung p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
 
-  /* 3 QUALITÄTEN */
+  /* SCHRITT 4 – VERTRAUEN */
   .qual__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
   @media (min-width: 640px) { .qual__liste { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1000px) { .qual__liste { grid-template-columns: repeat(3, 1fr); column-gap: clamp(32px, 4vw, 56px); row-gap: 12px; } }
@@ -224,14 +255,6 @@ const FRAGEN = [
   .qual__liste p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
 
 
-  /* 6 FRAGEN */
-  .fragen { background: var(--white); }
-  .fragen__grid { display: grid; gap: 28px; }
-  @media (min-width: 960px) { .fragen__grid { grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; } .fragen__grid :global(.section-head) { margin-bottom: 0; } }
-  .fragen__liste { list-style: none; margin: 0; padding: 0; counter-reset: f; }
-  .fragen__liste li { counter-increment: f; display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); font-family: var(--font-head); font-weight: 600; font-size: 1.08rem; line-height: 1.4; }
-  .fragen__liste li:last-child { border-bottom: 1px solid var(--line); }
-  .fragen__liste li::before { content: '?'; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent-ink); font-size: 0.9rem; }
 
   @media (prefers-reduced-motion: reduce) {
     .linie__knoten, .linie__gerade, .linie__umwege circle, .linie__stationen circle, .linie__ziel { animation: none !important; }

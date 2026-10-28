@@ -2,6 +2,7 @@
 // /angebot/ – ÜBERGANGS-Produktseite des ersten Produkts (Website), bis es eine eigene Produkt-Website hat
 // (Dachmarke, Jamil Talk 3475/3477). Name aus hauptseite.ts → PRODUKTE (Arbeitsname). Preise nur aus PAKETE.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WegTrenner from '../components/WegTrenner.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Weg from '../components/Weg.astro';
@@ -27,7 +28,8 @@ const NAME = produktName(P);
     )}
   </PageHeader>
 
-  <section class="section section--sand" id="angebot" aria-labelledby="angebot-h">
+  <section class="section section--sand etappe" id="angebot" aria-labelledby="angebot-h">
+    <WegTrenner variante={2} />
     <div class="wrap">
       <SectionHead eyebrow="Zwei Varianten" pre="Ein fester Monatspreis. " accent="Alles drin." text={WAAS.claim} id="angebot-h" />
       <ul class="pakete">
@@ -51,7 +53,8 @@ const NAME = produktName(P);
     </div>
   </section>
 
-  <section class="section" id="enthalten" aria-labelledby="enthalten-h">
+  <section class="section etappe" id="enthalten" aria-labelledby="enthalten-h">
+    <WegTrenner variante={1} />
     <div class="wrap">
       <SectionHead eyebrow="Enthalten" pre="Sie kümmern sich um Ihr Geschäft. " accent="Wir um den Rest." id="enthalten-h" />
       <ul class="inklusive">
@@ -60,7 +63,8 @@ const NAME = produktName(P);
     </div>
   </section>
 
-  <section class="section section--sand" id="ablauf" aria-labelledby="ablauf-h">
+  <section class="section section--sand etappe" id="ablauf" aria-labelledby="ablauf-h">
+    <WegTrenner variante={2} />
     <div class="wrap">
       <SectionHead eyebrow="So starten wir" pre="In vier Schritten " accent="zur Website." text="Vom ersten Gespräch bis zur laufenden Betreuung – mit einem festen Ansprechpartner." id="ablauf-h" />
       <Weg art="gerade" stationen={steps.map((s) => ({ titel: s.title, marke: s.short, text: s.text, icon: s.icon }))} zeichnen nummern />
@@ -71,7 +75,8 @@ const NAME = produktName(P);
     </div>
   </section>
 
-  <section class="section" id="fragen" aria-labelledby="fragen-h">
+  <section class="section etappe" id="fragen" aria-labelledby="fragen-h">
+    <WegTrenner variante={1} />
     <div class="wrap">
       <SectionHead eyebrow="Häufige Fragen" pre="Fragen zur Website. " accent="Kurz beantwortet." id="fragen-h" />
       <div class="fragen"><Faq items={faqsWebsite} /></div>

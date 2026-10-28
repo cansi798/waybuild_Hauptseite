@@ -1,0 +1,14 @@
+---
+// Organische Weglinie statt klassischer Trennlinie (Design-System Jamil, Talk 3622).
+// Zwei leicht verschiedene Verläufe, damit die Linie wie ein natürlicher Weg wirkt.
+interface Props { variante?: 1 | 2 }
+const { variante = 1 } = Astro.props;
+const d = variante === 1
+  ? 'M0 28 C 90 28, 130 12, 230 14 S 400 44, 520 36 S 740 10, 860 18 S 1060 32, 1200 28'
+  : 'M0 28 C 110 28, 170 42, 290 38 S 480 12, 610 16 S 820 40, 950 34 S 1110 22, 1200 28';
+---
+
+<div class="trenner" aria-hidden="true">
+  <svg viewBox="0 0 1200 56" preserveAspectRatio="none" focusable="false"><path pathLength="1" d={d} /></svg>
+  <span class="trenner__punkt"></span>
+</div>

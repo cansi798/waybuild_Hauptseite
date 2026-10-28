@@ -135,6 +135,10 @@ export type Produkt = {
   url?: string;
   /** Interne Übergangsseite, solange url fehlt */
   pfad?: string;
+  /** produkt = konkretes Produkt mit eigener Seite; bereich = angekündigter Service-Bereich (Jamil, Talk 3378/3401) */
+  art?: 'produkt' | 'bereich';
+  /** Zweck in einem Satz – keine Funktionsversprechen */
+  zweck?: string;
   /** Kurze Nutzenpunkte auf der Produktkarte (nur aktive Produkte) */
   frage?: string;
   punkte?: { icon: IconName; text: string; link?: string }[];
@@ -148,7 +152,7 @@ export const PRODUKTE: Produkt[] = [
   // Punkte: Jamil, Talk 3543 („Änderungen per Sprachnachricht in Minuten … per Sprache, Text, Screenshot, kurzes Video …
   // sich selbst optimierende Websites … mit unserem Serviceversprechen“). „oft in wenigen Minuten“ = keine garantierte Frist
   // (passt zu SLA_KERN „Oft schon in Minuten erledigt“). Selbstoptimierung nach PAKETE „Intelligente Website“.
-  { id: 'website', name: 'Super Duper Website Service', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/',
+  { id: 'website', art: 'produkt', name: 'Super Duper Website Service', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/',
     frage: 'Warum Ihre Website mit uns?',
     punkte: [
       { icon: 'mic', text: 'Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt.' },
@@ -158,10 +162,14 @@ export const PRODUKTE: Produkt[] = [
       { icon: 'euro', text: 'Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.' },
       { icon: 'shield', text: 'Alles mit unserem Serviceversprechen.', link: '/zusagen/' },
     ] },
-  { id: 'software', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
-  { id: 'cloud', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
-  { id: 'workplace', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
-  { id: 'process', name: 'TODO', kategorie: 'Process Service', icon: 'layers', aktiv: false },
+  // Von Can genannte Produkte (28.10.2026, über den Koordinator): nur Zweck, keine Funktionsversprechen; Namen offen, keine Links.
+  { id: 'crm-handwerk', name: 'TODO', kategorie: 'Kundenverwaltung für Handwerksbetriebe', zweck: 'Ein CRM, gemacht für den Alltag im Handwerk.', icon: 'tools', aktiv: false, art: 'produkt' },
+  { id: 'apps', name: 'TODO', kategorie: 'Apps für App Store und Google Play', zweck: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', icon: 'smartphone', aktiv: false, art: 'produkt' },
+  { id: 'crm-azav', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: false, art: 'produkt' },
+  { id: 'software', art: 'bereich', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
+  { id: 'cloud', art: 'bereich', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
+  { id: 'workplace', art: 'bereich', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
+  { id: 'process', art: 'bereich', name: 'TODO', kategorie: 'Process Service', icon: 'layers', aktiv: false },
 ];
 
 /** Erstes Produkt (Website) – für /angebot/, Footer, llms.txt, JSON-LD */

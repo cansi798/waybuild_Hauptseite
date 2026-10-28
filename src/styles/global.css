@@ -142,7 +142,8 @@ img { max-width: 100%; height: auto; display: block; }
 .eyebrow--weg::before { content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
 .section--dark .eyebrow--weg::before { background: var(--accent-light); }
 /* Gemeinsame Abschnitts-Köpfe (SectionHead) */
-.section-head h2, .section-head h1 { font-size: clamp(1.85rem, 4.4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
+.section-head h2, .section-head h1 { font-size: clamp(2rem, 4.8vw, 3.5rem); line-height: 1.06; letter-spacing: -0.028em; }
+.section-head { max-width: 820px; }
 .section-head .lead { margin-top: 14px; margin-bottom: 0; }
 .muted-head { color: #6f6a60; }
 .section--dark .muted-head { color: var(--dark-soft); }
@@ -199,3 +200,51 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html.js .reveal { opacity: 1; transform: none; }
 }
+
+/* ───────────────────────── DIE LINIE als roter Faden (Design-System Jamil, Talk 3622) ─────────────────────────
+ * .etappe  = Abschnitt als Schritt auf dem Weg. Ab 1240 px läuft links neben dem Inhalt eine feine Weglinie durch alle
+ *            Abschnitte; der Punkt der Kennzeile sitzt auf dieser Linie (Station). Darunter nur Abstand, keine Linie.
+ * .trenner = organische Weglinie statt klassischer Trennlinie (Komponente WegTrenner).
+ * Bewegung: scrollgebunden (CSS scroll-driven animations) – nur wo unterstützt und ohne reduzierte Bewegung;
+ * sonst steht die Linie einfach da. Kein JS nötig. */
+:root { --weg-farbe: rgb(0 166 161 / 55%); }
+.etappe { position: relative; --weg-l: 14px; --weg-c: 38px; }
+.etappe::before { content: ''; position: absolute; top: 0; bottom: 0; left: var(--weg-l); width: 2px; background: var(--weg-farbe); transform-origin: top; pointer-events: none; }
+.etappe.section--dark::before { background: rgb(95 224 218 / 45%); }
+@media (max-width: 1239px) { .etappe > .wrap { padding-left: 22px; } }
+@media (min-width: 1240px) { .etappe { --weg-l: calc((100% - var(--wrap)) / 2 - 36px); --weg-c: calc((100% - var(--wrap)) / 2); } }
+/* Station: der Punkt der Kennzeile sitzt auf der Weglinie */
+.etappe .eyebrow--weg { position: relative; }
+.etappe .eyebrow--weg::before { position: absolute; top: 50%; width: 12px; height: 12px; margin-top: -6px; left: -29px; background: var(--paper); border: 2.5px solid var(--accent); box-sizing: border-box; }
+@media (min-width: 1240px) { .etappe .eyebrow--weg::before { left: -41px; } }
+.etappe.section--dark .eyebrow--weg::before { background: var(--dark); border-color: var(--accent-light); }
+.section-head.center .eyebrow--weg::before { position: static; margin: 0; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .etappe::before { animation: weg-wachsen linear both; }
+    /* eigene Regel mit höherer Spezifität: animation-timeline darf nicht in die Kurzschreibweise zusammengefasst werden */
+    section.etappe::before, footer .etappe::before { animation-timeline: view(); animation-range: entry 0% cover 45%; }
+  }
+}
+@keyframes weg-wachsen { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* Organische Weglinie (Trenner) am oberen Rand eines Abschnitts */
+.trenner { position: absolute; left: calc(var(--weg-l, 14px) + 1px); right: 16px; top: 0; height: 56px; pointer-events: none; }
+@media (min-width: 1240px) { .trenner { right: calc((100% - var(--wrap)) / 2); } }
+.trenner svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.trenner path { fill: none; stroke: var(--weg-farbe); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; }
+.section--dark .trenner path { stroke: rgb(95 224 218 / 45%); }
+.trenner__punkt { position: absolute; right: -5px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: var(--accent); }
+.section--dark .trenner__punkt { background: var(--accent-light); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .trenner path { animation: trenner-zeichnen linear both; }
+    .trenner__punkt { animation: trenner-punkt linear both; }
+    div.trenner svg path { animation-timeline: view(); animation-range: entry 10% cover 35%; }
+    div.trenner span.trenner__punkt { animation-timeline: view(); animation-range: entry 60% cover 40%; }
+  }
+}
+@keyframes trenner-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes trenner-punkt { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: none; } }
+.etappe.section { padding-top: clamp(88px, 10vw, 140px); }
+.etappe--ziel > .wrap { padding-left: 0 !important; }

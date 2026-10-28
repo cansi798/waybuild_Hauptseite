@@ -12,7 +12,7 @@ const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, 
 
 <BaseLayout title="Allgemeine Geschäftsbedingungen (AGB)" description={`AGB der ${company.legalName} für Website-Abos, Software, Cloud- und IT-Leistungen sowie Beratung.`} noindex breadcrumb={[{ name: 'AGB', path: '/agb/' }]}>
   <PageHeader eyebrow="Rechtliches" title="Allgemeine Geschäftsbedingungen" lead="Für Unternehmen und Selbstständige (B2B)." />
-  <section class="section section--legal">
+  <section class="section section--legal etappe">
     <div class="wrap"><div class="prose">
       <Hint block label="Anwaltliche Prüfung der AGB" where="src/pages/agb.astro">
         Diese AGB sind eine strukturierte Vorlage für das Abo-Modell und ersetzen keine Rechtsberatung. Vor dem ersten

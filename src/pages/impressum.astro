@@ -9,7 +9,7 @@ import Hint from '../components/Hint.astro';
 
 <BaseLayout title="Impressum" description={`Impressum der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Impressum', path: '/impressum/' }]}>
   <PageHeader eyebrow="Rechtliches" title="Impressum" lead="Angaben zur Waybuild UG (haftungsbeschränkt)." />
-  <section class="section section--legal">
+  <section class="section section--legal etappe">
     <div class="wrap"><div class="prose">
       {[company.street, company.managingDirector, company.registerNumber].some(isMissing) && (
         <Hint block label="Pflichtangaben im Impressum" where="src/config/site.ts → company">
