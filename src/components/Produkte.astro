@@ -12,7 +12,8 @@ import { PRODUKTE, produktName } from '../config/hauptseite';
 
 const produkte = PRODUKTE.filter((p) => p.art === 'produkt');
 const bereiche = PRODUKTE.filter((p) => p.art === 'bereich');
-const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: true } : { href: href(p.pfad ?? '/'), extern: false });
+// Ziel des Knopfs: eigene Produkt-Website > Übergangsseite > Erstgespräch (solange es keine Produktseite gibt)
+const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: true, text: 'Zur Produktseite' } : p.pfad ? { href: href(p.pfad), extern: false, text: 'Zur Produktseite' } : { href: href('/kontakt/'), extern: false, text: 'Erstgespräch anfragen' });
 const liste = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} und ${xs[xs.length - 1]}` : xs[0] ?? '');
 ---
 
@@ -29,14 +30,14 @@ const liste = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} 
     {produkte.map((p, i) => {
       const z = ziel(p);
       return p.aktiv ? (
-        <li class="pweg__item pweg__item--aktiv reveal" style={`--d:${i * 120}ms`}>
-          <article class="produkt">
+        <li class:list={['pweg__item', 'pweg__item--aktiv', 'reveal', { 'pweg__item--kompakt': !p.punkte }]} style={`--d:${i * 120}ms`}>
+          <article class:list={['produkt', { 'produkt--kompakt': !p.punkte }]}>
             <div class="produkt__kopf">
               <span class="produkt__icon" aria-hidden="true"><Icon name={p.icon} size={30} /></span>
               <div>
                 <span class="produkt__status">Verfügbar</span>
                 <h3>{produktName(p)}</h3>
-                {p.nutzen && <p class="produkt__nutzen">{p.nutzen}</p>}
+                {(p.nutzen ?? p.zweck) && <p class="produkt__nutzen">{p.nutzen ?? p.zweck}</p>}
               </div>
             </div>
             {p.punkte && (
@@ -53,9 +54,10 @@ const liste = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} 
               </div>
             )}
             <a class="btn btn--primary" href={z.href} {...(z.extern ? { target: '_blank', rel: 'noopener' } : {})}>
-              Zur Produktseite <Icon name="arrow" size={18} />{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
+              {z.text} <Icon name="arrow" size={18} /><span class="sr-only"> – {produktName(p)}</span>{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
             </a>
-            {!p.url && (
+            {isMissing(p.name) && SHOW_HINTS && <Hint block label="Eigener Produktname" where="src/config/hauptseite.ts → PRODUKTE" />}
+            {!p.url && p.pfad && (
               <Hint block label="Adresse der Produkt-Website" where="src/config/hauptseite.ts → PRODUKTE → url">
                 {' '}– bis dahin führt der Link auf die Übergangsseite /angebot/. Die alte Produktseite waybuild_website zeigt noch Telefon-/WhatsApp-Platzhalter.
               </Hint>
@@ -100,6 +102,8 @@ const liste = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} 
   .pweg__item { position: relative; transition-delay: var(--d, 0ms); }
   .pweg__item::before { content: ''; position: absolute; left: calc(var(--stamm-x) - var(--einzug)); width: calc(var(--einzug) - var(--stamm-x)); top: 34px; height: 2px; background: var(--accent); }
   .pweg__item::after { content: ''; position: absolute; left: calc(var(--stamm-x) - var(--einzug) - 5px); top: 29px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper-2); border: 2.5px solid var(--accent); box-sizing: border-box; }
+  .pweg__item--kompakt::before { top: 36px; }
+  .pweg__item--kompakt::after { top: 31px; }
   .pweg__item--bald::before { background: repeating-linear-gradient(90deg, #a8a191 0 6px, transparent 6px 11px); }
   .pweg__item--bald::after { border-color: #a8a191; }
 
@@ -112,6 +116,11 @@ const liste = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} 
   .produkt__status { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
   .produkt h3 { margin: 2px 0 6px; font-size: clamp(1.4rem, 2.8vw, 1.9rem); }
   .produkt__nutzen { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+  /* Produkte ohne Vorteilsliste: gleicher Kartenstil, kompakter */
+  .produkt--kompakt { gap: 14px; padding: clamp(20px, 2.6vw, 26px); }
+  .produkt--kompakt h3 { font-size: clamp(1.2rem, 2.2vw, 1.45rem); }
+  .produkt--kompakt .produkt__icon { width: 48px; height: 48px; border-radius: 14px; }
+  .produkt--kompakt .btn { min-height: 44px; padding: 0.6em 1.2em; font-size: 0.95rem; }
   .produkt__warum { width: 100%; padding: 18px 20px; border-radius: 16px; background: var(--paper); }
   .produkt__warum h4 { margin: 0 0 12px; font-family: var(--font-head); font-size: 1.02rem; color: var(--accent-ink); }
   .produkt__warum ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }

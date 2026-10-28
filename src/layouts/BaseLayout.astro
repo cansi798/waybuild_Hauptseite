@@ -48,7 +48,7 @@ const organization = {
   // Dachmarke: nur verfügbare Produkte als Angebot melden (Name = Arbeitsname aus der Config, keine Preise hier)
   makesOffer: PRODUKTE.filter((p) => p.aktiv).map((p) => ({
     '@type': 'Offer',
-    itemOffered: { '@type': 'Service', name: produktName(p), serviceType: p.kategorie, url: p.url || absolute(p.pfad ?? '/', Astro.site) },
+    itemOffered: { '@type': 'Service', name: produktName(p), serviceType: p.kategorie, url: p.url || absolute(p.pfad ?? '/', Astro.site), ...(p.zweck ? { description: p.zweck } : {}) },
   })),
   // Platzhalter-Nummer nie an Google melden
   // Adresse erst ausgeben, wenn sie vollständig ist – nie Platzhalter an Google melden

@@ -36,7 +36,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     '## Produkte',
     ...PRODUKTE.map((p) => p.aktiv
-      ? `- ${produktName(p)} (${p.kategorie}, verfügbar): ${p.nutzen ?? ''} ${(p.punkte ?? []).map((x) => x.text).join(' ')} Seite: ${p.url || url(p.pfad ?? '/')}`
+      ? `- ${produktName(p)}${produktName(p) === p.kategorie ? '' : ` (${p.kategorie})`}, verfügbar: ${p.nutzen ?? p.zweck ?? ''} ${(p.punkte ?? []).map((x) => x.text).join(' ')} ${p.url || p.pfad ? `Seite: ${p.url || url(p.pfad!)}` : `Anfrage: ${url('/kontakt/')}`}`
       : `- ${produktName(p)}: bald verfügbar.`),
     '',
     `## ${websiteName} (erstes Produkt)`,

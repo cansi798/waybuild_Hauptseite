@@ -22,7 +22,7 @@ const { kontakt = true } = Astro.props;
       <h2 class="footer__h">Produkte</h2>
       <ul>
         {PRODUKTE.map((p) => p.aktiv
-          ? <li><a href={p.url || href(p.pfad ?? '/')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>
+          ? <li><a href={p.url || href(p.pfad ?? '/#produkte')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>
           : <li><span class="footer__soon">{produktName(p)} · bald</span></li>)}
       </ul>
     </nav>

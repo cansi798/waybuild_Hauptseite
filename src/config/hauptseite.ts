@@ -162,10 +162,11 @@ export const PRODUKTE: Produkt[] = [
       { icon: 'euro', text: 'Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.' },
       { icon: 'shield', text: 'Alles mit unserem Serviceversprechen.', link: '/zusagen/' },
     ] },
-  // Von Can genannte Produkte (28.10.2026, über den Koordinator): nur Zweck, keine Funktionsversprechen; Namen offen, keine Links.
-  { id: 'crm-handwerk', name: 'TODO', kategorie: 'Kundenverwaltung für Handwerksbetriebe', zweck: 'Ein CRM, gemacht für den Alltag im Handwerk.', icon: 'tools', aktiv: false, art: 'produkt' },
-  { id: 'apps', name: 'TODO', kategorie: 'Apps für App Store und Google Play', zweck: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', icon: 'smartphone', aktiv: false, art: 'produkt' },
-  { id: 'crm-azav', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: false, art: 'produkt' },
+  // Von Can als aktuelle Produkte festgelegt (28.10.2026, One-Pager): verfügbar, nur Zweck, keine Funktionsversprechen;
+  // Namen neutral bis Jamil eigene nennt; ohne Produktseite → Knopf „Erstgespräch anfragen“.
+  { id: 'crm-handwerk', name: 'TODO', kategorie: 'Kundenverwaltung für Handwerksbetriebe', zweck: 'Ein CRM, gemacht für den Alltag im Handwerk.', icon: 'tools', aktiv: true, art: 'produkt' },
+  { id: 'apps', name: 'TODO', kategorie: 'Apps für App Store und Google Play', zweck: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', icon: 'smartphone', aktiv: true, art: 'produkt' },
+  { id: 'crm-azav', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: true, art: 'produkt' },
   { id: 'software', art: 'bereich', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
   { id: 'cloud', art: 'bereich', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
   { id: 'workplace', art: 'bereich', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
