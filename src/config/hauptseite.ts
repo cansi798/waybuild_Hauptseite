@@ -11,7 +11,8 @@ export const HERO = {
   pre: 'Wir machen Veränderungen ',
   accent: 'einfach.',
   // Dachmarke: nur über uns (Jamil, Talk 3540/3541); Wortlaut nach Strategiebriefing 3401 („Wir helfen Unternehmen dabei, Veränderungen einfacher umzusetzen“, „Klarheit, Struktur, … einen zuverlässigen Partner“)
-  lead: 'Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner an ihrer Seite.',
+  // Bezugsrahmen „digital“ ohne Technik-Jargon (Jamil, Talk 3589); Beispiele = heutige/angekündigte Produkte (Website, Process, Workplace)
+  lead: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen – ob Website, Abläufe oder die Werkzeuge im Arbeitsalltag. Verständlich, verlässlich und ohne Fachchinesisch.',
 };
 
 /** „Wofür wir stehen“ – ein Wort, eine Kernzeile (lead) und 2–3 Sätze, was das konkret für Kunden heißt.

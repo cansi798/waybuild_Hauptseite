@@ -155,7 +155,7 @@ export const BERATUNG_THEMEN = ['Zielgruppen', 'Positionierung', 'Customer Journ
 export const faqsAllgemein = [
   {
     q: 'Was macht Waybuild?',
-    a: 'Wir helfen Unternehmen, Veränderungen einfach umzusetzen – mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Unser erstes Produkt sind Websites, weitere Produkte folgen.',
+    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen – ob Website, Abläufe oder die Werkzeuge im Arbeitsalltag. Mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Unser erstes Produkt sind Websites, weitere folgen.',
   },
   {
     q: 'Gelten Ihre Zusagen für alle Produkte?',
