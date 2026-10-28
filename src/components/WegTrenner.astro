@@ -1,14 +1,13 @@
 ---
-// Organische Weglinie statt klassischer Trennlinie (Design-System Jamil, Talk 3622).
-// Zwei leicht verschiedene Verläufe, damit die Linie wie ein natürlicher Weg wirkt.
+// Wegstück zwischen zwei Abschnitten der Unterseiten (Neuaufbau Storytelling, Jamil Talk 3632):
+// Auf den Unterseiten ist der Weg schon geordnet – deshalb eine gerade, ruhige Linie von Station zu Station,
+// die sich beim Scrollen einmal zieht (ohne Unterstützung/bei reduzierter Bewegung: steht fertig da).
+// `variante` bleibt aus Kompatibilität erhalten.
 interface Props { variante?: 1 | 2 }
-const { variante = 1 } = Astro.props;
-const d = variante === 1
-  ? 'M0 28 C 90 28, 130 12, 230 14 S 400 44, 520 36 S 740 10, 860 18 S 1060 32, 1200 28'
-  : 'M0 28 C 110 28, 170 42, 290 38 S 480 12, 610 16 S 820 40, 950 34 S 1110 22, 1200 28';
 ---
 
 <div class="trenner" aria-hidden="true">
-  <svg viewBox="0 0 1200 56" preserveAspectRatio="none" focusable="false"><path pathLength="1" d={d} /></svg>
-  <span class="trenner__punkt"></span>
+  <span class="trenner__linie"></span>
+  <span class="trenner__punkt trenner__punkt--a"></span>
+  <span class="trenner__punkt trenner__punkt--b"></span>
 </div>

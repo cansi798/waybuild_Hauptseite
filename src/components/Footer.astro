@@ -6,12 +6,12 @@ import Logo from './Logo.astro';
 import FooterKontakt from './FooterKontakt.astro';
 
 const year = new Date().getFullYear();
-interface Props { kontakt?: boolean }
-const { kontakt = true } = Astro.props;
+interface Props { kontakt?: boolean; rueckgrat?: boolean }
+const { kontakt = true, rueckgrat = false } = Astro.props;
 ---
 
 <footer class="footer section--dark">
-  {kontakt && <FooterKontakt />}
+  {kontakt && <FooterKontakt rueckgrat={rueckgrat} />}
   <div class="wrap footer__grid">
     <div>
       <Logo />

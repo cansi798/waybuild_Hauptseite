@@ -1,0 +1,313 @@
+---
+// START der Reise (Jamil, Talk 3632: „Vorher Chaos und dann kommt langsam die Ordnung mit Waybuild. Gerade Prozesse.“)
+// Links (Handy: oben) steht das Versprechen „Wir machen Veränderungen einfach.“ – rechts eine Arbeitsfläche voller Chaos:
+// verstreute Notizzettel des Frusts und eine verknotete graue Linie. Beim Scrollen bleibt die Bühne stehen (sticky),
+// die Linie entwirrt sich von oben nach unten (scrollgebunden), wird türkis, die Zettel richten sich aus und sortieren
+// sich in vier klare Schritte an der nun geraden Linie. Diese Linie läuft danach als Rückgrat durch die ganze Seite.
+// Ohne JS, bei reduzierter Bewegung oder sehr niedrigem Fenster: statischer Endzustand – oben das Chaos als Bild,
+// darunter die Ordnung (gleiche Inhalte, alles lesbar). Belege der Schritt-Texte: config/hauptseite.ts (ZUSAGEN, WERTE,
+// QUALITAETEN, SLA_KERN) – nichts erfunden, keine Zahlen.
+import Icon from '../Icon.astro';
+import { href } from '../../lib/paths';
+import { HERO } from '../../config/hauptseite';
+
+// Zettel: Frust-Begriffe aus Jamils Briefings (Talk 3378/3401/3622). x/y/r = Desktop, mx/my/mr = Handy (Prozent der Fläche).
+// ziel = Schritt, in den der Zettel einsortiert wird.
+const ZETTEL = [
+  { t: 'E-Mails', x: 20, y: 9, r: -8, mx: 22, my: 7, mr: -8, ziel: 0 },
+  { t: 'Screenshots', x: 58, y: 7, r: 6, mx: 70, my: 5, mr: 6, ziel: 0 },
+  { t: 'WhatsApp-Nachrichten', x: 40, y: 20, r: -3, mx: 44, my: 16, mr: -4, ziel: 0 },
+  { t: 'Viele Dienstleister', x: 79, y: 24, r: 9, mx: 78, my: 26, mr: 7, ziel: 1 },
+  { t: 'Wer ist zuständig?', x: 22, y: 36, r: 5, mx: 24, my: 29, mr: 5, ziel: 1 },
+  { t: 'Rückfragen', x: 62, y: 41, r: -10, mx: 62, my: 39, mr: -9, ziel: 2 },
+  { t: 'Missverständnisse', x: 40, y: 54, r: 7, mx: 30, my: 47, mr: 6, ziel: 2 },
+  { t: 'Abstimmungsschleifen', x: 76, y: 60, r: -5, mx: 70, my: 55, mr: -5, ziel: 2 },
+  { t: 'Fachchinesisch', x: 19, y: 68, r: -6, mx: 22, my: 63, mr: -6, ziel: 2 },
+  { t: 'Warten', x: 50, y: 79, r: 4, mx: 56, my: 71, mr: 5, ziel: 3 },
+  { t: 'Wann ist es fertig?', x: 79, y: 86, r: -8, mx: 76, my: 80, mr: -7, ziel: 3 },
+];
+
+const SCHRITTE = [
+  { titel: 'Eine Nachricht genügt.', text: 'Sie sagen, was Sie brauchen – so, wie es für Sie am einfachsten ist.' },
+  { titel: 'Ein fester Ansprechpartner.', text: 'Er kennt Ihr Unternehmen. Sie müssen nichts zweimal erklären.' },
+  { titel: 'Ein klarer Ablauf.', text: 'Jedes Anliegen geht denselben festen Weg – in klaren Worten statt Fachchinesisch.' },
+  { titel: 'Verlässlich umgesetzt.', text: 'Antwort spätestens am nächsten Werktag. Bei größeren Aufgaben nennen wir vorher einen festen Termin.' },
+];
+
+// Verknotete Linie: Stützpunkte (x 0…1 = Linie…rechter Rand, y 0…1 = oben…unten), 20 kubische Abschnitte, aus einer
+// Kritzel-Folge per Catmull-Rom geglättet. Dieselben Werte nutzt das Skript für das Entwirren (data-knoten).
+const K: number[][] = [[0.012, 0.016, -0.05, 0.072, 0.06, 0.08], [0.17, 0.088, 0.39, 0.024, 0.55, 0.04], [0.71, 0.056, 0.846, 0.114, 0.86, 0.16], [0.874, 0.206, 0.732, 0.268, 0.62, 0.27], [0.508, 0.272, 0.328, 0.21, 0.3, 0.17], [0.272, 0.13, 0.4, 0.038, 0.48, 0.07], [0.56, 0.102, 0.604, 0.256, 0.7, 0.33], [0.796, 0.404, 0.98, 0.402, 0.96, 0.44], [0.94, 0.478, 0.764, 0.528, 0.6, 0.52], [0.436, 0.512, 0.184, 0.444, 0.14, 0.4], [0.096, 0.356, 0.298, 0.26, 0.38, 0.3], [0.462, 0.34, 0.454, 0.528, 0.55, 0.6], [0.646, 0.672, 0.83, 0.616, 0.86, 0.66], [0.89, 0.704, 0.824, 0.808, 0.7, 0.82], [0.576, 0.832, 0.3, 0.764, 0.24, 0.72], [0.18, 0.676, 0.348, 0.564, 0.4, 0.6], [0.452, 0.636, 0.4, 0.844, 0.5, 0.9], [0.6, 0.956, 0.904, 0.866, 0.9, 0.88], [0.896, 0.894, 0.66, 0.946, 0.48, 0.97], [0.3, 0.994, 0.096, 0.994, 0, 1]];
+// Statische Fassung (ohne JS) in der Fläche 0…1000
+const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v) => Math.round(v * 1000)).join(' ')}`).join('');
+---
+
+<section class="start" id="start" aria-labelledby="hero-h" data-start data-knoten={JSON.stringify(K)}>
+  <div class="wrap start__grid">
+    <div class="start__text">
+      <span class="eyebrow eyebrow--weg">{HERO.eyebrow}</span>
+      <h1 id="hero-h">{HERO.pre}<span class="accent">{HERO.accent}</span></h1>
+      <p class="start__lead">{HERO.lead}</p>
+      <div class="start__cta nur-desktop">
+        <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
+        <a class="btn btn--ghost btn--lg" href={href('/#produkte')}>Unsere Produkte</a>
+      </div>
+    </div>
+
+    <div class="start__spur">
+      <div class="tafel">
+        <!-- VORHER: das Chaos -->
+        <div class="tafel__teil tafel__chaos">
+          <div class="tafel__kopf">
+            <p class="kenn kenn--grau" data-phase="0"><span>Schritt 1 · Vorher</span>So fühlt sich Veränderung oft an.</p>
+            <p class="kenn kenn--mitte" data-phase="1" aria-hidden="true"><span>Dann kommt Waybuild</span>Schritt für Schritt kommt Ordnung hinein.</p>
+          </div>
+          <div class="tafel__flaeche">
+            <svg class="knoten" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path class="knoten__grau" d={KNOTEN} />
+              <path class="knoten__tuerkis" pathLength="1" d={KNOTEN} />
+            </svg>
+            <ul class="zettel" aria-label="Was Veränderung oft schwer macht">
+              {ZETTEL.map((z, i) => (
+                <li class="zettel__z" data-ziel={z.ziel} style={`--x:${z.x}%;--y:${z.y}%;--r:${z.r}deg;--mx:${z.mx}%;--my:${z.my}%;--mr:${z.mr}deg;--i:${i}`}>{z.t}</li>
+              ))}
+            </ul>
+            <p class="tafel__hinweis" aria-hidden="true"><Icon name="chevron" size={18} /> Weiterscrollen – und das Chaos ordnet sich</p>
+          </div>
+        </div>
+
+        <!-- MIT WAYBUILD: gerade Linie, klare Schritte -->
+        <div class="tafel__teil tafel__ordnung">
+          <div class="tafel__kopf">
+            <p class="kenn kenn--tuerkis" data-phase="2"><span>Mit Waybuild</span>Ein klarer Weg. Gerade Abläufe.</p>
+          </div>
+          <ol class="schritte" aria-label="So läuft es mit Waybuild">
+            {SCHRITTE.map((s, i) => (
+              <li class="schritt" data-schritt={i}>
+                <span class="schritt__nr" aria-hidden="true">{i + 1}</span>
+                <div>
+                  <h2 class="schritt__titel">{s.titel}</h2>
+                  <p>{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scrollgebundene Bühne: berechnet den Fortschritt p (0…1) der stehenden Arbeitsfläche und leitet daraus ab:
+  // Linie (Knoten → gerade, abschnittsweise von oben nach unten), türkiser Fortschritt, Zettel → Schritte, Kennzeilen.
+  // Nur wenn Bewegung erlaubt und das Fenster hoch genug ist; sonst bleibt der statische Endzustand stehen.
+  const root = document.querySelector<HTMLElement>('[data-start]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const niedrig = window.matchMedia('(max-height: 559px)');
+  if (root && !reduce.matches && !niedrig.matches) {
+    root.classList.add('start--live');
+    const spur = root.querySelector<HTMLElement>('.start__spur')!;
+    const tafel = root.querySelector<HTMLElement>('.tafel')!;
+    const flaeche = root.querySelector<HTMLElement>('.tafel__flaeche')!;
+    const svg = root.querySelector<SVGSVGElement>('.knoten')!;
+    const grau = svg.querySelector<SVGPathElement>('.knoten__grau')!;
+    const tuerkis = svg.querySelector<SVGPathElement>('.knoten__tuerkis')!;
+    const zettel = Array.from(root.querySelectorAll<HTMLElement>('.zettel__z'));
+    const schritte = Array.from(root.querySelectorAll<HTMLElement>('.schritt'));
+    const kennzeilen = Array.from(root.querySelectorAll<HTMLElement>('.kenn'));
+    const hinweis = root.querySelector<HTMLElement>('.tafel__hinweis')!;
+
+    const K: number[][] = JSON.parse(root.dataset.knoten || '[]');
+    const n = K.length;
+    const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const glatt = (t: number) => t * t * (3 - 2 * t);
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    // Abschnitt i entwirrt sich zwischen A + S*i/n und A + S*i/n + D
+    const A = 0.05, S = 0.56, D = 0.22;
+    const tAbschnitt = (p: number, i: number) => glatt(clamp((p - A - (S * i) / n) / D));
+
+    let w = 0, h = 0, lx = 0, headerH = 72;
+    let basis: { x: number; y: number }[] = [];
+    let slots: { x: number; y: number; p: number }[] = [];
+
+    const messen = () => {
+      w = flaeche.clientWidth;
+      h = flaeche.clientHeight;
+      lx = parseFloat(getComputedStyle(tafel).getPropertyValue('--linie-x')) || 0;
+      headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svg.setAttribute('preserveAspectRatio', 'none');
+      const fr = flaeche.getBoundingClientRect();
+      // Mittelpunkte der Zettel ohne Transformation (offset* ignoriert transform)
+      basis = zettel.map((z) => ({ x: z.offsetLeft, y: z.offsetTop }));
+      // Ziel-Plätze = Schritt-Karten (Position relativ zur Fläche) + Zeitpunkt, an dem die Linie dort ankommt
+      slots = schritte.map((s) => {
+        const r = s.getBoundingClientRect();
+        const y = r.top + r.height / 2 - fr.top;
+        const anteil = clamp(y / h);
+        return { x: r.left + Math.min(r.width, 260) / 2 - fr.left, y, p: A + S * anteil + D * 0.75 };
+      });
+    };
+
+    const pfad = (p: number) => {
+      const X = (u: number) => lx + u * (w - lx - 8);
+      const Y = (v: number) => v * h;
+      let d = `M ${lx} 0`;
+      for (let i = 0; i < n; i++) {
+        const t = tAbschnitt(p, i);
+        const y0 = (h * i) / n, y1 = (h * (i + 1)) / n;
+        const [c1x, c1y, c2x, c2y, ex, ey] = K[i];
+        const pts = [
+          [lerp(X(c1x), lx, t), lerp(Y(c1y), y0 + (y1 - y0) / 3, t)],
+          [lerp(X(c2x), lx, t), lerp(Y(c2y), y0 + (2 * (y1 - y0)) / 3, t)],
+          [lerp(X(ex), lx, t), lerp(Y(ey), y1, t)],
+        ];
+        d += ` C ${pts.map((q) => q.map((v) => v.toFixed(1)).join(' ')).join(', ')}`;
+      }
+      return d;
+    };
+
+    let zuletzt = -1;
+    const zeichnen = () => {
+      const r = spur.getBoundingClientRect();
+      const weg = Math.max(1, spur.offsetHeight - tafel.offsetHeight);
+      const p = clamp((headerH - r.top) / weg);
+      if (Math.abs(p - zuletzt) < 0.0005) return;
+      zuletzt = p;
+      const d = pfad(p);
+      grau.setAttribute('d', d);
+      tuerkis.setAttribute('d', d);
+      // türkiser Fortschritt folgt der Entwirrung
+      const front = clamp((p - A - D * 0.5) / S);
+      tuerkis.style.strokeDashoffset = String(1 - front);
+      // Zettel wandern zu ihrem Schritt, richten sich aus und gehen darin auf
+      zettel.forEach((z, i) => {
+        const s = slots[Number(z.dataset.ziel)];
+        if (!s) return;
+        const t = glatt(clamp((p - (s.p - 0.2)) / 0.2));
+        const jitter = (i % 3) * 6 - 6;
+        const dx = (s.x - basis[i].x + jitter) * t;
+        const dy = (s.y - basis[i].y + jitter * 0.5) * t;
+        const rot = parseFloat(z.style.getPropertyValue(window.innerWidth >= 960 ? '--r' : '--mr')) * (1 - t);
+        z.style.transform = `translate(-50%, -50%) translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(1 - 0.15 * t).toFixed(3)})`;
+        z.style.opacity = String(1 - clamp((p - s.p + 0.03) / 0.05));
+        z.classList.toggle('zettel__z--geordnet', t > 0.5);
+      });
+      // Schritte erscheinen, sobald ihre Zettel angekommen sind
+      schritte.forEach((sEl, k) => {
+        const s = slots[k];
+        const t = clamp((p - s.p + 0.04) / 0.07);
+        sEl.style.opacity = String(t);
+        sEl.style.transform = `translateX(${((1 - t) * 14).toFixed(1)}px)`;
+        sEl.classList.toggle('schritt--da', t > 0.5);
+      });
+      // Kennzeilen: Vorher → Dann kommt Waybuild → Mit Waybuild
+      const sicht = [1 - clamp((p - 0.16) / 0.08), clamp((p - 0.24) / 0.08) * (1 - clamp((p - 0.58) / 0.08)), clamp((p - 0.66) / 0.08)];
+      kennzeilen.forEach((k) => { k.style.opacity = String(sicht[Number(k.dataset.phase)]); });
+      hinweis.style.opacity = String(1 - clamp(p / 0.05));
+    };
+
+    let laeuft = false;
+    const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(() => { laeuft = false; zeichnen(); }); } };
+    const neu = () => { zettel.forEach((z) => (z.style.transform = '')); schritte.forEach((s) => (s.style.transform = '')); messen(); zuletzt = -1; zeichnen(); };
+    neu();
+    window.addEventListener('scroll', anfordern, { passive: true });
+    window.addEventListener('resize', () => requestAnimationFrame(neu));
+    if (document.fonts) document.fonts.ready.then(neu);
+    // Wechselt jemand während des Besuchs auf reduzierte Bewegung: statischer Zustand
+    reduce.addEventListener?.('change', () => location.reload());
+  }
+</script>
+
+<style>
+  .start { --g: 28px; position: relative; background: var(--paper); padding-top: clamp(28px, 6vw, 56px); }
+  .start__grid { display: grid; gap: 28px; }
+  .start__text h1 { font-size: clamp(2.5rem, 10.5vw, 4.4rem); line-height: 1.02; letter-spacing: -0.04em; margin: 4px 0 22px; max-width: 12ch; hyphens: manual; }
+  .start__lead { font-size: clamp(1.08rem, 2vw, 1.25rem); line-height: 1.65; color: var(--ink-soft); max-width: 46ch; margin: 0 0 26px; }
+  .start__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* Arbeitsfläche */
+  .tafel { --linie-x: 14px; position: relative; display: grid; gap: 28px; padding-bottom: 8px; }
+  .tafel__kopf { position: relative; min-height: 4.4em; padding-left: calc(var(--linie-x) + 30px); }
+  .kenn { margin: 0; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.25; letter-spacing: -0.01em; }
+  .kenn span { display: block; margin-bottom: 4px; font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .kenn--grau { color: #57534b; }
+  .kenn--grau span { color: #6f6a60; }
+  .kenn--mitte { display: none; color: var(--ink); }
+  .kenn--mitte span, .kenn--tuerkis span { color: var(--accent-ink); }
+  .kenn--tuerkis { color: var(--ink); }
+
+  .tafel__flaeche { position: relative; height: clamp(360px, 92vw, 460px); }
+  .knoten { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .knoten path { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .knoten__grau { stroke: #b4ad9e; }
+  .knoten__tuerkis { stroke: var(--accent); stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+  .zettel { list-style: none; margin: 0; padding: 0; }
+  .zettel__z {
+    position: absolute; left: var(--mx); top: var(--my); transform: translate(-50%, -50%) rotate(var(--mr));
+    max-width: 10.5em; padding: 7px 12px 8px; border-radius: 4px; background: #fffdf8; border: 1px solid #d8d1c3;
+    font-family: var(--font-head); font-weight: 600; font-size: 0.86rem; line-height: 1.25; color: #5b574f; text-align: center;
+    white-space: normal; will-change: transform, opacity;
+  }
+  .zettel__z:nth-child(3n + 2) { background: #f3efe6; }
+  .zettel__z:nth-child(4n + 1) { border-top: 3px solid #cfc7b6; }
+  .zettel__z--geordnet { border-color: rgb(0 166 161 / 50%); }
+  .tafel__hinweis { display: none; }
+
+  /* Ordnung (statisch: unter dem Chaos) */
+  .tafel__ordnung { position: relative; }
+  .schritte { list-style: none; margin: 0; padding: 0 0 0 calc(var(--linie-x) + 30px); display: grid; gap: 14px; position: relative; }
+  .tafel__ordnung::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.5px); top: 0; bottom: -8px; width: 3px; background: var(--accent); border-radius: 2px; }
+  .schritt { position: relative; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: var(--white); border: 1px solid rgb(0 166 161 / 40%); border-radius: 14px; }
+  .schritt::before { content: ''; position: absolute; left: -30px; top: 50%; width: 30px; height: 3px; margin-top: -1.5px; background: var(--accent); }
+  .schritt::after { content: ''; position: absolute; left: -37px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent); box-sizing: border-box; }
+  .schritt__nr { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; }
+  .schritt__titel { margin: 2px 0 2px; font-size: 1.08rem; line-height: 1.3; letter-spacing: -0.01em; }
+  .schritt p { margin: 0; color: var(--ink-soft); line-height: 1.5; font-size: 0.97rem; }
+
+  /* Desktop: zwei Spalten, die Linie sitzt in der Mitte (= Rückgrat der ganzen Seite) */
+  @media (min-width: 960px) {
+    .start { --g: 56px; padding-top: 0; }
+    .start__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: calc(2 * var(--g)); align-items: start; }
+    .start__text { padding-block: clamp(48px, 7vw, 96px); }
+    .start__text h1 { font-size: clamp(2.6rem, 4.3vw, 4.2rem); }
+    .start__spur { margin-left: calc(-1 * var(--g)); }
+    .tafel { --linie-x: 0px; padding-top: clamp(48px, 7vw, 96px); }
+    .tafel__kopf, .schritte { padding-left: calc(var(--g) + 4px); }
+    .schritt::before { left: calc(-1 * var(--g) - 4px); width: calc(var(--g) + 4px); }
+    .schritt::after { left: calc(-1 * var(--g) - 11px); }
+    .tafel__flaeche { height: 480px; }
+    .zettel__z { left: var(--x); top: var(--y); transform: translate(-50%, -50%) rotate(var(--r)); font-size: 0.95rem; padding: 9px 15px 10px; }
+  }
+
+  /* ───── Bühne mit Bewegung (nur mit JS, Bewegung erlaubt, Fenster hoch genug) ───── */
+  :global(.start--live) .start__spur { height: calc(100svh - var(--header-h) - var(--stickybar-h) + 170svh); }
+  :global(.start--live) .tafel { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h) - var(--stickybar-h)); padding-block: 18px 0; gap: 0; }
+  :global(.start--live) .tafel__teil { grid-area: 1 / 1; display: flex; flex-direction: column; min-height: 0; }
+  :global(.start--live) .tafel__flaeche { flex: 1; height: auto; min-height: 0; }
+  :global(.start--live) .tafel__kopf .kenn { position: absolute; left: calc(var(--linie-x) + 30px); right: 0; top: 0; }
+  :global(.start--live) .kenn--mitte { display: block; opacity: 0; }
+  :global(.start--live) .kenn--tuerkis { opacity: 0; }
+  :global(.start--live) .tafel__ordnung { pointer-events: none; }
+  :global(.start--live) .tafel__ordnung::before { display: none; }
+  :global(.start--live) .schritte { flex: 1; align-content: space-evenly; padding-bottom: 12px; }
+  :global(.start--live) .schritt { opacity: 0; transition: none; }
+  :global(.start--live) .schritt::before, :global(.start--live) .schritt::after { transition: transform 200ms ease; transform: scale(0.4); opacity: 0; }
+  :global(.start--live) .schritt--da::before, :global(.start--live) .schritt--da::after { transform: none; opacity: 1; }
+  :global(.start--live) .tafel__hinweis { display: flex; position: absolute; left: calc(var(--linie-x) + 30px); bottom: 10px; align-items: center; gap: 6px; margin: 0; font-size: 0.88rem; font-weight: 600; color: #6f6a60; }
+  :global(.start--live) .tafel__hinweis :global(svg) { animation: hinweis 1.6s ease-in-out infinite; }
+  @keyframes hinweis { 50% { transform: translateY(3px); } }
+  @media (min-width: 960px) {
+    :global(.start--live) .start__grid { align-items: stretch; }
+    :global(.start--live) .start__text { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); display: flex; flex-direction: column; justify-content: center; padding-block: 24px; }
+    :global(.start--live) .tafel { padding-top: clamp(28px, 5vh, 56px); }
+    :global(.start--live) .tafel__kopf .kenn { left: calc(var(--g) + 4px); }
+    :global(.start--live) .tafel__hinweis { left: calc(var(--g) + 4px); }
+  }
+  /* Kleine Handys: Schritte nur mit Titel, damit alles auf die Bühne passt */
+  @media (max-width: 959px) and (max-height: 760px) {
+    :global(.start--live) .schritt p { display: none; }
+    :global(.start--live) .schritt { padding: 10px 14px; align-items: center; }
+  }
+</style>

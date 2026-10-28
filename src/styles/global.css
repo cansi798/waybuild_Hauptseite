@@ -132,6 +132,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ---------- Umbau nach Bauwelt-Muster (11.10.2026): Sektions-Köpfe, Häkchen, Slider, Reveal ---------- */
 :root { --header-h: 72px; --stickybar-h: 64px; }
+@media (min-width: 960px) { :root { --stickybar-h: 0px; } }
 .accent { color: var(--accent-ink); }
 .section--dark .accent, .section--dark .eyebrow { color: var(--accent-light); }
 .section--dark h2, .section--dark h3 { color: var(--white); }
@@ -201,50 +202,97 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   html.js .reveal { opacity: 1; transform: none; }
 }
 
-/* ───────────────────────── DIE LINIE als roter Faden (Design-System Jamil, Talk 3622) ─────────────────────────
- * .etappe  = Abschnitt als Schritt auf dem Weg. Ab 1240 px läuft links neben dem Inhalt eine feine Weglinie durch alle
- *            Abschnitte; der Punkt der Kennzeile sitzt auf dieser Linie (Station). Darunter nur Abstand, keine Linie.
- * .trenner = organische Weglinie statt klassischer Trennlinie (Komponente WegTrenner).
- * Bewegung: scrollgebunden (CSS scroll-driven animations) – nur wo unterstützt und ohne reduzierte Bewegung;
- * sonst steht die Linie einfach da. Kein JS nötig. */
-:root { --weg-farbe: rgb(0 166 161 / 55%); }
-.etappe { position: relative; --weg-l: 14px; --weg-c: 38px; }
-.etappe::before { content: ''; position: absolute; top: 0; bottom: 0; left: var(--weg-l); width: 2px; background: var(--weg-farbe); transform-origin: top; pointer-events: none; }
-.etappe.section--dark::before { background: rgb(95 224 218 / 45%); }
-@media (max-width: 1239px) { .etappe > .wrap { padding-left: 22px; } }
-@media (min-width: 1240px) { .etappe { --weg-l: calc((100% - var(--wrap)) / 2 - 36px); --weg-c: calc((100% - var(--wrap)) / 2); } }
-/* Station: der Punkt der Kennzeile sitzt auf der Weglinie */
-.etappe .eyebrow--weg { position: relative; }
-.etappe .eyebrow--weg::before { position: absolute; top: 50%; width: 12px; height: 12px; margin-top: -6px; left: -29px; background: var(--paper); border: 2.5px solid var(--accent); box-sizing: border-box; }
-@media (min-width: 1240px) { .etappe .eyebrow--weg::before { left: -41px; } }
-.etappe.section--dark .eyebrow--weg::before { background: var(--dark); border-color: var(--accent-light); }
-.section-head.center .eyebrow--weg::before { position: static; margin: 0; }
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .etappe::before { animation: weg-wachsen linear both; }
-    /* eigene Regel mit höherer Spezifität: animation-timeline darf nicht in die Kurzschreibweise zusammengefasst werden */
-    section.etappe::before, footer .etappe::before { animation-timeline: view(); animation-range: entry 0% cover 45%; }
-  }
-}
-@keyframes weg-wachsen { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
-/* Organische Weglinie (Trenner) am oberen Rand eines Abschnitts */
-.trenner { position: absolute; left: calc(var(--weg-l, 14px) + 1px); right: 16px; top: 0; height: 56px; pointer-events: none; }
-@media (min-width: 1240px) { .trenner { right: calc((100% - var(--wrap)) / 2); } }
-.trenner svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.trenner path { fill: none; stroke: var(--weg-farbe); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; }
-.section--dark .trenner path { stroke: rgb(95 224 218 / 45%); }
-.trenner__punkt { position: absolute; right: -5px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: var(--accent); }
-.section--dark .trenner__punkt { background: var(--accent-light); }
+/* ───────────────────────── DIE LINIE als Rückgrat (Neuaufbau Storytelling, Jamil Talk 3632) ─────────────────────────
+ * Startseite: Die Bühne oben (components/story/Start.astro) entwirrt die Linie vom Chaos zur Ordnung. Danach läuft sie
+ * als gerade türkise Linie durch alle Kapitel (.kapitel) – Desktop in der Mitte, Handy links –, die Inhalte hängen an ihr
+ * (.halt = Station mit Verbinder und Punkt) und sie endet im Footer im Zielpunkt.
+ * Bewegung nur als Fortschritt: die Linie wächst mit dem Scrollen, Punkte erscheinen, wenn die Linie sie erreicht
+ * (CSS scroll-driven animations; JS-Ersatz in index.astro; ohne beides steht alles fertig da). */
+.kapitel {
+  --spine-x: calc((100% - min(100% - 32px, var(--wrap))) / 2 + 14px);
+  --g: 30px;
+  --spine-farbe: var(--accent);
+  --sec-bg: var(--paper);
+  position: relative; background: var(--sec-bg);
+  padding-block: clamp(64px, 10vw, 128px);
+  view-timeline: --kapitel;
+}
+@media (min-width: 960px) { .kapitel { --spine-x: 50%; --g: 56px; } }
+.kapitel--weiss { --sec-bg: var(--white); }
+.kapitel--sand { --sec-bg: var(--paper-2); }
+.kapitel--dunkel { --sec-bg: var(--dark); --spine-farbe: var(--accent-light); color: var(--paper); }
+.kapitel::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: calc(var(--spine-x) - 1.5px); width: 3px;
+  background: var(--spine-farbe); transform-origin: top; transform: scaleY(var(--zug, 1)); pointer-events: none;
+}
+.kapitel > .wrap { position: relative; }
+
+/* Raster an der Linie: Handy eine Spalte rechts der Linie, Desktop zwei Spalten links/rechts */
+.pfad { position: relative; display: grid; gap: 28px; padding-left: 44px; }
+.pfad .pfad { padding-left: 0; }
+.halt { position: relative; --hy: 30px; view-timeline: --halt; }
+.halt::before { content: ''; position: absolute; top: var(--hy); right: 100%; width: var(--g); height: 3px; margin-top: -1.5px; background: var(--spine-farbe); }
+.halt::after {
+  content: ''; position: absolute; top: var(--hy); right: calc(100% + var(--g) - 8px); width: 16px; height: 16px; margin-top: -8px;
+  border-radius: 50%; background: var(--sec-bg); border: 3px solid var(--spine-farbe); box-sizing: border-box;
+}
+.halt--still::before, .halt--still::after { display: none; }
+.halt--bald { --spine-farbe: #a8a191; }
+.halt--bald::before { background: repeating-linear-gradient(90deg, #a8a191 0 6px, transparent 6px 11px); }
+@media (min-width: 960px) {
+  .pfad { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: calc(2 * var(--g)); padding-left: 0; }
+  .halt--l { grid-column: 1; }
+  .halt--l::before { right: auto; left: 100%; }
+  .halt--l::after { right: auto; left: calc(100% + var(--g) - 8px); }
+  .halt--r { grid-column: 2; }
+  .halt--voll { grid-column: 1 / -1; }
+  .pfad--zickzack > .halt { grid-row: var(--zeile) / span 2; }
+}
+
+/* Kapitel-Kopf: Kennzeile als Schritt der Reise */
+.schritt-kenn { display: inline-block; margin-bottom: 0.9rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
+.kapitel--dunkel .schritt-kenn { color: var(--accent-light); }
+.kapitel h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.06; letter-spacing: -0.028em; }
+.kapitel--dunkel h2, .kapitel--dunkel h3 { color: var(--white); }
+.kapitel--dunkel .accent { color: var(--accent-light); }
+
+/* Bewegung: Linie wächst mit dem Scrollen, Punkte erscheinen, wenn sie erreicht werden */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .trenner path { animation: trenner-zeichnen linear both; }
-    .trenner__punkt { animation: trenner-punkt linear both; }
-    div.trenner svg path { animation-timeline: view(); animation-range: entry 10% cover 35%; }
-    div.trenner span.trenner__punkt { animation-timeline: view(); animation-range: entry 60% cover 40%; }
+    .kapitel::before { animation: rueckgrat linear both; }
+    section.kapitel::before { animation-timeline: --kapitel; animation-range: entry 40% exit 40%; }
+    section.kapitel--anschluss::before { animation-range: entry 0% exit 40%; }
+    .halt::after, .halt::before { animation: halt-auf linear both; }
+    .pfad .halt::after, .pfad .halt::before { animation-timeline: --halt; animation-range: cover 30vh cover calc(30vh + 60px); }
   }
 }
-@keyframes trenner-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-@keyframes trenner-punkt { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: none; } }
-.etappe.section { padding-top: clamp(88px, 10vw, 140px); }
-.etappe--ziel > .wrap { padding-left: 0 !important; }
+@keyframes rueckgrat { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes halt-auf { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: none; } }
+/* JS-Ersatz (Browser ohne scroll-driven animations): Klassen setzt index.astro */
+html.zug-js .halt:not(.halt--da)::after, html.zug-js .halt:not(.halt--da)::before { opacity: 0; transform: scale(0.3); }
+html.zug-js .halt::after, html.zug-js .halt::before { transition: opacity 300ms ease, transform 300ms ease; }
+
+/* ───────── Unterseiten: die Linie als ruhiges Element (gerades Wegstück zwischen den Abschnitten) ───────── */
+.etappe { position: relative; }
+.etappe.section { padding-top: clamp(80px, 9vw, 128px); }
+.trenner { position: absolute; left: 50%; transform: translateX(-50%); width: min(100% - 32px, var(--wrap)); top: clamp(32px, 4vw, 52px); height: 16px; pointer-events: none; }
+.trenner__linie { position: absolute; left: 8px; right: 8px; top: 50%; height: 3px; margin-top: -1.5px; background: var(--accent); transform-origin: left; border-radius: 2px; }
+.section--dark .trenner__linie { background: var(--accent-light); }
+.trenner__punkt { position: absolute; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--accent); background: var(--paper); box-sizing: border-box; }
+.trenner__punkt--a { left: 0; }
+.trenner__punkt--b { right: 0; background: var(--accent); }
+.section--dark .trenner__punkt { border-color: var(--accent-light); background: var(--dark); }
+.section--dark .trenner__punkt--b { background: var(--accent-light); }
+.section--sand .trenner__punkt--a { background: var(--paper-2); }
+.section--legal .trenner__punkt--a { background: var(--white); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .trenner { view-timeline: --trenner; }
+    .trenner__linie { animation: trenner-zeichnen linear both; }
+    .trenner__punkt--b { animation: halt-auf linear both; }
+    div.trenner span.trenner__linie { animation-timeline: --trenner; animation-range: entry 0% cover 40%; }
+    div.trenner span.trenner__punkt--b { animation-timeline: --trenner; animation-range: cover 38% cover 45%; }
+  }
+}
+@keyframes trenner-zeichnen { from { transform: scaleX(0); } to { transform: none; } }

@@ -87,8 +87,7 @@ const isCurrent = (path?: string) => path && current === href(path);
   .hdr { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--line); transition: box-shadow 0.2s ease; }
   .hdr::before {
     content: ''; position: absolute; inset: 0; z-index: -1;
-    background: rgb(247 245 240 / 92%);
-    backdrop-filter: saturate(160%) blur(12px);
+    background: var(--paper);
   }
   .hdr.is-scrolled { box-shadow: var(--shadow); }
   .hdr__inner { display: flex; align-items: center; gap: 16px; min-height: var(--header-h); }

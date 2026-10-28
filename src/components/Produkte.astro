@@ -1,8 +1,8 @@
 ---
-// „Unsere Produkte“ als Wegweiser (Dachmarke, Jamil Talk 3475) im Design-System „Die Linie“ (Talk 3622):
-// Die Linie verbindet nicht die Produkte untereinander, sondern jedes Produkt mit der Marke Waybuild –
-// oben der Markenknoten, von dort ein Stamm, von dem zu jedem Produkt ein Ast abgeht.
-// Karten entfalten sich nacheinander entlang dieser Route (Einblenden), ohne JS sofort sichtbar.
+// „Unsere Produkte“ an der geraden Linie (Neuaufbau Storytelling, Jamil Talk 3632; Design-System Talk 3622:
+// „Die Linie verbindet nicht die Produkte untereinander, sondern alle Produkte mit der Marke Waybuild“).
+// Oben sitzt der Markenknoten Waybuild auf dem Rückgrat; jedes Produkt hängt mit einem eigenen Verbinder an derselben Linie.
+// Desktop: Website Service links, die drei weiteren Produkte rechts; „Weitere Bereiche folgen“ gestrichelt (noch im Entstehen).
 // Offene Namen: in der Vorschau als Platzhalter markiert, live steht die Kategorie.
 import Icon from './Icon.astro';
 import Hint from './Hint.astro';
@@ -10,144 +10,122 @@ import { href } from '../lib/paths';
 import { isMissing, SHOW_HINTS } from '../config/site';
 import { PRODUKTE, produktName } from '../config/hauptseite';
 
-const produkte = PRODUKTE.filter((p) => p.art === 'produkt');
+const produkte = PRODUKTE.filter((p) => p.art === 'produkt' && p.aktiv);
 const bereiche = PRODUKTE.filter((p) => p.art === 'bereich');
+const [haupt, ...weitere] = produkte;
 // Ziel des Knopfs: eigene Produkt-Website > Übergangsseite > Erstgespräch (solange es keine Produktseite gibt)
 const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: true, text: 'Zur Produktseite' } : p.pfad ? { href: href(p.pfad), extern: false, text: 'Zur Produktseite' } : { href: href('/kontakt/'), extern: false, text: 'Erstgespräch anfragen' });
 const liste = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} und ${xs[xs.length - 1]}` : xs[0] ?? '');
+const zh = haupt && ziel(haupt);
 ---
 
-<div class="pweg">
-  <div class="pweg__marke">
-    <span class="pweg__knoten" aria-hidden="true"></span>
-    <div>
-      <strong>Waybuild</strong>
-      <span>Eine Haltung. Dieselben Werte und Zusagen für jedes Produkt.</span>
-    </div>
+<div class="pfad pweg">
+  <div class="halt halt--voll halt--still marke">
+    <span class="marke__knoten" aria-hidden="true"><span></span></span>
+    <p><strong>Waybuild</strong>Eine Haltung. Dieselben Werte und Zusagen für jedes Produkt.</p>
   </div>
 
-  <ul class="pweg__liste">
-    {produkte.map((p, i) => {
-      const z = ziel(p);
-      return p.aktiv ? (
-        <li class:list={['pweg__item', 'pweg__item--aktiv', 'reveal', { 'pweg__item--kompakt': !p.punkte }]} style={`--d:${i * 120}ms`}>
-          <article class:list={['produkt', { 'produkt--kompakt': !p.punkte }]}>
-            <div class="produkt__kopf">
-              <span class="produkt__icon" aria-hidden="true"><Icon name={p.icon} size={30} /></span>
-              <div>
-                <span class="produkt__status">Verfügbar</span>
-                <h3>{produktName(p)}</h3>
-                {(p.nutzen ?? p.zweck) && <p class="produkt__nutzen">{p.nutzen ?? p.zweck}</p>}
-              </div>
-            </div>
-            {p.punkte && (
-              <div class="produkt__warum">
-                {p.frage && <h4>{p.frage}</h4>}
-                <ul>
-                  {p.punkte.map((pt) => (
-                    <li>
-                      <span class="produkt__punkt-icon" aria-hidden="true"><Icon name={pt.icon} size={20} /></span>
-                      {pt.link ? <a href={href(pt.link)}>{pt.text}</a> : <span>{pt.text}</span>}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <a class="btn btn--primary" href={z.href} {...(z.extern ? { target: '_blank', rel: 'noopener' } : {})}>
-              {z.text} <Icon name="arrow" size={18} /><span class="sr-only"> – {produktName(p)}</span>{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
-            </a>
-            {isMissing(p.name) && SHOW_HINTS && <Hint block label="Eigener Produktname" where="src/config/hauptseite.ts → PRODUKTE" />}
-            {!p.url && p.pfad && (
-              <Hint block label="Adresse der Produkt-Website" where="src/config/hauptseite.ts → PRODUKTE → url">
-                {' '}– bis dahin führt der Link auf die Übergangsseite /angebot/. Die alte Produktseite waybuild_website zeigt noch Telefon-/WhatsApp-Platzhalter.
-              </Hint>
-            )}
-          </article>
-        </li>
-      ) : (
-        <li class="pweg__item pweg__item--bald reveal" style={`--d:${i * 120}ms`}>
-          <span class="bald__icon" aria-hidden="true"><Icon name={p.icon} size={24} /></span>
+  {haupt && zh && (
+    <article class="halt halt--l produkt" style="--zeile: 2 / span 3">
+      <div class="produkt__kopf">
+        <span class="produkt__icon" aria-hidden="true"><Icon name={haupt.icon} size={30} /></span>
+        <div>
+          <span class="produkt__status">Verfügbar</span>
+          <h3>{produktName(haupt)}</h3>
+          {(haupt.nutzen ?? haupt.zweck) && <p class="produkt__nutzen">{haupt.nutzen ?? haupt.zweck}</p>}
+        </div>
+      </div>
+      {haupt.punkte && (
+        <div class="produkt__warum">
+          {haupt.frage && <h4>{haupt.frage}</h4>}
+          <ul>
+            {haupt.punkte.map((pt) => (
+              <li>
+                <span class="produkt__punkt-icon" aria-hidden="true"><Icon name={pt.icon} size={20} /></span>
+                {pt.link ? <a href={href(pt.link)}>{pt.text}</a> : <span>{pt.text}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <a class="btn btn--primary" href={zh.href} {...(zh.extern ? { target: '_blank', rel: 'noopener' } : {})}>
+        {zh.text} <Icon name="arrow" size={18} /><span class="sr-only"> – {produktName(haupt)}</span>{zh.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
+      </a>
+      {isMissing(haupt.name) && SHOW_HINTS && <Hint block label="Eigener Produktname" where="src/config/hauptseite.ts → PRODUKTE" />}
+      {!haupt.url && haupt.pfad && (
+        <Hint block label="Adresse der Produkt-Website" where="src/config/hauptseite.ts → PRODUKTE → url">
+          {' '}– bis dahin führt der Link auf die Übergangsseite /angebot/. Die alte Produktseite waybuild_website zeigt noch Telefon-/WhatsApp-Platzhalter.
+        </Hint>
+      )}
+    </article>
+  )}
+
+  {weitere.map((p, i) => {
+    const z = ziel(p);
+    return (
+      <article class="halt halt--r produkt produkt--kompakt" style={`--zeile: ${i + 2}`}>
+        <div class="produkt__kopf">
+          <span class="produkt__icon" aria-hidden="true"><Icon name={p.icon} size={26} /></span>
           <div>
-            <em>Bald</em>
+            <span class="produkt__status">Verfügbar</span>
             <h3>{produktName(p)}</h3>
-            {p.zweck && <p>{p.zweck}</p>}
-            {isMissing(p.name) && SHOW_HINTS && <mark class="platzhalter">[Produktname offen]</mark>}
+            {(p.nutzen ?? p.zweck) && <p class="produkt__nutzen">{p.nutzen ?? p.zweck}</p>}
           </div>
-        </li>
-      );
-    })}
-  </ul>
+        </div>
+        <a class="btn btn--primary" href={z.href} {...(z.extern ? { target: '_blank', rel: 'noopener' } : {})}>
+          {z.text} <Icon name="arrow" size={18} /><span class="sr-only"> – {produktName(p)}</span>{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
+        </a>
+        {isMissing(p.name) && SHOW_HINTS && <mark class="platzhalter">[Produktname offen]</mark>}
+      </article>
+    );
+  })}
 
   {bereiche.length > 0 && (
-    <p class="pweg__weitere">
-      <span aria-hidden="true"></span>
+    <p class="halt halt--r halt--bald weitere" style={`--zeile: ${weitere.length + 2}`}>
+      <span class="weitere__kenn">Im Entstehen</span>
       Weitere Bereiche folgen: {liste(bereiche.map((b) => produktName(b)))}.
     </p>
   )}
 </div>
 
 <style>
-  .pweg { --stamm-x: 15px; --einzug: 40px; position: relative; }
-  @media (min-width: 760px) { .pweg { --einzug: 72px; } }
+  .pweg { row-gap: 22px; }
+  @media (min-width: 960px) { .pweg > .produkt, .pweg > .weitere { grid-row: var(--zeile); } }
 
-  /* Markenknoten */
-  .pweg__marke { position: relative; display: flex; gap: 18px; align-items: center; padding-bottom: 28px; }
-  .pweg__knoten { flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px rgb(0 166 161 / 18%); }
-  .pweg__marke strong { display: block; font-family: var(--font-head); font-size: 1.35rem; letter-spacing: -0.01em; }
-  .pweg__marke span:not(.pweg__knoten) { color: var(--ink-soft); }
+  /* Markenknoten auf der Linie */
+  .marke { display: flex; align-items: center; gap: 16px; padding-bottom: 6px; margin-left: -48px; }
+  .marke__knoten { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--sec-bg); border: 3px solid var(--accent); }
+  .marke__knoten span { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+  .marke p { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+  .marke strong { display: block; font-family: var(--font-head); font-size: 1.35rem; letter-spacing: -0.01em; color: var(--ink); }
+  @media (min-width: 960px) {
+    .marke { margin-left: 0; justify-content: center; flex-direction: column; text-align: center; gap: 12px; padding-bottom: 18px; }
+    .marke__knoten { width: 44px; height: 44px; }
+    .marke__knoten span { width: 20px; height: 20px; }
+    .marke p { max-width: 34ch; background: var(--sec-bg); padding: 4px 8px; }
+  }
 
-  /* Stamm + Äste */
-  .pweg__liste { list-style: none; margin: 0; padding: 0 0 0 var(--einzug); display: grid; gap: 18px; position: relative; }
-  .pweg__liste::before { content: ''; position: absolute; left: var(--stamm-x); top: -28px; bottom: 34px; width: 2px; background: var(--accent); transform-origin: top; }
-  .pweg__item { position: relative; transition-delay: var(--d, 0ms); }
-  .pweg__item::before { content: ''; position: absolute; left: calc(var(--stamm-x) - var(--einzug)); width: calc(var(--einzug) - var(--stamm-x)); top: 34px; height: 2px; background: var(--accent); }
-  .pweg__item::after { content: ''; position: absolute; left: calc(var(--stamm-x) - var(--einzug) - 5px); top: 29px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper-2); border: 2.5px solid var(--accent); box-sizing: border-box; }
-  .pweg__item--kompakt::before { top: 36px; }
-  .pweg__item--kompakt::after { top: 31px; }
-  .pweg__item--bald::before { background: repeating-linear-gradient(90deg, #a8a191 0 6px, transparent 6px 11px); }
-  .pweg__item--bald::after { border-color: #a8a191; }
-
-  /* Aktives Produkt */
-  .produkt { display: grid; gap: 18px; justify-items: start; background: var(--white); border: 1px solid rgb(0 166 161 / 45%); border-radius: 20px; padding: clamp(22px, 3.2vw, 34px); }
+  /* Produktkarten */
+  .produkt { --hy: 42px; display: grid; gap: 18px; justify-items: start; align-content: start; background: var(--white); border: 1px solid rgb(0 166 161 / 45%); border-radius: 20px; padding: clamp(20px, 3vw, 32px); }
   .produkt__kopf { display: grid; gap: 14px; }
   @media (min-width: 620px) { .produkt__kopf { display: flex; gap: 18px; align-items: flex-start; } }
-  @media (max-width: 619px) { .produkt { padding: 20px 18px; } .produkt__warum { padding: 16px 14px; } }
-  .produkt__icon { flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: var(--accent); color: var(--on-accent); }
-  .produkt__status { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
-  .produkt h3 { margin: 2px 0 6px; font-size: clamp(1.4rem, 2.8vw, 1.9rem); }
+  .produkt__icon { flex: none; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: var(--accent); color: var(--on-accent); }
+  .produkt__status { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
+  .produkt h3 { margin: 2px 0 6px; font-size: clamp(1.35rem, 2.6vw, 1.8rem); }
   .produkt__nutzen { margin: 0; color: var(--ink-soft); line-height: 1.6; }
-  /* Produkte ohne Vorteilsliste: gleicher Kartenstil, kompakter */
-  .produkt--kompakt { gap: 14px; padding: clamp(20px, 2.6vw, 26px); }
-  .produkt--kompakt h3 { font-size: clamp(1.2rem, 2.2vw, 1.45rem); }
-  .produkt--kompakt .produkt__icon { width: 48px; height: 48px; border-radius: 14px; }
+  .produkt--kompakt { --hy: 38px; gap: 14px; padding: clamp(18px, 2.4vw, 24px); }
+  .produkt--kompakt h3 { font-size: clamp(1.15rem, 2vw, 1.35rem); }
+  .produkt--kompakt .produkt__icon { width: 46px; height: 46px; border-radius: 14px; }
   .produkt--kompakt .btn { min-height: 44px; padding: 0.6em 1.2em; font-size: 0.95rem; }
   .produkt__warum { width: 100%; padding: 18px 20px; border-radius: 16px; background: var(--paper); }
   .produkt__warum h4 { margin: 0 0 12px; font-family: var(--font-head); font-size: 1.02rem; color: var(--accent-ink); }
   .produkt__warum ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  @media (min-width: 900px) { .produkt__warum ul { grid-template-columns: 1fr 1fr; column-gap: 24px; } }
   .produkt__warum li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.45; font-weight: 500; }
   .produkt__warum a { color: var(--accent-ink); font-weight: 650; }
   .produkt__punkt-icon { flex: none; color: var(--accent-ink); margin-top: 1px; }
+  @media (max-width: 619px) { .produkt__warum { padding: 16px 14px; } }
+  .platzhalter { display: inline-block; background: #ffe58a; color: var(--ink); padding: 0 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
 
-  /* Produkte „bald“: ruhig, ohne Kartenfläche */
-  .pweg__item--bald { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0 18px; border-top: 1px solid var(--line); }
-  .bald__icon { flex: none; color: #57534b; margin-top: 2px; }
-  .pweg__item--bald em { font-style: normal; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6f6a60; }
-  .pweg__item--bald h3 { margin: 2px 0 4px; font-size: 1.12rem; color: #3f3c37; }
-  .pweg__item--bald p { margin: 0; color: var(--ink-soft); line-height: 1.55; }
-  .pweg__item--bald::before, .pweg__item--bald::after { top: 30px; }
-  .pweg__item--bald::after { top: 25px; }
-  .platzhalter { display: inline-block; margin-top: 6px; background: #ffe58a; color: var(--ink); padding: 0 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
-
-  .pweg__weitere { display: flex; gap: 12px; align-items: center; margin: 22px 0 0; padding-left: var(--einzug); color: var(--ink-soft); }
-  .pweg__weitere span { flex: none; width: 28px; height: 2px; background: repeating-linear-gradient(90deg, #a8a191 0 6px, transparent 6px 11px); }
-
-  /* Bewegung: der Stamm wächst scrollgebunden, Karten folgen nacheinander */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .pweg__liste::before { animation: stamm linear both; }
-      ul.pweg__liste::before { animation-timeline: view(); animation-range: entry 5% cover 50%; }
-    }
-  }
-  @keyframes stamm { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .weitere { --hy: 14px; margin: 0; color: var(--ink-soft); line-height: 1.55; padding-top: 2px; }
+  .weitere__kenn { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6f6a60; }
 </style>

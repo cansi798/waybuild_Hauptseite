@@ -1,27 +1,26 @@
 ---
-// Startseite der Dachmarke Waybuild – NEUAUFBAU nach Jamils Design-System „Die Linie“ (Talk 3621/3622, 28.10.2026).
-// Motto: „Das gesamte Design ist die visuelle Übersetzung von ‚Wir machen Veränderungen einfach.‘
-//         Vom Chaos zur Klarheit. Schritt für Schritt. Mit einem verlässlichen Partner an der Seite.“
-// Die Seite ist ein Weg, jede Sektion ein Schritt: Hero (Linie Chaos → Klarheit) → Ausgangspunkt (Chaos + Nachdenk-Fragen)
-// → Verständnis („Nicht die Technik …“, Entstehung, Whiteboard-Skizze) → Orientierung (Haltung) → Vertrauen (So arbeiten wir)
-// → Umsetzung (Produkte, alle mit der Marke verbunden) → Ziel (Kontakt „Was möchten Sie verändern?“, Linie endet im Zielpunkt).
-// Roter Faden: .etappe (Weglinie links, Stationen an den Kennzeilen) + WegTrenner (organische Linien) – CSS, scrollgebunden
-// wo unterstützt; ohne JS und bei reduzierter Bewegung steht alles da. Inhalte/Entscheidungen aus Jamils früheren Runden
-// (Zielgruppe, digital, Haltung, Qualitäten inkl. Verlässlichkeit, Produkte als Wegweiser, keine Preise) bleiben.
-// Frühere Fassungen: Git-Historie (u. a. dbf2e2c, Tag startseite-v2-2026-10-27).
+// Startseite der Dachmarke Waybuild – NEUAUFBAU als Scroll-Geschichte (Jamil, Sprachnachricht Talk 3632, 28.10.2026:
+// „Diese Linie soll den Weg mit Waybuild darstellen. Vorher Chaos und dann kommt langsam die Ordnung mit Waybuild.
+// Gerade Prozesse.“; Design-System Talk 3622: „Die Linie erzählt die komplette Geschichte von Waybuild.“).
+//
+// Die Linie ist das Rückgrat der Seite, nicht Randverzierung:
+//   START (Start.astro): Versprechen + Arbeitsfläche voller Chaos (Zettel, verknotete Linie). Beim Scrollen entwirrt
+//          sich die Linie, wird türkis, die Zettel sortieren sich in vier klare Schritte an der geraden Linie.
+//   Danach läuft die gerade Linie mittig (Handy: links) durch die Kapitel; die Inhalte hängen an ihr:
+//   2 Verständnis → 3 Orientierung (Haltung) → 4 Vertrauen (Qualitäten) → 5 Produkte (alle an der Marke) → 6 Ziel
+//   (FooterKontakt: die Linie endet im Zielpunkt, „Was möchten Sie verändern?“).
+// Ohne JS / bei reduzierter Bewegung: statischer Endzustand (Chaos oben als Bild, Ordnung darunter), alles lesbar.
+// Inhalte und Entscheidungen aus Jamils/Cans früheren Runden bleiben (Zielgruppe, digital, Haltung, Qualitäten,
+// Nachdenk-Fragen, Produkte alle verfügbar, keine Preise, keine Telefonnummer). Frühere Fassung: Git-Historie (ffa6292).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHead from '../components/SectionHead.astro';
-import WegTrenner from '../components/WegTrenner.astro';
+import Start from '../components/story/Start.astro';
 import SkizzeWhiteboard from '../components/SkizzeWhiteboard.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
 import HaltungBild from '../components/HaltungBild.astro';
-import { HERO, HALTUNG, QUALITAETEN } from '../config/hauptseite';
+import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
 
-// Ausgangspunkt – wörtlich aus dem Design-System (Talk 3622: „Frust. Unklare Prozesse. Komplizierte Änderungen.
-// Viele Dienstleister. Viel Abstimmung.“)
-const CHAOS = ['Frust', 'Unklare Prozesse', 'Komplizierte Änderungen', 'Viele Dienstleister', 'Viel Abstimmung'];
 // Nachdenk-Fragen – Strategiebriefing Talk 3401
 const FRAGEN = [
   'Wie einfach lassen sich Änderungen bei Ihnen heute umsetzen?',
@@ -35,228 +34,165 @@ const FRAGEN = [
 <BaseLayout
   title="Wir machen Veränderungen einfach"
   description="Waybuild macht digitale Veränderungen für Unternehmen einfach – verständlich, verlässlich und ohne Fachchinesisch. Mit festem Ansprechpartner, klaren Abläufen."
+  rueckgrat
 >
-  <!-- START: die Linie – chaotisch beginnend, klar endend -->
-  <section class="hero" aria-labelledby="hero-h">
-    <div class="wrap">
-      <span class="eyebrow eyebrow--weg">{HERO.eyebrow}</span>
-      <h1 id="hero-h">{HERO.pre}<span class="accent">{HERO.accent}</span></h1>
-      <div class="hero__unten">
-        <p class="hero__was">{HERO.lead}</p>
-        <div class="hero__cta">
-          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
-          <a class="btn btn--ghost btn--lg" href={href('/#produkte')}>Unsere Produkte</a>
-        </div>
-      </div>
-      <figure class="linie" aria-labelledby="linie-cap">
-        <figcaption id="linie-cap" class="sr-only">Grafik: Eine verknotete graue Linie mit vielen Zwischenschritten steht für den üblichen, umständlichen Weg. Sie geht über in eine gerade türkise Linie mit nur zwei Zwischenschritten bis zu einem Ziel-Zeichen: der Weg mit Waybuild. Die Schritte erscheinen, sobald die Linie sie erreicht.</figcaption>
-        <div class="linie__kopf">
-          <p class="linie__label linie__label--oft"><span aria-hidden="true"></span>So läuft es oft</p>
-          <p class="linie__label linie__label--wir"><span aria-hidden="true"></span>So läuft es mit Waybuild</p>
-        </div>
-        <svg class="linie__svg linie__svg--breit" viewBox="0 30 1160 178" aria-hidden="true" focusable="false">
-          <path class="linie__knoten" pathLength="1" d="M 10 130 C 60 130, 80 60, 130 70 C 190 82, 170 190, 120 180 C 70 170, 110 44, 200 54 C 290 64, 250 200, 200 190 C 150 180, 230 84, 300 110 C 350 130, 330 190, 290 172 C 250 154, 330 125, 420 125" />
-          <path class="linie__gerade" pathLength="1" d="M 420 125 L 1108 125" />
-          <g class="linie__umwege"><circle style="--t:0.372s" cx="130" cy="70" r="8" /><circle style="--t:0.564s" cx="120" cy="180" r="8" /><circle style="--t:0.809s" cx="200" cy="54" r="8" /><circle style="--t:1.048s" cx="200" cy="190" r="8" /><circle style="--t:1.261s" cx="300" cy="110" r="8" /></g>
-          <g class="linie__stationen">
-            <circle style="--t:1.888s" cx="640" cy="125" r="8" />
-            <circle style="--t:2.202s" cx="880" cy="125" r="8" />
-          </g>
-          <g class="linie__ziel" aria-hidden="true" style="--t:2.5s">
-            <circle class="linie__ziel-ring" cx="1130" cy="125" r="22" />
-            <circle class="linie__ziel-ring" cx="1130" cy="125" r="12.1" />
-            <circle class="linie__ziel-mitte" cx="1130" cy="125" r="4.8" />
-          </g>
-        </svg>
-        <svg class="linie__svg linie__svg--schmal" viewBox="0 36 360 124" aria-hidden="true" focusable="false">
-          <path class="linie__knoten" pathLength="1" d="M 6 105 C 30 105, 40 55, 70 60 C 105 66, 95 140, 65 135 C 35 130, 60 42, 110 50 C 160 58, 140 150, 110 140 C 85 132, 130 104, 175 106" />
-          <path class="linie__gerade" pathLength="1" d="M 175 106 L 322 106" />
-          <g class="linie__umwege"><circle style="--t:0.421s" cx="70" cy="60" r="6" /><circle style="--t:0.69s" cx="65" cy="135" r="6" /><circle style="--t:1.025s" cx="110" cy="50" r="6" /><circle style="--t:1.352s" cx="110" cy="140" r="6" /></g>
-          <g class="linie__ziel" aria-hidden="true" style="--t:2.1s">
-            <circle class="linie__ziel-ring" cx="338" cy="106" r="16" />
-            <circle class="linie__ziel-ring" cx="338" cy="106" r="8.8" />
-            <circle class="linie__ziel-mitte" cx="338" cy="106" r="3.5" />
-          </g>
-        </svg>
-      </figure>
-    </div>
-  </section>
+  <!-- SCHRITT 1 – CHAOS → ORDNUNG (die Linie entwirrt sich) -->
+  <Start />
 
-  <!-- SCHRITT 1 – AUSGANGSPUNKT: das Chaos, das viele kennen -->
-  <section class="section etappe chaos" id="ausgangspunkt" aria-labelledby="chaos-h">
-    <WegTrenner variante={1} />
-    <div class="wrap chaos__grid">
-      <div>
-        <SectionHead eyebrow="Der Ausgangspunkt" pre="Veränderung fühlt sich oft " accent="kompliziert an." id="chaos-h" />
-        <ul class="chaos__woerter" aria-label="Was viele erleben">
-          {CHAOS.map((w) => <li>{w}</li>)}
-        </ul>
+  <!-- SCHRITT 2 – VERSTÄNDNIS: Waybuild versteht das Problem -->
+  <section class="kapitel kapitel--anschluss" id="verstaendnis" aria-labelledby="weg-h">
+    <div class="wrap">
+      <div class="pfad">
+        <div class="halt halt--l kopf">
+          <span class="schritt-kenn">Schritt 2 · Verständnis</span>
+          <h2 id="weg-h" class="plakat">Nicht die Technik macht Veränderungen schwer. <span class="accent">Sondern der Weg dorthin.</span></h2>
+        </div>
+        <div class="halt halt--r entstehung">
+          <p class="lead">Waybuild ist aus Frust entstanden: Eine einfache Veränderung bedeutete viele Nachrichten, Missverständnisse und Warten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz und einfach.</p>
+          <SkizzeWhiteboard />
+        </div>
       </div>
-      <div class="chaos__fragen">
-        <h3>Wie leicht ist Veränderung bei Ihnen heute?</h3>
-        <ol>
-          {FRAGEN.map((f) => <li class="reveal">{f}</li>)}
+
+      <div class="pfad fragen">
+        <h3 class="halt halt--voll fragen__marke">Wie leicht ist Veränderung bei Ihnen heute?</h3>
+        <ol class="pfad pfad--zickzack fragen__liste">
+          {FRAGEN.map((f, i) => (
+            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'frage']} style={`--zeile:${i + 1}`}>{f}</li>
+          ))}
         </ol>
       </div>
     </div>
   </section>
 
-  <!-- SCHRITT 2 – VERSTÄNDNIS: Waybuild versteht das Problem -->
-  <section class="section etappe verstehen" id="verstaendnis" aria-labelledby="weg-h">
-    <WegTrenner variante={2} />
-    <div class="wrap verstehen__grid">
-      <div class="plakat">
-        <SectionHead eyebrow="Verständnis" pre="Nicht die Technik macht Veränderungen schwer. " accent="Sondern der Weg dorthin." id="weg-h"
-          text="Waybuild ist aus Frust entstanden: Eine einfache Veränderung bedeutete viele Nachrichten, Missverständnisse und Warten. Deshalb fragen wir zuerst: Was möchten Sie erreichen? Und machen den Weg dorthin kurz und einfach." />
-      </div>
-      <SkizzeWhiteboard />
-    </div>
-  </section>
-
   <!-- SCHRITT 3 – ORIENTIERUNG: es gibt einen klaren Weg (unsere Haltung) -->
-  <section class="section etappe weg-sec" id="haltung" aria-labelledby="haltung-h">
-    <WegTrenner variante={1} />
+  <section class="kapitel kapitel--weiss" id="haltung" aria-labelledby="haltung-h">
     <div class="wrap">
-      <SectionHead eyebrow="Orientierung · Unsere Haltung" pre="Es gibt " accent="einen klaren Weg." id="haltung-h"
-        text="Vier Sätze, nach denen wir arbeiten – bei allem, was wir tun." />
-      <ul class="haltung">
+      <div class="pfad pfad--zickzack">
+        <div class="halt halt--l kopf" style="--zeile:1">
+          <span class="schritt-kenn">Schritt 3 · Orientierung</span>
+          <h2 id="haltung-h">Es gibt <span class="accent">einen klaren Weg.</span></h2>
+          <p class="lead">Vier Sätze, nach denen wir arbeiten – bei allem, was wir tun.</p>
+        </div>
         {HALTUNG.map((h, i) => (
-          <li class="reveal" style={`--d:${i * 90}ms`}>
+          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'karte', 'haltung']} style={`--zeile:${i + 2}`}>
             <span class="haltung__icon"><HaltungBild art={h.bild} /></span>
-            <h3>{h.titel}</h3>
-            <p>{h.text}</p>
-          </li>
+            <div>
+              <h3>{h.titel}</h3>
+              <p>{h.text}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
-  <!-- SCHRITT 4 – VERTRAUEN: so arbeiten wir (Qualitäten + Zusammenarbeit) -->
-  <section class="section section--dark etappe qual" id="qualitaeten" aria-labelledby="qual-h">
-    <WegTrenner variante={2} />
+  <!-- SCHRITT 4 – VERTRAUEN: so arbeiten wir (Qualitäten) -->
+  <section class="kapitel kapitel--dunkel" id="qualitaeten" aria-labelledby="qual-h">
     <div class="wrap">
-      <SectionHead eyebrow="Vertrauen · So arbeiten wir" pre="Weil Zusammenarbeit " accent="leicht sein darf." id="qual-h"
-        text="Fast jede digitale Veränderung braucht Klarheit, Struktur und einen verlässlichen Partner. Ihre Leichtigkeit in der Zusammenarbeit ist unser Maßstab." />
-      <ul class="qual__liste">
-        {QUALITAETEN.map((q, i) => (
-          <li class="reveal" style={`--d:${i * 80}ms`}>
-            <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={40} /></span>
-            <h3>{q.titel}</h3>
-            <p>{q.text}</p>
-          </li>
-        ))}
-      </ul>
-      <p class="qual__mehr"><a class="pfeil-link" href={href('/zusagen/')}>Unsere Zusagen im Detail <Icon name="arrow" size={16} /></a></p>
+      <div class="pfad">
+        <div class="halt halt--l kopf">
+          <span class="schritt-kenn">Schritt 4 · Vertrauen</span>
+          <h2 id="qual-h">Weil Zusammenarbeit <span class="accent">leicht sein darf.</span></h2>
+        </div>
+        <p class="halt halt--r halt--still lead kopf__text">Fast jede digitale Veränderung braucht Klarheit, Struktur und einen verlässlichen Partner. Ihre Leichtigkeit in der Zusammenarbeit ist unser Maßstab.</p>
+        <ul class="pfad qual">
+          {QUALITAETEN.map((q, i) => (
+            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'qual__q']}>
+              <span class="qual__icon" aria-hidden="true"><Icon name={q.icon} size={34} /></span>
+              <div>
+                <h3>{q.titel}</h3>
+                <p>{q.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p class="halt halt--r halt--still qual__mehr"><a class="pfeil-link" href={href('/zusagen/')}>Unsere Zusagen im Detail <Icon name="arrow" size={16} /></a></p>
+      </div>
     </div>
   </section>
 
-  <!-- SCHRITT 5 – UMSETZUNG: unsere Produkte, alle mit der Marke verbunden -->
-  <section class="section section--sand etappe" id="produkte" aria-labelledby="produkte-h">
-    <WegTrenner variante={1} />
+  <!-- SCHRITT 5 – PRODUKTE: so setzen wir den Weg um, alle mit der Marke verbunden -->
+  <section class="kapitel kapitel--sand" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
-      <SectionHead eyebrow="Umsetzung · Unsere Produkte" pre="Jetzt starten wir. " accent="Und das ist erst der Anfang." id="produkte-h"
-        text="Jedes unserer Produkte trägt einen eigenen Namen und hat einen eigenen Auftritt. Was sie verbindet, sind dieselben Werte und dieselben Zusagen." />
+      <div class="pfad">
+        <div class="halt halt--l kopf">
+          <span class="schritt-kenn">Schritt 5 · Produkte</span>
+          <h2 id="produkte-h">Jetzt starten wir. <span class="accent">Und das ist erst der Anfang.</span></h2>
+        </div>
+        <p class="halt halt--r halt--still lead kopf__text">Jedes unserer Produkte trägt einen eigenen Namen und hat einen eigenen Auftritt. Was sie verbindet, sind dieselben Werte und dieselben Zusagen.</p>
+      </div>
       <Produkte />
     </div>
   </section>
   <!-- SCHRITT 6 – ZIEL: Kontakt (FooterKontakt, die Linie endet im Zielpunkt) -->
 </BaseLayout>
 
-<style>
-  /* START */
-  .hero { position: relative; overflow: hidden; padding-block: clamp(36px, 7vw, 88px) clamp(40px, 6vw, 72px); background: var(--paper);
-    background-image: radial-gradient(45% 55% at 92% 8%, rgb(0 166 161 / 12%), transparent 70%); }
-  .hero h1 { font-size: clamp(2.6rem, 8.4vw, 6.4rem); line-height: 1; letter-spacing: -0.04em; margin: 4px 0 28px; max-width: 12ch; }
-  .hero__unten { display: grid; gap: 24px; }
-  @media (min-width: 1000px) { .hero__unten { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 56px; } }
-  .hero__was { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.6; color: var(--ink-soft); max-width: 48ch; margin: 0; }
-  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
-  .linie { margin: clamp(36px, 6vw, 64px) 0 0; }
-  .linie__svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .linie__svg--schmal { display: none; }
-  @media (max-width: 700px) { .linie__svg--breit { display: none; } .linie__svg--schmal { display: block; } }
-  .linie__knoten, .linie__gerade { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
-  .linie__knoten { stroke: #a8a191; stroke-width: 5; } /* gleich dick wie die gerade Linie (Jamil, Talk 3503) */
-  .linie__gerade { stroke: var(--accent); stroke-width: 5; }
-  /* Zwischenüberschriften der Linie, deutlich hervorgehoben (Jamil, Talk 3503) */
-  .linie__kopf { display: grid; grid-template-columns: 40.5% 1fr; gap: 12px; margin-bottom: 4px; align-items: start; }
-  @media (max-width: 700px) { .linie__kopf { grid-template-columns: 48% 1fr; } }
-  .linie__label { margin: 0; display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-head); font-weight: 700; font-size: clamp(1rem, 1.9vw, 1.3rem); line-height: 1.25; letter-spacing: -0.01em; }
-  .linie__label span { flex: none; width: 28px; height: 5px; border-radius: 3px; margin-top: 0.5em; }
-  .linie__label--oft { color: #57534b; }
-  .linie__label--oft span { background: #a8a191; }
-  .linie__label--wir { color: var(--accent-ink); }
-  .linie__label--wir span { background: var(--accent); }
-  @media (max-width: 420px) { .linie__label span { width: 18px; } .linie__label { gap: 8px; } }
-  .linie__umwege circle { fill: var(--paper); stroke: #a8a191; stroke-width: 4; }
-  .linie__svg--schmal .linie__umwege circle { stroke-width: 3.5; }
-  .linie__stationen circle { fill: var(--white); stroke: var(--accent); stroke-width: 4; }
-  /* Ziel-Zeichen (Zielscheibe) statt Endpunkt + „Erledigt.“ (Jamil, Talk 3512) */
-  .linie__ziel-ring { fill: var(--paper); stroke: var(--accent); stroke-width: 5; }
-  .linie__svg--schmal .linie__ziel-ring { stroke-width: 4; }
-  .linie__ziel-mitte { fill: var(--accent-ink); }
-  /* Bewegung 1: Knoten erscheint, dann zieht sich die gerade Linie bis „Erledigt“ – einmal, ohne Schleife */
-  /* Linien zeichnen sich gleichmäßig (linear), damit die Kreise genau dann erscheinen, wenn die Linie sie erreicht (Jamil, Talk 3579).
-     Verzögerungen --t je Kreis aus der Lage auf dem Pfad berechnet: Kringel 0,2–1,6 s, Gerade 1,6–2,5 s (Handy 1,6–2,1 s). */
-  .linie__knoten { animation: zeichnen 1.4s linear both 0.2s; }
-  .linie__gerade { animation: zeichnen 0.9s linear both 1.6s; }
-  .linie__svg--schmal .linie__gerade { animation-duration: 0.5s; }
-  .linie__umwege circle, .linie__stationen circle, .linie__ziel { transform-box: fill-box; transform-origin: center; animation: punkt 0.22s ease-out both; animation-delay: var(--t, 0s); }
-  @keyframes punkt { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
-  @keyframes zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-  @keyframes auftauchen { from { opacity: 0; } to { opacity: 1; } }
-
-  /* SCHRITT 1 – AUSGANGSPUNKT */
-  .chaos { background: var(--white); }
-  .chaos__grid { display: grid; gap: 36px; }
-  @media (min-width: 980px) { .chaos__grid { grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; } }
-  .chaos__woerter { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 4px; font-family: var(--font-head); font-weight: 600; font-size: clamp(1.2rem, 2.4vw, 1.6rem); line-height: 1.35; color: #8a8478; }
-  .chaos__woerter li:not(:last-child)::after { content: '·'; margin: 0 10px 0 14px; color: #b9b2a2; }
-  .chaos__fragen h3 { font-size: 1.15rem; margin: 6px 0 14px; color: var(--accent-ink); }
-  .chaos__fragen ol { list-style: none; margin: 0; padding: 0; }
-  .chaos__fragen li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 15px 0; border-top: 1px solid var(--line); font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; line-height: 1.4; }
-  .chaos__fragen li:last-child { border-bottom: 1px solid var(--line); }
-  .chaos__fragen li::before { content: '?'; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent-ink); font-size: 0.85rem; }
-
-  /* SCHRITT 2 – VERSTÄNDNIS */
-  .verstehen { background: var(--paper); }
-  .verstehen__grid { display: grid; gap: 36px; align-items: center; }
-  @media (min-width: 980px) { .verstehen__grid { grid-template-columns: 1.25fr 0.75fr; gap: 56px; } }
-  .plakat :global(.section-head) { max-width: none; margin-bottom: 0; }
-  .plakat :global(h2) { font-size: clamp(2.3rem, 5.6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.03em; }
-  .plakat :global(.lead) { margin-top: 26px; max-width: 54ch; }
-
-  /* SCHRITT 3 – ORIENTIERUNG */
-  .weg-sec { background: var(--white); }
-  .haltung { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  @media (min-width: 680px) { .haltung { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1060px) { .haltung { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
-  .haltung li { display: grid; align-content: start; gap: 10px; padding: 26px 4px 8px; border-top: 1px solid var(--line); transition-delay: var(--d, 0ms); }
-  .haltung__icon { display: block; width: 64px; height: 64px; margin: 0 0 8px -4px; transition: transform 400ms cubic-bezier(.3,.7,.4,1.3); }
-  .haltung__icon :global(.hbild) { width: 64px; height: 64px; }
-  @media (hover: hover) { .haltung li:hover .haltung__icon { transform: translateY(-4px) rotate(-4deg); } }
-  .haltung h3 { margin: 0; font-size: clamp(1.15rem, 1.8vw, 1.3rem); line-height: 1.25; }
-  .haltung p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
-
-  /* SCHRITT 4 – VERTRAUEN */
-  .qual__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  @media (min-width: 640px) { .qual__liste { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1000px) { .qual__liste { grid-template-columns: repeat(3, 1fr); column-gap: clamp(32px, 4vw, 56px); row-gap: 12px; } }
-  .qual__mehr { margin: 32px 0 0; }
-  .qual__liste li { display: grid; align-content: start; gap: 8px; padding: 24px 4px 8px; border-top: 1px solid var(--dark-line); transition-delay: var(--d, 0ms); }
-  .qual__icon { display: block; color: var(--accent-light); margin-bottom: 6px; transition: transform 400ms cubic-bezier(.3,.7,.4,1.3); }
-  @media (hover: hover) { .qual__liste li:hover .qual__icon { transform: translateY(-4px); } }
-  /* einmaliges Zeichnen der Linien-Icons beim Einblenden (nur mit JS) */
-  .qual__icon :global(path) { stroke-dasharray: 120; stroke-width: 1.6; }
-  :global(html.js) .qual__liste li:not(.is-visible) .qual__icon :global(path) { stroke-dashoffset: 120; }
-  .qual__liste li.is-visible .qual__icon :global(path) { animation: qual-zeichnen 1s cubic-bezier(.4,0,.2,1) both; animation-delay: calc(var(--d, 0ms) + 150ms); }
-  @keyframes qual-zeichnen { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
-  .qual__liste h3 { margin: 0; color: var(--white); font-size: 1.2rem; line-height: 1.25; }
-  .qual__liste p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
-
-
-
-  @media (prefers-reduced-motion: reduce) {
-    .linie__knoten, .linie__gerade, .linie__umwege circle, .linie__stationen circle, .linie__ziel { animation: none !important; }
+<script>
+  // Ersatz für Browser ohne CSS scroll-driven animations: Rückgrat wächst mit dem Scrollen, Punkte erscheinen.
+  if (!CSS.supports('animation-timeline: view()') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('zug-js');
+    const kapitel = Array.from(document.querySelectorAll<HTMLElement>('.kapitel'));
+    const halte = Array.from(document.querySelectorAll<HTMLElement>('.pfad .halt'));
+    let laeuft = false;
+    const zeichnen = () => {
+      laeuft = false;
+      const vh = window.innerHeight;
+      kapitel.forEach((k) => {
+        const r = k.getBoundingClientRect();
+        const start = k.classList.contains('kapitel--anschluss') ? vh : vh * 0.6;
+        const z = Math.min(1, Math.max(0, (start - r.top) / (r.height + start - vh * 0.6)));
+        k.style.setProperty('--zug', z.toFixed(3));
+      });
+      halte.forEach((h) => { if (h.getBoundingClientRect().top < vh * 0.7) h.classList.add('halt--da'); });
+    };
+    window.addEventListener('scroll', () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } }, { passive: true });
+    zeichnen();
   }
+</script>
+
+<style>
+  /* Kapitel-Köpfe */
+  .kopf { --hy: 10px; }
+  .kopf__text { margin: 0; align-self: end; }
+  .kapitel--dunkel .pfeil-link { color: var(--accent-light); }
+  .kopf h2 { margin-bottom: 0; }
+  .kopf .lead { margin-top: 18px; margin-bottom: 0; }
+  .kapitel--dunkel .lead { color: var(--dark-lead); }
+  .plakat { font-size: clamp(2.1rem, 3.9vw, 3.3rem) !important; line-height: 1.06; }
+
+  /* Verständnis */
+  .entstehung { --hy: 10px; display: grid; gap: 24px; padding-top: 0; }
+  @media (min-width: 960px) { .entstehung .lead { margin-top: -6px !important; } }
+  .entstehung .lead { margin: 0; }
+  .entstehung :global(.skizze) { max-width: 420px; margin: 0; }
+  .fragen { margin-top: clamp(56px, 8vw, 96px); row-gap: 20px; }
+  .fragen__marke { --hy: 50%; margin: 0; font-size: clamp(1.15rem, 2vw, 1.35rem); color: var(--accent-ink); }
+  @media (min-width: 960px) {
+    .fragen__marke { justify-self: center; text-align: center; background: var(--sec-bg); border: 3px solid var(--accent); border-radius: 999px; padding: 12px 26px; }
+    .fragen__marke::before, .fragen__marke::after { display: none; }
+  }
+  .fragen__liste { list-style: none; margin: 0; padding: 0; row-gap: 0; }
+  @media (min-width: 960px) { .fragen__liste { grid-column: 1 / -1; } }
+  .frage { --hy: 50%; align-self: start; margin: 0 0 12px; padding: 14px 18px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; font-family: var(--font-head); font-weight: 600; font-size: 1.04rem; line-height: 1.4; }
+  @media (min-width: 960px) { .frage { margin: 0 0 18px; } .frage.halt--l { text-align: right; } }
+
+  /* Karten an der Linie (Haltung) */
+  .karte { --hy: 40px; align-self: start; display: flex; gap: 16px; align-items: flex-start; padding: 22px 22px 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 14px; }
+  .karte h3 { margin: 4px 0 6px; font-size: clamp(1.12rem, 1.8vw, 1.28rem); line-height: 1.25; }
+  .karte p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+  .haltung__icon { flex: none; display: block; width: 56px; height: 56px; }
+  .haltung__icon :global(.hbild) { width: 56px; height: 56px; }
+  .kapitel--weiss .kopf { padding-bottom: 20px; }
+
+  /* Vertrauen */
+  .qual { list-style: none; margin: 0; padding: 0; row-gap: 18px; }
+  .qual__q { --hy: 30px; display: flex; gap: 16px; align-items: flex-start; padding: 20px 20px 18px; border: 1px solid var(--dark-line); border-radius: 18px; }
+  .qual__icon { flex: none; color: var(--accent-light); margin-top: 2px; }
+  .qual__q h3 { margin: 0 0 6px; font-size: 1.18rem; line-height: 1.25; }
+  .qual__q p { margin: 0; color: var(--dark-lead); line-height: 1.55; }
+  .qual__mehr { margin: 0; }
+  @media (min-width: 960px) { .qual { grid-column: 1 / -1; } }
+
+  /* Produkte */
+  .kapitel--sand .pfad + :global(.pweg) { margin-top: clamp(32px, 5vw, 56px); }
 </style>
