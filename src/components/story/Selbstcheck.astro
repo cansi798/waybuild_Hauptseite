@@ -1,37 +1,58 @@
 ---
-// Selbstreflexion (Jamils kompaktes Design-Briefing, Talk 3636): fünf Fragen als leichte Selbsteinschätzung
-// (sehr einfach / meistens einfach / oft aufwendig / unnötig kompliziert). Danach eine kurze Einordnung –
-// ohne Kontaktdaten, nichts wird gesendet oder gespeichert. Ohne JS: Fragen + Gesprächs-Link bleiben nutzbar.
-// Die Fragen hängen im Zickzack an der Linie (Desktop links/rechts, Handy rechts).
+// Selbstreflexion (Jamils kompaktes Design-Briefing, Talk 3636) – seit Talk 3712 mit einem Schieberegler pro Frage und
+// einem Diagramm als Ergebnis. Die vier bisherigen Antworten bleiben als Stufen des Reglers erhalten
+// (sehr einfach · meistens einfach · oft aufwendig · unnötig kompliziert); der Regler erlaubt Zwischenwerte (0–100).
+// Startzustand: „noch nicht eingeschätzt“ (Griff blass in der Mitte, zählt nicht mit) – ein vorgegebener Mittelwert würde
+// das Ergebnis verfälschen, deshalb zählt eine Frage erst, wenn sie bewegt oder per Tastatur verändert wurde.
+// Diagramm: horizontale Balken je Frage (HTML/CSS, keine Bibliothek), aktualisiert sich live. Einordnung: dieselbe Logik wie vorher,
+// nur feiner (Durchschnitt und Einzelwerte). Nichts wird gesendet oder gespeichert. Ohne JS: Regler + Gesprächs-Link.
 import { href } from '../../lib/paths';
 import Icon from '../Icon.astro';
 
 const FRAGEN = [
-  'Wie einfach lassen sich kleine Änderungen umsetzen?',
-  'Wie schnell kommen Ideen tatsächlich in die Umsetzung?',
-  'Wie abhängig ist Ihr Unternehmen von einzelnen Personen?',
-  'Wie transparent arbeiten Ihre Dienstleister?',
-  'Wie viel Abstimmung entsteht bei kleinen Veränderungen?',
+  { f: 'Wie einfach lassen sich kleine Änderungen umsetzen?', kurz: 'Kleine Änderungen' },
+  { f: 'Wie schnell kommen Ideen tatsächlich in die Umsetzung?', kurz: 'Ideen umsetzen' },
+  { f: 'Wie abhängig ist Ihr Unternehmen von einzelnen Personen?', kurz: 'Abhängigkeit von Personen' },
+  { f: 'Wie transparent arbeiten Ihre Dienstleister?', kurz: 'Transparenz der Dienstleister' },
+  { f: 'Wie viel Abstimmung entsteht bei kleinen Veränderungen?', kurz: 'Abstimmung' },
 ];
 const STUFEN = ['sehr einfach', 'meistens einfach', 'oft aufwendig', 'unnötig kompliziert'];
 ---
 
-<div class="pfad check" data-selbstcheck>
+<div class="pfad check" data-selbstcheck data-stufen={JSON.stringify(STUFEN)}>
   <h3 class="halt halt--voll fragen__marke" id="check-h">Wie leicht ist Veränderung bei Ihnen heute?</h3>
   <div class="pfad pfad--zickzack check__liste">
-    {FRAGEN.map((f, i) => (
-      <fieldset class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'k', 'frage', 'leuchtet']} style={`--zeile:${i + 1}`}>
-        <legend><span class="k__nr" aria-hidden="true">{i + 1}</span><span>{f}</span></legend>
-        <div class="frage__wahl">
-          {STUFEN.map((s, k) => (
-            <label><input type="radio" name={`frage-${i}`} value={k} /><span>{s}</span></label>
-          ))}
+    {FRAGEN.map((q, i) => (
+      <div class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'k', 'frage', 'leuchtet']} style={`--zeile:${i + 1}`}>
+        <div class="k__inhalt frage__inhalt">
+          <label class="frage__text" for={`regler-${i}`}><span class="k__nr" aria-hidden="true">{i + 1}</span><span>{q.f}</span></label>
+          <div class="regler">
+            <input class="regler__input regler--offen" id={`regler-${i}`} type="range" min="0" max="100" step="5" value="50"
+              aria-valuetext="noch nicht eingeschätzt" aria-describedby={`regler-${i}-stufen`} data-i={i} />
+            <ol class="regler__stufen" id={`regler-${i}-stufen`} aria-hidden="true">
+              {STUFEN.map((s) => <li>{s}</li>)}
+            </ol>
+          </div>
+          <p class="regler__wert" aria-hidden="true" data-wert={i}>noch nicht eingeschätzt</p>
         </div>
-      </fieldset>
+      </div>
     ))}
   </div>
   <div class="halt halt--voll halt--still k k--flaeche einordnung leuchtet">
-    <p class="einordnung__text" aria-live="polite" data-einordnung>Wählen Sie bei jeder Frage, was am ehesten passt. Ihre Antworten bleiben auf Ihrem Gerät.</p>
+    <figure class="diagramm">
+      <figcaption class="diagramm__titel">Ihr Ergebnis</figcaption>
+      <ol class="diagramm__liste">
+        {FRAGEN.map((q, i) => (
+          <li>
+            <span class="diagramm__label">{q.kurz}</span>
+            <span class="diagramm__spur" aria-hidden="true"><span class="diagramm__balken" data-balken={i}></span></span>
+            <span class="diagramm__stufe" data-stufe={i}>offen</span>
+          </li>
+        ))}
+      </ol>
+      <div class="diagramm__achse" aria-hidden="true"><span>{STUFEN[0]}</span><span>{STUFEN[3]}</span></div>
+    </figure>
+    <p class="einordnung__text" aria-live="polite" data-einordnung>Schieben Sie bei jeder Frage den Regler dorthin, wo es am ehesten passt. Ihre Antworten bleiben auf Ihrem Gerät.</p>
     <a class="btn btn--ghost" href={href('/kontakt/')}>Über Ihren Weg sprechen <Icon name="arrow" size={18} /></a>
   </div>
 </div>
@@ -39,18 +60,47 @@ const STUFEN = ['sehr einfach', 'meistens einfach', 'oft aufwendig', 'unnötig k
 <script>
   const box = document.querySelector<HTMLElement>('[data-selbstcheck]');
   if (box) {
+    box.classList.add('check--js');
+    const STUFEN: string[] = JSON.parse(box.dataset.stufen || '[]');
+    const regler = Array.from(box.querySelectorAll<HTMLInputElement>('.regler__input'));
     const text = box.querySelector<HTMLElement>('[data-einordnung]')!;
-    const n = box.querySelectorAll('fieldset').length;
-    box.addEventListener('change', () => {
-      const werte = Array.from(box.querySelectorAll<HTMLInputElement>('input:checked')).map((i) => Number(i.value));
-      if (werte.length < n) {
-        text.textContent = `Noch ${n - werte.length} ${n - werte.length === 1 ? 'Frage' : 'Fragen'} – dann sehen Sie eine kurze Einordnung.`;
+    const beantwortet = new Set<number>();
+    // Wert 0–100 → nächste der vier Stufen (Positionen 0, 33, 67, 100)
+    const stufe = (v: number) => STUFEN[Math.round((v / 100) * (STUFEN.length - 1))];
+    const zeigen = (r: HTMLInputElement) => {
+      const i = Number(r.dataset.i);
+      const v = Number(r.value);
+      const offen = !beantwortet.has(i);
+      const t = offen ? 'noch nicht eingeschätzt' : stufe(v);
+      r.setAttribute('aria-valuetext', t);
+      r.classList.toggle('regler--offen', offen);
+      r.style.setProperty('--wert', `${v}%`);
+      box.querySelector<HTMLElement>(`[data-wert="${i}"]`)!.textContent = t;
+      const balken = box.querySelector<HTMLElement>(`[data-balken="${i}"]`)!;
+      balken.style.width = offen ? '0' : `${Math.max(6, v)}%`;
+      balken.classList.toggle('diagramm__balken--hoch', !offen && v >= 50);
+      box.querySelector<HTMLElement>(`[data-stufe="${i}"]`)!.textContent = offen ? 'offen' : t;
+    };
+    const auswerten = () => {
+      if (beantwortet.size < regler.length) {
+        const rest = regler.length - beantwortet.size;
+        text.textContent = `Noch ${rest} ${rest === 1 ? 'Frage' : 'Fragen'} – dann sehen Sie eine kurze Einordnung.`;
         return;
       }
-      const aufwendig = werte.filter((v) => v >= 2).length;
-      text.innerHTML = aufwendig >= 2 || werte.includes(3)
+      const werte = regler.map((r) => Number(r.value));
+      // Gleiche Logik wie bei den vier Antworten, nur feiner: mindestens zwei Fragen „eher aufwendig“ (≥ 50)
+      // oder eine Frage im Bereich „unnötig kompliziert“ (≥ 84) oder im Schnitt aufwendig.
+      const aufwendig = werte.filter((v) => v >= 50).length;
+      const schnitt = werte.reduce((a, b) => a + b, 0) / werte.length;
+      text.innerHTML = aufwendig >= 2 || werte.some((v) => v >= 84) || schnitt >= 50
         ? '<strong>Ihr Veränderungsweg hat Potenzial zur Vereinfachung.</strong> Wo es heute hakt, schauen wir uns gern gemeinsam an.'
         : '<strong>Ihr Veränderungsweg ist schon recht einfach.</strong> Wenn er noch leichter werden soll, sprechen wir gern darüber.';
+    };
+    regler.forEach((r) => {
+      const markieren = () => { beantwortet.add(Number(r.dataset.i)); zeigen(r); auswerten(); };
+      r.addEventListener('input', markieren);
+      r.addEventListener('change', markieren);
+      zeigen(r);
     });
   }
 </script>
@@ -64,20 +114,57 @@ const STUFEN = ['sehr einfach', 'meistens einfach', 'oft aufwendig', 'unnötig k
     .check__liste { grid-column: 1 / -1; }
   }
   .check__liste { row-gap: 0; }
-  .frage { --hy: 28px; display: block; align-self: start; margin: 0 0 14px; min-width: 0; }
-  .frage legend { float: left; width: 100%; display: flex; gap: 12px; align-items: flex-start; margin: 0 0 14px; padding: 0; font-family: var(--font-head); font-weight: 650; font-size: 1.05rem; line-height: 1.4; }
-  .frage legend > span:last-child { padding-top: 4px; }
-  /* Antworten gleichmäßig: zwei in einer Reihe, gleich breit (Jamil, Talk 3643) */
-  .frage__wahl { clear: both; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .frage__wahl label { position: relative; cursor: pointer; }
-  .frage__wahl input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-  .frage__wahl label { display: flex; }
-  .frage__wahl span { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 40px; text-align: center; padding: 7px 10px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--paper); font-size: 0.9rem; font-weight: 600; color: #4a4741; transition: background 150ms ease, border-color 150ms ease; }
-  .frage__wahl label:hover span { border-color: var(--accent); }
-  .frage__wahl input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-  .frage__wahl input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .frage { --hy: 28px; align-self: start; margin: 0 0 14px; min-width: 0; }
+  .frage__inhalt { width: 100%; }
+  .frage__text { display: flex; gap: 12px; align-items: flex-start; margin: 0 0 18px; font-family: var(--font-head); font-weight: 650; font-size: 1.05rem; line-height: 1.4; }
+  .frage__text > span:last-child { padding-top: 4px; }
+
+  /* Schieberegler (Jamil, Talk 3712): große Griffe, ruhige Spur; vertikales Scrollen bleibt möglich (touch-action) */
+  .regler { position: relative; }
+  .regler__input {
+    --wert: 50%;
+    -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 44px; margin: 0; background: transparent; cursor: pointer;
+    touch-action: pan-y;
+  }
+  .regler__input::-webkit-slider-runnable-track { height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--accent) 0 var(--wert), var(--paper-2) var(--wert) 100%); }
+  .regler__input::-moz-range-track { height: 8px; border-radius: 4px; background: var(--paper-2); }
+  .regler__input::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--accent); }
+  .regler__input::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); box-shadow: 0 1px 3px rgb(0 0 0 / 15%); }
+  .regler__input::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); }
+  .regler__input:focus-visible { outline: none; }
+  .regler__input:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .regler__input:focus-visible::-moz-range-thumb { outline: 3px solid var(--accent); outline-offset: 3px; }
+  /* noch nicht eingeschätzt: Spur neutral, Griff blass gestrichelt */
+  .regler--offen::-webkit-slider-runnable-track { background: var(--paper-2); }
+  .regler--offen::-moz-range-progress { background: transparent; }
+  .regler--offen::-webkit-slider-thumb { border-style: dashed; border-color: #a8a191; }
+  .regler--offen::-moz-range-thumb { border-style: dashed; border-color: #a8a191; }
+  .regler__stufen { list-style: none; margin: 2px 0 0; padding: 0; display: flex; justify-content: space-between; gap: 8px; font-size: 0.8rem; color: #6f6a60; }
+  .regler__stufen li { flex: 1; text-align: center; line-height: 1.25; }
+  .regler__stufen li:first-child { text-align: left; }
+  .regler__stufen li:last-child { text-align: right; }
+  .regler__wert { margin: 10px 0 0 !important; font-weight: 650; color: var(--accent-ink) !important; }
+  .check:not(.check--js) .regler__wert { display: none; }
+
+  /* Ergebnis: Diagramm + Einordnung */
   .einordnung { display: grid; justify-items: start; gap: 14px; margin-top: 10px; }
-  @media (max-width: 959px) { .einordnung { background: none; border: 0; padding: 0; } }
+  .diagramm { width: 100%; max-width: 560px; margin: 0; }
+  .check:not(.check--js) .diagramm { display: none; }
+  .diagramm__titel { margin: 0 0 10px; font-family: var(--font-head); font-weight: 650; font-size: 1rem; text-align: left; }
+  .diagramm__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .diagramm__liste li { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) 8.5rem; gap: 12px; align-items: center; text-align: left; }
+  .diagramm__label { font-size: 0.92rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
+  .diagramm__spur { position: relative; height: 12px; border-radius: 6px; background: var(--paper-2); overflow: hidden; }
+  .diagramm__balken { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 6px; background: var(--accent); transition: width 250ms ease, background-color 250ms ease; }
+  .diagramm__balken--hoch { background: #8f897c; }
+  .diagramm__stufe { font-size: 0.85rem; color: #6f6a60; }
+  .diagramm__achse { display: flex; justify-content: space-between; margin: 6px 8.5rem 0 calc(11rem + 12px); padding-right: 12px; font-size: 0.75rem; color: #6f6a60; }
+  @media (max-width: 599px) {
+    .diagramm__liste li { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; }
+    .diagramm__spur { grid-column: 1 / -1; grid-row: 2; }
+    .diagramm__achse { margin: 6px 0 0; padding: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .diagramm__balken { transition: none; } }
   .einordnung__text { margin: 0; max-width: 52ch; color: var(--ink-soft); line-height: 1.6; }
   .einordnung__text :global(strong) { display: block; font-family: var(--font-head); font-size: 1.2rem; color: var(--ink); margin-bottom: 4px; }
   @media (min-width: 960px) {

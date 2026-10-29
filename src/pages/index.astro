@@ -5,7 +5,7 @@
 //   Hero (Hero.astro): Text + Weg-Illustration (graue Linie durch E-Mail … Freigabe, am Ende kurz türkis)
 //   Schritt 1 · Vorher → Dann kommt Waybuild (Wandel.astro): Chaos-Karten, Situationen, die Linie wird geordnet
 //   Schritt 2 · Verständnis · Selbstreflexion (Selbstcheck.astro)
-//   Schritt 3 · Orientierung (drei Säulen Klarheit · Verlässlichkeit · Einfachheit + vier Grundsätze) ·
+//   Schritt 3 · Orientierung (drei Säulen + „So beginnt die Zusammenarbeit“, fünf Schritte) ·
 //   Schritt 4 · Verlässlichkeit (Petrol; „Das dürfen Sie von uns erwarten“, Talk 3690) · Schritt 5 · Leichtigkeit ·
 //   Schritt 6 · Produkte · Schritt 7 · Ziel + „Wer kümmert sich eigentlich?“ (FooterKontakt: Zielpunkt).
 // 29.10.2026 (Jamil, Talk 3639–3654): eine durchgehende Linie ab dem Hero, Abschnitt „Einblicke“ und Verständnis-Bild
@@ -19,8 +19,7 @@ import Selbstcheck from '../components/story/Selbstcheck.astro';
 import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
-import HaltungBild from '../components/HaltungBild.astro';
-import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
+import { START_ABLAUF, QUALITAETEN } from '../config/hauptseite';
 
 // Schritt 4 · Verlässlichkeit und Schritt 5 · Leichtigkeit – Texte aus Jamils Brief (Talk 3690), knapp gehalten.
 // „dokumentiert“ steht genau einmal in „Nichts geht verloren“ (Erwartungen), daher hier nicht doppelt.
@@ -56,7 +55,7 @@ const OHNE = ['kein Projektantrag', 'kein Formular', 'keine fünf Ansprechpartne
     </div>
   </section>
 
-  <!-- SCHRITT 3 · ORIENTIERUNG: drei Säulen + vier Grundsätze -->
+  <!-- SCHRITT 3 · ORIENTIERUNG: drei Säulen + „So beginnt die Zusammenarbeit“ (Jamil, Talk 3725) -->
   <section class="kapitel kapitel--weiss" id="haltung" aria-labelledby="haltung-h">
     <div class="wrap">
       <div class="pfad">
@@ -64,18 +63,19 @@ const OHNE = ['kein Projektantrag', 'kein Formular', 'keine fünf Ansprechpartne
           <span class="schritt-kenn">Schritt 3 · Orientierung</span>
           <h2 id="haltung-h">Klarheit. Verlässlichkeit. <span class="accent">Einfachheit.</span></h2>
         </div>
-        <p class="halt halt--r halt--text lead kopf__text">Darauf baut alles auf, was wir tun. Dazu vier Grundsätze, nach denen wir arbeiten: bei jedem Produkt, jedem Anliegen und jeder Veränderung.</p>
-        <div class="pfad pfad--zickzack grundsaetze">
-          {HALTUNG.map((h, i) => (
-            <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'k', 'karte', 'leuchtet']} style={`--zeile:${i + 1}`}>
-              <span class="k__icon haltung__icon"><HaltungBild art={h.bild} /></span>
+        <p class="halt halt--r halt--text lead kopf__text">Darauf baut alles auf, was wir tun – vom ersten Gespräch an.</p>
+        <h3 class="halt halt--voll halt--still ablauf__titel" id="ablauf-h">So beginnt die Zusammenarbeit</h3>
+        <ol class="pfad ablauf" aria-labelledby="ablauf-h">
+          {START_ABLAUF.map((a, i) => (
+            <li class="halt halt--r k ablauf__schritt leuchtet">
+              <span class="k__nr" aria-hidden="true">{i + 1}</span>
               <div class="k__inhalt">
-                <h3>{h.titel}</h3>
-                <p>{h.text}</p>
+                <h4 class="k__titel">{a.titel}</h4>
+                <p>{a.text}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </div>
   </section>
@@ -206,10 +206,21 @@ const OHNE = ['kein Projektantrag', 'kein Formular', 'keine fünf Ansprechpartne
   .entstehung { display: grid; gap: 16px; align-content: start; }
   .entstehung .lead { margin: 0; }
 
-  /* Karten an der Linie: Basis-Karte .k aus global.css, hier nur Lage */
-  .karte { --hy: 36px; align-self: start; margin-bottom: 14px; }
-  .haltung__icon :global(.hbild) { width: 30px; height: 30px; }
-  .kapitel--weiss .kopf { padding-bottom: 20px; }
+  /* So beginnt die Zusammenarbeit: Handy senkrecht an der Linie, Desktop waagerecht (Abgrenzung zur Anfrage-Reise) */
+  .ablauf__titel { --hy: 50%; margin: clamp(32px, 5vw, 56px) 0 0; font-size: clamp(1.2rem, 2.2vw, 1.5rem); color: var(--accent-ink); }
+  .ablauf { list-style: none; margin: 0; padding-left: 0; row-gap: 14px; }
+  .ablauf__schritt { --hy: 30px; align-self: stretch; }
+  .ablauf__schritt .k__titel { font-size: 1.05rem; }
+  @media (min-width: 960px) {
+    .ablauf__titel { justify-self: center; text-align: center; background: var(--sec-bg); border: 3px solid var(--accent); border-radius: 999px; padding: 12px 28px; }
+    .ablauf__titel::before, .ablauf__titel::after { display: none; }
+    .ablauf { grid-column: 1 / -1; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 14px; position: relative; z-index: 1; margin-top: 8px; }
+    /* waagerechter Fluss durch die Nummern statt Verbinder zur Mittellinie */
+    .ablauf::before { content: ''; position: absolute; left: 10%; right: 10%; top: calc(var(--k-pad) + 15px); height: 3px; margin-top: -1.5px; background: var(--accent); }
+    .ablauf__schritt { grid-column: auto !important; flex-direction: column; gap: 10px; }
+    .ablauf__schritt::before, .ablauf__schritt::after { display: none; }
+    .ablauf__schritt .k__nr { position: relative; z-index: 1; background: #d9efee; }
+  }
 
   /* Vertrauen */
   .qual { list-style: none; margin: 0; padding: 0; row-gap: 18px; }
@@ -218,8 +229,6 @@ const OHNE = ['kein Projektantrag', 'kein Formular', 'keine fünf Ansprechpartne
   @media (min-width: 960px) { .qual { grid-column: 1 / -1; } }
 
   /* Orientierung */
-  .grundsaetze { margin-top: clamp(24px, 4vw, 48px); row-gap: 0; }
-  @media (min-width: 960px) { .grundsaetze { grid-column: 1 / -1; } }
 
   /* Verlässlichkeit */
   .schiefe p { margin: 0 0 10px; color: var(--dark-lead); line-height: 1.6; }

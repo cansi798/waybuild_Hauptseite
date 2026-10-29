@@ -3,7 +3,7 @@
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
-import { HERO, SLA_KERN, SLA_HINWEIS, ZUSAGEN, HALTUNG, QUALITAETEN, SAEULEN, PRODUKTE, produktName } from '../config/hauptseite';
+import { HERO, SLA_KERN, SLA_HINWEIS, ZUSAGEN, START_ABLAUF, QUALITAETEN, SAEULEN, PRODUKTE, produktName } from '../config/hauptseite';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -31,8 +31,8 @@ export const GET: APIRoute = ({ site }) => {
     '## Drei Säulen',
     ...SAEULEN.map((x) => `- ${x.titel}: ${x.text}`),
     '',
-    '## Für alle Produkte: Unsere Haltung',
-    ...HALTUNG.map((h) => `- ${h.titel} ${h.text}`),
+    '## So beginnt die Zusammenarbeit',
+    ...START_ABLAUF.map((h, i) => `${i + 1}. ${h.titel}: ${h.text}`),
     '',
     '## Das dürfen Sie von uns erwarten',
     ...QUALITAETEN.map((q) => `- ${q.titel}: ${q.text}`),

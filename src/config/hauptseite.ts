@@ -72,7 +72,8 @@ export const STANDARDS = {
 /** Service-Zusagen (SLAs). Werte NUR aus bestehenden Zusagen der Seite (nächster Werktag, „oft in Minuten“).
  *  PLATZHALTER: garantierte Bearbeitungszeit für kleine Änderungen – Wert von Jamil/Can einsetzen. */
 export const SLA_KERN: { icon: IconName; label: string; wert: string; text: string }[] = [
-  { icon: 'clock', label: 'Reaktionszeit', wert: 'Spätestens am nächsten Werktag', text: 'Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.' },
+  // Erste Rückmeldung innerhalb einer Stunde während der Servicezeiten (= Geschäftszeiten, HOURS): Jamil, Talk 3720/3726 (29.10.2026)
+  { icon: 'clock', label: 'Reaktionszeit', wert: 'Erste Rückmeldung innerhalb einer Stunde', text: 'Während der Servicezeiten. Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.' },
   { icon: 'zap', label: 'Bearbeitungszeit', wert: 'Kleine Änderungen: [Wert einsetzen]', text: 'Oft schon in Minuten erledigt. Bei größeren Aufgaben nennen wir Ihnen vorher einen festen Fertigtermin.' },
 ];
 // „Alle Zusagen erhalten Sie schriftlich“ am 27.10.2026 entfernt: noch nicht belegt (Launch-Checkliste „Leistungsversprechen absichern“, Frage b an Jamil, Talk 3397).
@@ -213,14 +214,27 @@ export const UEBER = {
  *  Klarheit → „Sie wissen jederzeit, woran Sie sind“, Struktur → „Nichts geht verloren“, Gute Kommunikation → „fester Ansprechpartner“,
  *  Verlässlichkeit → „Sie erhalten eine Antwort“, neu „Probleme bleiben nicht liegen“ (statt „Eskalationswege“ in Menschensprache, Talk 3690),
  *  „Echter Mehrwert“ bleibt; „Verständnis“ (keine Fachsprache) steckt jetzt in „Leichtigkeit“.
- *  „Spätestens am nächsten Werktag“ und „automatisch weitergegeben“: von Jamil bestätigt (29.10.2026, Talk 3694). */
+ *  „Spätestens am nächsten Werktag“ und „automatisch weitergegeben“: von Jamil bestätigt (29.10.2026, Talk 3694);
+ *  „innerhalb einer Stunde während der Servicezeiten“ (erste Rückmeldung): Talk 3720/3726. */
 export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Sie erhalten eine Antwort', text: 'Spätestens am nächsten Werktag wissen Sie, wer sich um Ihr Anliegen kümmert und was der nächste Schritt ist.', icon: 'clock' },
+  { titel: 'Sie erhalten eine Antwort', text: 'Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung. Spätestens am nächsten Werktag wissen Sie, wer sich kümmert und was der nächste Schritt ist.', icon: 'clock' },
   { titel: 'Sie haben einen festen Ansprechpartner', text: 'Sie müssen Ihre Situation nicht bei jeder Anfrage neu erklären.', icon: 'user' },
   { titel: 'Nichts geht verloren', text: 'Jedes Anliegen wird dokumentiert und verfolgt, bis es abgeschlossen ist.', icon: 'doc' },
   { titel: 'Probleme bleiben nicht liegen', text: 'Wenn etwas feststeckt oder eine Antwort ausbleibt, wird das Thema automatisch weitergegeben.', icon: 'refresh' },
   { titel: 'Sie wissen jederzeit, woran Sie sind', text: 'Keine Überraschungen. Keine Funkstille.', icon: 'eye' },
   { titel: 'Echter Mehrwert', text: 'Was wir umsetzen, soll Zeit sparen, Abläufe erleichtern oder ein konkretes Problem lösen.', icon: 'spark' },
+];
+
+/** „So beginnt die Zusammenarbeit“ (Jamil, Talk 3725/3727, 29.10.2026) – ersetzt die vier Grundsätze auf der Startseite.
+ *  Einordnung der Grundsätze: „Wir hören zu“ → Schritt 1 (Gespräch) und Verständnis („Was möchten Sie erreichen?“),
+ *  „Wir denken mit“ → Schritt 3 (Vorschlag), „einfache Lösungen / nicht komplizierter als nötig“ → Säule Einfachheit und Leichtigkeit.
+ *  Testphase nur nach Jamils Zustimmung ergänzen. */
+export const START_ABLAUF: { titel: string; text: string; icon: IconName }[] = [
+  { titel: 'Lockeres Gespräch', text: 'Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.', icon: 'chat' },
+  { titel: 'Unternehmens-DNA', text: 'Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.', icon: 'idcard' },
+  { titel: 'Analyse & Vorschlag', text: 'Darauf bauen wir Lösung und Vorschlag auf – so einfach wie möglich.', icon: 'search' },
+  { titel: 'Planung', text: 'Gemeinsam legen wir fest, was wann passiert.', icon: 'calendar' },
+  { titel: 'Umsetzung', text: 'Wir setzen um, Sie prüfen und geben frei.', icon: 'check' },
 ];
 
 /** Drei Säulen der Marke (Jamil, Talk 3690): Klarheit · Verlässlichkeit · Einfachheit – Texte aus dem Brief, gekürzt. */

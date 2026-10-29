@@ -163,7 +163,7 @@ export const faqsAllgemein = [
   },
   {
     q: 'Wie schnell bekomme ich eine Antwort?',
-    a: `Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort. Servicezeiten: ${HOURS}.`,
+    a: `Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: ${HOURS}.`,
   },
   {
     q: 'Was kostet das Erstgespräch?',
