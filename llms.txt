@@ -5,7 +5,7 @@
 Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Ablauf gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
 ## Für alle Produkte: Service-Zusagen
-- Reaktionszeit: Spätestens am nächsten Werktag. Auf jede Anfrage bekommen Sie eine persönliche Antwort – meist deutlich schneller.
+- Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde. Während der Servicezeiten. Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
 - Sie erreichen immer einen Menschen. Kein Callcenter, keine Warteschleife.
 - Eine Nachricht genügt. Kein Formular nötig – melden Sie sich so, wie es für Sie am einfachsten ist.
 - Die Technik läuft – wir kümmern uns. Wartung, Updates und Backups im Hintergrund.
@@ -17,14 +17,15 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Verlässlichkeit: Anliegen verschwinden nicht. Absprachen gelten. Antworten kommen.
 - Einfachheit: Veränderungen sollen leicht sein. Nicht bürokratisch, nicht technisch, nicht kompliziert.
 
-## Für alle Produkte: Unsere Haltung
-- Wir hören zu. Wir beginnen nicht mit einer fertigen Lösung. Wir möchten zuerst verstehen, was Sie erreichen wollen.
-- Wir denken mit. Wir setzen nicht nur Anforderungen um. Wir weisen auch auf einfachere oder sinnvollere Wege hin.
-- Wir mögen einfache Lösungen. Wenn sich etwas verändern soll, sollte die Umsetzung nicht selbst zum Problem werden.
-- Wir machen es nicht komplizierter als nötig. Klarheit, Struktur und gute Kommunikation reichen häufig weiter als zusätzliche Systeme und Prozesse.
+## So beginnt die Zusammenarbeit
+1. Lockeres Gespräch: Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.
+2. Unternehmens-DNA: Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.
+3. Analyse & Vorschlag: Darauf bauen wir Lösung und Vorschlag auf – so einfach wie möglich.
+4. Planung: Gemeinsam legen wir fest, was wann passiert.
+5. Umsetzung: Wir setzen um, Sie prüfen und geben frei.
 
 ## Das dürfen Sie von uns erwarten
-- Sie erhalten eine Antwort: Spätestens am nächsten Werktag wissen Sie, wer sich um Ihr Anliegen kümmert und was der nächste Schritt ist.
+- Sie erhalten eine Antwort: Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung. Spätestens am nächsten Werktag wissen Sie, wer sich kümmert und was der nächste Schritt ist.
 - Sie haben einen festen Ansprechpartner: Sie müssen Ihre Situation nicht bei jeder Anfrage neu erklären.
 - Nichts geht verloren: Jedes Anliegen wird dokumentiert und verfolgt, bis es abgeschlossen ist.
 - Probleme bleiben nicht liegen: Wenn etwas feststeckt oder eine Antwort ausbleibt, wird das Thema automatisch weitergegeben.
@@ -55,7 +56,7 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 ## Häufige Fragen zu Waybuild
 - Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen – ob Website, Abläufe oder die Werkzeuge im Arbeitsalltag. Mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Unser erstes Produkt sind Websites, weitere folgen.
 - Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Ablauf gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
-- Wie schnell bekomme ich eine Antwort? Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort. Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr.
+- Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
 - Welche Rolle spielt KI? KI ersetzt keine guten Ideen – sie beschleunigt die Umsetzung. Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Danach helfen uns KI-gestützte Werkzeuge, die Ergebnisse schnell umzusetzen.
 - Bietet Waybuild auch Software, Cloud und IT an? Heute starten wir mit dem Website Service. Software, Cloud, Workplace und Process Service folgen Schritt für Schritt. Einzelne Projekte – etwa individuelle Software, Nextcloud oder IT-Betreuung – setzen wir schon heute auf Anfrage um.
