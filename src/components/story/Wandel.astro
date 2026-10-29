@@ -119,6 +119,13 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
 
   if (buehnen.length && !reduce.matches && !niedrig.matches) {
     buehnen.forEach((b) => b.classList.add('wandel--live'));
+    // Nur schreiben, was sich wirklich ändert: spart Stil-Neuberechnungen in jedem Frame
+    const alt = new WeakMap<HTMLElement, Record<string, string>>();
+    const setz = (el: HTMLElement, prop: 'transform' | 'opacity' | 'visibility', wert: string) => {
+      let c = alt.get(el); if (!c) { c = {}; alt.set(el, c); }
+      if (c[prop] !== wert) { c[prop] = wert; el.style[prop] = wert; }
+    };
+    const vergessen = (el: HTMLElement | null) => { if (el) alt.delete(el); };
     const oben = () => (kopf ? kopf.getBoundingClientRect().bottom : 72);
     const fortschritt = (b: HTMLElement) => {
       const spur = b.querySelector<HTMLElement>('.wandel__spur')!, tafel = b.querySelector<HTMLElement>('.tafel')!;
@@ -144,13 +151,14 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
     const brief1 = b1.querySelector<HTMLElement>('.anfrage')!;
     const hinweis = b1.querySelector<HTMLElement>('.tafel__hinweis');
     const S1 = 0.04, T1 = 0.1, W1 = 0.05;
-    let frac: number[] = [], len1 = 1;
+    let frac: number[] = [], len1 = 1, lut1: { x: number; y: number }[] = [];
     // ── Szene 2 ──
     const b2 = buehnen[1];
     const t2 = b2.querySelector<HTMLElement>('.tafel')!;
     const reise2 = b2.querySelector<HTMLElement>('.reise')!;
     const st2 = Array.from(b2.querySelectorAll<HTMLElement>('.station'));
     const brief2 = b2.querySelector<HTMLElement>('.anfrage')!;
+    const gerade2 = b2.querySelector<HTMLElement>('.reise__gerade')!;
     const ende = b2.querySelector<HTMLElement>('[data-ende]');
     const S2 = 0.03, T2 = 0.1, W2 = 0.07;
     // ── Startpunkt im Hero (Vorphase) ──
@@ -162,6 +170,7 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
 
     const messen = () => {
       len1 = weg1.getTotalLength();
+      lut1 = Array.from({ length: 401 }, (_, s) => { const pt = weg1.getPointAtLength((s / 400) * len1); return { x: pt.x, y: pt.y }; });
       frac = st1.map((_, i) => {
         const yZiel = [8.3, 25, 41.7, 58.3, 75, 91.7][i];
         let best = 0, d = 1e9;
@@ -173,7 +182,8 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
     };
     let so = { x: 0, y: 0, w: 1, h: 1 };
     const punkt1 = (f: number) => {
-      const pt = weg1.getPointAtLength(clamp(f) * len1);
+      const u = clamp(f) * 400, i = Math.min(399, Math.floor(u)), t = u - i, a = lut1[i], b = lut1[i + 1];
+      const pt = { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t) };
       return { x: so.x + (pt.x / 100) * so.w, y: so.y + (pt.y / 100) * so.h };
     };
 
@@ -184,7 +194,7 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
     let vm: { bx: number; by: number; hl: number; ht: number; hw: number; hh: number; zielX: number; zielY: number; stub: number; kh: number } | null = null;
     const vorMessen = () => {
       if (!startpunkt || !heroSvg) return;
-      startpunkt.style.transform = '';
+      startpunkt.style.transform = ''; vergessen(startpunkt);
       const sy = window.scrollY, b = startpunkt.getBoundingClientRect(), hr = heroSvg.getBoundingClientRect();
       const f1 = b1.querySelector<HTMLElement>('.tafel__flaeche')!;
       const lx = parseFloat(getComputedStyle(t1).getPropertyValue('--linie-x')) || 0;
@@ -203,11 +213,11 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
         let d = 1e9;
         for (const pt of heroPunkte) { const dd = Math.abs(ht + (pt.y / 100) * vm.hh - yDoc); if (dd < d) { d = dd; x = vm.hl + (pt.x / 100) * vm.hw; } }
       }
-      startpunkt.style.transform = `translate(${(x - vm.bx).toFixed(1)}px, ${(yDoc - by).toFixed(1)}px)`;
+      setz(startpunkt, 'transform', `translate(${(x - vm.bx).toFixed(1)}px, ${(yDoc - by).toFixed(1)}px)`);
       const uebergabe = clamp(p1 / 0.01);
-      startpunkt.style.opacity = String(1 - uebergabe);
-      brief1.style.visibility = uebergabe > 0 ? '' : 'hidden';
-      if (label) label.style.opacity = String(1 - clamp((yDoc - by) / 80));
+      setz(startpunkt, 'opacity', (1 - uebergabe).toFixed(3));
+      setz(brief1, 'visibility', uebergabe > 0 ? '' : 'hidden');
+      if (label) setz(label, 'opacity', (1 - clamp((yDoc - by) / 80)).toFixed(3));
     };
 
     const szene1 = (p: number) => {
@@ -216,15 +226,15 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
       if (r.k >= st1.length) f = frac[frac.length - 1];
       else if (r.k >= 0) f = lerp(r.k ? frac[r.k - 1] : 0, frac[r.k], r.f);
       const a = punkt1(f);
-      brief1.style.transform = `translate(${a.x.toFixed(1)}px, ${a.y.toFixed(1)}px)`;
-      brief1.style.opacity = String(clamp(p / 0.01));
+      setz(brief1, 'transform', `translate(${a.x.toFixed(1)}px, ${a.y.toFixed(1)}px)`);
+      setz(brief1, 'opacity', clamp(p / 0.01).toFixed(3));
       brief1.classList.toggle('anfrage--wartet', r.k === 4 && r.halt);
       st1.forEach((s, k) => {
         const ank = S1 + k * (T1 + W1) + T1;
-        s.style.opacity = String(clamp((p - ank + 0.02) / 0.02));
+        setz(s, 'opacity', clamp((p - ank + 0.02) / 0.02).toFixed(3));
         s.classList.toggle('station--hier', p >= ank - 0.005 && (k === st1.length - 1 || p < ank + W1));
       });
-      if (hinweis) hinweis.style.opacity = String(1 - clamp(p / 0.03));
+      if (hinweis) setz(hinweis, 'opacity', (1 - clamp(p / 0.03)).toFixed(3));
     };
 
     const szene2 = (p: number) => {
@@ -234,18 +244,19 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
       if (r.k < 0) y = 0;
       else if (r.k >= st2.length) y = lerp(ziele[ziele.length - 1], fh, glatt(clamp((p - (S2 + st2.length * (T2 + W2))) / (1 - (S2 + st2.length * (T2 + W2)) - 0.03))));
       else y = lerp(r.k ? ziele[r.k - 1] : 0, ziele[r.k], r.f);
-      t2.style.setProperty('--zug', String(clamp(y / Math.max(1, fh))));
-      brief2.style.transform = `translate(${lx.toFixed(1)}px, ${(top + y).toFixed(1)}px)`;
-      brief2.style.opacity = String(clamp(p / 0.015) * (1 - clamp((p - 0.97) / 0.03)));
+      // Linie direkt per transform (statt CSS-Variable am Elternteil, die den ganzen Teilbaum neu berechnen lässt)
+      setz(gerade2, 'transform', `scaleY(${clamp(y / Math.max(1, fh)).toFixed(4)})`);
+      setz(brief2, 'transform', `translate(${lx.toFixed(1)}px, ${(top + y).toFixed(1)}px)`);
+      setz(brief2, 'opacity', (clamp(p / 0.015) * (1 - clamp((p - 0.97) / 0.03))).toFixed(3));
       st2.forEach((s, k) => {
         const ank = S2 + k * (T2 + W2) + T2;
-        s.style.opacity = String(clamp((p - ank + 0.02) / 0.02));
+        setz(s, 'opacity', clamp((p - ank + 0.02) / 0.02).toFixed(3));
         s.classList.toggle('station--hier', p >= ank - 0.005 && p < ank + W2);
       });
-      if (ende && breitMq.matches) ende.style.opacity = String(clamp((p - 0.86) / 0.05));
+      if (ende && breitMq.matches) setz(ende, 'opacity', clamp((p - 0.86) / 0.05).toFixed(3));
     };
 
-    let laeuft = false;
+    let laeuft = false, z1 = -1, z2 = -1;
     let m2 = { fh: 1, top: 0, ziele: [] as number[], lx: 0 };
     const zeichnen = () => {
       laeuft = false;
@@ -255,12 +266,14 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
       const tTop = t1.getBoundingClientRect().top, kh = kopf ? kopf.offsetHeight : 0;
       // … dann schreiben
       vorphase(p1, sy, ob, tTop, kh);
-      szene1(p1);
-      szene2(p2);
+      // Szene ganz vor oder ganz hinter ihrem Bereich: nur einmal in den Endzustand setzen
+      if (p1 !== z1) { z1 = p1; szene1(p1); }
+      if (p2 !== z2) { z2 = p2; szene2(p2); }
     };
     const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } };
     const neu = () => {
-      startpunkt && (startpunkt.style.transform = '');
+      startpunkt && (startpunkt.style.transform = ''); vergessen(startpunkt);
+      z1 = z2 = -1;
       stubSetzen(); messen(); vorMessen();
       m2 = { fh: reise2.clientHeight, top: reise2.offsetTop + (reise2.parentElement?.offsetTop ?? 0), ziele: st2.map((s) => s.offsetTop), lx: parseFloat(getComputedStyle(t2).getPropertyValue('--linie-x')) || 0 };
       zeichnen();
@@ -345,7 +358,7 @@ const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Statione
   :global(.wandel--live) .tafel__flaeche { flex: 1; min-height: 0; }
   :global(.wandel--live) .reise { position: absolute; inset: 0 0 24px var(--linie-x); height: auto !important; margin: 0; }
   :global(.wandel--live).wandel--2 .reise { inset: 0 0 0 var(--linie-x); }
-  :global(.wandel--live) .reise__gerade { bottom: 0; transform: scaleY(var(--zug, 0)); }
+  :global(.wandel--live) .reise__gerade { bottom: 0; transform: scaleY(0); will-change: transform; }
   :global(.wandel--live).wandel--2 .reise__gerade { top: 0; }
   :global(.wandel--live) .station { opacity: 0; }
   :global(.wandel--live) .tafel__kopf { min-height: 2.4em; }

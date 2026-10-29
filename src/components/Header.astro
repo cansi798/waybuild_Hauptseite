@@ -162,7 +162,15 @@ const isCurrent = (path?: string) => path && current === href(path);
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(() => { const klein = window.scrollY > 24; hdr.classList.toggle('is-scrolled', klein); document.documentElement.classList.toggle('hdr-klein', klein); ticking = false; });
+    // Hysterese: Das Schrumpfen (72 → 62 px) verschiebt den Inhalt, der Browser gleicht das per Scroll-Anker aus und
+    // scrollY springt um ~10 px zurück. Mit nur einer Schwelle (24 px) kippte die Kopfzeile dort hin und her
+    // (jedes Mal Neuberechnung der ganzen Seite). Daher: klein ab 40 px, erst unter 8 px wieder groß.
+    requestAnimationFrame(() => {
+      const y = window.scrollY, war = document.documentElement.classList.contains('hdr-klein');
+      const klein = war ? y > 8 : y > 40;
+      if (klein !== war) { hdr.classList.toggle('is-scrolled', klein); document.documentElement.classList.toggle('hdr-klein', klein); }
+      ticking = false;
+    });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
