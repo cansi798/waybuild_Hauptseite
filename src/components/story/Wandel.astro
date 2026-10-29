@@ -133,6 +133,7 @@ const STATIONEN = P.slice(1, -1);
     const schnitt = root.querySelector<HTMLElement>('.schnitt')!;
     const anfrage = root.querySelector<HTMLElement>('.anfrage')!;
     const kopf = document.getElementById('siteHeader');
+    const startpunkt = document.querySelector<HTMLElement>('.hlinie__start');
     const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
     const glatt = (t: number) => t * t * (3 - 2 * t);
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -231,7 +232,11 @@ const STATIONEN = P.slice(1, -1);
       const zweite = p >= S2 - 0.01;
       const x = zweite ? lx : a1.x;
       const y = zweite ? yy : a1.y;
-      const sicht = zweite ? clamp((p - S2 + 0.01) / 0.015) * (1 - clamp((p - ENDE2) / 0.03)) : 1 - clamp((p - ENDE1) / 0.02);
+      // Übergabe: Solange die Reise nicht begonnen hat, ist nur der Startpunkt im Hero zu sehen – sobald sie startet,
+      // übernimmt die reisende Anfrage (optisch EIN Brief); beim Hochscrollen umgekehrt.
+      const unterwegs = clamp(p / 0.008);
+      const sicht = zweite ? clamp((p - S2 + 0.01) / 0.015) * (1 - clamp((p - ENDE2) / 0.03)) : unterwegs * (1 - clamp((p - ENDE1) / 0.02));
+      if (startpunkt) startpunkt.style.opacity = String(1 - unterwegs);
       anfrage.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
       anfrage.style.opacity = String(sicht);
       anfrage.classList.toggle('anfrage--klar', zweite);
