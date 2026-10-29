@@ -4,9 +4,10 @@
 // Leitidee: eine durchgehende Linie – vom Chaos über Klarheit und Vertrauen bis zum Ziel.
 //   Hero (Hero.astro): Text + Weg-Illustration (graue Linie durch E-Mail … Freigabe, am Ende kurz türkis)
 //   Schritt 1 · Vorher → Dann kommt Waybuild (Wandel.astro): Chaos-Karten, Situationen, die Linie wird geordnet
-//   Schritt 2 · Verständnis (+ Illustration Schleife → Übergabe → Strecke → Ziel) · Selbstreflexion (Selbstcheck.astro)
-//   Schritt 3 · Orientierung · Schritt 4 · Vertrauen (Petrol) · Schritt 5 · Produkte ·
-//   Schritt 6 · Ziel + „Wer kümmert sich eigentlich?“ (FooterKontakt: Zielpunkt).
+//   Schritt 2 · Verständnis · Selbstreflexion (Selbstcheck.astro)
+//   Schritt 3 · Orientierung (drei Säulen Klarheit · Verlässlichkeit · Einfachheit + vier Grundsätze) ·
+//   Schritt 4 · Verlässlichkeit (Petrol; „Das dürfen Sie von uns erwarten“, Talk 3690) · Schritt 5 · Leichtigkeit ·
+//   Schritt 6 · Produkte · Schritt 7 · Ziel + „Wer kümmert sich eigentlich?“ (FooterKontakt: Zielpunkt).
 // 29.10.2026 (Jamil, Talk 3639–3654): eine durchgehende Linie ab dem Hero, Abschnitt „Einblicke“ und Verständnis-Bild
 // entfernt, keine Abzweigungen zu Überschriften/Texten, Kästchen leuchten bei Berührung, Menschen in Schritt 6.
 // Keine Preise, keine Telefonnummer, nichts erfunden.
@@ -20,6 +21,11 @@ import { href } from '../lib/paths';
 import Produkte from '../components/Produkte.astro';
 import HaltungBild from '../components/HaltungBild.astro';
 import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
+
+// Schritt 4 · Verlässlichkeit und Schritt 5 · Leichtigkeit – Texte aus Jamils Brief (Talk 3690), knapp gehalten.
+// „dokumentiert“ steht genau einmal in „Nichts geht verloren“ (Erwartungen), daher hier nicht doppelt.
+const ZUFALL = ['Jede Aufgabe hat einen Verantwortlichen.', 'Jeder Schritt ist nachvollziehbar.', 'Wichtige Anliegen werden als solche behandelt.'];
+const OHNE = ['kein Projektantrag', 'kein Formular', 'keine fünf Ansprechpartner', 'keine technische Fachsprache'];
 
 ---
 
@@ -50,38 +56,55 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
     </div>
   </section>
 
-  <!-- SCHRITT 3 · ORIENTIERUNG -->
+  <!-- SCHRITT 3 · ORIENTIERUNG: drei Säulen + vier Grundsätze -->
   <section class="kapitel kapitel--weiss" id="haltung" aria-labelledby="haltung-h">
     <div class="wrap">
-      <div class="pfad pfad--zickzack">
-        <div class="halt halt--l kopf" style="--zeile:1">
+      <div class="pfad">
+        <div class="halt halt--l kopf">
           <span class="schritt-kenn">Schritt 3 · Orientierung</span>
-          <h2 id="haltung-h">Es gibt <span class="accent">einen klaren Weg.</span></h2>
-          <p class="lead">Vier Grundsätze, nach denen wir arbeiten. Bei jedem Produkt, jedem Anliegen und jeder Veränderung.</p>
+          <h2 id="haltung-h">Klarheit. Verlässlichkeit. <span class="accent">Einfachheit.</span></h2>
         </div>
-        {HALTUNG.map((h, i) => (
-          <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'k', 'karte', 'leuchtet']} style={`--zeile:${i + 2}`}>
-            <span class="k__icon haltung__icon"><HaltungBild art={h.bild} /></span>
-            <div class="k__inhalt">
-              <h3>{h.titel}</h3>
-              <p>{h.text}</p>
+        <p class="halt halt--r halt--text lead kopf__text">Darauf baut alles auf, was wir tun. Dazu vier Grundsätze, nach denen wir arbeiten: bei jedem Produkt, jedem Anliegen und jeder Veränderung.</p>
+        <div class="pfad pfad--zickzack grundsaetze">
+          {HALTUNG.map((h, i) => (
+            <div class:list={['halt', i % 2 ? 'halt--l' : 'halt--r', 'k', 'karte', 'leuchtet']} style={`--zeile:${i + 1}`}>
+              <span class="k__icon haltung__icon"><HaltungBild art={h.bild} /></span>
+              <div class="k__inhalt">
+                <h3>{h.titel}</h3>
+                <p>{h.text}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SCHRITT 4 · VERTRAUEN (Petrol) -->
-  <section class="kapitel kapitel--dunkel" id="qualitaeten" aria-labelledby="qual-h">
+  <!-- SCHRITT 4 · VERLÄSSLICHKEIT (Petrol; Jamil, Talk 3690: „Nicht Vertrauen. Nicht Werte.“) -->
+  <section class="kapitel kapitel--dunkel" id="verlaesslichkeit" aria-labelledby="verl-h">
     <div class="wrap">
       <div class="pfad">
         <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 4 · Vertrauen</span>
-          <h2 id="qual-h">Weil Zusammenarbeit <span class="accent">leicht sein darf.</span></h2>
+          <span class="schritt-kenn">Schritt 4 · Verlässlichkeit</span>
+          <h2 id="verl-h">So sorgen wir dafür, dass Dinge <span class="accent">nicht liegenbleiben.</span></h2>
         </div>
-        <p class="halt halt--r halt--text lead kopf__text">Digitale Veränderungen brauchen Klarheit, Struktur und einen verlässlichen Partner. Daran lassen wir uns im Alltag messen.</p>
-        <ul class="pfad qual" aria-label="Unsere Zusagen">
+        <div class="halt halt--r halt--text schiefe">
+          <p class="schiefe__frage">Was passiert, wenn etwas schiefläuft?</p>
+          <p>Viele Unternehmen haben erlebt, dass Themen vergessen werden, Mitarbeiter wechseln und Wissen verloren geht. Deshalb haben wir dafür gesorgt, dass wir zuverlässig bleiben.</p>
+        </div>
+        <div class="halt halt--l k k--akzent zufall leuchtet">
+          <span class="k__icon" aria-hidden="true"><Icon name="layers" size={24} /></span>
+          <div class="k__inhalt">
+            <p class="zufall__vor">Warum funktioniert die Zusammenarbeit mit Waybuild anders?</p>
+            <h3>Wir verlassen uns nicht auf Zufall.</h3>
+            <p>Wenn Sie uns schreiben, beginnt ein klarer Ablauf:</p>
+            <ul class="zufall__liste">
+              {ZUFALL.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}
+            </ul>
+          </div>
+        </div>
+        <h3 class="halt halt--r halt--text erwarten">Das dürfen Sie von uns erwarten</h3>
+        <ul class="pfad qual" aria-label="Das dürfen Sie von uns erwarten">
           {QUALITAETEN.map((q, i) => (
             <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'k', 'qual__q', 'leuchtet']}>
               <span class="k__icon" aria-hidden="true"><Icon name={q.icon} size={24} /></span>
@@ -97,12 +120,40 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
     </div>
   </section>
 
+  <!-- SCHRITT 5 · LEICHTIGKEIT (Talk 3690: „Veränderung sollte sich nicht wie Arbeit anfühlen.“) -->
+  <section class="kapitel" id="leichtigkeit" aria-labelledby="leicht-h">
+    <div class="wrap">
+      <div class="pfad">
+        <div class="halt halt--l kopf">
+          <span class="schritt-kenn">Schritt 5 · Leichtigkeit</span>
+          <h2 id="leicht-h">Veränderung sollte sich nicht wie <span class="accent">Arbeit anfühlen.</span></h2>
+        </div>
+        <p class="halt halt--r halt--text lead kopf__text">Bei uns bekommen Sie vor allem eines: weniger Aufwand.</p>
+        <div class="halt halt--l k k--flaeche leicht leuchtet">
+          <div class="k__inhalt">
+            <h3>Wenn Sie etwas ändern möchten:</h3>
+            <ul class="leicht__nicht">
+              {OHNE.map((x) => <li><span class="leicht__x" aria-hidden="true"><Icon name="close" size={16} /></span> {x}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div class="halt halt--r k k--akzent leicht leicht--ja leuchtet">
+          <span class="k__icon" aria-hidden="true"><Icon name="check" size={24} /></span>
+          <div class="k__inhalt">
+            <h3>Einfach sagen, was Sie verändern möchten.</h3>
+            <p>Per Text, Screenshot, Video oder Sprachnachricht. Den Rest organisieren wir.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SCHRITT 5 · PRODUKTE -->
   <section class="kapitel kapitel--sand" id="produkte" aria-labelledby="produkte-h">
     <div class="wrap">
       <div class="pfad">
         <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 5 · Produkte</span>
+          <span class="schritt-kenn">Schritt 6 · Produkte</span>
           <h2 id="produkte-h">Eine Haltung. <span class="accent">Unterschiedliche Produkte.</span></h2>
         </div>
         <p class="halt halt--r halt--text lead kopf__text">Jedes Waybuild-Produkt löst ein konkretes Problem und besitzt einen eigenen Namen und Auftritt. Was alle Produkte verbindet, sind dieselben Werte, Zusagen und Arbeitsweisen.</p>
@@ -110,7 +161,7 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
       <Produkte />
     </div>
   </section>
-  <!-- SCHRITT 6 · ZIEL + Menschen hinter Waybuild: FooterKontakt (Petrol, die Linie erreicht den Zielpunkt; Jamil, Talk 3653) -->
+  <!-- SCHRITT 7 · ZIEL + Menschen hinter Waybuild: FooterKontakt (Petrol, die Linie erreicht den Zielpunkt; Jamil, Talk 3653) -->
 </BaseLayout>
 
 <script>
@@ -165,6 +216,29 @@ import { HALTUNG, QUALITAETEN } from '../config/hauptseite';
   .qual__q { --hy: 36px; }
   .qual__mehr { margin: 0; }
   @media (min-width: 960px) { .qual { grid-column: 1 / -1; } }
+
+  /* Orientierung */
+  .grundsaetze { margin-top: clamp(24px, 4vw, 48px); row-gap: 0; }
+  @media (min-width: 960px) { .grundsaetze { grid-column: 1 / -1; } }
+
+  /* Verlässlichkeit */
+  .schiefe p { margin: 0 0 10px; color: var(--dark-lead); line-height: 1.6; }
+  .schiefe__frage { font-family: var(--font-head); font-weight: 650; font-size: 1.2rem; color: var(--white) !important; }
+  .zufall__liste, .leicht__nicht { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .zufall { align-self: start; margin-top: clamp(16px, 3vw, 32px); }
+  .zufall__vor { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; color: var(--accent-light) !important; margin-bottom: 6px !important; }
+  .zufall .k__inhalt > p { margin-bottom: 10px; }
+  .zufall__liste li { display: flex; gap: 8px; align-items: center; color: var(--dark-lead); }
+  .zufall__liste :global(.icon) { color: var(--accent-light); flex: none; }
+  .erwarten { margin: 0; align-self: end; font-size: clamp(1.3rem, 2.4vw, 1.7rem); }
+  @media (min-width: 960px) { .erwarten { padding-top: 0 !important; } }
+  .qual { margin-top: 8px; }
+
+  /* Leichtigkeit */
+  .leicht { align-self: start; margin-top: clamp(16px, 3vw, 32px); }
+  .leicht__nicht li { display: flex; gap: 10px; align-items: center; color: var(--ink-soft); text-decoration: line-through; text-decoration-color: rgb(84 84 84 / 45%); }
+  .leicht__x { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgb(84 84 84 / 8%); color: #6f6a60; flex: none; }
+  .leicht h3 { margin-bottom: 10px; }
 
   /* Produkte */
   .kapitel--sand .pfad + :global(.pweg) { margin-top: clamp(48px, 6vw, 80px); }

@@ -145,6 +145,8 @@ export type Produkt = {
   punkte?: { icon: IconName; text: string; link?: string }[];
   /** Kurze Erklärung auf der Produktkarte der Startseite (nur belegte Aussagen) */
   erklaerung?: string;
+  /** Wie das Produkt die Säulen einlöst – nur Formulierungen aus Talk 3690 */
+  saeule?: string;
   /** Knopftext zur eigenen Produktseite (Talk 3636: „Produkt kennenlernen“ u. ä., nicht „Erstgespräch anfragen“) */
   cta?: string;
 };
@@ -158,7 +160,7 @@ export const PRODUKTE: Produkt[] = [
   // Punkte: Jamil, Talk 3543 („Änderungen per Sprachnachricht in Minuten … per Sprache, Text, Screenshot, kurzes Video …
   // sich selbst optimierende Websites … mit unserem Serviceversprechen“). „oft in wenigen Minuten“ = keine garantierte Frist
   // (passt zu SLA_KERN „Oft schon in Minuten erledigt“). Selbstoptimierung nach PAKETE „Intelligente Website“.
-  { id: 'website', art: 'produkt', name: 'TODO', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/', cta: 'Produkt kennenlernen',
+  { id: 'website', art: 'produkt', name: 'TODO', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/', cta: 'Produkt kennenlernen', saeule: 'Klarheit bei Ihrer Website',
     erklaerung: 'Änderungen schicken Sie per Sprachnachricht, Text, Screenshot oder kurzem Video. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.',
     frage: 'Warum Ihre Website mit uns?',
     punkte: [
@@ -171,9 +173,9 @@ export const PRODUKTE: Produkt[] = [
     ] },
   // Von Can als aktuelle Produkte festgelegt (28.10.2026, One-Pager): verfügbar, nur Zweck, keine Funktionsversprechen;
   // Namen neutral bis Jamil eigene nennt; ohne Produktseite → Knopf „Erstgespräch anfragen“.
-  { id: 'crm-handwerk', name: 'TODO', kategorie: 'Kundenverwaltung für Handwerksbetriebe', zweck: 'Ein CRM, gemacht für den Alltag im Handwerk.', icon: 'tools', aktiv: true, art: 'produkt' },
+  { id: 'crm-handwerk', saeule: 'Mehr Ordnung im Alltag', name: 'TODO', kategorie: 'Kundenverwaltung für Handwerksbetriebe', zweck: 'Ein CRM, gemacht für den Alltag im Handwerk.', icon: 'tools', aktiv: true, art: 'produkt' },
   { id: 'apps', name: 'TODO', kategorie: 'Apps für App Store und Google Play', zweck: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', icon: 'smartphone', aktiv: true, art: 'produkt' },
-  { id: 'crm-azav', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: true, art: 'produkt' },
+  { id: 'crm-azav', saeule: 'Mehr Ordnung im Alltag', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: true, art: 'produkt' },
   { id: 'software', art: 'bereich', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
   { id: 'cloud', art: 'bereich', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
   { id: 'workplace', art: 'bereich', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
@@ -207,12 +209,23 @@ export const UEBER = {
  *  Quellen: Strategiebriefing 3401 (Klarheit, Struktur, Verständnis, gute Kommunikation, zuverlässiger Partner),
  *  3395 (Leichtigkeit, Serviceversprechen, Mehrwert je Service), PROZESSE/WERTE. „Verlässlichkeit“ statt
  *  „Ein verlässlicher Partner“ (Talk 3583). Details der Zusagen nur auf /zusagen/. */
-/** Ab 28.10.2026 als überprüfbare Zusagen formuliert – wörtlich aus Jamils kompaktem Design-Briefing (Talk 3636). */
+/** „Das dürfen Sie von uns erwarten“ (Jamil, Talk 3690, 29.10.2026) – verschmolzen mit den bisherigen Zusagen aus Talk 3636:
+ *  Klarheit → „Sie wissen jederzeit, woran Sie sind“, Struktur → „Nichts geht verloren“, Gute Kommunikation → „fester Ansprechpartner“,
+ *  Verlässlichkeit → „Sie erhalten eine Antwort“, neu „Probleme bleiben nicht liegen“ (statt „Eskalationswege“ in Menschensprache, Talk 3690),
+ *  „Echter Mehrwert“ bleibt; „Verständnis“ (keine Fachsprache) steckt jetzt in „Leichtigkeit“.
+ *  „Spätestens am nächsten Werktag“ und „automatisch weitergegeben“: von Jamil bestätigt (29.10.2026, Talk 3694). */
 export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Klarheit', text: 'Sie wissen jederzeit, wer zuständig ist und was als Nächstes passiert.', icon: 'eye' },
-  { titel: 'Struktur', text: 'Jedes Anliegen folgt einem nachvollziehbaren Ablauf.', icon: 'layers' },
-  { titel: 'Verständnis', text: 'Wir erklären Entscheidungen ohne unnötige Fachsprache.', icon: 'users' },
-  { titel: 'Gute Kommunikation', text: 'Sie haben einen festen Ansprechpartner, der Ihr Unternehmen kennt.', icon: 'chat' },
-  { titel: 'Verlässlichkeit', text: 'Wir antworten spätestens am nächsten Werktag und nennen den nächsten konkreten Schritt.', icon: 'shield' },
+  { titel: 'Sie erhalten eine Antwort', text: 'Spätestens am nächsten Werktag wissen Sie, wer sich um Ihr Anliegen kümmert und was der nächste Schritt ist.', icon: 'clock' },
+  { titel: 'Sie haben einen festen Ansprechpartner', text: 'Sie müssen Ihre Situation nicht bei jeder Anfrage neu erklären.', icon: 'user' },
+  { titel: 'Nichts geht verloren', text: 'Jedes Anliegen wird dokumentiert und verfolgt, bis es abgeschlossen ist.', icon: 'doc' },
+  { titel: 'Probleme bleiben nicht liegen', text: 'Wenn etwas feststeckt oder eine Antwort ausbleibt, wird das Thema automatisch weitergegeben.', icon: 'refresh' },
+  { titel: 'Sie wissen jederzeit, woran Sie sind', text: 'Keine Überraschungen. Keine Funkstille.', icon: 'eye' },
   { titel: 'Echter Mehrwert', text: 'Was wir umsetzen, soll Zeit sparen, Abläufe erleichtern oder ein konkretes Problem lösen.', icon: 'spark' },
+];
+
+/** Drei Säulen der Marke (Jamil, Talk 3690): Klarheit · Verlässlichkeit · Einfachheit – Texte aus dem Brief, gekürzt. */
+export const SAEULEN: { titel: string; text: string }[] = [
+  { titel: 'Klarheit', text: 'Sie wissen jederzeit, wer zuständig ist, was passiert und wie der aktuelle Stand ist.' },
+  { titel: 'Verlässlichkeit', text: 'Anliegen verschwinden nicht. Absprachen gelten. Antworten kommen.' },
+  { titel: 'Einfachheit', text: 'Veränderungen sollen leicht sein. Nicht bürokratisch, nicht technisch, nicht kompliziert.' },
 ];

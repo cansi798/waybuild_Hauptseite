@@ -21,7 +21,7 @@ const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: t
         <div class="produkt__kopf">
           <span class="k__icon" aria-hidden="true"><Icon name={p.icon} size={24} /></span>
           <div>
-            <span class="produkt__status">Verfügbar</span>
+            <span class="produkt__status">Verfügbar{p.saeule && <span class="produkt__saeule"> · {p.saeule}</span>}</span>
             <h3>{produktName(p)}</h3>
           </div>
         </div>
@@ -54,6 +54,7 @@ const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: t
   .produkt__kopf { display: flex; gap: var(--k-gap); align-items: center; }
   .produkt__status { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
   .produkt h3 { margin: 2px 0 0; }
+  .produkt__saeule { text-transform: none; letter-spacing: 0; font-weight: 650; color: var(--ink-soft); }
   .produkt--gross h3 { font-size: clamp(1.3rem, 2.4vw, 1.6rem); }
   .produkt__nutzen { margin: 0; color: var(--ink) !important; font-weight: 600; }
   .produkt__folgt { font-size: 0.92rem; color: #6f6a60 !important; }

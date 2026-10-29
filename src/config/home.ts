@@ -7,6 +7,7 @@ export const FOOTER_KONTAKT = {
   pre: 'Was möchten Sie ',
   accent: 'verändern?',
   // Text und Hinweise wörtlich aus Jamils kompaktem Design-Briefing (Talk 3636); belegt: Erstgespräch kostenlos/unverbindlich (site.ts steps), Antwort nächster Werktag (SLA_KERN)
-  text: 'Erzählen Sie uns, was heute unnötig kompliziert ist oder welche Idee endlich umgesetzt werden soll. Das Erstgespräch ist kostenlos und unverbindlich. Wir melden uns spätestens am nächsten Werktag.',
+  // „kostenlos, unverbindlich, Antwort nächster Werktag“ stehen als Hinweise darunter – im Text nicht doppelt (Talk 3694)
+  text: 'Erzählen Sie uns, was heute unnötig kompliziert ist oder welche Idee endlich umgesetzt werden soll.',
   hinweise: ['kostenlos', 'unverbindlich', 'Antwort spätestens am nächsten Werktag', 'kein Verkaufsgespräch mit Druck'],
 };

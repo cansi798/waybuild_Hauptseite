@@ -26,11 +26,13 @@ const LAGEN = [
   'Jede Anpassung wird zu einem eigenen Projekt.',
   'Rückfragen kosten mehr Zeit als die eigentliche Änderung.',
 ];
+// Nur noch die Titel als gerader Ablauf (Abgleich auf Wiederholungen, Jamil Talk 3694): die Erklärungen stehen genau
+// einmal ausführlich in Schritt 4 (Verlässlichkeit) und Schritt 5 (Leichtigkeit).
 const SCHRITTE = [
-  { titel: 'Eine Nachricht genügt.', text: 'Text, Screenshot, Video oder Sprachnachricht.' },
-  { titel: 'Ein fester Ansprechpartner.', text: 'Keine Weiterleitung zwischen unterschiedlichen Zuständigkeiten.' },
-  { titel: 'Ein klarer Ablauf.', text: 'Sie kennen jederzeit den nächsten Schritt.' },
-  { titel: 'Verlässlich umgesetzt.', text: 'Sie erhalten eine klare Rückmeldung und ein nachvollziehbares Ergebnis.' },
+  { titel: 'Eine Nachricht genügt.' },
+  { titel: 'Ein fester Ansprechpartner.' },
+  { titel: 'Ein klarer Ablauf.' },
+  { titel: 'Verlässlich umgesetzt.' },
 ];
 
 // Unruhige Linie: Stützpunkte (x 0…1 = Linie…rechter Rand, y 0…1 = oben…unten), 17 kubische Abschnitte (Catmull-Rom).
@@ -53,7 +55,6 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
       <div class="wtext wtext--b">
         <span class="schritt-kenn">Dann kommt Waybuild</span>
         <h2>Schritt für Schritt entsteht Ordnung.</h2>
-        <p class="kern">Keine Projekte für jede Kleinigkeit. Keine Weiterleitungen ohne Ende. Sagen Sie einfach, was Sie verändern möchten.</p>
       </div>
     </div>
 
@@ -87,7 +88,6 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
                 <span class="k__nr" aria-hidden="true">{i + 1}</span>
                 <div class="k__inhalt">
                   <h3 class="schritt__titel">{s.titel}</h3>
-                  <p>{s.text}</p>
                 </div>
               </li>
             ))}
@@ -235,7 +235,6 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
   .wtext .lead { margin: 0 0 22px; max-width: 46ch; }
   .lagen { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
   .lage { --k-pad: 12px 16px; display: block; font-weight: 500; line-height: 1.45; color: #4a4741; }
-  .kern { margin: 0; font-family: var(--font-head); font-weight: 650; font-size: clamp(1.15rem, 2vw, 1.45rem); line-height: 1.4; color: var(--accent-ink); max-width: 30ch; }
 
   /* Arbeitsfläche */
   .tafel { --linie-x: 14px; position: relative; display: grid; gap: 28px; padding-bottom: 8px; }
@@ -268,7 +267,8 @@ const KNOTEN = 'M 0 0' + K.map((k) => ` C ${k.map((v, j) => Math.round(v * (j % 
   .schritt { --k-pad: 14px 16px; }
   .schritt::before { content: ''; position: absolute; left: -30px; top: 50%; width: 30px; height: 3px; margin-top: -1.5px; background: var(--accent); }
   .schritt::after { content: ''; position: absolute; left: -37px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent); box-sizing: border-box; }
-  .schritt .schritt__titel { margin-top: 3px; }
+  .schritt { align-items: center; }
+  .schritt .schritt__titel { margin: 0; font-size: 1.15rem; }
 
   /* Handy: Text A vor der Bühne, Text B (Kernbotschaft) danach */
   @media (max-width: 959px) {
