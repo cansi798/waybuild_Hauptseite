@@ -1,6 +1,6 @@
 # Waybuild UG (haftungsbeschränkt)
 
-> Wir machen Veränderungen einfach. Wir entwickeln digitale Produkte und Lösungen, die Veränderungen verständlich, verlässlich und einfach machen.
+> Wir machen Veränderungen einfach. Von der ersten Idee bis zur erfolgreichen Umsetzung. Wir helfen Unternehmen dabei, Veränderungen zu verstehen, sinnvoll zu gestalten und zuverlässig umzusetzen.
 
 Kurz gesagt: Waybuild ist ein IT-Dienstleister aus Norderstedt für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
@@ -14,17 +14,34 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Keine Überraschungen auf der Rechnung. Extras nur nach schriftlicher Absprache.
 - Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr (ohne gesetzliche Feiertage).
 
-## Drei Säulen
-- Klarheit: Sie wissen jederzeit, wer zuständig ist, was passiert und wie der aktuelle Stand ist.
-- Verlässlichkeit: Anliegen verschwinden nicht. Absprachen gelten. Antworten kommen.
-- Einfachheit: Veränderungen sollen leicht sein. Nicht bürokratisch, nicht technisch, nicht kompliziert.
+## Die Waybuild-Denkweise
+Kein Projektablauf, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
+1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
+2. Verstehen: Bevor wir etwas verändern, möchten wir es verstehen. Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen: wie Ihr Unternehmen arbeitet, welche Ziele wichtig sind, wie Entscheidungen entstehen, wo Reibung entsteht. Denn nicht jede Herausforderung benötigt eine neue Lösung.
+3. Hinterfragen: Wir setzen nicht einfach um. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Abläufe.
+4. Vereinfachen: Aus Verständnis entsteht Orientierung. Wenn die eigentliche Ursache verstanden wurde, wird der Weg klarer. Nicht komplizierter. Unser Ziel ist nicht mehr Technologie. Unser Ziel ist weniger Reibung.
+5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist nicht die Technologie. Entscheidend ist, dass sie zum Ziel passt.
+6. Verbessern: Veränderung hört nicht bei der Umsetzung auf. Feedback, Lernen, Optimieren, Weiterentwickeln.
 
-## So beginnt die Zusammenarbeit
-1. Lockeres Gespräch: Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.
-2. Unternehmens-DNA: Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.
-3. Analyse & Vorschlag: Daraus entsteht unser Vorschlag, so einfach wie möglich.
-4. Planung: Gemeinsam legen wir fest, was wann passiert.
-5. Umsetzung: Wir setzen um, Sie prüfen und geben frei.
+## Bereiche
+- Website Service
+- Software Service (z. B. Kundenverwaltungen, Apps)
+- Workplace Service (auf Anfrage)
+- Cloud Service (auf Anfrage)
+- Process Service (auf Anfrage)
+
+## Verlässlichkeit: Veränderung darf nicht vom Zufall abhängen.
+- Klare Ansprechpartner: Sie wissen, wer sich kümmert.
+- Verlässliche Rückmeldungen: Sie wissen, wie es weitergeht. Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag der nächste Schritt.
+- Nachvollziehbare Abläufe: Nichts geht verloren.
+- Verständliche Kommunikation: Klare Sprache statt Fachbegriffe.
+- Verantwortung: Offene Themen bleiben sichtbar.
+- Kontinuierliche Verbesserung: Veränderungen entwickeln sich weiter.
+
+## Drei Prinzipien: Klarheit. Verlässlichkeit. Einfachheit.
+- Klarheit: Sie wissen jederzeit, woran Sie sind.
+- Verlässlichkeit: Zusagen gelten. Verantwortung ist klar.
+- Einfachheit: Veränderungen sollen leichter werden, nicht komplizierter.
 
 ## Das dürfen Sie von uns erwarten
 - Sie erhalten eine Antwort: Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung. Spätestens am nächsten Werktag wissen Sie, wer sich kümmert und was der nächste Schritt ist.
@@ -39,10 +56,10 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Kundenverwaltung für Handwerksbetriebe, verfügbar: Ein CRM, gemacht für den Alltag im Handwerk. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
-- Software Service: bald verfügbar.
-- Cloud Service: bald verfügbar.
-- Workplace Service: bald verfügbar.
-- Process Service: bald verfügbar.
+- Software Service: einzelne Projekte auf Anfrage.
+- Cloud Service: einzelne Projekte auf Anfrage.
+- Workplace Service: einzelne Projekte auf Anfrage.
+- Process Service: einzelne Projekte auf Anfrage.
 
 ## Website Service (erstes Produkt)
 Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
