@@ -1,0 +1,16 @@
+---
+// Finale: Die Linie erreicht ihren Endpunkt, ein Kreis entsteht und füllt sich, darin „Fortschritt“.
+// Danach färbt sich die ganze Linie leicht türkis (Klasse dw--fertig am Wurzel-Element, gesetzt vom Skript).
+import { DW_ABSCHLUSS as T } from '../../config/denkweise';
+const W = 260, H = 260, CX = 130, CY = 140, R = 96;
+---
+<div class="dw-bild dw-bild--klein" data-szene data-szene-ende style={`aspect-ratio: ${W} / ${H}`}>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    <circle class="dw-fuell" cx={CX} cy={CY} r={R - 4} data-an="wachsen:0.38-0.72" />
+    <path class="dw-s dw-s--stark" pathLength="1" d={`M ${CX} ${CY - R} A ${R} ${R} 0 0 1 ${CX} ${CY + R} A ${R} ${R} 0 0 1 ${CX} ${CY - R}`} data-an="zeichnen:0-0.4" />
+  </svg>
+  <span class="dw-anker" style={`left:50%;top:${(((CY - R) / H) * 100).toFixed(2)}%`} data-weg="ein"></span>
+  <span class="dw-pos" style={`left:50%;top:${((CY / H) * 100).toFixed(2)}%`}>
+    <span class="dw-mitte dw-mitte--gross" data-an="auf:0.6-0.8">{T.kreis}</span>
+  </span>
+</div>

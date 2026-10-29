@@ -1,0 +1,28 @@
+---
+// Szene „Verbessern“: Die Linie endet nicht. Sie bildet einen großen Kreis (Feedback → Lernen → Optimieren →
+// Weiterentwickeln), verlässt ihn wieder und läuft weiter. Gezeichnet linear, damit die Begriffe mit der Linie kommen.
+import { DW_VERBESSERN as T } from '../../config/denkweise';
+const W = 440, H = 440, CX = 220, CY = 210, R = 120;
+const D = `M 220 0 C 220 80, 85 110, ${CX - R} ${CY} A ${R} ${R} 0 0 0 ${CX + R} ${CY} A ${R} ${R} 0 0 0 ${CX - R} ${CY} C ${CX - R} 300, 220 360, 220 ${H}`;
+// Lage auf dem Weg (Anteil der Länge): links 0.2 → unten 0.35 → rechts 0.5 → oben 0.65 → links 0.8
+const A = 0.05, B = 0.92, auf = (f: number) => { const p = A + f * (B - A); return `${(p - 0.02).toFixed(3)}-${(p + 0.06).toFixed(3)}`; };
+const punkte = [
+  { t: T.kreis[0], x: CX, y: CY + R, f: 0.35 },
+  { t: T.kreis[1], x: CX + R, y: CY, f: 0.5 },
+  { t: T.kreis[2], x: CX, y: CY - R, f: 0.65 },
+  { t: T.kreis[3], x: CX - R, y: CY, f: 0.78 },
+];
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+---
+<div class="dw-bild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    <path class="dw-s" pathLength="1" d={D} data-an={`linear:${A}-${B}`} />
+  </svg>
+  <span class="dw-anker" style="left:50%;top:0%" data-weg="ein"></span>
+  <span class="dw-anker" style="left:50%;top:100%" data-weg="aus"></span>
+  {punkte.map((p) => (
+    <span class="dw-pos" style={`left:${pc(p.x, W)};top:${pc(p.y, H)}`}>
+      <span class="dw-chip dw-chip--auf-linie" data-an={`auf:${auf(p.f)}`}>{p.t}</span>
+    </span>
+  ))}
+</div>

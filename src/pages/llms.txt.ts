@@ -3,7 +3,8 @@
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
-import { HERO, SLA_KERN, SLA_HINWEIS, ZUSAGEN, START_ABLAUF, QUALITAETEN, SAEULEN, PRODUKTE, produktName } from '../config/hauptseite';
+import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
+import { DW_HERO, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN } from '../config/denkweise';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -18,7 +19,7 @@ export const GET: APIRoute = ({ site }) => {
   const lines = [
     `# ${company.legalName}`,
     '',
-    `> ${HERO.pre.trim()} ${HERO.accent} ${HERO.lead}`,
+    `> ${DW_HERO.titel} ${DW_HERO.lead}`,
     '',
     `Kurz gesagt: ${company.name} ist ein IT-Dienstleister${adresse.length ? ` aus ${company.city}` : ''} für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
     '',
@@ -30,11 +31,23 @@ export const GET: APIRoute = ({ site }) => {
     ...ZUSAGEN.map((z) => `- ${z.title}. ${z.text}`),
     `- ${SLA_HINWEIS}`,
     '',
-    '## Drei Säulen',
-    ...SAEULEN.map((x) => `- ${x.titel}: ${x.text}`),
+    '## Die Waybuild-Denkweise',
+    'Kein Projektablauf, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.',
+    `1. Idee: ${DW_IDEE.titel} ${DW_IDEE.schluss}`,
+    `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.punkte.join(', ')}. ${DW_VERSTEHEN.schluss}`,
+    `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,
+    `4. Vereinfachen: ${DW_VEREINFACHEN.titel} ${DW_VEREINFACHEN.zeilen.join(' ')} ${DW_VEREINFACHEN.ziel.join(' ')}`,
+    `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')}`,
+    `6. Verbessern: ${DW_VERBESSERN.titel} ${DW_VERBESSERN.kreis.join(', ')}.`,
     '',
-    '## So beginnt die Zusammenarbeit',
-    ...START_ABLAUF.map((h, i) => `${i + 1}. ${h.titel}: ${h.text}`),
+    '## Bereiche',
+    ...DW_UMSETZEN.bereiche.map((b) => `- ${b.name}${b.hinweis ? ` (${b.hinweis})` : ''}`),
+    '',
+    `## Verlässlichkeit: ${DW_VERLAESSLICH.titel}`,
+    ...DW_VERLAESSLICH.pfeiler.map((p) => `- ${p.titel}: ${p.text}${p.zusatz ? ` ${p.zusatz}` : ''}`),
+    '',
+    `## Drei Prinzipien: ${DW_PRINZIPIEN.titel}`,
+    ...DW_PRINZIPIEN.liste.map((p) => `- ${p.wort}: ${p.text}`),
     '',
     '## Das dürfen Sie von uns erwarten',
     ...QUALITAETEN.map((q) => `- ${q.titel}: ${q.text}`),
@@ -42,7 +55,7 @@ export const GET: APIRoute = ({ site }) => {
     '## Produkte',
     ...PRODUKTE.map((p) => p.aktiv
       ? `- ${produktName(p)}${produktName(p) === p.kategorie ? '' : ` (${p.kategorie})`}, verfügbar: ` + [p.nutzen ?? p.zweck ?? '', ...(p.punkte ?? []).map((x) => x.text), p.url || p.pfad ? `Seite: ${p.url || url(p.pfad!)}` : `Anfrage: ${url('/kontakt/')}`].filter(Boolean).join(' ')
-      : `- ${produktName(p)}: bald verfügbar.`),
+      : `- ${produktName(p)}: einzelne Projekte auf Anfrage.`),
     '',
     `## ${websiteName} (erstes Produkt)`,
     `${WAAS.claim}`,

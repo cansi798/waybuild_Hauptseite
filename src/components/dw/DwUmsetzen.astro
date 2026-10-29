@@ -1,0 +1,32 @@
+---
+// Szene „Umsetzen“: Die Hauptlinie läuft weiter; aus ihr entstehen kleinere Abzweigungen zu den fünf Bereichen.
+// Nicht dominant, nur als Ergebnis – alle bleiben sichtbar an die Hauptlinie angeschlossen.
+import Icon from '../Icon.astro';
+import { DW_UMSETZEN as T } from '../../config/denkweise';
+const W = 440, H = 460, X = 88, IX = 210;
+const b = T.bereiche.map((x, k) => {
+  const y = 58 + k * 88;
+  return { ...x, k, y, d: `M ${X} ${y - 36} C ${X} ${y - 8}, ${X + 34} ${y}, ${X + 70} ${y} L ${IX - 22} ${y}` };
+});
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+---
+<div class="dw-bild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    {b.map((x) => <path class={`dw-s dw-s--fein${x.hervor ? ' dw-s--akzent' : ''}`} pathLength="1" d={x.d} data-an={`zeichnen:${(0.08 + x.k * 0.15).toFixed(2)}-${(0.2 + x.k * 0.15).toFixed(2)}`} />)}
+  </svg>
+  <span class="dw-anker" style={`left:${pc(X, W)};top:0%`} data-weg></span>
+  <span class="dw-anker" style={`left:${pc(X, W)};top:100%`} data-weg></span>
+  {b.map((x) => (
+    <>
+      <span class="dw-pos" style={`left:${pc(IX, W)};top:${pc(x.y, H)}`}>
+        <span class:list={['dw-icon', { 'dw-icon--hervor': x.hervor }]} data-an={`erscheinen:${(0.16 + x.k * 0.15).toFixed(2)}-${(0.24 + x.k * 0.15).toFixed(2)}`}><Icon name={x.icon} size={20} /></span>
+      </span>
+      <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(IX, W)} + 30px);top:${pc(x.y, H)}`}>
+        <span class="dw-bereich" data-an={`auf:${(0.18 + x.k * 0.15).toFixed(2)}-${(0.28 + x.k * 0.15).toFixed(2)}`}>
+          <span class="dw-bereich__name">{x.name}</span>
+          {x.hinweis && <span class="dw-bereich__hinweis">{x.hinweis}</span>}
+        </span>
+      </span>
+    </>
+  ))}
+</div>

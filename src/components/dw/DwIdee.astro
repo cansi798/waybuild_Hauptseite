@@ -1,0 +1,25 @@
+---
+// Szene „Idee“: kleine Impulse kommen aus verschiedenen Richtungen, fließen zur Hauptlinie und verschmelzen dort
+// (Knoten auf der Linie). Die Begriffe bleiben gut lesbar (Kontrast), nur die Linien fließen zusammen.
+import { DW_IDEE } from '../../config/denkweise';
+const W = 440, H = 400, MX = 220, MY = 232;
+const impulse = DW_IDEE.impulse.map((i, k) => {
+  const sx = (i.x / 100) * W, sy = (i.y / 100) * H;
+  const c2y = MY + (sy < MY ? -46 : 46);
+  return { ...i, k, d: `M ${sx} ${sy} C ${sx} ${(sy + MY) / 2}, ${MX + (sx - MX) * 0.18} ${c2y}, ${MX} ${MY}` };
+});
+---
+<div class="dw-bild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    {impulse.map((i) => <path class="dw-s dw-s--fein" pathLength="1" d={i.d} data-an={`zeichnen:${(0.3 + i.k * 0.035).toFixed(3)}-${(0.62 + i.k * 0.035).toFixed(3)}`} />)}
+    <circle class="dw-knoten" cx={MX} cy={MY} r="7" data-an="erscheinen:0.66-0.8" />
+  </svg>
+  <span class="dw-anker" style="left:50%;top:0%" data-weg></span>
+  <span class="dw-anker" style={`left:50%;top:${(MY / H) * 100}%`} data-weg></span>
+  <span class="dw-anker" style="left:50%;top:100%" data-weg></span>
+  {impulse.map((i) => (
+    <span class="dw-pos" style={`left:${i.x}%;top:${i.y}%`}>
+      <span class="dw-chip" data-an={`auf:${(0.02 + i.k * 0.045).toFixed(3)}-${(0.16 + i.k * 0.045).toFixed(3)}`}>{i.text}</span>
+    </span>
+  ))}
+</div>

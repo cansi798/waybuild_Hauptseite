@@ -23,7 +23,7 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
     <nav aria-label="Produkte">
       <h2 class="footer__h">Produkte</h2>
       <ul>
-        {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/#produkte')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
+        {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/#umsetzen')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
         {/* Kommende Produkte als Satz statt interner Kategorien (Talk 3636) */}
         <li><span class="footer__soon">Weitere Produkte entstehen</span></li>
       </ul>
@@ -31,7 +31,7 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
     <div>
       <h2 class="footer__h">Waybuild</h2>
       <ul>
-        <li><a href={href('/#haltung')}>Unsere Haltung</a></li>
+        <li><a href={href('/#denkweise')}>Unsere Denkweise</a></li>
         <li><a href={href('/#verlaesslichkeit')}>Verlässlichkeit</a></li>
         <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
         <li><a href={href('/zusagen/#ticketsystem')}>So läuft eine Anfrage</a></li>

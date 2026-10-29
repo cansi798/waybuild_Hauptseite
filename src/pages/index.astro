@@ -1,309 +1,243 @@
 ---
-// Startseite der Dachmarke Waybuild – Aufbau GENAU nach Jamils kompaktem Design- und Strukturbriefing (Talk 3636,
-// 28.10.2026; hat Vorrang vor früheren Briefings). Texte wörtlich, wo das Briefing sie vorgibt.
-// Leitidee: eine durchgehende Linie – vom Chaos über Klarheit und Vertrauen bis zum Ziel.
-//   Hero (Hero.astro): Text + Weg-Illustration (graue Linie durch E-Mail … Freigabe, am Ende kurz türkis)
-//   Schritt 1 · Vorher → Dann kommt Waybuild (Wandel.astro): Chaos-Karten, Situationen, die Linie wird geordnet
-//   Schritt 2 · Verständnis · Selbstreflexion (Selbstcheck.astro)
-//   Schritt 3 · Orientierung (drei Säulen + „So beginnt die Zusammenarbeit“, fünf Schritte) ·
-//   Schritt 4 · Verlässlichkeit (Petrol; „Das dürfen Sie von uns erwarten“, Talk 3690) · Schritt 5 · Leichtigkeit ·
-//   Schritt 6 · Produkte · Schritt 7 · Ziel + „Wer kümmert sich eigentlich?“ (FooterKontakt: Zielpunkt).
-// 29.10.2026 (Jamil, Talk 3639–3654): eine durchgehende Linie ab dem Hero, Abschnitt „Einblicke“ und Verständnis-Bild
-// entfernt, keine Abzweigungen zu Überschriften/Texten, Kästchen leuchten bei Berührung, Menschen in Schritt 6.
-// Keine Preise, keine Telefonnummer, nichts erfunden.
-// Frühere Fassungen: Git-Historie (bec9a95 Storytelling, ffa6292 davor).
+// Startseite „Denkweise“ nach Jamils neuem Konzept (Talk 3798/3799, 30.10.2026) – ab jetzt maßgeblich.
+// Die Linie zeigt keinen Projektablauf und keinen Website-Prozess, sondern die Waybuild-Denkweise:
+// Idee → Verstehen → Hinterfragen → Vereinfachen → Umsetzen → Verbessern. Produkte sind mögliche Ergebnisse.
+// Danach Verlässlichkeit (sechs Pfeiler docken an), die drei Prinzipien AUF der Linie und der Abschluss mit dem
+// Kreis „Fortschritt“; dann wird die ganze Linie türkis. Eine einzige SVG-Linie über die ganze Geschichte
+// (src/scripts/denkweise.ts), Bildszenen in src/components/dw/.
+// Vorherige Fassung (Anfrage-Reise, Selbstcheck, Zusammenarbeit): Git-Tag startseite-v3-anfragereise-20261030;
+// die Komponenten liegen weiter in src/components/story/ (Jamil-Frage c, Talk 3800: bleiben sie?).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/story/Hero.astro';
-import Wandel from '../components/story/Wandel.astro';
-import Selbstcheck from '../components/story/Selbstcheck.astro';
-import AblaufBild from '../components/story/AblaufBild.astro';
 import Icon from '../components/Icon.astro';
+import DwIdee from '../components/dw/DwIdee.astro';
+import DwVerstehen from '../components/dw/DwVerstehen.astro';
+import DwHinterfragen from '../components/dw/DwHinterfragen.astro';
+import DwVereinfachen from '../components/dw/DwVereinfachen.astro';
+import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
+import DwVerbessern from '../components/dw/DwVerbessern.astro';
+import DwFortschritt from '../components/dw/DwFortschritt.astro';
 import { href } from '../lib/paths';
-import Produkte from '../components/Produkte.astro';
-import { START_ABLAUF, QUALITAETEN } from '../config/hauptseite';
+import {
+  DW_HERO, DW_REISE, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN,
+  DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS,
+} from '../config/denkweise';
+import '../styles/denkweise.css';
 
-// Schritt 4 · Verlässlichkeit und Schritt 5 · Leichtigkeit – Texte aus Jamils Brief (Talk 3690), knapp gehalten.
-// „dokumentiert“ steht genau einmal in „Nichts geht verloren“ (Erwartungen), daher hier nicht doppelt.
-const ZUFALL = ['Jede Aufgabe hat einen Verantwortlichen.', 'Jeder Schritt ist nachvollziehbar.', 'Wichtige Anliegen werden als solche behandelt.'];
-const OHNE = ['kein Projektantrag', 'kein Formular', 'keine fünf Ansprechpartner', 'keine technische Fachsprache'];
-
+const K = DW_UMSETZEN.karte;
+// Handy-Wegpunkte: links neben jedem Textblock (die Linie läuft am Rand, Texte sind eingerückt)
 ---
 
 <BaseLayout
   title="Website-Service und digitale Produkte"
-  description="Digitale Produkte für Unternehmen. Bei Waybuild haben Sie einen festen Ansprechpartner und während der Servicezeiten in einer Stunde eine erste Antwort."
-  rueckgrat
+  description="Waybuild hilft Unternehmen, Veränderungen zu verstehen, sinnvoll zu gestalten und zuverlässig umzusetzen. Mit festem Ansprechpartner und klaren Zusagen."
+  hideFooterKontakt
 >
-  <Hero />
+  <div class="dw" data-denkweise>
+    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
 
-  <!-- SCHRITT 1 · VORHER → DANN KOMMT WAYBUILD -->
-  <Wandel />
-
-  <!-- SCHRITT 2 · VERSTÄNDNIS + SELBSTREFLEXION -->
-  <section class="kapitel kapitel--anschluss" id="unternehmen" aria-labelledby="weg-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 2 · Verständnis</span>
-          <h2 id="weg-h" class="plakat">Nicht die Technik macht Veränderungen schwer. <span class="accent">Sondern der Weg dorthin.</span></h2>
+    <!-- 1 · HERO -->
+    <section class="dw-abschnitt dw-hero" aria-labelledby="dw-h1">
+      <div class="wrap dw-raster dw-raster--hero">
+        <div class="dw-hero__text">
+          <h1 id="dw-h1">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
+          <p class="dw-hero__lead">{DW_HERO.lead}</p>
+          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
         </div>
-        <div class="halt halt--r halt--text entstehung">
-          <p class="lead">Waybuild ist aus einer einfachen Beobachtung entstanden: Kleine Veränderungen führen häufig zu vielen Nachrichten, unklaren Zuständigkeiten und langen Wartezeiten.</p>
-          <p class="lead">Deshalb fragen wir zuerst: Was möchten Sie erreichen? Anschließend suchen wir den einfachsten und sinnvollsten Weg dorthin.</p>
-        </div>
-      </div>
-      <Selbstcheck />
-    </div>
-  </section>
-
-  <!-- SCHRITT 3 · ORIENTIERUNG: drei Säulen + „So beginnt die Zusammenarbeit“ (Jamil, Talk 3725) -->
-  <section class="kapitel kapitel--weiss" id="haltung" aria-labelledby="haltung-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 3 · Orientierung</span>
-          <h2 id="haltung-h">Klarheit. Verlässlichkeit. <span class="accent">Einfachheit.</span></h2>
-        </div>
-        <p class="halt halt--r halt--text lead kopf__text">Darauf baut alles auf, was wir tun, vom ersten Gespräch an.</p>
-        <div class="halt halt--voll halt--still ablauf-buehne" data-ablauf>
-          <h3 class="ablauf__titel" id="ablauf-h">So beginnt die Zusammenarbeit</h3>
-          <svg class="ablauf__linie" aria-hidden="true" focusable="false"><path /></svg>
-          <ol class="pfad ablauf" aria-labelledby="ablauf-h">
-          {START_ABLAUF.map((a, i) => (
-            <li class="halt halt--r k ablauf__schritt leuchtet">
-              <span class="ablauf__kopf"><span class="k__nr" aria-hidden="true">{i + 1}</span><span class="k__icon ablauf__bild"><AblaufBild art={a.bild} /></span></span>
-              <div class="k__inhalt">
-                <h4 class="k__titel">{a.titel}</h4>
-                <p>{a.text}</p>
-              </div>
-            </li>
-          ))}
+        <div class="dw-start" data-szene>
+          <span class="dw-idee"><span class="dw-idee__kreis" data-weg="start"><Icon name="idee" size={24} /></span><span class="dw-idee__wort">Idee</span></span>
+          <ol class="dw-reise" aria-label="Die Waybuild-Denkweise">
+            {DW_REISE.map((r, i) => (
+              <li style={`--dx:${[-34, 30, -26, 34, -18][i]}px`}>
+                <span class="dw-punkt" data-weg {...(i === DW_REISE.length - 1 ? { 'data-intro-ende': '' } : {})} data-an="erscheinen:auto"></span>
+                <span class="dw-wort" data-an="auf:auto">{r.wort}</span>
+              </li>
+            ))}
           </ol>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SCHRITT 4 · VERLÄSSLICHKEIT (Petrol; Jamil, Talk 3690: „Nicht Vertrauen. Nicht Werte.“) -->
-  <section class="kapitel kapitel--dunkel" id="verlaesslichkeit" aria-labelledby="verl-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 4 · Verlässlichkeit</span>
-          <h2 id="verl-h">So sorgen wir dafür, dass Dinge <span class="accent">nicht liegenbleiben.</span></h2>
+    <!-- 2 · IDEE -->
+    <section class="dw-abschnitt" id="denkweise" aria-labelledby="dw-idee-h">
+      <div class="wrap dw-raster dw-raster--spiegel">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="idee" size={18} /> Idee</span>
+          <h2 id="dw-idee-h">{DW_IDEE.titel}</h2>
+          <p class="dw-zeilen">{DW_IDEE.zeilen.map((z) => <span>{z}</span>)}</p>
+          <p>{DW_IDEE.gefuehl}</p>
+          <blockquote class="dw-zitat">{DW_IDEE.zitat}</blockquote>
+          <p>{DW_IDEE.schluss}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
         </div>
-        <div class="halt halt--r halt--text schiefe">
-          <p class="schiefe__frage">Was passiert, wenn etwas schiefläuft?</p>
-          <p>Viele Unternehmen haben erlebt, dass Themen vergessen werden, Mitarbeiter wechseln und Wissen verloren geht. Deshalb haben wir dafür gesorgt, dass wir zuverlässig bleiben.</p>
+        <DwIdee />
+      </div>
+    </section>
+
+    <!-- 3 · VERSTEHEN -->
+    <section class="dw-abschnitt" id="verstehen" aria-labelledby="dw-verstehen-h">
+      <div class="wrap dw-raster">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="search" size={18} /> Verstehen</span>
+          <h2 id="dw-verstehen-h">{DW_VERSTEHEN.titel}</h2>
+          <p>{DW_VERSTEHEN.einleitung}</p>
+          <ul class="dw-liste">{DW_VERSTEHEN.punkte.map((p) => <li>{p}</li>)}</ul>
+          <p>{DW_VERSTEHEN.schluss}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
         </div>
-        <div class="halt halt--l k k--akzent zufall leuchtet">
-          <span class="k__icon" aria-hidden="true"><Icon name="layers" size={24} /></span>
-          <div class="k__inhalt">
-            <p class="zufall__vor">Warum funktioniert die Zusammenarbeit mit Waybuild anders?</p>
-            <h3>Wir verlassen uns nicht auf Zufall.</h3>
-            <p>Wenn Sie uns schreiben, beginnt ein klarer Ablauf:</p>
-            <ul class="zufall__liste">
-              {ZUFALL.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}
-            </ul>
-          </div>
+        <DwVerstehen />
+      </div>
+    </section>
+
+    <!-- 4 · HINTERFRAGEN (wichtigste Animation, breit) -->
+    <section class="dw-abschnitt" id="hinterfragen" aria-labelledby="dw-hinterfragen-h">
+      <div class="wrap">
+        <div class="dw-text dw-text--oben reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+          <span class="dw-kenn"><Icon name="frage" size={18} /> Hinterfragen</span>
+          <h2 id="dw-hinterfragen-h">{DW_HINTERFRAGEN.titel}</h2>
+          <p class="dw-zeilen">{DW_HINTERFRAGEN.zeilen.map((z) => <span>{z}</span>)}</p>
+          <p>{DW_HINTERFRAGEN.schluss}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
         </div>
-        <h3 class="halt halt--r halt--text erwarten">Das dürfen Sie von uns erwarten</h3>
-        <ul class="pfad qual" aria-label="Das dürfen Sie von uns erwarten">
-          {QUALITAETEN.map((q, i) => (
-            <li class:list={['halt', i % 2 ? 'halt--r' : 'halt--l', 'k', 'qual__q', 'leuchtet']}>
-              <span class="k__icon" aria-hidden="true"><Icon name={q.icon} size={24} /></span>
-              <div class="k__inhalt">
-                <h3>{q.titel}</h3>
-                <p>{q.text}</p>
-              </div>
+        <DwHinterfragen />
+      </div>
+    </section>
+
+    <!-- 5 · VEREINFACHEN -->
+    <section class="dw-abschnitt" id="vereinfachen" aria-labelledby="dw-vereinfachen-h">
+      <div class="wrap dw-raster dw-raster--spiegel">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="spark" size={18} /> Vereinfachen</span>
+          <h2 id="dw-vereinfachen-h">{DW_VEREINFACHEN.titel}</h2>
+          <p class="dw-zeilen">{DW_VEREINFACHEN.zeilen.map((z) => <span>{z}</span>)}</p>
+          <p class="dw-zeilen dw-zeilen--betont">{DW_VEREINFACHEN.ziel.map((z) => <span>{z}</span>)}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+        </div>
+        <DwVereinfachen />
+      </div>
+    </section>
+
+    <!-- 6 · UMSETZEN -->
+    <section class="dw-abschnitt" id="umsetzen" aria-labelledby="dw-umsetzen-h">
+      <div class="wrap dw-raster dw-raster--umsetzen">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="rocket" size={18} /> Umsetzen</span>
+          <h2 id="dw-umsetzen-h">{DW_UMSETZEN.titel}</h2>
+          <p class="dw-zeilen">{DW_UMSETZEN.zeilen.map((z) => <span>{z}</span>)}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+        </div>
+        <div class="dw-umsetzen__bild"><DwUmsetzen /></div>
+        <div class="dw-karte-wrap reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <article class="k k--akzent dw-karte" aria-labelledby="dw-karte-h">
+            <span class="k__icon"><Icon name="layout" size={22} /></span>
+            <div class="k__inhalt">
+              <p class="dw-karte__kenn">{K.kenn}</p>
+              <h3 id="dw-karte-h">{K.titel}</h3>
+              <p>{K.text}</p>
+              <ul class="dw-haken">{K.punkte.map((p) => <li><Icon name="check" size={16} /> {p}</li>)}</ul>
+              <p class="dw-karte__preis">{K.preis}</p>
+              <a class="btn btn--primary" href={href('/angebot/')}>{K.cta} <Icon name="arrow" size={18} /></a>
+            </div>
+          </article>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp dw-wp--karte" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · VERBESSERN -->
+    <section class="dw-abschnitt" id="verbessern" aria-labelledby="dw-verbessern-h">
+      <div class="wrap dw-raster dw-raster--spiegel">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
+          <h2 id="dw-verbessern-h">{DW_VERBESSERN.titel}</h2>
+          <p class="dw-zeilen">{DW_VERBESSERN.zeilen.map((z) => <span>{z}</span>)}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+        </div>
+        <DwVerbessern />
+      </div>
+    </section>
+
+    <!-- 8 · VERLÄSSLICHKEIT: sechs Pfeiler docken an die Linie an, die Linie wird stabiler -->
+    <section class="dw-abschnitt" id="verlaesslichkeit" aria-labelledby="dw-verlaesslich-h">
+      <div class="wrap">
+        <div class="dw-text dw-text--oben reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+          <span class="dw-kenn"><Icon name="shield" size={18} /> Verlässlichkeit</span>
+          <h2 id="dw-verlaesslich-h">{DW_VERLAESSLICH.titel}</h2>
+          <p>{DW_VERLAESSLICH.text}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+        </div>
+        <div class="dw-pfeiler" data-szene>
+          <span class="dw-saeule" data-an="hoch:0-0.96"></span>
+          <span class="dw-anker dw-anker--saeule" style="top:0" data-weg="ein"></span>
+          <span class="dw-anker dw-anker--saeule" style="top:100%" data-weg="aus"></span>
+          <ul class="dw-pfeiler__liste">
+            {DW_VERLAESSLICH.pfeiler.map((p, i) => (
+              <li class:list={['dw-pfeiler__item', i % 2 ? 'dw-pfeiler__item--r' : 'dw-pfeiler__item--l']}>
+                <span class="dw-steg" data-an="breit:auto"></span>
+                <div class="k dw-pfeiler__karte" data-an={`${i % 2 ? 'rechts' : 'links'}:auto`}>
+                  <span class="k__icon"><Icon name={p.icon} size={22} /></span>
+                  <div class="k__inhalt">
+                    <h3>{p.titel}</h3>
+                    <p>{p.text}</p>
+                    {p.zusatz && <p class="dw-pfeiler__zusatz">{p.zusatz}</p>}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · DIE DREI PRINZIPIEN: direkt auf der Linie -->
+    <section class="dw-abschnitt dw-prinzipien" aria-labelledby="dw-prinzipien-h">
+      <div class="wrap">
+        <h2 id="dw-prinzipien-h" class="dw-prinzipien__titel">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          {DW_PRINZIPIEN.titel}
+        </h2>
+        <ol class="dw-prinzipien__liste" data-szene>
+          {DW_PRINZIPIEN.liste.map((p) => (
+            <li class="dw-prinzip">
+              <span class="dw-prinzip__wort" data-an="blende:auto"><span class="dw-prinzip__punkt" data-weg></span>{p.wort}</span>
+              <span class="dw-prinzip__text" data-an="auf:auto">{p.text}</span>
             </li>
           ))}
-        </ul>
-        <p class="halt halt--r halt--still qual__mehr"><a class="pfeil-link" href={href('/zusagen/')}>Unsere Zusagen im Detail <Icon name="arrow" size={16} /></a></p>
+        </ol>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SCHRITT 5 · LEICHTIGKEIT (Talk 3690: „Veränderung sollte sich nicht wie Arbeit anfühlen.“) -->
-  <section class="kapitel" id="leichtigkeit" aria-labelledby="leicht-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 5 · Leichtigkeit</span>
-          <h2 id="leicht-h">Veränderung sollte sich nicht wie <span class="accent">Arbeit anfühlen.</span></h2>
+    <!-- 10 · ABSCHLUSS -->
+    <section class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
+      <div class="wrap dw-raster">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <h2 id="dw-abschluss-h">{DW_ABSCHLUSS.titel}</h2>
+          <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
+          <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
+          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
+          <ul class="dw-vertrauen">{DW_ABSCHLUSS.vertrauen.map((v) => <li><Icon name="check" size={16} /> {v}</li>)}</ul>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
         </div>
-        <p class="halt halt--r halt--text lead kopf__text">Bei uns bekommen Sie vor allem eines: weniger Aufwand.</p>
-        <div class="halt halt--l k k--flaeche leicht leuchtet">
-          <div class="k__inhalt">
-            <h3>Wenn Sie etwas ändern möchten:</h3>
-            <ul class="leicht__nicht">
-              {OHNE.map((x) => <li><span class="leicht__x" aria-hidden="true"><Icon name="close" size={16} /></span> {x}</li>)}
-            </ul>
-          </div>
-        </div>
-        <div class="halt halt--r k k--akzent leicht leicht--ja leuchtet">
-          <span class="k__icon" aria-hidden="true"><Icon name="check" size={24} /></span>
-          <div class="k__inhalt">
-            <h3>Einfach sagen, was Sie verändern möchten.</h3>
-            <p>Per Text, Screenshot, Video oder Sprachnachricht. Den Rest organisieren wir.</p>
-          </div>
-        </div>
+        <DwFortschritt />
       </div>
-    </div>
-  </section>
-
-  <!-- SCHRITT 5 · PRODUKTE -->
-  <section class="kapitel kapitel--sand" id="produkte" aria-labelledby="produkte-h">
-    <div class="wrap">
-      <div class="pfad">
-        <div class="halt halt--l kopf">
-          <span class="schritt-kenn">Schritt 6 · Produkte</span>
-          <h2 id="produkte-h">Eine Haltung. <span class="accent">Unterschiedliche Produkte.</span></h2>
-        </div>
-        <p class="halt halt--r halt--text lead kopf__text">Jedes Waybuild-Produkt löst ein konkretes Problem und besitzt einen eigenen Namen und Auftritt. Was alle Produkte verbindet, sind dieselben Werte, Zusagen und Arbeitsweisen.</p>
-      </div>
-      <Produkte />
-    </div>
-  </section>
-  <!-- SCHRITT 7 · ZIEL + Menschen hinter Waybuild: FooterKontakt (Petrol, die Linie erreicht den Zielpunkt; Jamil, Talk 3653) -->
+      <p class="dw-slogan">{DW_ABSCHLUSS.slogan}</p>
+    </section>
+  </div>
 </BaseLayout>
 
 <script>
-  // „So beginnt die Zusammenarbeit“: Linie im Bogen zu Schritt 1, dann 1 → 5; zeichnet sich scrollgekoppelt (Desktop).
-  // Erreicht die Linie eine Kachel, spielt deren kleine Animation (.aktiv); rückwärts beim Hochscrollen. Handy: je Kachel.
-  {
-    const buehne = document.querySelector<HTMLElement>('[data-ablauf]');
-    const bewegung = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (buehne && bewegung) {
-      buehne.classList.add('ablauf--js');
-      const svg = buehne.querySelector<SVGSVGElement>('.ablauf__linie')!;
-      const pfad = svg.querySelector('path')!;
-      const titel = buehne.querySelector<HTMLElement>('.ablauf__titel')!;
-      const kacheln = Array.from(buehne.querySelectorAll<HTMLElement>('.ablauf__schritt'));
-      const breit = window.matchMedia('(min-width: 960px)');
-      let L = 1, anteile: number[] = [];
-      const messen = () => {
-        if (!breit.matches) return;
-        const br = buehne.getBoundingClientRect();
-        svg.setAttribute('viewBox', `0 0 ${br.width} ${br.height}`);
-        const tr = titel.getBoundingClientRect();
-        const cx = tr.left + tr.width / 2 - br.left, y0 = tr.bottom - br.top;
-        const nr = kacheln.map((k) => { const n = k.querySelector('.k__nr')!.getBoundingClientRect(); return { x: n.left + n.width / 2 - br.left, y: n.top + n.height / 2 - br.top }; });
-        const yN = nr[0].y, x0 = nr[0].x - 30, r = 22, x5 = nr[nr.length - 1].x;
-        const d = `M ${cx} ${y0} C ${cx} ${y0 + (yN - y0) * 0.55}, ${x0} ${y0 + (yN - y0) * 0.2}, ${x0} ${yN - r} C ${x0} ${yN - r * 0.45}, ${x0 + r * 0.45} ${yN}, ${x0 + r} ${yN} L ${x5} ${yN}`;
-        pfad.setAttribute('d', d);
-        L = pfad.getTotalLength();
-        const vorHorizontal = L - (x5 - (x0 + r));
-        anteile = nr.map((n) => (vorHorizontal + (n.x - (x0 + r))) / L);
-        pfad.style.strokeDasharray = `${L}`;
-      };
-      let laeuft = false;
-      const zeichnen = () => {
-        laeuft = false;
-        const vh = window.innerHeight;
-        if (breit.matches) {
-          const r = buehne.getBoundingClientRect();
-          const p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.35 + r.height * 0.6)));
-          pfad.style.strokeDashoffset = String(L * (1 - p));
-          kacheln.forEach((k, i) => k.classList.toggle('aktiv', p >= anteile[i] - 0.01));
-        } else {
-          kacheln.forEach((k) => k.classList.toggle('aktiv', k.getBoundingClientRect().top < vh * 0.7));
-        }
-      };
-      const neu = () => { messen(); zeichnen(); };
-      neu();
-      window.addEventListener('scroll', () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } }, { passive: true });
-      window.addEventListener('resize', () => requestAnimationFrame(neu));
-      document.fonts?.ready.then(neu);
-    }
-  }
-
-  // Ersatz für Browser ohne CSS scroll-driven animations: Rückgrat wächst mit dem Scrollen, Punkte erscheinen.
-  if (!CSS.supports('animation-timeline: view()') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.classList.add('zug-js');
-    const kapitel = Array.from(document.querySelectorAll<HTMLElement>('.kapitel'));
-    const halte = Array.from(document.querySelectorAll<HTMLElement>('.pfad .halt'));
-    let laeuft = false;
-    const zeichnen = () => {
-      laeuft = false;
-      const vh = window.innerHeight;
-      kapitel.forEach((k) => {
-        const r = k.getBoundingClientRect();
-        const start = k.classList.contains('kapitel--anschluss') ? vh : vh * 0.6;
-        const z = Math.min(1, Math.max(0, (start - r.top) / (r.height + start - vh * 0.6)));
-        k.style.setProperty('--zug', z.toFixed(3));
-      });
-      halte.forEach((h) => { h.classList.toggle('halt--da', h.getBoundingClientRect().top < vh * 0.6); });
-    };
-    window.addEventListener('scroll', () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } }, { passive: true });
-    zeichnen();
-  }
+  import '../scripts/denkweise';
 </script>
-
-<style>
-  /* Einheitlicher Rhythmus (Jamil, Talk 3641: „Abstände ins Verhältnis bringen“): Station = erste Zeile der Überschrift;
-     Text rechts beginnt auf Höhe der Überschrift, Verbinder enden mit Abstand vor dem Text. */
-  .kopf { --hy: 54px; }
-  .kopf h2 { margin-bottom: 0; }
-  .kopf .lead { margin-top: 20px; margin-bottom: 0; }
-  .kopf__text { margin: 0; }
-  .halt--text { --hy: 54px; align-self: start; }
-  @media (min-width: 960px) { .halt--text { padding-top: 36px; } }
-  /* Keine Abzweigungen zu Überschriften und Fließtexten (Jamil, Talk 3647–3649): nur Kästchen hängen an der Linie */
-  .kopf::before, .kopf::after, .halt--text::before, .halt--text::after { display: none !important; }
-  .kapitel--dunkel .lead { color: var(--dark-lead); }
-  .kapitel--dunkel .pfeil-link { color: var(--accent-light); }
-  .plakat { font-size: clamp(2.1rem, 3.9vw, 3.3rem) !important; line-height: 1.06; }
-
-  /* Verständnis */
-  .entstehung { display: grid; gap: 16px; align-content: start; }
-  .entstehung .lead { margin: 0; }
-
-  /* So beginnt die Zusammenarbeit (Jamil, Talk 3725/3769): Desktop kommt die Linie von oben, läuft im Bogen zu Schritt 1
-     und verbindet 1 → 5; Handy senkrecht an der Linie. Kacheln mit kleinen Animationen. */
-  .ablauf-buehne { margin-top: clamp(32px, 5vw, 56px); }
-  .ablauf__titel { margin: 0 0 18px; font-size: clamp(1.2rem, 2.2vw, 1.5rem); color: var(--accent-ink); }
-  .ablauf__linie { display: none; }
-  .ablauf { list-style: none; margin: 0; padding-left: 0; row-gap: 14px; }
-  .ablauf__schritt { --hy: 30px; align-self: stretch; flex-direction: column; gap: 10px; }
-  .ablauf__kopf { display: flex; align-items: center; gap: 10px; }
-  .ablauf__bild { width: 48px; height: 48px; }
-  .ablauf__schritt .k__titel { font-size: 1.05rem; }
-  @media (max-width: 959px) { .ablauf-buehne { margin-left: -44px; padding-left: 44px; } .ablauf-buehne::before, .ablauf-buehne::after { display: none; } }
-  @media (min-width: 960px) {
-    .ablauf-buehne { position: relative; z-index: 1; background: var(--sec-bg); padding-top: 4px; }
-    .ablauf-buehne::before, .ablauf-buehne::after { display: none; }
-    .ablauf__titel { width: max-content; margin: 0 auto 64px; text-align: center; background: var(--sec-bg); border: 3px solid var(--accent); border-radius: 999px; padding: 12px 28px; position: relative; z-index: 1; }
-    .ablauf { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 14px; position: relative; z-index: 1; }
-    /* Ohne JS: einfache Linie durch die Nummern; mit JS zeichnet die SVG-Linie den Bogen */
-    .ablauf::before { content: ''; position: absolute; left: 10%; right: 10%; top: calc(var(--k-pad) + 15px); height: 3px; margin-top: -1.5px; background: var(--accent); z-index: -1; }
-    :global(.ablauf--js) .ablauf::before { display: none; }
-    :global(.ablauf--js) .ablauf__linie { display: block; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 1; }
-    .ablauf__linie path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-    .ablauf__schritt { grid-column: auto !important; }
-    .ablauf__schritt::before, .ablauf__schritt::after { display: none; }
-    .ablauf__schritt .k__nr { position: relative; z-index: 2; background: #d9efee; }
-  }
-
-  /* Verlässlichkeit */
-  .schiefe p { margin: 0 0 10px; color: var(--dark-lead); line-height: 1.6; }
-  .schiefe__frage { font-family: var(--font-head); font-weight: 650; font-size: 1.2rem; color: var(--white) !important; }
-  .zufall__liste, .leicht__nicht { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .zufall { align-self: start; margin-top: clamp(16px, 3vw, 32px); }
-  .zufall__vor { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; color: var(--accent-light) !important; margin-bottom: 6px !important; }
-  .zufall .k__inhalt > p { margin-bottom: 10px; }
-  .zufall__liste li { display: flex; gap: 8px; align-items: center; color: var(--dark-lead); }
-  .zufall__liste :global(.icon) { color: var(--accent-light); flex: none; }
-  .erwarten { margin: 0; align-self: end; font-size: clamp(1.3rem, 2.4vw, 1.7rem); }
-  @media (min-width: 960px) { .erwarten { padding-top: 0 !important; } }
-  .qual { margin-top: 8px; }
-
-  /* Leichtigkeit */
-  .leicht { align-self: start; margin-top: clamp(16px, 3vw, 32px); }
-  .leicht__nicht li { display: flex; gap: 10px; align-items: center; color: var(--ink-soft); text-decoration: line-through; text-decoration-color: rgb(84 84 84 / 45%); }
-  .leicht__x { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgb(84 84 84 / 8%); color: #6f6a60; flex: none; }
-  .leicht h3 { margin-bottom: 10px; }
-
-  /* Produkte */
-  .kapitel--sand .pfad + :global(.pweg) { margin-top: clamp(48px, 6vw, 80px); }
-</style>

@@ -1,0 +1,155 @@
+/* Startseite „Denkweise“ (Jamil, Talk 3799): eine durchgehende, ruhige Linie; Begriffe klein, die Linie im Mittelpunkt.
+ * Ohne JS bzw. mit reduzierter Bewegung stehen alle Szenen im fertigen Zustand (Animationen setzt nur .dw--live). */
+
+.dw {
+  --weg: #c2b9a9;          /* Linie: warmes, ruhiges Grau */
+  --weg-fein: #cfc7b9;
+  --rand-x: 32px;           /* Handy: Lage der Linie neben den Texten */
+  position: relative;
+  overflow-x: clip;
+}
+.dw--fertig { --weg: var(--accent); --weg-fein: rgb(0 166 161 / 55%); }
+
+.dw-linie { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+.dw-strich, .dw-s { fill: none; stroke: var(--weg); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 1.2s ease; }
+.dw-s--fein { stroke: var(--weg-fein); stroke-width: 2; }
+.dw-s--stark { stroke-width: 3.5; }
+.dw-s--akzent { stroke: var(--accent-mid); }
+.dw--live .dw-s[data-an] { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.dw-knoten { fill: var(--paper); stroke: var(--weg); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; transition: stroke 1.2s ease; }
+.dw-knoten--akzent { stroke: var(--accent); fill: var(--accent); }
+.dw-fuell { fill: rgb(0 166 161 / 9%); transform-box: fill-box; transform-origin: center; }
+.dw--live [data-an] { will-change: auto; }
+
+/* ── Abschnitte: eine Geschichte, keine Kästen ── */
+.dw-abschnitt { position: relative; z-index: 1; padding-block: clamp(56px, 8vw, 112px); }
+.dw-hero { padding-block: clamp(36px, 6vw, 80px) clamp(48px, 7vw, 96px); }
+.dw-raster { display: grid; gap: clamp(32px, 6vw, 96px); align-items: start; }
+.dw-text { max-width: 560px; }
+.dw-text h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin-bottom: 0.7em; }
+.dw-text p { color: var(--ink-soft); line-height: 1.7; }
+.dw-kenn { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+.dw-zeilen span { display: block; }
+.dw-zeilen--betont { color: var(--ink) !important; font-weight: 550; }
+.dw-zitat { margin: 0 0 1em; padding: 4px 0 4px 18px; border-left: 3px solid var(--accent); font-family: var(--font-head); font-size: 1.15rem; font-weight: 600; color: var(--ink); }
+.dw-liste { margin: 0 0 1em; padding-left: 1.2em; color: var(--ink-soft); line-height: 1.8; }
+.dw-wp { display: block; height: 0; }
+.dw-anker { position: absolute; width: 0; height: 0; }
+
+/* ── Hero ── */
+.dw-hero h1 { font-size: clamp(2.5rem, 9.5vw, 4.4rem); line-height: 1.03; letter-spacing: -0.04em; max-width: 12ch; margin: 0 0 22px; }
+.dw-hero__lead { font-size: clamp(1.08rem, 1.8vw, 1.25rem); line-height: 1.7; color: var(--ink-soft); max-width: 42ch; margin: 0 0 28px; }
+.dw-start { position: relative; display: grid; justify-items: center; padding-block: 8px 0; }
+.dw-idee { position: relative; display: block; }
+.dw-idee__kreis { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent); color: var(--accent-ink); }
+.dw-idee__wort { position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); font-family: var(--font-head); font-weight: 650; font-size: 0.98rem; color: var(--ink); }
+.dw-reise { list-style: none; margin: 0; padding: 26px 0 0; display: grid; gap: 34px; justify-items: center; }
+.dw-reise li { position: relative; display: flex; align-items: center; transform: translateX(var(--dx, 0)); }
+.dw-reise .dw-wort { position: absolute; left: 20px; white-space: nowrap; }
+.dw-punkt { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--weg); transition: border-color 1.2s ease; }
+.dw-wort { font-size: 0.86rem; font-weight: 600; color: #6a6459; letter-spacing: 0.01em; background: var(--paper); padding: 1px 6px; border-radius: 6px; }
+.dw-wort--akzent { color: var(--accent-ink); }
+
+/* ── Bildszenen ── */
+.dw-bild { position: relative; width: 100%; max-width: 460px; margin-inline: auto; }
+.dw-bild--breit { max-width: 980px; margin-top: clamp(28px, 4vw, 48px); }
+.dw-bild--klein { max-width: 260px; }
+.dw-bild > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.dw-pos { position: absolute; transform: translate(-50%, -50%); z-index: 1; }
+.dw-pos--rechts { transform: translate(0, -50%); }
+.dw-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: #5d584e; white-space: nowrap; }
+.dw-chip--start { border-color: rgb(0 166 161 / 45%); color: var(--accent-ink); font-size: 0.86rem; padding: 6px 13px; }
+.dw-chip--auf-linie { border-color: var(--weg); transition: border-color 1.2s ease; }
+.dw-mitte { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--accent-ink); white-space: nowrap; }
+.dw-mitte--gross { font-size: 1.2rem; }
+.dw-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--paper); border: 1.5px solid var(--weg-fein); color: #6a6459; }
+.dw-icon--hervor { border-color: var(--accent); color: var(--accent-ink); background: rgb(0 166 161 / 8%); }
+.dw-bereich { display: grid; gap: 1px; }
+.dw-bereich__name { font-family: var(--font-head); font-size: 0.92rem; font-weight: 650; color: var(--ink); white-space: nowrap; }
+.dw-bereich__hinweis { font-size: 0.78rem; color: #6f6a60; max-width: 13em; line-height: 1.35; }
+.dw-nur-d { display: none; }
+
+/* ── Umsetzen: Website-Service-Karte (die eine hervorgehobene Karte) ── */
+.dw-karte { max-width: 520px; }
+.dw-karte__kenn { font-size: 0.86rem; font-weight: 600; color: var(--accent-ink) !important; margin-bottom: 6px !important; }
+.dw-haken { list-style: none; margin: 12px 0 14px; padding: 0; display: grid; gap: 6px; }
+.dw-haken li { display: flex; align-items: center; gap: 8px; color: var(--ink); }
+.dw-haken .icon { color: var(--accent-mid); flex: none; }
+.dw-karte__preis { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; color: var(--ink) !important; margin: 0 0 14px !important; }
+
+/* ── Verlässlichkeit: Pfeiler docken an die stabilere Linie an ── */
+.dw-pfeiler { position: relative; margin-top: clamp(28px, 4vw, 48px); padding-block: 8px; }
+.dw-saeule { position: absolute; top: 0; bottom: 0; left: calc(var(--rand-x) - 16px - 3px); width: 6px; border-radius: 3px; background: var(--weg); transform-origin: top; transition: background-color 1.2s ease; }
+.dw-anker--saeule { left: calc(var(--rand-x) - 16px); }
+.dw-pfeiler__liste { list-style: none; margin: 0; padding: 0 0 0 calc(var(--rand-x) + 16px); display: grid; gap: 18px; }
+.dw-pfeiler__item { position: relative; }
+.dw-steg { position: absolute; top: 34px; left: calc(-1 * (var(--rand-x) + 16px) + var(--rand-x) - 16px); width: calc(32px - 0px); height: 3px; border-radius: 2px; background: var(--weg); transform-origin: left; transition: background-color 1.2s ease; }
+.dw-pfeiler__karte { background: var(--white); }
+.dw-pfeiler__zusatz { margin-top: 6px !important; font-size: 0.92rem; color: var(--accent-ink) !important; }
+
+/* ── Drei Prinzipien: direkt auf der Linie ── */
+.dw-prinzipien__titel { position: relative; font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin: 0 0 clamp(28px, 4vw, 48px); padding-left: calc(var(--rand-x) + 12px); }
+.dw-prinzipien__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 4vw, 44px); }
+.dw-prinzip { display: grid; gap: 8px; justify-items: start; }
+.dw-prinzip__wort { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--paper); font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.dw-prinzip__punkt { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex: none; }
+.dw-prinzip__text { padding-left: calc(var(--rand-x) + 12px); color: var(--ink-soft); line-height: 1.6; }
+
+/* ── Abschluss ── */
+.dw-einladung { font-weight: 600; color: var(--ink) !important; }
+.dw-vertrauen { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--ink-soft); font-size: 0.95rem; }
+.dw-vertrauen li { display: inline-flex; align-items: center; gap: 6px; }
+.dw-vertrauen .icon { color: var(--accent-mid); }
+.dw-slogan { position: relative; z-index: 1; margin: clamp(36px, 5vw, 64px) auto 0; text-align: center; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.02em; color: var(--ink); padding-inline: 16px; }
+
+/* ── Handy: Texte rechts der Linie ── */
+@media (max-width: 959px) {
+  .dw-text, .dw-karte-wrap { padding-left: calc(var(--rand-x) + 12px); }
+  .dw-raster { gap: 76px; }
+  .dw-hero__text { padding-left: 0; }
+  .dw-start { margin-top: 8px; }
+  .dw-karte-wrap { margin-top: 0; }
+  .dw-bild { max-width: 420px; }
+  .dw-chip { font-size: 0.74rem; padding: 3px 9px; }
+  .dw-bereich__name { font-size: 0.86rem; }
+}
+
+/* ── Desktop ── */
+@media (min-width: 960px) {
+  .dw-nur-d { display: block; }
+  .dw-nur-m { display: none; }
+  .dw-raster { grid-template-columns: 1fr 1fr; }
+  .dw-raster--hero { grid-template-columns: 1.15fr 0.85fr; align-items: center; }
+  .dw-raster--spiegel > .dw-bild, .dw-raster--spiegel > :last-child { order: -1; }
+  .dw-raster--umsetzen { grid-template-areas: 'text bild' 'karte bild'; grid-template-rows: auto 1fr; row-gap: 36px; }
+  .dw-raster--umsetzen > .dw-text { grid-area: text; }
+  .dw-raster--umsetzen > .dw-umsetzen__bild { grid-area: bild; }
+  .dw-raster--umsetzen > .dw-karte-wrap { grid-area: karte; }
+  .dw-text--oben { max-width: 540px; }
+
+  /* Pfeiler: Linie in der Mitte, Karten abwechselnd links und rechts */
+  .dw-saeule { left: calc(50% - 3px); }
+  .dw-anker--saeule { left: 50%; }
+  .dw-pfeiler__liste { padding: 0; grid-template-columns: 1fr 1fr; column-gap: 120px; row-gap: 22px; }
+  .dw-pfeiler__item--r { margin-top: 70px; }
+  .dw-pfeiler__item--l { margin-bottom: -48px; }
+  .dw-pfeiler__item--l .dw-steg { left: auto; right: -60px; width: 60px; transform-origin: right; }
+  .dw-pfeiler__item--r .dw-steg { left: -60px; width: 60px; }
+
+  /* Prinzipien: Begriffe mittig auf der Linie, Text daneben */
+  .dw-prinzipien__titel { text-align: center; padding: 6px 18px; margin-inline: auto; width: fit-content; background: var(--paper); }
+  .dw-prinzip { grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+  .dw-prinzip__wort { grid-column: 2; margin: 0; padding: 10px 20px; }
+  .dw-prinzip__punkt { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+  .dw-prinzip__text { grid-column: 3; padding: 0; max-width: 32ch; }
+
+  .dw-abschluss .dw-bild--klein { align-self: center; }
+}
+
+/* Ohne Animation (reduzierte Bewegung): keine Übergänge */
+@media (prefers-reduced-motion: reduce) {
+  .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
+}
+
+/* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */
+html.js .dw .reveal { transform: none; }
