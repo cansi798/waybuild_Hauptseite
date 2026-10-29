@@ -7,10 +7,10 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde. Während der Servicezeiten. Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
 - Sie erreichen immer einen Menschen. Kein Callcenter, keine Warteschleife.
-- Eine Nachricht genügt. Kein Formular nötig – melden Sie sich so, wie es für Sie am einfachsten ist.
-- Die Technik läuft – wir kümmern uns. Wartung, Updates und Backups im Hintergrund.
+- Eine Nachricht genügt. Melden Sie sich so, wie es für Sie am einfachsten ist. Ein Formular brauchen Sie nicht.
+- Wir kümmern uns um die Technik. Wartung, Updates und Backups erledigen wir im Hintergrund.
 - Keine Überraschungen auf der Rechnung. Extras nur nach schriftlicher Absprache.
-- Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).
+- Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr (ohne gesetzliche Feiertage).
 
 ## Drei Säulen
 - Klarheit: Sie wissen jederzeit, wer zuständig ist, was passiert und wie der aktuelle Stand ist.
@@ -20,7 +20,7 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 ## So beginnt die Zusammenarbeit
 1. Lockeres Gespräch: Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.
 2. Unternehmens-DNA: Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.
-3. Analyse & Vorschlag: Darauf bauen wir Lösung und Vorschlag auf – so einfach wie möglich.
+3. Analyse & Vorschlag: Daraus entsteht unser Vorschlag, so einfach wie möglich.
 4. Planung: Gemeinsam legen wir fest, was wann passiert.
 5. Umsetzung: Wir setzen um, Sie prüfen und geben frei.
 
@@ -33,7 +33,7 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Echter Mehrwert: Was wir umsetzen, soll Zeit sparen, Abläufe erleichtern oder ein konkretes Problem lösen.
 
 ## Produkte
-- Website Service, verfügbar: Ihre Website – gebaut, betreut und jederzeit veränderbar. Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt. Maximale Flexibilität: jederzeit anpassbar – per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
+- Website Service, verfügbar: Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten. Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt. Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
 - Kundenverwaltung für Handwerksbetriebe, verfügbar: Ein CRM, gemacht für den Alltag im Handwerk.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
@@ -46,30 +46,30 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Enthalten: Professionelle Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups, Laufende Betreuung, KI-gestützte Erstellung, Sprachgesteuerte Änderungen.
 - Geschäftsmodell: Keine Einrichtungskosten, Fester Monatspreis, netto zzgl. MwSt., 24 Monate Laufzeit, Website, Code und Domain gehören Ihnen, Keine versteckten Kosten, Kein künstlicher Lock-in.
-- Website: 79 € pro Monat, netto – Professionell und komplett betreut. Professionelle Website nach persönlicher Beratung, Hosting, Domainverwaltung und SSL, Wartung, Updates und Backups, Laufende Betreuung und Änderungen per Sprache oder Text.
-- Intelligente Website: 139 € pro Monat, netto – Optimiert sich selbst und passt sich an. Alles aus „Website“, Wertet Besucher, Suchbegriffe und Anfragen laufend aus, Passt Inhalte und Aufbau selbstständig an, Hebt erfolgreiche Leistungen und Referenzen hervor, Optimiert den Weg vom Besucher zur Anfrage.
+- Website: 79 € pro Monat, netto, Professionell und komplett betreut. Professionelle Website nach persönlicher Beratung, Hosting, Domainverwaltung und SSL, Wartung, Updates und Backups, Laufende Betreuung und Änderungen per Sprache oder Text.
+- Intelligente Website: 139 € pro Monat, netto, Optimiert sich selbst und passt sich an. Alles aus „Website“, Wertet Besucher, Suchbegriffe und Anfragen laufend aus, Passt Inhalte und Aufbau selbstständig an, Hebt erfolgreiche Leistungen und Referenzen hervor, Optimiert den Weg vom Besucher zur Anfrage.
 - Schritt 1, Erstgespräch: Wir lernen Ihr Unternehmen kennen und hören zu, was sich verändern soll.
 - Schritt 2, Verstehen & Planen: Wen möchten Sie erreichen? Was soll Ihre Website leisten? Wie wird aus einem Besucher eine Anfrage? Das klären wir gemeinsam.
-- Schritt 3, Umsetzen: Wir gestalten und bauen Ihre Website – mit KI-gestützten Werkzeugen geht das schnell. Sie prüfen, wir feilen, bis alles passt.
-- Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text – wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
+- Schritt 3, Umsetzen: Wir gestalten und bauen Ihre Website. Mit KI-gestützten Werkzeugen geht das schnell. Sie prüfen, wir feilen, bis alles passt.
+- Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text, wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
 
 ## Häufige Fragen zu Waybuild
-- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen – ob Website, Abläufe oder die Werkzeuge im Arbeitsalltag. Mit einem festen Ansprechpartner, festen Zusagen und klaren Abläufen. Unser erstes Produkt sind Websites, weitere folgen.
+- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Abläufen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, zwei Kundenverwaltungen und Apps dazu. Weitere Produkte folgen.
 - Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Ablauf gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
-- Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr.
+- Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
-- Welche Rolle spielt KI? KI ersetzt keine guten Ideen – sie beschleunigt die Umsetzung. Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Danach helfen uns KI-gestützte Werkzeuge, die Ergebnisse schnell umzusetzen.
-- Bietet Waybuild auch Software, Cloud und IT an? Heute starten wir mit dem Website Service. Software, Cloud, Workplace und Process Service folgen Schritt für Schritt. Einzelne Projekte – etwa individuelle Software, Nextcloud oder IT-Betreuung – setzen wir schon heute auf Anfrage um.
+- Welche Rolle spielt KI? Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.
+- Bietet Waybuild auch Software, Cloud und IT an? Neben dem Website Service gibt es Kundenverwaltungen für Handwerksbetriebe und AZAV-Bildungsträger sowie Apps. Software, Cloud, Workplace und Process Service folgen Schritt für Schritt. Einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung setzen wir schon heute auf Anfrage um.
 - Sind die Preise netto? Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Unsere Produkte richten sich ausschließlich an Unternehmen und Selbstständige (B2B).
 
 ## Häufige Fragen zum Website Service
 - Was kostet eine Website bei Waybuild? Website: 79 € im Monat. Intelligente Website: 139 € im Monat. Alle Preise netto zzgl. MwSt., ohne Einrichtungskosten und ohne versteckte Kosten.
-- Was ist der Unterschied zwischen 79 € und 139 €? Die Website für 79 € ist Ihr professioneller Auftritt – wir pflegen und betreuen ihn. Die intelligente Website für 139 € macht zusätzlich mit: Sie wertet aus, woher Anfragen kommen und was Besucher interessiert, und passt Inhalte und Aufbau laufend daran an.
-- Was ist beim Website Service enthalten? Persönliche Beratung, KI-gestützte Erstellung, Hosting, Domainverwaltung, SSL, Wartung, Backups und laufende Betreuung – zu einem festen Monatspreis und ohne Einrichtungskosten.
-- Wie lange läuft der Vertrag? Die Laufzeit beträgt 24 Monate. Wir möchten langfristiges Vertrauen aufbauen – keine künstliche Abhängigkeit.
+- Was ist der Unterschied zwischen 79 € und 139 €? Die Website für 79 € ist Ihr professioneller Auftritt, den wir pflegen und betreuen. Die intelligente Website für 139 € macht zusätzlich mit: Sie wertet aus, woher Anfragen kommen und was Besucher interessiert, und passt Inhalte und Aufbau laufend daran an.
+- Was ist beim Website Service enthalten? Persönliche Beratung, KI-gestützte Erstellung, Hosting, Domainverwaltung, SSL, Wartung, Backups und laufende Betreuung. Sie zahlen einen festen Monatspreis und keine Einrichtungskosten.
+- Wie lange läuft der Vertrag? Die Laufzeit beträgt 24 Monate. Wir möchten langfristig zusammenarbeiten, ohne Sie künstlich an uns zu binden.
 - Wie schnell ist meine Website online? Spätestens 14 Tage, nachdem Ihre Inhalte (Texte, Bilder, Logo) vorliegen. Auf Wunsch erarbeiten wir die Inhalte gemeinsam mit Ihnen.
 - Wem gehören Website, Code und Domain? Ihnen. Die Domain läuft auf Ihren Namen, Website und Code gehören Ihrem Unternehmen.
-- Kann ich meine bestehende Domain mitnehmen? Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall – sie bleibt auf Ihren Namen registriert.
+- Kann ich meine bestehende Domain mitnehmen? Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall. Sie bleibt auf Ihren Namen registriert.
 
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
