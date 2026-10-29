@@ -8,6 +8,9 @@ import { company, isMissing } from '../config/site';
 import { PRODUKTE, produktName } from '../config/hauptseite';
 import { href, absolute } from '../lib/paths';
 import { IS_PREVIEW } from '../lib/env';
+// Schriften für den ersten Bildschirm früh laden (Überschrift = größtes Element, wichtig für LCP)
+import schriftKopf from '@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2?url';
+import schriftText from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -46,6 +49,14 @@ const organization = {
   ...(company.sameAs.length ? { sameAs: company.sameAs } : {}),
   ...(hasAddress ? { priceRange: '€€', areaServed: { '@type': 'Country', name: 'Deutschland' } } : {}),
   email: company.email,
+  // Servicezeiten wie auf der Seite (HOURS / SLA_HINWEIS): Montag bis Freitag, 9 bis 18 Uhr
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    email: company.email,
+    availableLanguage: 'de',
+    hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' },
+  },
   // Dachmarke: nur verfügbare Produkte als Angebot melden (Name = Arbeitsname aus der Config, keine Preise hier)
   makesOffer: PRODUKTE.filter((p) => p.aktiv).map((p) => ({
     '@type': 'Offer',
@@ -98,6 +109,8 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
+    <link rel="preload" href={schriftKopf} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={schriftText} as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={IS_PREVIEW ? 'noindex, nofollow' : noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />

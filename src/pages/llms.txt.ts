@@ -20,11 +20,13 @@ export const GET: APIRoute = ({ site }) => {
     '',
     `> ${HERO.pre.trim()} ${HERO.accent} ${HERO.lead}`,
     '',
+    `Kurz gesagt: ${company.name} ist ein IT-Dienstleister${adresse.length ? ` aus ${company.city}` : ''} für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
+    '',
     'Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Ablauf gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).',
     '',
     '## Für alle Produkte: Service-Zusagen',
     // Zeilen mit Platzhalter bewusst weglassen – nur zugesagte Werte ausgeben.
-    ...SLA_KERN.filter((z) => !z.wert.includes(PLATZHALTER)).map((z) => `- ${z.label}: ${z.wert}. ${z.text}`),
+    ...SLA_KERN.filter((z) => !z.wert.includes(PLATZHALTER)).map((z) => `- ${z.label}: ${z.wert} (${(z.text[0].toLowerCase() + z.text.slice(1)).replace(/\.\s*/, '). ')}`),
     ...ZUSAGEN.map((z) => `- ${z.title}. ${z.text}`),
     `- ${SLA_HINWEIS}`,
     '',
@@ -39,7 +41,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     '## Produkte',
     ...PRODUKTE.map((p) => p.aktiv
-      ? `- ${produktName(p)}${produktName(p) === p.kategorie ? '' : ` (${p.kategorie})`}, verfügbar: ${p.nutzen ?? p.zweck ?? ''} ${(p.punkte ?? []).map((x) => x.text).join(' ')} ${p.url || p.pfad ? `Seite: ${p.url || url(p.pfad!)}` : `Anfrage: ${url('/kontakt/')}`}`
+      ? `- ${produktName(p)}${produktName(p) === p.kategorie ? '' : ` (${p.kategorie})`}, verfügbar: ` + [p.nutzen ?? p.zweck ?? '', ...(p.punkte ?? []).map((x) => x.text), p.url || p.pfad ? `Seite: ${p.url || url(p.pfad!)}` : `Anfrage: ${url('/kontakt/')}`].filter(Boolean).join(' ')
       : `- ${produktName(p)}: bald verfügbar.`),
     '',
     `## ${websiteName} (erstes Produkt)`,

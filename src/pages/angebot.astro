@@ -7,18 +7,43 @@ import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Weg from '../components/Weg.astro';
 import Icon from '../components/Icon.astro';
-import { href } from '../lib/paths';
+import { href, absolute } from '../lib/paths';
 import Faq from '../components/Faq.astro';
 import Hint from '../components/Hint.astro';
-import { WAAS, PAKETE, MODELL, INKLUSIVE, steps, faqsWebsite, formatEuro } from '../config/site';
+import { WAAS, PAKETE, MODELL, INKLUSIVE, OFFER, steps, faqsWebsite, formatEuro } from '../config/site';
 import { WEBSITE_PRODUKT as P, produktName } from '../config/hauptseite';
 const NAME = produktName(P);
 ---
 
 <BaseLayout
-  title={NAME}
+  title={`${NAME}: Website im Abo mit Betreuung`}
   description={`${NAME} von Waybuild: Website, Hosting, Wartung und Betreuung zum festen Monatspreis: ${PAKETE.map((p) => formatEuro(p.preis)).join(' oder ')} netto, ohne Einrichtungskosten.`}
   breadcrumb={[{ name: NAME, path: '/angebot/' }]}
+  schema={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: NAME,
+      serviceType: 'Website-Erstellung und Betreuung im Abo',
+      description: OFFER,
+      provider: { '@id': `${absolute('/', Astro.site)}#organization` },
+      areaServed: { '@type': 'Country', name: 'Deutschland' },
+      audience: { '@type': 'BusinessAudience', name: 'Unternehmen und Selbstständige' },
+      offers: PAKETE.map((p) => ({
+        '@type': 'Offer',
+        name: p.name,
+        description: p.kurz,
+        price: p.preis,
+        priceCurrency: 'EUR',
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: p.preis, priceCurrency: 'EUR', unitText: 'Monat', valueAddedTaxIncluded: false },
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqsWebsite.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+  ]}
 >
   <PageHeader eyebrow="Unser erstes Produkt" title={`${NAME}.`} lead="Wir bauen und betreuen Ihre Website und halten sie aktuell, zum festen Monatspreis. Unsere Zusagen gelten wie für alle Produkte von Waybuild.">
     {!P.url && (
