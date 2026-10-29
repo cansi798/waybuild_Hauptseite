@@ -2,10 +2,12 @@
 
 > Wir machen Veränderungen einfach. Wir entwickeln digitale Produkte und Lösungen, die Veränderungen verständlich, verlässlich und einfach machen.
 
+Kurz gesagt: Waybuild ist ein IT-Dienstleister aus Norderstedt für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
+
 Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Ablauf gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
 ## Für alle Produkte: Service-Zusagen
-- Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde. Während der Servicezeiten. Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
+- Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
 - Sie erreichen immer einen Menschen. Kein Callcenter, keine Warteschleife.
 - Eine Nachricht genügt. Melden Sie sich so, wie es für Sie am einfachsten ist. Ein Formular brauchen Sie nicht.
 - Wir kümmern uns um die Technik. Wartung, Updates und Backups erledigen wir im Hintergrund.
@@ -34,9 +36,9 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 
 ## Produkte
 - Website Service, verfügbar: Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten. Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt. Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
-- Kundenverwaltung für Handwerksbetriebe, verfügbar: Ein CRM, gemacht für den Alltag im Handwerk.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
-- Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
-- Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung.  Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
+- Kundenverwaltung für Handwerksbetriebe, verfügbar: Ein CRM, gemacht für den Alltag im Handwerk. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
+- Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
+- Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Software Service: bald verfügbar.
 - Cloud Service: bald verfügbar.
 - Workplace Service: bald verfügbar.
