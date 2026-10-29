@@ -1,16 +1,16 @@
 ---
-// SCHRITT 1 · VORHER → DANN KOMMT WAYBUILD als Reise einer Anfrage (Jamil, Talk 3714–3724, 29.10.2026).
-// Die Anfrage (Brief-Symbol, Startpunkt im Hero) wandert scrollgesteuert an der Hauptlinie entlang:
-//   Hälfte 1 (grau, leicht wellig, nicht zu viel Chaos): sechs kurze Stationen eines üblichen Ablaufs – das Symbol hält an,
-//   beim Warten zittert es kurz. → „Schnitt“ → Hälfte 2 (gerade, türkis, schneller Fluss): die vier Waybuild-Schritte;
-//   das Symbol hält an jeder Station, die Karte leuchtet auf.
-// Die Animation ersetzt die bisherige Textbeschreibung (Chaos-Begriffe und Situations-Kärtchen erzählten dasselbe).
-// Alles hängt am Scroll-Fortschritt p (rückwärts beim Hochscrollen), nur transform/opacity/clip.
-// Ohne JS, bei reduzierter Bewegung oder sehr niedrigem Fenster: statische Stationen-Liste (Vorher, Schnitt, Waybuild).
+// SCHRITT 1 · VORHER und DANN KOMMT WAYBUILD – zwei Szenen mit klarem Anfang und Ende (Jamil, Talk 3714–3753; Can 3750:
+// gute Scroll-Storytelling-Praxis). Beide Szenen sind scroll-gekoppelt (kein Zeitablauf), stehen beim Scrollen (sticky),
+// laufen rückwärts sauber und nutzen nur transform/opacity.
+//   Szene 1 (grau): Der Brief aus dem Hero reist an der leicht welligen Linie durch sechs kurze Stationen und endet an der
+//   letzten („Endlich Rückmeldung …“). Dort endet auch die graue Linie.
+//   Szene 2 (türkis): Eine neue, gerade türkise Linie beginnt oben und zeichnet sich mit dem Scrollen; der Brief reist durch
+//   vier Stationen im selben kompakten Kärtchen-Stil, nur türkis; die Linie läuft bis unten weiter in den nächsten Abschnitt.
+// Ohne JS, bei reduzierter Bewegung oder sehr niedrigem Fenster: statische Listen.
+// Bestätigt (Talk 3726): erste Rückmeldung < 1 Std. während der Servicezeiten; feste monatliche Pakete, keine Nachkalkulation.
 import Icon from '../Icon.astro';
 import type { IconName } from '../../config/site';
 
-// Hälfte 1: übliche Reise einer Anfrage (Jamil, Talk 3718), je höchstens 4–6 Wörter
 const VORHER: { t: string; icon: IconName }[] = [
   { t: 'Trifft beim Dienstleister ein', icon: 'home' },
   { t: 'Erst einmal Rückfragen …', icon: 'chat' },
@@ -19,89 +19,84 @@ const VORHER: { t: string; icon: IconName }[] = [
   { t: 'Ein bis zwei Tage vergehen', icon: 'clock' },
   { t: 'Endlich Rückmeldung: Aufwand? Extrakosten?', icon: 'euro' },
 ];
-// Hälfte 2: Waybuild-Weg (Talk 3720/3722/3724); Stunde (während der Servicezeiten, Mo–Fr 9–18 Uhr) und Abo für alle Produkte
-// von Jamil bestätigt (Talk 3726), ohne Produkte zu nennen.
-// Jede Station als kleine Szene (Jamil, Talk 3728: „nicht einfach nur stumm als Text … dieser Prozess soll dargestellt werden“)
-type Teil = { icon?: IconName; t?: string; pfeil?: boolean };
-const SCHRITTE: { titel: string; sub: string; szene: Teil[] }[] = [
-  { titel: 'Eine Nachricht genügt.', sub: 'Ihre Anfrage kommt an.', szene: [{ icon: 'mail', t: 'Ihre Nachricht' }, { pfeil: true }, { icon: 'check', t: 'angekommen' }] },
-  { titel: 'Ein fester Ansprechpartner.', sub: 'Rückmeldung innerhalb einer Stunde – während der Servicezeiten.', szene: [{ icon: 'user', t: 'Ihr Ansprechpartner' }, { icon: 'clock', t: '< 1 Std.' }] },
-  { titel: 'Ein klarer Ablauf.', sub: 'Erst Prüfung, dann Bearbeitung.', szene: [{ icon: 'search', t: 'Prüfung' }, { pfeil: true }, { icon: 'tools', t: 'Bearbeitung' }] },
-  { titel: 'Verlässlich umgesetzt.', sub: 'Feste monatliche Pakete – keine Nachkalkulation.', szene: [{ icon: 'check', t: 'umgesetzt' }, { icon: 'refresh', t: 'fester Monatspreis' }] },
+// Gleich kleine Kärtchen wie oben, nur türkis (Talk 3751); Kerninfo als kurze zweite Zeile
+const WAYBUILD: { t: string; info: string; icon: IconName }[] = [
+  { t: 'Eine Nachricht genügt.', info: 'Text, Foto, Video oder Sprachnachricht', icon: 'chat' },
+  { t: 'Ein fester Ansprechpartner.', info: 'Rückmeldung < 1 Std. (Servicezeiten)', icon: 'user' },
+  { t: 'Ein klarer Ablauf.', info: 'Erst Prüfung, dann Bearbeitung', icon: 'layers' },
+  { t: 'Verlässlich umgesetzt.', info: 'Fester Monatspreis, keine Nachkalkulation', icon: 'check' },
 ];
 
-// Leicht wellige Linie durch die sechs Stationen (x/y in % der Fläche, x = 0 ist die Hauptlinie), Catmull-Rom geglättet
-const P: [number, number][] = [[0, 0], [9, 8.3], [3, 25], [13, 41.7], [4, 58.3], [14, 75], [5, 91.7], [0, 100]];
+// Graue Linie: aus der senkrechten Hauptlinie (weicher Bogen) durch die Stationen, endet an der letzten Station
+const P: [number, number][] = [[0, 0], [9, 8.3], [3, 25], [13, 41.7], [4, 58.3], [14, 75], [5, 91.7]];
 const cr = (pts: [number, number][], a = 0.2) => pts.slice(0, -1).map((p1, i) => {
   const p0 = pts[i - 1] ?? p1, p2 = pts[i + 1], p3 = pts[i + 2] ?? p2;
   const f = (v: number) => v.toFixed(2);
-  return ` C ${f(p1[0] + (p2[0] - p0[0]) * a)} ${f(p1[1] + (p2[1] - p0[1]) * a)}, ${f(p2[0] - (p3[0] - p1[0]) * a)} ${f(p2[1] - (p3[1] - p1[1]) * a)}, ${p2[0]} ${p2[1]}`;
+  let c1: [number, number] = [p1[0] + (p2[0] - p0[0]) * a, p1[1] + (p2[1] - p0[1]) * a];
+  const c2: [number, number] = [p2[0] - (p3[0] - p1[0]) * a, p2[1] - (p3[1] - p1[1]) * a];
+  if (i === 0) c1 = [p1[0], p1[1] + (p2[1] - p1[1]) * 0.6]; // senkrechter Start: keine Ecke (Talk 3743)
+  return ` C ${f(c1[0])} ${f(c1[1])}, ${f(c2[0])} ${f(c2[1])}, ${p2[0]} ${p2[1]}`;
 }).join('');
 const WEG = `M 0 0${cr(P)}`;
-const STATIONEN = P.slice(1, -1);
+const STATIONEN = P.slice(1);
+const Y2 = WAYBUILD.map((_, i) => 12 + i * 25); // Höhen der türkisen Stationen in %
 ---
 
-<section class="wandel" id="so-arbeiten-wir" aria-labelledby="vorher-h" data-start>
+<!-- SZENE 1 · VORHER -->
+<section class="wandel wandel--1" id="so-arbeiten-wir" aria-labelledby="vorher-h" data-buehne="1">
   <div class="wrap wandel__grid">
     <div class="wandel__text">
-      <div class="wtext wtext--a">
-        <span class="schritt-kenn">Schritt 1 · Vorher</span>
-        <h2 id="vorher-h">So fühlt sich Veränderung oft an.</h2>
-        <p class="lead">Begleiten Sie eine ganz normale Anfrage.</p>
-      </div>
-      <div class="wtext wtext--b">
-        <span class="schritt-kenn">Dann kommt Waybuild</span>
-        <h2>Schritt für Schritt entsteht Ordnung.</h2>
-      </div>
+      <span class="schritt-kenn">Schritt 1 · Vorher</span>
+      <h2 id="vorher-h">Was mit einer Anfrage oft passiert.</h2>
+      <p class="lead">Eine kleine Änderung, eine kurze Nachricht. Und dann?</p>
     </div>
-
     <div class="wandel__spur">
       <div class="tafel">
         <span class="anfrage" aria-hidden="true"><Icon name="mail" size={18} /></span>
-
-        <!-- HÄLFTE 1: der übliche Weg -->
-        <div class="tafel__teil tafel__vorher">
-          <div class="tafel__kopf">
-            <p class="tafel__hinweis" aria-hidden="true"><Icon name="chevron" size={18} /> Weiterscrollen – die Anfrage macht sich auf den Weg</p>
-            <p class="kenn kenn--mobil kenn--mitte" data-phase="1" aria-hidden="true"><span>Dann kommt Waybuild</span>Schritt für Schritt entsteht Ordnung.</p>
-          </div>
-          <div class="tafel__flaeche">
-            <div class="reise1">
-              <svg class="reise1__weg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d={WEG} /></svg>
-              <ol class="reise1__stationen" aria-label="So läuft eine Anfrage oft">
-                {VORHER.map((s, i) => (
-                  <li class="station" style={`--sx:${STATIONEN[i][0]}%;--sy:${STATIONEN[i][1]}%;--sr:${i % 2 ? 1.2 : -1.2}deg`} data-station={i}>
-                    <span class="station__punkt" aria-hidden="true"></span>
-                    <span class="k station__karte"><span class="station__icon" aria-hidden="true"><Icon name={s.icon} size={16} /></span>{s.t}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <p class="schnitt" aria-hidden="true"><span>Schnitt.</span> So geht es mit Waybuild.</p>
+        <div class="tafel__kopf">
+          <p class="tafel__hinweis" aria-hidden="true"><Icon name="chevron" size={18} /> Weiterscrollen: Die Anfrage macht sich auf den Weg</p>
+        </div>
+        <div class="tafel__flaeche">
+          <div class="reise">
+            <svg class="reise__weg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d={WEG} /></svg>
+            <ol class="reise__stationen" aria-label="Stationen einer üblichen Anfrage">
+              {VORHER.map((s, i) => (
+                <li class="station" style={`--sx:${STATIONEN[i][0]}%;--sy:${STATIONEN[i][1]}%`}>
+                  <span class="station__punkt" aria-hidden="true"></span>
+                  <span class="k station__karte"><span class="station__icon" aria-hidden="true"><Icon name={s.icon} size={16} /></span><span>{s.t}</span></span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- HÄLFTE 2: der Waybuild-Weg -->
-        <div class="tafel__teil tafel__ordnung">
-          <div class="tafel__kopf">
-            <p class="kenn kenn--tuerkis" data-phase="2"><span>Mit Waybuild:</span>Ein klarer Weg. Gerade Abläufe.</p>
+<!-- SZENE 2 · DANN KOMMT WAYBUILD: neue türkise Linie -->
+<section class="wandel wandel--2" aria-labelledby="waybuild-h" data-buehne="2">
+  <div class="wrap wandel__grid">
+    <div class="wandel__text">
+      <span class="schritt-kenn">Dann kommt Waybuild</span>
+      <h2 id="waybuild-h">Schritt für Schritt entsteht Ordnung.</h2>
+      <p class="kenn-ende" data-ende><strong>Mit Waybuild:</strong> Ein klarer Weg. Gerade Abläufe.</p>
+    </div>
+    <div class="wandel__spur">
+      <div class="tafel tafel--klar">
+        <span class="anfrage anfrage--klar" aria-hidden="true"><Icon name="mail" size={18} /></span>
+        <div class="tafel__flaeche">
+          <div class="reise">
+            <span class="reise__gerade" aria-hidden="true"></span>
+            <ol class="reise__stationen" aria-label="So läuft es mit Waybuild">
+              {WAYBUILD.map((s, i) => (
+                <li class="station station--klar" style={`--sx:0%;--sy:${Y2[i]}%`}>
+                  <span class="station__punkt" aria-hidden="true"></span>
+                  <span class="k station__karte"><span class="station__icon" aria-hidden="true"><Icon name={s.icon} size={16} /></span><span><strong>{s.t}</strong><small>{s.info}</small></span></span>
+                </li>
+              ))}
+            </ol>
           </div>
-          <ol class="schritte" aria-label="So läuft es mit Waybuild">
-            {SCHRITTE.map((s, i) => (
-              <li class="k k--akzent schritt" data-schritt={i}>
-                <span class="k__nr" aria-hidden="true">{i + 1}</span>
-                <div class="k__inhalt">
-                  <h3 class="schritt__titel">{s.titel}</h3>
-                  <p>{s.sub}</p>
-                  <div class="szene" aria-hidden="true">
-                    {s.szene.map((t, k) => t.pfeil
-                      ? <span class="szene__pfeil" style={`--n:${k}`}><Icon name="arrow" size={14} /></span>
-                      : <span class="szene__teil" style={`--n:${k}`}>{t.icon && <Icon name={t.icon} size={14} />}{t.t}</span>)}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
         </div>
       </div>
     </div>
@@ -109,158 +104,167 @@ const STATIONEN = P.slice(1, -1);
 </section>
 
 <script>
-  const root = document.querySelector<HTMLElement>('[data-start]');
-  // Verbindungsstück der Hauptlinie über der Fläche (auch im statischen Zustand)
-  if (root) { const t = root.querySelector<HTMLElement>('.tafel'), f = root.querySelector<HTMLElement>('.tafel__flaeche'); const s = () => t && f && t.style.setProperty('--stub-h', `${f.offsetTop}px`); s(); addEventListener('resize', s); document.fonts?.ready.then(s); }
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const niedrig = window.matchMedia('(max-height: 559px)');
-  const breit = window.matchMedia('(min-width: 960px)');
-  if (root && !reduce.matches && !niedrig.matches) {
-    root.classList.add('wandel--live');
-    const spur = root.querySelector<HTMLElement>('.wandel__spur')!;
-    const tafel = root.querySelector<HTMLElement>('.tafel')!;
-    const flaeche = root.querySelector<HTMLElement>('.tafel__flaeche')!;
-    const svg = root.querySelector<SVGSVGElement>('.reise1__weg')!;
-    const weg = svg.querySelector<SVGPathElement>('path')!;
-    const vorher = root.querySelector<HTMLElement>('.tafel__vorher .reise1')!;
-    const ordnung = root.querySelector<HTMLElement>('.tafel__ordnung')!;
-    const stationen = Array.from(root.querySelectorAll<HTMLElement>('.station'));
-    const schritte = Array.from(root.querySelectorAll<HTMLElement>('.schritt'));
-    const kennzeilen = Array.from(root.querySelectorAll<HTMLElement>('.kenn'));
-    const textA = root.querySelector<HTMLElement>('.wtext--a')!;
-    const textB = root.querySelector<HTMLElement>('.wtext--b')!;
-    const hinweis = root.querySelector<HTMLElement>('.tafel__hinweis')!;
-    const schnitt = root.querySelector<HTMLElement>('.schnitt')!;
-    const anfrage = root.querySelector<HTMLElement>('.anfrage')!;
-    const kopf = document.getElementById('siteHeader');
+  const kopf = document.getElementById('siteHeader');
+  const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const glatt = (t: number) => t * t * (3 - 2 * t);
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  const breitMq = window.matchMedia('(min-width: 960px)');
+  const buehnen = Array.from(document.querySelectorAll<HTMLElement>('[data-buehne]'));
+
+  // Verbindungsstück über der Fläche (Szene 1, auch statisch)
+  const stubSetzen = () => buehnen.forEach((b) => { const t = b.querySelector<HTMLElement>('.tafel'), f = b.querySelector<HTMLElement>('.tafel__flaeche'); if (t && f) t.style.setProperty('--stub-h', `${f.offsetTop}px`); });
+  stubSetzen(); addEventListener('resize', stubSetzen); document.fonts?.ready.then(stubSetzen);
+
+  if (buehnen.length && !reduce.matches && !niedrig.matches) {
+    buehnen.forEach((b) => b.classList.add('wandel--live'));
+    const oben = () => (kopf ? kopf.getBoundingClientRect().bottom : 72);
+    const fortschritt = (b: HTMLElement) => {
+      const spur = b.querySelector<HTMLElement>('.wandel__spur')!, tafel = b.querySelector<HTMLElement>('.tafel')!;
+      return clamp((oben() - spur.getBoundingClientRect().top) / Math.max(1, spur.offsetHeight - tafel.offsetHeight));
+    };
+    // Reise mit Halten: n Stationen, Start S, je Weg T und Halt W → liefert Anteil 0…1 entlang der Ziele
+    const plan = (p: number, n: number, S: number, T: number, W: number) => {
+      if (p <= S) return { k: -1, f: 0, halt: false };
+      for (let k = 0; k < n; k++) {
+        const ab = S + k * (T + W);
+        if (p < ab + T) return { k, f: glatt((p - ab) / T), halt: false };
+        if (p < ab + T + W) return { k, f: 1, halt: true };
+      }
+      return { k: n, f: 0, halt: false };
+    };
+
+    // ── Szene 1 ──
+    const b1 = buehnen[0];
+    const t1 = b1.querySelector<HTMLElement>('.tafel')!;
+    const svg1 = b1.querySelector<SVGSVGElement>('.reise__weg')!;
+    const weg1 = svg1.querySelector<SVGPathElement>('path')!;
+    const st1 = Array.from(b1.querySelectorAll<HTMLElement>('.station'));
+    const brief1 = b1.querySelector<HTMLElement>('.anfrage')!;
+    const hinweis = b1.querySelector<HTMLElement>('.tafel__hinweis');
+    const S1 = 0.04, T1 = 0.1, W1 = 0.05;
+    let frac: number[] = [], len1 = 1;
+    // ── Szene 2 ──
+    const b2 = buehnen[1];
+    const t2 = b2.querySelector<HTMLElement>('.tafel')!;
+    const reise2 = b2.querySelector<HTMLElement>('.reise')!;
+    const st2 = Array.from(b2.querySelectorAll<HTMLElement>('.station'));
+    const brief2 = b2.querySelector<HTMLElement>('.anfrage')!;
+    const ende = b2.querySelector<HTMLElement>('[data-ende]');
+    const S2 = 0.03, T2 = 0.1, W2 = 0.07;
+    // ── Startpunkt im Hero (Vorphase) ──
     const startpunkt = document.querySelector<HTMLElement>('.hlinie__start');
-    const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-    const glatt = (t: number) => t * t * (3 - 2 * t);
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-    // Zeitplan (Anteile von p): Hälfte 1 mit Pausen, Schnitt, Hälfte 2 schneller
-    const S1 = 0.03, T1 = 0.045, W1 = 0.028;
-    const S2 = 0.56, T2 = 0.05, W2 = 0.035;
-    const ankunft1 = (k: number) => S1 + k * (T1 + W1) + T1;
-    const ankunft2 = (k: number) => S2 + k * (T2 + W2) + T2;
-    const ENDE1 = ankunft1(5) + W1 + 0.02;
-    const ENDE2 = ankunft2(3) + W2 + 0.05;
-
-    let lx = 0, fh = 0, ftop = 0, len = 1;
-    let frac: number[] = []; // Weg-Anteil je Station
-    let ziel2: number[] = []; // y je Schritt (relativ zur Tafel)
+    const heroSvg = document.querySelector<SVGSVGElement>('.hlinie svg');
+    const heroWeg = heroSvg?.querySelector<SVGPathElement>('path');
+    const label = document.querySelector<HTMLElement>('.hlinie__label');
+    let heroPunkte: { x: number; y: number }[] = [];
 
     const messen = () => {
-      lx = parseFloat(getComputedStyle(tafel).getPropertyValue('--linie-x')) || 0;
-      ftop = flaeche.offsetTop;
-      fh = flaeche.clientHeight;
-      len = weg.getTotalLength();
-      // Anteil der Weglänge, an dem die Linie die Höhe der Station erreicht
-      frac = stationen.map((_, i) => {
+      len1 = weg1.getTotalLength();
+      frac = st1.map((_, i) => {
         const yZiel = [8.3, 25, 41.7, 58.3, 75, 91.7][i];
         let best = 0, d = 1e9;
-        for (let s = 0; s <= 200; s++) { const pt = weg.getPointAtLength((s / 200) * len); const dd = Math.abs(pt.y - yZiel); if (dd < d) { d = dd; best = s / 200; } }
+        for (let s = 0; s <= 240; s++) { const pt = weg1.getPointAtLength((s / 240) * len1); const dd = Math.abs(pt.y - yZiel); if (dd < d) { d = dd; best = s / 240; } }
         return best;
       });
-      const tr = tafel.getBoundingClientRect();
-      ziel2 = schritte.map((s) => { const r = s.getBoundingClientRect(); return r.top + r.height / 2 - tr.top; });
+      { const sr = svg1.getBoundingClientRect(), tr = t1.getBoundingClientRect(); so = { x: sr.left - tr.left, y: sr.top - tr.top, w: sr.width, h: sr.height }; }
+      if (heroWeg) { const L = heroWeg.getTotalLength(); heroPunkte = Array.from({ length: 121 }, (_, s) => { const pt = heroWeg.getPointAtLength((s / 120) * L); return { x: pt.x, y: pt.y }; }); }
     };
-
-    // Position auf Hälfte 1 (Weg-Anteil f) in Tafel-Koordinaten
+    let so = { x: 0, y: 0, w: 1, h: 1 };
     const punkt1 = (f: number) => {
-      const pt = weg.getPointAtLength(clamp(f) * len);
-      const sr = svg.getBoundingClientRect(), tr = tafel.getBoundingClientRect();
-      return { x: sr.left - tr.left + (pt.x / 100) * sr.width, y: sr.top - tr.top + (pt.y / 100) * sr.height, h: sr.height, top: sr.top - tr.top };
-    };
-    const weg1 = (p: number) => {
-      if (p <= S1) return 0;
-      for (let k = 0; k < frac.length; k++) {
-        const ab = S1 + k * (T1 + W1);
-        const von = k ? frac[k - 1] : 0;
-        if (p < ab + T1) return lerp(von, frac[k], glatt((p - ab) / T1));
-        if (p < ab + T1 + W1) return frac[k];
-      }
-      return lerp(frac[frac.length - 1], 1, glatt(clamp((p - (ankunft1(5) + W1)) / 0.02)));
-    };
-    const y2 = (p: number) => {
-      const start = ftop, ende = ftop + fh;
-      if (p <= S2) return start;
-      for (let k = 0; k < ziel2.length; k++) {
-        const ab = S2 + k * (T2 + W2);
-        const von = k ? ziel2[k - 1] : start;
-        if (p < ab + T2) return lerp(von, ziel2[k], glatt((p - ab) / T2));
-        if (p < ab + T2 + W2) return ziel2[k];
-      }
-      return lerp(ziel2[ziel2.length - 1], ende, glatt(clamp((p - (ankunft2(3) + W2)) / 0.05)));
+      const pt = weg1.getPointAtLength(clamp(f) * len1);
+      return { x: so.x + (pt.x / 100) * so.w, y: so.y + (pt.y / 100) * so.h };
     };
 
-    let zuletzt = -1;
-    const zeichnen = (erzwingen = false) => {
-      const oben = kopf ? kopf.getBoundingClientRect().bottom : 72;
-      const r = spur.getBoundingClientRect();
-      const p = clamp((oben - r.top) / Math.max(1, spur.offsetHeight - tafel.offsetHeight));
-      if (!erzwingen && Math.abs(p - zuletzt) < 0.0004) return;
-      zuletzt = p;
+    // Vorphase: Der Brief im Hero reitet beim Scrollen an der Linie hinunter bis zum Startpunkt von Szene 1 (Übergabe ohne Sprung).
+    // Alle Maße werden in messen() in Dokument-Koordinaten erfasst; pro Frame nur noch scrollY lesen (kein Layout-Thrash).
+    // Achtung: Die Kopfzeile schrumpft beim Scrollen (72 → 62 px) und schiebt den Inhalt darunter um die Differenz nach oben –
+    // deshalb wird ihre Höhe beim Messen gemerkt und pro Frame ausgeglichen.
+    let vm: { bx: number; by: number; hl: number; ht: number; hw: number; hh: number; zielX: number; zielY: number; stub: number; kh: number } | null = null;
+    const vorMessen = () => {
+      if (!startpunkt || !heroSvg) return;
+      startpunkt.style.transform = '';
+      const sy = window.scrollY, b = startpunkt.getBoundingClientRect(), hr = heroSvg.getBoundingClientRect();
+      const f1 = b1.querySelector<HTMLElement>('.tafel__flaeche')!;
+      const lx = parseFloat(getComputedStyle(t1).getPropertyValue('--linie-x')) || 0;
+      const spur1 = b1.querySelector<HTMLElement>('.wandel__spur')!;
+      vm = { bx: b.left + b.width / 2, by: b.top + b.height / 2 + sy, hl: hr.left, ht: hr.top + sy, hw: hr.width, hh: hr.height,
+        zielX: t1.getBoundingClientRect().left + lx, zielY: spur1.getBoundingClientRect().top + sy + f1.offsetTop, stub: f1.offsetTop, kh: kopf ? kopf.offsetHeight : 0 };
+    };
+    const vorphase = (p1: number, sy: number, ob: number, tTop: number, kh: number) => {
+      if (!startpunkt || !vm) return;
+      const dk = kh - vm.kh, by = vm.by + dk, ht = vm.ht + dk;
+      // Viewport-Höhe des Briefs: mitreiten auf Höhe des späteren Übergabepunkts (= Start der reisenden Anfrage), nie über dem
+      // Start im Hero, nie unter dem Ziel; beim Anheften der Bühne fallen beide Werte exakt zusammen (Übergabe ohne Sprung)
+      const yDoc = Math.min(Math.max(sy + ob + so.y, by), sy + tTop + so.y);
+      let x = vm.zielX;
+      if (yDoc <= ht + vm.hh && heroPunkte.length) {
+        let d = 1e9;
+        for (const pt of heroPunkte) { const dd = Math.abs(ht + (pt.y / 100) * vm.hh - yDoc); if (dd < d) { d = dd; x = vm.hl + (pt.x / 100) * vm.hw; } }
+      }
+      startpunkt.style.transform = `translate(${(x - vm.bx).toFixed(1)}px, ${(yDoc - by).toFixed(1)}px)`;
+      const uebergabe = clamp(p1 / 0.01);
+      startpunkt.style.opacity = String(1 - uebergabe);
+      brief1.style.visibility = uebergabe > 0 ? '' : 'hidden';
+      if (label) label.style.opacity = String(1 - clamp((yDoc - by) / 80));
+    };
 
-      // Hälfte 1: Linie bis zur Anfrage aufdecken, Stationen erscheinen bei Ankunft
-      const f = weg1(p);
-      const a1 = punkt1(f);
-      svg.style.clipPath = `inset(0 0 ${Math.max(0, a1.h - (a1.y - a1.top) - 2).toFixed(1)}px 0)`;
-      stationen.forEach((st, k) => {
-        const t = clamp((p - ankunft1(k) + 0.012) / 0.012);
-        st.style.opacity = String(t);
-        st.classList.toggle('station--hier', p >= ankunft1(k) - 0.004 && p < ankunft1(k) + W1);
+    const szene1 = (p: number) => {
+      const r = plan(p, st1.length, S1, T1, W1);
+      let f = 0;
+      if (r.k >= st1.length) f = frac[frac.length - 1];
+      else if (r.k >= 0) f = lerp(r.k ? frac[r.k - 1] : 0, frac[r.k], r.f);
+      const a = punkt1(f);
+      brief1.style.transform = `translate(${a.x.toFixed(1)}px, ${a.y.toFixed(1)}px)`;
+      brief1.style.opacity = String(clamp(p / 0.01));
+      brief1.classList.toggle('anfrage--wartet', r.k === 4 && r.halt);
+      st1.forEach((s, k) => {
+        const ank = S1 + k * (T1 + W1) + T1;
+        s.style.opacity = String(clamp((p - ank + 0.02) / 0.02));
+        s.classList.toggle('station--hier', p >= ank - 0.005 && (k === st1.length - 1 || p < ank + W1));
       });
-      const aus1 = clamp((p - ENDE1) / 0.035);
-      vorher.style.opacity = String(1 - aus1);
-      schnitt.style.opacity = String(clamp((p - ENDE1 + 0.01) / 0.02) * (1 - clamp((p - S2 + 0.005) / 0.02)));
-      const ein2 = clamp((p - S2 + 0.03) / 0.03);
-      ordnung.style.opacity = String(ein2);
+      if (hinweis) hinweis.style.opacity = String(1 - clamp(p / 0.03));
+    };
 
-      // Hälfte 2: Linie wächst mit der Anfrage, Karten erscheinen und leuchten beim Halt auf
-      const yy = y2(p);
-      tafel.style.setProperty('--zug2', String(clamp((yy - ordnung.offsetTop) / Math.max(1, ordnung.offsetHeight))));
-      schritte.forEach((sEl, k) => {
-        const t = clamp((p - ankunft2(k) + 0.012) / 0.012);
-        sEl.style.opacity = String(t);
-        sEl.style.transform = `translateX(${((1 - t) * 12).toFixed(1)}px)`;
-        sEl.classList.toggle('schritt--da', t > 0.5);
-        sEl.classList.toggle('schritt--hier', p >= ankunft2(k) - 0.004 && p < ankunft2(k) + W2);
+    const szene2 = (p: number) => {
+      const r = plan(p, st2.length, S2, T2, W2);
+      const { fh, top, ziele, lx } = m2;
+      let y = 0;
+      if (r.k < 0) y = 0;
+      else if (r.k >= st2.length) y = lerp(ziele[ziele.length - 1], fh, glatt(clamp((p - (S2 + st2.length * (T2 + W2))) / (1 - (S2 + st2.length * (T2 + W2)) - 0.03))));
+      else y = lerp(r.k ? ziele[r.k - 1] : 0, ziele[r.k], r.f);
+      t2.style.setProperty('--zug', String(clamp(y / Math.max(1, fh))));
+      brief2.style.transform = `translate(${lx.toFixed(1)}px, ${(top + y).toFixed(1)}px)`;
+      brief2.style.opacity = String(clamp(p / 0.015) * (1 - clamp((p - 0.97) / 0.03)));
+      st2.forEach((s, k) => {
+        const ank = S2 + k * (T2 + W2) + T2;
+        s.style.opacity = String(clamp((p - ank + 0.02) / 0.02));
+        s.classList.toggle('station--hier', p >= ank - 0.005 && p < ank + W2);
       });
-
-      // Die Anfrage: erst auf dem grauen Weg, nach dem Schnitt auf der geraden türkisen Linie
-      const zweite = p >= S2 - 0.01;
-      const x = zweite ? lx : a1.x;
-      const y = zweite ? yy : a1.y;
-      // Übergabe: Solange die Reise nicht begonnen hat, ist nur der Startpunkt im Hero zu sehen – sobald sie startet,
-      // übernimmt die reisende Anfrage (optisch EIN Brief); beim Hochscrollen umgekehrt.
-      const unterwegs = clamp(p / 0.008);
-      const sicht = zweite ? clamp((p - S2 + 0.01) / 0.015) * (1 - clamp((p - ENDE2) / 0.03)) : unterwegs * (1 - clamp((p - ENDE1) / 0.02));
-      if (startpunkt) startpunkt.style.opacity = String(1 - unterwegs);
-      anfrage.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
-      anfrage.style.opacity = String(sicht);
-      anfrage.classList.toggle('anfrage--klar', zweite);
-      anfrage.classList.toggle('anfrage--wartet', !zweite && p >= ankunft1(4) && p < ankunft1(4) + W1);
-
-      // Kennzeilen, Hinweis, Text-Spalte
-      const sichtK = [0, clamp((p - S2) / 0.03) * (1 - clamp((p - 0.9) / 0.03)), clamp((p - 0.92) / 0.03)];
-      kennzeilen.forEach((k) => { k.style.opacity = String(sichtK[Number(k.dataset.phase)]); });
-      hinweis.style.opacity = String(1 - clamp(p / 0.03));
-      root.classList.toggle('wandel--klar', p > S2 - 0.02);
-      if (breit.matches) {
-        const aus = clamp((p - ENDE1) / 0.03), ein = clamp((p - ENDE1 - 0.03) / 0.03);
-        textA.style.opacity = String(1 - aus);
-        textB.style.opacity = String(ein);
-        textA.style.visibility = aus >= 1 ? 'hidden' : '';
-        textB.style.visibility = ein <= 0 ? 'hidden' : '';
-      } else {
-        [textA, textB].forEach((el) => { el.style.opacity = ''; el.style.visibility = ''; });
-      }
+      if (ende && breitMq.matches) ende.style.opacity = String(clamp((p - 0.86) / 0.05));
     };
 
     let laeuft = false;
-    const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(() => { laeuft = false; zeichnen(); }); } };
-    const neu = () => { schritte.forEach((s) => (s.style.transform = '')); messen(); tafel.style.setProperty('--stub-h', `${flaeche.offsetTop}px`); zeichnen(true); };
+    let m2 = { fh: 1, top: 0, ziele: [] as number[], lx: 0 };
+    const zeichnen = () => {
+      laeuft = false;
+      // Lesen …
+      const sy = window.scrollY, ob = oben();
+      const p1 = fortschritt(b1), p2 = fortschritt(b2);
+      const tTop = t1.getBoundingClientRect().top, kh = kopf ? kopf.offsetHeight : 0;
+      // … dann schreiben
+      vorphase(p1, sy, ob, tTop, kh);
+      szene1(p1);
+      szene2(p2);
+    };
+    const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } };
+    const neu = () => {
+      startpunkt && (startpunkt.style.transform = '');
+      stubSetzen(); messen(); vorMessen();
+      m2 = { fh: reise2.clientHeight, top: reise2.offsetTop + (reise2.parentElement?.offsetTop ?? 0), ziele: st2.map((s) => s.offsetTop), lx: parseFloat(getComputedStyle(t2).getPropertyValue('--linie-x')) || 0 };
+      zeichnen();
+    };
     neu();
     window.addEventListener('scroll', anfordern, { passive: true });
     window.addEventListener('resize', () => requestAnimationFrame(neu));
@@ -271,126 +275,97 @@ const STATIONEN = P.slice(1, -1);
 
 <style>
   .wandel { position: relative; background: var(--paper); padding-top: clamp(48px, 7vw, 96px); }
+  .wandel--2 { padding-top: clamp(40px, 6vw, 80px); }
   .wandel__grid { display: grid; gap: 28px; }
-  .wtext h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 16px; }
-  .wtext .lead { margin: 0; max-width: 46ch; }
+  .wandel__text h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 16px; }
+  .wandel__text .lead { margin: 0; max-width: 46ch; }
+  .kenn-ende { margin: 0; font-family: var(--font-head); font-weight: 650; font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--ink); }
+  .kenn-ende strong { color: var(--accent-ink); }
 
   /* Arbeitsfläche */
-  .tafel { --linie-x: 14px; position: relative; display: grid; gap: 20px; padding-bottom: 8px; }
-  /* Die Hauptlinie kommt aus dem Hero: Verbindungsstück von oben bis zum Beginn der Fläche */
-  .tafel::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.25px); top: 0; width: 2.5px; height: var(--stub-h, 0px); background: #cdc6b8; transition: background 300ms ease; }
-  :global(.wandel--klar) .tafel::before { background: var(--accent); }
-  .tafel__kopf { position: relative; padding-left: calc(var(--linie-x) + 30px); }
-  .kenn { margin: 0; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); }
-  .kenn span { display: block; margin-bottom: 4px; font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
-  .kenn--mobil { display: none; }
+  .tafel { --linie-x: 14px; position: relative; padding-bottom: 8px; }
+  /* Szene 1: Verbindungsstück aus dem Hero (grau) */
+  .wandel--1 .tafel::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.25px); top: 0; width: 2.5px; height: var(--stub-h, 0px); background: #cdc6b8; }
+  .tafel__kopf { position: relative; min-height: 1px; padding-left: calc(var(--linie-x) + 30px); }
   .tafel__hinweis { display: none; }
-
-  /* Hälfte 1 */
   .tafel__flaeche { position: relative; }
-  .reise1 { position: relative; height: clamp(520px, 140vw, 600px); margin-left: var(--linie-x); }
-  .reise1__weg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .reise1__weg path { fill: none; stroke: #cdc6b8; stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  .reise1__stationen { list-style: none; margin: 0; padding: 0; }
+  .reise { position: relative; height: clamp(520px, 140vw, 600px); margin-left: var(--linie-x); }
+  .wandel--2 .reise { height: clamp(420px, 110vw, 480px); }
+  .reise__weg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .reise__weg path { fill: none; stroke: #cdc6b8; stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  /* Szene 2: neue gerade türkise Linie, von oben bis unten (schließt an den nächsten Abschnitt an) */
+  .reise__gerade { position: absolute; left: -1.5px; top: 0; bottom: -8px; width: 3px; background: var(--accent); transform-origin: top; }
+  .reise__stationen { list-style: none; margin: 0; padding: 0; }
   .station { position: absolute; left: var(--sx); top: var(--sy); width: 0; height: 0; }
   .station__punkt { position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2.5px solid #cdc6b8; box-sizing: border-box; }
   .station__karte {
-    position: absolute; left: 26px; top: 0; transform: translateY(-50%) rotate(var(--sr)); width: max-content; max-width: min(19rem, 62vw);
+    position: absolute; left: 26px; top: 0; transform: translateY(-50%); width: max-content; max-width: min(19rem, 62vw);
     --k-pad: 9px 14px; --k-gap: 10px; align-items: center; font-family: var(--font-head); font-weight: 600; font-size: 0.95rem; line-height: 1.3; color: #5b574f;
-    transition: border-color 200ms ease;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
   }
   .station__icon { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: rgb(84 84 84 / 7%); color: #6f6a60; }
   .station--hier .station__karte { border-color: #b4ad9e; }
-  .schnitt { margin: 18px 0 0 calc(var(--linie-x) + 30px); font-family: var(--font-head); font-weight: 650; color: var(--ink-soft); }
-  .schnitt span { color: var(--accent-ink); }
+  /* türkise Variante: gleiche Größe und Form, nur türkis (Talk 3751) */
+  .station--klar .station__punkt { border-color: var(--accent); }
+  .station--klar .station__karte { --k-rand: rgb(0 166 161 / 40%); color: var(--ink); }
+  .station--klar .station__icon { background: rgb(0 166 161 / 12%); color: var(--accent-ink); }
+  .station__karte strong { display: block; font-weight: 650; }
+  .station__karte small { display: block; font-family: var(--font-body); font-weight: 500; font-size: 0.82rem; color: var(--ink-soft); }
+  .station--klar.station--hier .station__karte { border-color: var(--accent); box-shadow: 0 0 0 4px rgb(0 166 161 / 16%), inset 0 0 0 999px rgb(0 166 161 / 6%); }
 
-  /* Die Anfrage */
   .anfrage { display: none; }
 
-  /* Hälfte 2 */
-  .tafel__ordnung { position: relative; }
-  .schritte { list-style: none; margin: 0; padding: 0 0 0 calc(var(--linie-x) + 30px); display: grid; gap: 14px; position: relative; }
-  .tafel__ordnung::before { content: ''; position: absolute; left: calc(var(--linie-x) - 1.5px); top: 0; bottom: -8px; width: 3px; background: var(--accent); border-radius: 2px; transform-origin: top; }
-  .schritt { --k-pad: 14px 16px; align-items: center; transition: box-shadow 200ms ease, border-color 200ms ease; }
-  .schritt::before { content: ''; position: absolute; left: -30px; top: 50%; width: 30px; height: 3px; margin-top: -1.5px; background: var(--accent); }
-  .schritt::after { content: ''; position: absolute; left: -37px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent); box-sizing: border-box; }
-  .schritt .schritt__titel { margin: 0 0 2px; font-size: 1.12rem; }
-  /* Mini-Szenen je Station: erscheinen nacheinander, sobald die Anfrage die Station erreicht */
-  .szene { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
-  .szene__teil { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; border-radius: 999px; background: rgb(0 166 161 / 10%); color: var(--accent-ink); font-size: 0.78rem; font-weight: 650; line-height: 1.3; }
-  .szene__pfeil { display: inline-flex; color: var(--accent-mid); }
-  :global(.wandel--live) .szene > * { opacity: 0; transform: translateX(-6px); transition: opacity 260ms ease, transform 260ms ease; transition-delay: calc(var(--n) * 220ms); }
-  :global(.wandel--live) .schritt--da .szene > * { opacity: 1; transform: none; }
-  :global(.wandel--live) .schritt--hier .szene__teil:last-child { background: var(--accent); color: var(--on-accent); }
-  .schritt--hier { border-color: var(--accent); box-shadow: 0 0 0 4px rgb(0 166 161 / 16%), inset 0 0 0 999px rgb(0 166 161 / 6%); }
-
-  /* Handy: Text A vor der Bühne, Text B danach */
+  /* Handy: Text vor der Bühne; in Szene 1 läuft die Linie links neben dem Text weiter */
   @media (max-width: 959px) {
-    .wandel { padding-top: 40px; }
-    .wandel__text { display: contents; }
-    .wtext--a { order: 1; position: relative; padding-left: 44px; }
-    .wtext--a::before { content: ''; position: absolute; left: 12.75px; top: -40px; bottom: -28px; width: 2.5px; background: #cdc6b8; }
-    .wandel__spur { order: 2; }
-    .wtext--b { order: 3; padding-bottom: 8px; }
+    .wandel--1 { padding-top: 40px; }
+    .wandel--1 .wandel__text { position: relative; padding-left: 44px; }
+    .wandel--1 .wandel__text::before { content: ''; position: absolute; left: 12.75px; top: -40px; bottom: -28px; width: 2.5px; background: #cdc6b8; }
+    .wandel--2 .wandel__text { padding-left: 44px; }
   }
-  /* Desktop: zwei Spalten, die Linie sitzt in der Mitte */
   @media (min-width: 960px) {
-    .wandel { --g: 56px; padding-top: 0; }
+    .wandel { --g: 56px; }
+    .wandel--1 { padding-top: 0; }
     .wandel__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: calc(2 * var(--g)); align-items: start; }
-    .wandel__text { display: grid; gap: 48px; padding-block: clamp(48px, 7vw, 96px); }
+    .wandel__text { padding-block: clamp(48px, 7vw, 96px); }
     .wandel__spur { margin-left: calc(-1 * var(--g)); }
-    .tafel { --linie-x: 0px; padding-top: clamp(48px, 7vw, 96px); }
-    .tafel__kopf, .schritte { padding-left: calc(var(--g) + 4px); }
-    .schritt::before { left: calc(-1 * var(--g) - 4px); width: calc(var(--g) + 4px); }
-    .schritt::after { left: calc(-1 * var(--g) - 11px); }
-    .schnitt { margin-left: calc(var(--g) + 4px); }
-    .reise1 { height: 560px; }
+    .tafel { --linie-x: 0px; }
+    .wandel--1 .tafel { padding-top: clamp(48px, 7vw, 96px); }
+    .tafel__kopf { padding-left: calc(var(--g) + 4px); }
+    .reise { height: 560px; }
+    .wandel--2 .reise { height: 520px; }
     .station__karte { left: 30px; font-size: 1rem; }
+    .kenn-ende { margin-top: 28px; }
   }
 
-  /* ───── Bühne mit Bewegung ───── */
-  :global(.wandel--live) .wandel__spur { height: calc(100svh - var(--header-h) - var(--stickybar-h) + 300svh); }
-  :global(.wandel--live) .tafel { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h) - var(--stickybar-h)); padding-block: 18px 0; gap: 0; }
-  :global(.wandel--live) .tafel__teil { grid-area: 1 / 1; display: flex; flex-direction: column; min-height: 0; }
+  /* ───── Bewegung (scroll-gekoppelt) ───── */
+  :global(.wandel--live) .wandel__spur { height: calc(100svh - var(--header-h) - var(--stickybar-h) + 200svh); }
+  :global(.wandel--live).wandel--2 .wandel__spur { height: calc(100svh - var(--header-h) - var(--stickybar-h) + 150svh); }
+  :global(.wandel--live) .tafel { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h) - var(--stickybar-h)); display: flex; flex-direction: column; padding-block: 18px 0; }
+  :global(.wandel--live).wandel--2 .tafel { padding-top: 0; }
   :global(.wandel--live) .tafel__flaeche { flex: 1; min-height: 0; }
-  :global(.wandel--live) .reise1 { position: absolute; inset: 0 0 24px var(--linie-x); height: auto; margin: 0; }
+  :global(.wandel--live) .reise { position: absolute; inset: 0 0 24px var(--linie-x); height: auto !important; margin: 0; }
+  :global(.wandel--live).wandel--2 .reise { inset: 0 0 0 var(--linie-x); }
+  :global(.wandel--live) .reise__gerade { bottom: 0; transform: scaleY(var(--zug, 0)); }
+  :global(.wandel--live).wandel--2 .reise__gerade { top: 0; }
   :global(.wandel--live) .station { opacity: 0; }
-  :global(.wandel--live) .schnitt { position: absolute; left: 50%; top: 50%; margin: 0; transform: translate(-50%, -50%); white-space: nowrap; padding: 10px 18px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); opacity: 0; z-index: 2; }
-  :global(.wandel--live) .tafel__kopf { min-height: 3.6em; }
-  :global(.wandel--live) .tafel__kopf .kenn { position: absolute; left: calc(var(--linie-x) + 30px); right: 0; top: 0; opacity: 0; }
-  :global(.wandel--live) .tafel__ordnung { pointer-events: none; opacity: 0; }
-  :global(.wandel--live) .tafel__ordnung::before { transform: scaleY(var(--zug2, 0)); bottom: 0; }
-  :global(.wandel--live) .schritte { flex: 1; align-content: space-evenly; padding-bottom: 12px; }
-  :global(.wandel--live) .schritt { opacity: 0; }
-  :global(.wandel--live) .schritt::before, :global(.wandel--live) .schritt::after { transition: transform 200ms ease, opacity 200ms ease; transform: scale(0.4); opacity: 0; }
-  :global(.wandel--live) .schritt--da::before, :global(.wandel--live) .schritt--da::after { transform: none; opacity: 1; }
+  :global(.wandel--live) .tafel__kopf { min-height: 2.4em; }
   :global(.wandel--live) .tafel__hinweis { display: flex; position: absolute; left: calc(var(--linie-x) + 30px); top: 0; align-items: center; gap: 6px; margin: 0; font-size: 0.88rem; font-weight: 600; color: #6f6a60; }
   :global(.wandel--live) .anfrage {
     display: grid; place-items: center; position: absolute; left: -17px; top: -17px; width: 34px; height: 34px; z-index: 3; border-radius: 50%;
-    background: var(--paper); border: 2.5px solid #b4ad9e; color: #6f6a60; will-change: transform; transition: border-color 250ms ease, color 250ms ease;
+    background: var(--paper); border: 2.5px solid var(--accent); color: var(--accent-ink); will-change: transform; opacity: 0;
   }
   :global(.wandel--live) .anfrage :global(svg) { display: block; }
-  :global(.wandel--live) .anfrage--klar { border-color: var(--accent); color: var(--accent-ink); }
   :global(.wandel--live) .anfrage--wartet :global(svg) { animation: warten 0.5s ease-in-out infinite; }
   @keyframes warten { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-9deg); } 75% { transform: rotate(9deg); } }
-  @media (max-width: 959px) {
-    /* Handy: die Mini-Szene trägt die Kurzinfo (< 1 Std., Prüfung → Bearbeitung, fester Monatspreis), damit alle vier Stationen passen */
-    :global(.wandel--live) .schritt .k__inhalt > p { display: none; }
-    :global(.wandel--live) .szene { gap: 4px; }
-    :global(.wandel--live) .szene__teil { white-space: nowrap; font-size: 0.74rem; }
-    :global(.wandel--live) .kenn--mobil { display: block; }
-    :global(.wandel--live) .tafel__kopf { min-height: 4.6em; }
-  }
+  @media (min-width: 960px) { :global(.wandel--live) .kenn-ende { opacity: 0; } }
   @media (min-width: 960px) {
     :global(.wandel--live) .wandel__grid { align-items: stretch; }
-    :global(.wandel--live) .wandel__text { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); display: grid; align-content: center; padding-block: 24px; }
-    :global(.wandel--live) .wtext { grid-area: 1 / 1; }
-    :global(.wandel--live) .wtext--b { opacity: 0; }
-    :global(.wandel--live) .tafel { padding-top: clamp(28px, 5vh, 56px); }
-    :global(.wandel--live) .tafel__kopf .kenn, :global(.wandel--live) .tafel__hinweis { left: calc(var(--g) + 4px); }
+    :global(.wandel--live) .wandel__text { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); display: flex; flex-direction: column; justify-content: center; padding-block: 24px; }
+    :global(.wandel--live).wandel--1 .tafel { padding-top: clamp(28px, 5vh, 56px); }
+    :global(.wandel--live) .tafel__hinweis { left: calc(var(--g) + 4px); }
   }
   @media (max-width: 959px) and (max-height: 760px) {
-    :global(.wandel--live) .schritt { padding: 10px 14px; }
     :global(.wandel--live) .station__karte { font-size: 0.86rem; --k-pad: 7px 12px; }
+    :global(.wandel--live) .station__karte small { font-size: 0.76rem; }
   }
 </style>

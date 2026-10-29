@@ -23,12 +23,12 @@ import { HERO } from '../../config/hauptseite';
   </div>
   <div class="hlinie" aria-hidden="true">
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path d="M 88 0 C 88 14, 52 10, 50 26 C 48 42, 82 44, 78 60 C 74 76, 0 70, 0 100" /></svg>
-    <span class="hlinie__start"><Icon name="mail" size={18} /><span class="hlinie__label">Ihre Anfrage</span></span>
+    <span class="hlinie__start"><span class="hlinie__brief"><Icon name="mail" size={18} /></span><span class="hlinie__label">Ihre Anfrage</span></span>
   </div>
 </section>
 
 <style>
-  .hero { --spine-x: calc((100% - min(100% - 32px, var(--wrap))) / 2 + 14px); position: relative; background: var(--paper); padding-block: clamp(28px, 5vw, 64px) 0; }
+  .hero { --spine-x: calc((100% - min(100% - 32px, var(--wrap))) / 2 + 14px); position: relative; z-index: 2; background: var(--paper); padding-block: clamp(28px, 5vw, 64px) 0; }
   .hero__grid { display: grid; }
   .hero__text { padding-bottom: 196px; }
   .hero h1 { font-size: clamp(2.5rem, 10.5vw, 4.4rem); line-height: 1.02; letter-spacing: -0.04em; margin: 4px 0 20px; max-width: 12ch; }
@@ -43,14 +43,16 @@ import { HERO } from '../../config/hauptseite';
   /* Zeichnen von oben nach unten per Ausschnitt (stroke-dasharray verträgt sich nicht mit non-scaling-stroke) */
   .hlinie svg { animation: hl-zeichnen 1.6s ease-in-out both 0.85s; }
   /* Startpunkt der Reise: die Anfrage des Kunden macht sich auf den Weg (Jamil, Talk 3714/3719) */
-  .hlinie__start { position: absolute; left: 88%; top: 0; display: grid; place-items: center; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: var(--paper); border: 2.5px solid #cdc6b8; color: #6f6a60; animation: hl-start 0.9s ease-out both; }
-  .hlinie__label { position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 0.8rem; font-weight: 650; letter-spacing: 0.02em; color: #6f6a60; }
+  /* Startpunkt: türkiser Brief (Jamil, Talk 3742); die Position steuert beim Scrollen Wandel.astro (wandert an der Linie mit) */
+  .hlinie__start { position: absolute; left: 88%; top: 0; width: 40px; height: 40px; margin: -20px 0 0 -20px; will-change: transform; }
+  .hlinie__brief { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent); color: var(--accent-ink); box-sizing: border-box; animation: hl-start 0.9s ease-out both; }
+  .hlinie__label { transition: opacity 200ms linear; position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 0.8rem; font-weight: 650; letter-spacing: 0.02em; color: #6f6a60; }
   /* erst erscheinen, dann „abschicken“ (kurzer Stups + Aufleuchten), danach zeichnet sich die Linie */
   @keyframes hl-start {
     0% { opacity: 0; transform: scale(0.5); }
-    40% { opacity: 1; transform: none; border-color: #cdc6b8; }
-    65% { transform: translate(-4px, 4px); border-color: var(--accent); color: var(--accent-ink); }
-    100% { transform: none; border-color: #cdc6b8; }
+    40% { opacity: 1; transform: none; box-shadow: 0 0 0 0 rgb(0 166 161 / 0%); }
+    65% { transform: translate(-4px, 4px); box-shadow: 0 0 0 6px rgb(0 166 161 / 18%); }
+    100% { transform: none; box-shadow: 0 0 0 0 rgb(0 166 161 / 0%); }
   }
   @media (min-width: 960px) {
     .hero { --spine-x: 50%; }

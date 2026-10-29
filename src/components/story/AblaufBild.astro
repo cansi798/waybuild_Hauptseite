@@ -1,0 +1,73 @@
+---
+// Kleine Linien-Animationen für „So beginnt die Zusammenarbeit“ (Jamil, Talk 3769). Sie spielen einmal, sobald die
+// Linie die Kachel erreicht (Klasse .aktiv an der Kachel, gesetzt von index.astro) und laufen beim Hochscrollen zurück.
+// Ohne JS bzw. bei reduzierter Bewegung: statisches Endbild. Nur transform/opacity/stroke-dashoffset.
+interface Props { art: 'gespraech' | 'dna' | 'analyse' | 'planung' | 'umsetzung' }
+const { art } = Astro.props;
+---
+<svg class={`ab ab--${art}`} viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
+  {art === 'gespraech' && (<>
+    <path class="ab__a" d="M5 5h13a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H11l-4 3v-3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z" />
+    <path class="ab__b" d="M15 15h12a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-1v3l-4-3h-7a3 3 0 0 1-3-3v-5a3 3 0 0 1 3-3z" />
+  </>)}
+  {art === 'dna' && (<>
+    <rect x="3" y="6" width="26" height="20" rx="3" />
+    <circle cx="10" cy="14" r="3" />
+    <path class="ab__l ab__l--1" pathLength="1" d="M16 12h9" />
+    <path class="ab__l ab__l--2" pathLength="1" d="M16 16h6" />
+    <path class="ab__l ab__l--3" pathLength="1" d="M7 21h18" />
+  </>)}
+  {art === 'analyse' && (<>
+    <path class="ab__bar ab__bar--1" d="M6 27v-7" /><path class="ab__bar ab__bar--2" d="M11 27v-11" /><path class="ab__bar ab__bar--3" d="M16 27v-5" />
+    <g class="ab__lupe"><circle cx="20" cy="10" r="5" /><path d="M24 14l4 4" /></g>
+    <path class="ab__haken" pathLength="1" d="M18 22l3 3 7-8" />
+  </>)}
+  {art === 'planung' && (<>
+    <rect x="4" y="7" width="24" height="21" rx="3" /><path d="M4 13h24M11 4v6M21 4v6" />
+    <rect class="ab__z ab__z--1" x="8" y="17" width="4" height="3" rx="1" />
+    <rect class="ab__z ab__z--2" x="14" y="17" width="4" height="3" rx="1" />
+    <rect class="ab__z ab__z--3" x="20" y="17" width="4" height="3" rx="1" />
+    <rect class="ab__z ab__z--4" x="8" y="22" width="4" height="3" rx="1" />
+  </>)}
+  {art === 'umsetzung' && (<>
+    <g class="ab__rad"><circle cx="14" cy="14" r="4" /><path d="M14 5v3M14 20v3M5 14h3M20 14h3M7.6 7.6l2.1 2.1M18.3 18.3l2.1 2.1M7.6 20.4l2.1-2.1M18.3 9.7l2.1-2.1" /></g>
+    <circle class="ab__ok" cx="24" cy="24" r="6" /><path class="ab__ok-h" pathLength="1" d="M21 24l2 2 4-4" />
+  </>)}
+</svg>
+
+<style>
+  .ab { display: block; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+  .ab rect.ab__z { fill: currentColor; stroke: none; }
+  .ab .ab__ok { fill: var(--accent); stroke: none; }
+  .ab .ab__ok-h { stroke: var(--white); stroke-dasharray: 1; }
+  .ab .ab__l, .ab .ab__haken { stroke-dasharray: 1; }
+  .ab__lupe, .ab__rad, .ab__a, .ab__b, .ab__bar, .ab__z, .ab__ok { transform-box: fill-box; transform-origin: center; }
+  .ab__bar { transform-origin: bottom; }
+
+  /* Ausgangszustand nur mit JS und erlaubter Bewegung; die Animation startet, wenn die Kachel .aktiv wird */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.ablauf--js) .ab__a, :global(.ablauf--js) .ab__b, :global(.ablauf--js) .ab__z, :global(.ablauf--js) .ab__ok { opacity: 0; transform: scale(0.6); }
+    :global(.ablauf--js) .ab__l, :global(.ablauf--js) .ab__haken, :global(.ablauf--js) .ab__ok-h { stroke-dashoffset: 1; }
+    :global(.ablauf--js) .ab__bar { transform: scaleY(0.2); }
+    :global(.ablauf--js) .ab__lupe { transform: translateX(-8px); }
+    :global(.ablauf--js) .ab > * { transition: opacity 300ms ease, transform 450ms ease, stroke-dashoffset 450ms ease; }
+
+    :global(.aktiv) .ab__a { opacity: 1; transform: none; }
+    :global(.aktiv) .ab__b { opacity: 1; transform: none; transition-delay: 350ms; }
+    :global(.aktiv) .ab__l--1 { stroke-dashoffset: 0; transition-delay: 100ms; }
+    :global(.aktiv) .ab__l--2 { stroke-dashoffset: 0; transition-delay: 350ms; }
+    :global(.aktiv) .ab__l--3 { stroke-dashoffset: 0; transition-delay: 600ms; }
+    :global(.aktiv) .ab__bar { transform: none; }
+    :global(.aktiv) .ab__bar--2 { transition-delay: 120ms; }
+    :global(.aktiv) .ab__bar--3 { transition-delay: 240ms; }
+    :global(.aktiv) .ab__lupe { transform: translate(2px, -1px); opacity: 0.35; transition-delay: 300ms; }
+    :global(.aktiv) .ab__haken { stroke-dashoffset: 0; transition-delay: 750ms; }
+    :global(.aktiv) .ab__z { opacity: 1; transform: none; }
+    :global(.aktiv) .ab__z--2 { transition-delay: 150ms; }
+    :global(.aktiv) .ab__z--3 { transition-delay: 300ms; }
+    :global(.aktiv) .ab__z--4 { transition-delay: 450ms; }
+    :global(.aktiv) .ab__rad { transform: rotate(90deg); transition-duration: 900ms; }
+    :global(.aktiv) .ab__ok { opacity: 1; transform: none; transition-delay: 700ms; }
+    :global(.aktiv) .ab__ok-h { stroke-dashoffset: 0; transition-delay: 900ms; }
+  }
+</style>

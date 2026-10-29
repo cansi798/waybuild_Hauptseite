@@ -47,22 +47,22 @@ export const WERTE: { icon: IconName; title: string; lead: string; text: string 
     icon: 'lock',
     title: 'Sicher',
     lead: 'Datenschutz und Sicherheit von Anfang an.',
-    text: 'Datenschutz und Sicherheit planen wir von Beginn an mit ein – nicht erst hinterher. Wartung, Updates und Backups erledigen wir im Hintergrund. So bleibt Ihre Technik geschützt, und Sie können sich auf Ihr Geschäft konzentrieren.',
+    text: 'Datenschutz und Sicherheit planen wir von Beginn an mit ein. Wartung, Updates und Backups erledigen wir im Hintergrund. So bleibt Ihre Technik geschützt, und Sie können sich auf Ihr Geschäft konzentrieren.',
   },
   {
     icon: 'spark',
     title: 'Zukunftsorientiert',
     lead: 'KI-gestützt und ständig weiterentwickelt.',
-    text: 'Wir arbeiten mit modernen, KI-gestützten Werkzeugen – so kommen Änderungen schneller bei Ihnen an. Ihre Lösung bleibt nach dem Start nicht stehen: Wir verbessern sie laufend weiter.',
+    text: 'Wir arbeiten mit KI-gestützten Werkzeugen, dadurch kommen Änderungen schneller bei Ihnen an. Ihre Lösung bleibt nach dem Start nicht stehen: Wir verbessern sie laufend weiter.',
   },
 ];
 
 /** „Klein, aber mit den Standards der Großen“ (Jamil 21.10.2026, Sprachnachricht 2960).
  *  Gegenüberstellung bewusst sachlich – kein Herabsetzen anderer Anbieter. */
 export const STANDARDS = {
-  text: 'waybuild IT ist ein kleines, junges Unternehmen. Beim Service arbeiten wir trotzdem wie die Großen: mit festem Ticketsystem, schriftlichen Service-Zusagen und klaren Abläufen. Bei vielen IT-Dienstleistern läuft dagegen alles übers Telefon – man ruft „seinen“ IT-Mann an und hofft, dass er Zeit hat.',
+  text: 'waybuild IT ist ein kleines, junges Unternehmen. Beim Service arbeiten wir trotzdem wie die Großen: mit festem Ticketsystem, schriftlichen Service-Zusagen und klaren Abläufen. Bei vielen IT-Dienstleistern läuft dagegen alles übers Telefon. Man ruft „seinen“ IT-Mann an und hofft, dass er Zeit hat.',
   vergleich: [
-    { thema: 'Anfragen', oft: 'Anruf beim „Lieblings-IT-Mann“', wir: 'Festes Ticketsystem – nichts geht verloren' },
+    { thema: 'Anfragen', oft: 'Anruf beim „Lieblings-IT-Mann“', wir: 'Festes Ticketsystem, in dem nichts verloren geht' },
     { thema: 'Reaktionszeit', oft: 'Wenn gerade jemand Zeit hat', wir: 'Schriftlich zugesagt (SLA)' },
     { thema: 'Ansprechpartner', oft: 'Wer gerade ans Telefon geht', wir: 'Ihr fester Ansprechpartner' },
     { thema: 'Abläufe', oft: 'Im Kopf einzelner Personen', wir: 'Feste, dokumentierte Prozesse' },
@@ -78,19 +78,19 @@ export const SLA_KERN: { icon: IconName; label: string; wert: string; text: stri
 ];
 // „Alle Zusagen erhalten Sie schriftlich“ am 27.10.2026 entfernt: noch nicht belegt (Launch-Checkliste „Leistungsversprechen absichern“, Frage b an Jamil, Talk 3397).
 /** Gilt für alle Produkte (Jamil, Talk 3475). */
-export const SLA_HINWEIS = 'Servicezeiten: Montag – Freitag, 9:00 – 18:00 Uhr (ohne gesetzliche Feiertage).';
+export const SLA_HINWEIS = 'Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr (ohne gesetzliche Feiertage).';
 
 /** Weitere feste Zusagen – Wortlaut aus der waybuild_website (Git-Historie) */
 export const ZUSAGEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'user', title: 'Sie erreichen immer einen Menschen', text: 'Kein Callcenter, keine Warteschleife.' },
-  { icon: 'mic', title: 'Eine Nachricht genügt', text: 'Kein Formular nötig – melden Sie sich so, wie es für Sie am einfachsten ist.' },
-  { icon: 'server', title: 'Die Technik läuft – wir kümmern uns', text: 'Wartung, Updates und Backups im Hintergrund.' },
+  { icon: 'mic', title: 'Eine Nachricht genügt', text: 'Melden Sie sich so, wie es für Sie am einfachsten ist. Ein Formular brauchen Sie nicht.' },
+  { icon: 'server', title: 'Wir kümmern uns um die Technik', text: 'Wartung, Updates und Backups erledigen wir im Hintergrund.' },
   { icon: 'euro', title: 'Keine Überraschungen auf der Rechnung', text: 'Extras nur nach schriftlicher Absprache.' },
 ];
 
 /** So funktioniert unser Ticketsystem (Jamil 21.10.2026) */
 export const TICKET: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'mic', title: 'Sie melden sich', text: 'Per Sprachnachricht oder Text – so, wie es für Sie am einfachsten ist.' },
+  { icon: 'mic', title: 'Sie melden sich', text: 'Per Sprachnachricht oder Text, so wie es für Sie am einfachsten ist.' },
   { icon: 'ticket', title: 'Ticket entsteht', text: 'Im Hintergrund wird automatisch ein Ticket angelegt. Nichts geht verloren.' },
   { icon: 'layers', title: 'Wird eingeordnet', text: 'Das Ticket wird nach Thema und Dringlichkeit eingeordnet.' },
   { icon: 'check', title: 'Wird erledigt', text: 'Einfache Anliegen löst unsere KI oft sofort. Alles andere übernimmt unser Team.' },
@@ -107,7 +107,7 @@ export const PROZESSE: { icon: IconName; title: string; text: string }[] = [
 /** Vertrauen – nur Aussagen, die bereits im Seiten-Quelltext stehen (keine Zertifikate, Kundenzahlen, Bewertungen). */
 export const VERTRAUEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'user', title: 'Fester Ansprechpartner', text: 'Eine Person, die Ihr Unternehmen kennt.' },
-  { icon: 'doc', title: 'Feste Service-Zusagen', text: 'Eine feste Reaktionszeit statt vager Versprechen.' },
+  { icon: 'doc', title: 'Feste Service-Zusagen', text: 'Eine feste Reaktionszeit, die Sie nachlesen können.' },
   { icon: 'euro', title: 'Transparente Preise', text: 'Keine versteckten Kosten, Extras nur nach Absprache.' },
   { icon: 'server', title: 'Server in Deutschland', text: 'Unsere Lösungen laufen auf Servern in Deutschland.' },
   { icon: 'lock', title: 'DSGVO-konform', text: 'Auftragsverarbeitungs-Vertrag (AV-Vertrag) auf Anfrage.' },
@@ -161,12 +161,12 @@ export const PRODUKTE: Produkt[] = [
   // Punkte: Jamil, Talk 3543 („Änderungen per Sprachnachricht in Minuten … per Sprache, Text, Screenshot, kurzes Video …
   // sich selbst optimierende Websites … mit unserem Serviceversprechen“). „oft in wenigen Minuten“ = keine garantierte Frist
   // (passt zu SLA_KERN „Oft schon in Minuten erledigt“). Selbstoptimierung nach PAKETE „Intelligente Website“.
-  { id: 'website', art: 'produkt', name: 'TODO', kategorie: 'Website Service', nutzen: 'Ihre Website – gebaut, betreut und jederzeit veränderbar.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/', cta: 'Produkt kennenlernen', saeule: 'Klarheit bei Ihrer Website',
+  { id: 'website', art: 'produkt', name: 'TODO', kategorie: 'Website Service', nutzen: 'Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten.', icon: 'layout', aktiv: true, url: '', pfad: '/angebot/', cta: 'Produkt kennenlernen', saeule: 'Klarheit bei Ihrer Website',
     erklaerung: 'Änderungen schicken Sie per Sprachnachricht, Text, Screenshot oder kurzem Video. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.',
     frage: 'Warum Ihre Website mit uns?',
     punkte: [
-      { icon: 'mic', text: 'Änderungen per Sprachnachricht – oft in wenigen Minuten erledigt.' },
-      { icon: 'video', text: 'Maximale Flexibilität: jederzeit anpassbar – per Sprache, Text, Screenshot oder kurzem Video.' },
+      { icon: 'mic', text: 'Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt.' },
+      { icon: 'video', text: 'Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video.' },
       { icon: 'chart', text: 'Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an.' },
       // Jamil, Talk 3586. Belegt: WAAS.einrichtung = 0, fester Monatspreis (MODELL). „monatlich kündbar“ NICHT belegt (24 Monate Laufzeit).
       { icon: 'euro', text: 'Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.' },
@@ -191,14 +191,14 @@ export const WEBSITE_PRODUKT = PRODUKTE[0];
 /** Texte ab 28.10.2026 wörtlich aus Jamils kompaktem Design-Briefing (Talk 3636). */
 export const HALTUNG: { titel: string; text: string; bild: 'ohr' | 'gehirn' | 'licht' | 'knoten' }[] = [
   { titel: 'Wir hören zu.', text: 'Wir beginnen nicht mit einer fertigen Lösung. Wir möchten zuerst verstehen, was Sie erreichen wollen.', bild: 'ohr' },
-  { titel: 'Wir denken mit.', text: 'Wir setzen nicht nur Anforderungen um. Wir weisen auch auf einfachere oder sinnvollere Wege hin.', bild: 'gehirn' },
+  { titel: 'Wir denken mit.', text: 'Wenn es einen einfacheren oder sinnvolleren Weg gibt, sagen wir es Ihnen.', bild: 'gehirn' },
   { titel: 'Wir mögen einfache Lösungen.', text: 'Wenn sich etwas verändern soll, sollte die Umsetzung nicht selbst zum Problem werden.', bild: 'licht' },
   { titel: 'Wir machen es nicht komplizierter als nötig.', text: 'Klarheit, Struktur und gute Kommunikation reichen häufig weiter als zusätzliche Systeme und Prozesse.', bild: 'knoten' },
 ];
 
 /** „Über waybuild IT“ – wird in der Sektion „Klein, aber mit den Standards der Großen“ verwendet */
 export const UEBER = {
-  text: 'waybuild IT ist eine Marke der Waybuild UG (haftungsbeschränkt). Wir helfen Unternehmen, Veränderungen einfacher umzusetzen – mit Klarheit, Struktur und einem verlässlichen Partner.',
+  text: 'waybuild IT ist eine Marke der Waybuild UG (haftungsbeschränkt). Wir helfen Unternehmen, Veränderungen einfacher umzusetzen, mit Klarheit, Struktur und einem verlässlichen Partner.',
   schritte: [
     { icon: 'users' as IconName, title: 'Menschliche Beratung' },
     { icon: 'bot' as IconName, title: 'KI-gestützte Umsetzung' },
@@ -229,12 +229,12 @@ export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
  *  Einordnung der Grundsätze: „Wir hören zu“ → Schritt 1 (Gespräch) und Verständnis („Was möchten Sie erreichen?“),
  *  „Wir denken mit“ → Schritt 3 (Vorschlag), „einfache Lösungen / nicht komplizierter als nötig“ → Säule Einfachheit und Leichtigkeit.
  *  Testphase nur nach Jamils Zustimmung ergänzen. */
-export const START_ABLAUF: { titel: string; text: string; icon: IconName }[] = [
-  { titel: 'Lockeres Gespräch', text: 'Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.', icon: 'chat' },
-  { titel: 'Unternehmens-DNA', text: 'Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.', icon: 'idcard' },
-  { titel: 'Analyse & Vorschlag', text: 'Darauf bauen wir Lösung und Vorschlag auf – so einfach wie möglich.', icon: 'search' },
-  { titel: 'Planung', text: 'Gemeinsam legen wir fest, was wann passiert.', icon: 'calendar' },
-  { titel: 'Umsetzung', text: 'Wir setzen um, Sie prüfen und geben frei.', icon: 'check' },
+export const START_ABLAUF: { titel: string; text: string; icon: IconName; bild: 'gespraech' | 'dna' | 'analyse' | 'planung' | 'umsetzung' }[] = [
+  { titel: 'Lockeres Gespräch', text: 'Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.', icon: 'chat', bild: 'gespraech' },
+  { titel: 'Unternehmens-DNA', text: 'Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.', icon: 'idcard', bild: 'dna' },
+  { titel: 'Analyse & Vorschlag', text: 'Daraus entsteht unser Vorschlag, so einfach wie möglich.', icon: 'search', bild: 'analyse' },
+  { titel: 'Planung', text: 'Gemeinsam legen wir fest, was wann passiert.', icon: 'calendar', bild: 'planung' },
+  { titel: 'Umsetzung', text: 'Wir setzen um, Sie prüfen und geben frei.', icon: 'check', bild: 'umsetzung' },
 ];
 
 /** Drei Säulen der Marke (Jamil, Talk 3690): Klarheit · Verlässlichkeit · Einfachheit – Texte aus dem Brief, gekürzt. */

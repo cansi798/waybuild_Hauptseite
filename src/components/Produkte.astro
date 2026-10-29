@@ -29,7 +29,7 @@ const ziel = (p: (typeof PRODUKTE)[number]) => (p.url ? { href: p.url, extern: t
         {p.erklaerung && <p class="produkt__erkl">{p.erklaerung}</p>}
         {z ? (
           <a class="btn btn--primary" href={z.href} {...(z.extern ? { target: '_blank', rel: 'noopener' } : {})}>
-            {p.cta ?? 'Produkt kennenlernen'} <Icon name="arrow" size={18} /><span class="sr-only"> – {produktName(p)}</span>{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
+            {p.cta ?? 'Produkt kennenlernen'} <Icon name="arrow" size={18} /><span class="sr-only">: {produktName(p)}</span>{z.extern && <span class="sr-only"> (öffnet in neuem Tab)</span>}
           </a>
         ) : (
           <p class="produkt__folgt">Eigene Produktseite folgt.</p>

@@ -25,7 +25,7 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   <section class="section section--dark etappe" id="zusagen" aria-labelledby="zusagen-h">
     <WegTrenner variante={2} />
     <div class="wrap">
-      <SectionHead eyebrow="Service-Zusagen" pre="Feste Zusagen. " accent="Klare Zeiten." text="Keine vagen Versprechen, sondern feste Zeiten – für jeden Kunden." id="zusagen-h" />
+      <SectionHead eyebrow="Service-Zusagen" pre="Feste Zusagen. " accent="Klare Zeiten." text="Feste Zeiten, für jeden Kunden gleich." id="zusagen-h" />
       <ul class="sla">
         {slas.map((z) => (
           <li class="sla__item reveal">
@@ -56,7 +56,7 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   <section class="section section--sand etappe" id="prozesse" aria-labelledby="prozesse-h">
     <WegTrenner variante={2} />
     <div class="wrap prozesse">
-      <SectionHead eyebrow="Abläufe & Transparenz" pre="Struktur statt " accent="Zufall." text="Wir arbeiten nach festen Abläufen – nicht auf Zuruf. Und wir verbessern sie ständig." id="prozesse-h" />
+      <SectionHead eyebrow="Abläufe & Transparenz" pre="Struktur statt " accent="Zufall." text="Jedes Anliegen läuft nach einem festen Ablauf, und den verbessern wir laufend." id="prozesse-h" />
       <ul class="liste">
         {PROZESSE.map((p) => (
           <li class="reveal">

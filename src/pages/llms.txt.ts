@@ -46,7 +46,7 @@ export const GET: APIRoute = ({ site }) => {
     `${WAAS.claim}`,
     `- Enthalten: ${INKLUSIVE.map((i) => i.title).join(', ')}.`,
     `- Geschäftsmodell: ${MODELL.join(', ')}.`,
-    ...PAKETE.map((p) => `- ${p.name}: ${formatEuro(p.preis)} pro Monat, netto – ${p.kurz}. ${p.features.join(', ')}.`),
+    ...PAKETE.map((p) => `- ${p.name}: ${formatEuro(p.preis)} pro Monat, netto, ${p.kurz}. ${p.features.join(', ')}.`),
     ...steps.map((s, i) => `- Schritt ${i + 1}, ${s.title}: ${s.text}`),
     '',
     '## Häufige Fragen zu Waybuild',

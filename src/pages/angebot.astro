@@ -17,13 +17,13 @@ const NAME = produktName(P);
 
 <BaseLayout
   title={NAME}
-  description={`${NAME} von Waybuild: Website, Hosting, Wartung und Betreuung zum festen Monatspreis – ${PAKETE.map((p) => formatEuro(p.preis)).join(' oder ')} netto, ohne Einrichtungskosten.`}
+  description={`${NAME} von Waybuild: Website, Hosting, Wartung und Betreuung zum festen Monatspreis: ${PAKETE.map((p) => formatEuro(p.preis)).join(' oder ')} netto, ohne Einrichtungskosten.`}
   breadcrumb={[{ name: NAME, path: '/angebot/' }]}
 >
-  <PageHeader eyebrow="Unser erstes Produkt" title={`${NAME}.`} lead="Ihre Website – gebaut, betreut und immer aktuell. Zum festen Monatspreis. Unsere Zusagen gelten wie für alle Produkte von Waybuild.">
+  <PageHeader eyebrow="Unser erstes Produkt" title={`${NAME}.`} lead="Wir bauen und betreuen Ihre Website und halten sie aktuell, zum festen Monatspreis. Unsere Zusagen gelten wie für alle Produkte von Waybuild.">
     {!P.url && (
       <Hint block label="Eigene Produkt-Website" where="src/config/hauptseite.ts → PRODUKTE → url">
-        {' '}– diese Seite ist der Übergang. Sobald die Adresse feststeht, führt die Produktkarte dorthin und die Inhalte ziehen um.
+        {' '}Diese Seite ist der Übergang. Sobald die Adresse feststeht, führt die Produktkarte dorthin und die Inhalte ziehen um.
       </Hint>
     )}
   </PageHeader>
@@ -66,7 +66,7 @@ const NAME = produktName(P);
   <section class="section section--sand etappe" id="ablauf" aria-labelledby="ablauf-h">
     <WegTrenner variante={2} />
     <div class="wrap">
-      <SectionHead eyebrow="So starten wir" pre="In vier Schritten " accent="zur Website." text="Vom ersten Gespräch bis zur laufenden Betreuung – mit einem festen Ansprechpartner." id="ablauf-h" />
+      <SectionHead eyebrow="So starten wir" pre="In vier Schritten " accent="zur Website." text="Vom ersten Gespräch bis zur laufenden Betreuung, mit einem festen Ansprechpartner." id="ablauf-h" />
       <Weg art="gerade" stationen={steps.map((s) => ({ titel: s.title, marke: s.short, text: s.text, icon: s.icon }))} zeichnen nummern />
       <p class="ablauf__cta">
         <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Erstgespräch anfragen <Icon name="arrow" size={18} /></a>
