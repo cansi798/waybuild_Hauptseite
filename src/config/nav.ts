@@ -8,8 +8,9 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 // Kontakt. „Einblicke“ am 29.10.2026 mit dem Abschnitt entfernt (Jamil, Talk 3651). Zusagen/FAQ stehen im Footer.
 // 30.10.2026: Startseite „Denkweise“ (Jamil, Talk 3799) – Anker an die neue Geschichte angepasst.
 export const NAV: NavItem[] = [
-  { label: 'Denkweise', path: '/#denkweise' },
-  { label: 'Leistungen', path: '/#umsetzen' },
-  { label: 'Verlässlichkeit', path: '/#verlaesslichkeit' },
+  // Talk 3818: drei Kapitel – Verstehen, Umsetzen, nachhaltig machen (Verlässlichkeit)
+  { label: 'Verstehen', path: '/#kapitel-1' },
+  { label: 'Umsetzen', path: '/#kapitel-2' },
+  { label: 'Verlässlichkeit', path: '/#kapitel-3' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

@@ -1,12 +1,13 @@
 ---
-// Startseite „Denkweise“ nach Jamils neuem Konzept (Talk 3798/3799, 30.10.2026) – ab jetzt maßgeblich.
-// Die Linie zeigt keinen Projektablauf und keinen Website-Prozess, sondern die Waybuild-Denkweise:
-// Idee → Verstehen → Hinterfragen → Vereinfachen → Umsetzen → Verbessern. Produkte sind mögliche Ergebnisse.
-// Danach Verlässlichkeit (sechs Pfeiler docken an), die drei Prinzipien AUF der Linie und der Abschluss mit dem
-// Kreis „Fortschritt“; dann wird die ganze Linie türkis. Eine einzige SVG-Linie über die ganze Geschichte
-// (src/scripts/denkweise.ts), Bildszenen in src/components/dw/.
-// Vorherige Fassung (Anfrage-Reise, Selbstcheck, Zusammenarbeit): Git-Tag startseite-v3-anfragereise-20261030;
-// die Komponenten liegen weiter in src/components/story/ (Jamil-Frage c, Talk 3800: bleiben sie?).
+// Startseite „Denkweise“ nach Jamils Konzept (Talk 3798/3799) mit Feinschliff (Talk 3818, 30.10.2026).
+// Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Kapitel statt vieler Einzelabschnitte:
+//   Kapitel 1 · Veränderungen verstehen: Idee, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
+//   Kapitel 2 · Veränderungen umsetzen: Vereinfachen, Umsetzen, Produkte (eigene Karten, Website Service hervorgehoben)
+//   Kapitel 3 · Veränderungen nachhaltig machen: Verlässlichkeit (dunkler Bereich, mit den drei Prinzipien auf der
+//   Linie, danach Frage 3), Verbessern, Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
+// Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
+// Veränderungs-Check in src/scripts/veraenderungscheck.ts. Die Unternehmens-DNA steht bewusst nicht hier (Talk 3818/8).
+// Vorherige Fassung: Git-Tag startseite-v3-anfragereise-20261030; Komponenten in src/components/story/.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import DwIdee from '../components/dw/DwIdee.astro';
@@ -16,15 +17,17 @@ import DwVereinfachen from '../components/dw/DwVereinfachen.astro';
 import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
 import DwVerbessern from '../components/dw/DwVerbessern.astro';
 import DwFortschritt from '../components/dw/DwFortschritt.astro';
+import DwFrage from '../components/dw/DwFrage.astro';
+import DwProfil from '../components/dw/DwProfil.astro';
 import { href } from '../lib/paths';
 import {
-  DW_HERO, DW_REISE, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN,
-  DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS,
+  DW_HERO, DW_REISE, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN,
+  DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE,
 } from '../config/denkweise';
 import '../styles/denkweise.css';
 
 const K = DW_UMSETZEN.karte;
-// Handy-Wegpunkte: links neben jedem Textblock (die Linie läuft am Rand, Texte sind eingerückt)
+const [K1, K2, K3] = DW_KAPITEL;
 ---
 
 <BaseLayout
@@ -35,7 +38,7 @@ const K = DW_UMSETZEN.karte;
   <div class="dw" data-denkweise>
     <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
 
-    <!-- 1 · HERO -->
+    <!-- HERO -->
     <section class="dw-abschnitt dw-hero" aria-labelledby="dw-h1">
       <div class="wrap dw-raster dw-raster--hero">
         <div class="dw-hero__text">
@@ -57,187 +60,268 @@ const K = DW_UMSETZEN.karte;
       </div>
     </section>
 
-    <!-- 2 · IDEE -->
-    <section class="dw-abschnitt" id="denkweise" aria-labelledby="dw-idee-h">
-      <div class="wrap dw-raster dw-raster--spiegel">
-        <div class="dw-text reveal">
+    <!-- ═══ KAPITEL 1 · VERÄNDERUNGEN VERSTEHEN ═══ -->
+    <section class="dw-kapitel" id={K1.id} aria-labelledby="k1-h">
+      <div class="wrap dw-kapitelkopf">
+        <span class="dw-kapitel__marke" data-an-ref="k1" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K1.nr}</span>
+        <div class="dw-kapitel__text" data-szene data-szene-id="k1">
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="idee" size={18} /> Idee</span>
-          <h2 id="dw-idee-h">{DW_IDEE.titel}</h2>
-          <p class="dw-zeilen">{DW_IDEE.zeilen.map((z) => <span>{z}</span>)}</p>
-          <p>{DW_IDEE.gefuehl}</p>
-          <blockquote class="dw-zitat">{DW_IDEE.zitat}</blockquote>
-          <p>{DW_IDEE.schluss}</p>
+          <h2 id="k1-h">{K1.titel}</h2>
+          <p class="dw-kern">{K1.kern}</p>
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
         </div>
-        <DwIdee />
       </div>
-    </section>
 
-    <!-- 3 · VERSTEHEN -->
-    <section class="dw-abschnitt" id="verstehen" aria-labelledby="dw-verstehen-h">
-      <div class="wrap dw-raster">
-        <div class="dw-text reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="search" size={18} /> Verstehen</span>
-          <h2 id="dw-verstehen-h">{DW_VERSTEHEN.titel}</h2>
-          <p>{DW_VERSTEHEN.einleitung}</p>
-          <ul class="dw-liste">{DW_VERSTEHEN.punkte.map((p) => <li>{p}</li>)}</ul>
-          <p>{DW_VERSTEHEN.schluss}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+      <!-- Idee -->
+      <div class="dw-abschnitt" id="denkweise">
+        <div class="wrap dw-raster dw-raster--spiegel">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-kenn"><Icon name="idee" size={18} /> Idee</span>
+            <h3 class="dw-idee-titel" aria-label={DW_IDEE.titel}>{DW_IDEE.zeilen.map((z) => <span>{z}</span>)}</h3>
+            <p class="dw-idee-gefuehl">{DW_IDEE.gefuehl}</p>
+            <blockquote class="dw-zitat dw-zitat--gross">„{DW_IDEE.zitat}“</blockquote>
+            <p>{DW_IDEE.schluss}</p>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwIdee />
         </div>
-        <DwVerstehen />
       </div>
-    </section>
 
-    <!-- 4 · HINTERFRAGEN (wichtigste Animation, breit) -->
-    <section class="dw-abschnitt" id="hinterfragen" aria-labelledby="dw-hinterfragen-h">
-      <div class="wrap">
-        <div class="dw-text dw-text--oben reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
-          <span class="dw-kenn"><Icon name="frage" size={18} /> Hinterfragen</span>
-          <h2 id="dw-hinterfragen-h">{DW_HINTERFRAGEN.titel}</h2>
-          <p class="dw-zeilen">{DW_HINTERFRAGEN.zeilen.map((z) => <span>{z}</span>)}</p>
-          <p>{DW_HINTERFRAGEN.schluss}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+      <!-- Verstehen -->
+      <div class="dw-abschnitt" id="verstehen">
+        <div class="wrap dw-raster">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-kenn"><Icon name="search" size={18} /> Verstehen</span>
+            <h3>{DW_VERSTEHEN.titel}</h3>
+            <p>{DW_VERSTEHEN.einleitung}</p>
+            <ul class="dw-liste">{DW_VERSTEHEN.punkte.map((p) => <li>{p}</li>)}</ul>
+            <p>{DW_VERSTEHEN.schluss}</p>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwVerstehen />
         </div>
-        <DwHinterfragen />
+        <div class="wrap"><DwFrage nr={1} /></div>
       </div>
-    </section>
 
-    <!-- 5 · VEREINFACHEN -->
-    <section class="dw-abschnitt" id="vereinfachen" aria-labelledby="dw-vereinfachen-h">
-      <div class="wrap dw-raster dw-raster--spiegel">
-        <div class="dw-text reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="spark" size={18} /> Vereinfachen</span>
-          <h2 id="dw-vereinfachen-h">{DW_VEREINFACHEN.titel}</h2>
-          <p class="dw-zeilen">{DW_VEREINFACHEN.zeilen.map((z) => <span>{z}</span>)}</p>
-          <p class="dw-zeilen dw-zeilen--betont">{DW_VEREINFACHEN.ziel.map((z) => <span>{z}</span>)}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-        </div>
-        <DwVereinfachen />
-      </div>
-    </section>
-
-    <!-- 6 · UMSETZEN -->
-    <section class="dw-abschnitt" id="umsetzen" aria-labelledby="dw-umsetzen-h">
-      <div class="wrap dw-raster dw-raster--umsetzen">
-        <div class="dw-text reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="rocket" size={18} /> Umsetzen</span>
-          <h2 id="dw-umsetzen-h">{DW_UMSETZEN.titel}</h2>
-          <p class="dw-zeilen">{DW_UMSETZEN.zeilen.map((z) => <span>{z}</span>)}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-        </div>
-        <div class="dw-umsetzen__bild"><DwUmsetzen /></div>
-        <div class="dw-karte-wrap reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <article class="k k--akzent dw-karte" aria-labelledby="dw-karte-h">
-            <span class="k__icon"><Icon name="layout" size={22} /></span>
-            <div class="k__inhalt">
-              <p class="dw-karte__kenn">{K.kenn}</p>
-              <h3 id="dw-karte-h">{K.titel}</h3>
-              <p>{K.text}</p>
-              <ul class="dw-haken">{K.punkte.map((p) => <li><Icon name="check" size={16} /> {p}</li>)}</ul>
-              <p class="dw-karte__preis">{K.preis}</p>
-              <a class="btn btn--primary" href={href('/angebot/')}>{K.cta} <Icon name="arrow" size={18} /></a>
-            </div>
-          </article>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp dw-wp--karte" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+      <!-- Hinterfragen -->
+      <div class="dw-abschnitt" id="hinterfragen">
+        <div class="wrap">
+          <div class="dw-text dw-text--oben reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+            <span class="dw-kenn"><Icon name="frage" size={18} /> Hinterfragen</span>
+            <h3>{DW_HINTERFRAGEN.titel}</h3>
+            <p class="dw-zeilen">{DW_HINTERFRAGEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p>{DW_HINTERFRAGEN.schluss}</p>
+            <p class="dw-zeilen dw-botschaft">{DW_HINTERFRAGEN.botschaft.map((z) => <span>{z}</span>)}</p>
+            <ol class="dw-phasen dw-nur-m" aria-label="So läuft die Entscheidung">
+              {DW_HINTERFRAGEN.phasen.map((ph, i) => <li data-an-ref="hf-m" data-an={`auf:${[0.02, 0.14, 0.5, 0.86][i]}-${[0.1, 0.24, 0.6, 0.96][i]}`}><span class="dw-phase__nr">{i + 1}</span>{ph}</li>)}
+            </ol>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+          </div>
+          <DwHinterfragen />
+          <DwFrage nr={2} />
         </div>
       </div>
     </section>
 
-    <!-- 7 · VERBESSERN -->
-    <section class="dw-abschnitt" id="verbessern" aria-labelledby="dw-verbessern-h">
-      <div class="wrap dw-raster dw-raster--spiegel">
-        <div class="dw-text reveal">
+    <!-- ═══ KAPITEL 2 · VERÄNDERUNGEN UMSETZEN ═══ -->
+    <section class="dw-kapitel" id={K2.id} aria-labelledby="k2-h">
+      <div class="wrap dw-kapitelkopf">
+        <span class="dw-kapitel__marke" data-an-ref="k2" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K2.nr}</span>
+        <div class="dw-kapitel__text" data-szene data-szene-id="k2">
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
-          <h2 id="dw-verbessern-h">{DW_VERBESSERN.titel}</h2>
-          <p class="dw-zeilen">{DW_VERBESSERN.zeilen.map((z) => <span>{z}</span>)}</p>
+          <h2 id="k2-h">{K2.titel}</h2>
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
         </div>
-        <DwVerbessern />
       </div>
-    </section>
 
-    <!-- 8 · VERLÄSSLICHKEIT: sechs Pfeiler docken an die Linie an, die Linie wird stabiler -->
-    <section class="dw-abschnitt" id="verlaesslichkeit" aria-labelledby="dw-verlaesslich-h">
-      <div class="wrap">
-        <div class="dw-text dw-text--oben reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
-          <span class="dw-kenn"><Icon name="shield" size={18} /> Verlässlichkeit</span>
-          <h2 id="dw-verlaesslich-h">{DW_VERLAESSLICH.titel}</h2>
-          <p>{DW_VERLAESSLICH.text}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+      <!-- Vereinfachen -->
+      <div class="dw-abschnitt" id="vereinfachen">
+        <div class="wrap dw-raster dw-raster--spiegel">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-kenn"><Icon name="spark" size={18} /> Vereinfachen</span>
+            <h3>{DW_VEREINFACHEN.titel}</h3>
+            <p class="dw-zeilen">{DW_VEREINFACHEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p class="dw-zeilen dw-zeilen--betont">{DW_VEREINFACHEN.ziel.map((z) => <span>{z}</span>)}</p>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwVereinfachen />
         </div>
-        <div class="dw-pfeiler" data-szene>
-          <span class="dw-saeule" data-an="hoch:0-0.96"></span>
-          <span class="dw-anker dw-anker--saeule" style="top:0" data-weg="ein"></span>
-          <span class="dw-anker dw-anker--saeule" style="top:100%" data-weg="aus"></span>
-          <ul class="dw-pfeiler__liste">
-            {DW_VERLAESSLICH.pfeiler.map((p, i) => (
-              <li class:list={['dw-pfeiler__item', i % 2 ? 'dw-pfeiler__item--r' : 'dw-pfeiler__item--l']}>
+      </div>
+
+      <!-- Umsetzen -->
+      <div class="dw-abschnitt" id="umsetzen">
+        <div class="wrap dw-raster">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-kenn"><Icon name="rocket" size={18} /> Umsetzen</span>
+            <h3>{DW_UMSETZEN.titel}</h3>
+            <p class="dw-zeilen">{DW_UMSETZEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwUmsetzen />
+        </div>
+      </div>
+
+      <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben -->
+      <div class="dw-abschnitt dw-abschnitt--eng" id="produkte" aria-labelledby="dw-produkte-h">
+        <div class="wrap">
+          <h3 class="dw-mitteltitel" id="dw-produkte-h"><span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>Unsere Produkte</h3>
+          <div class="dw-andock dw-andock--raster" data-szene>
+            <span class="dw-anker dw-anker--mitte" style="top:0" data-weg data-weg-nur="d"></span>
+            <span class="dw-anker dw-anker--rand" style="top:0" data-weg data-weg-nur="m"></span>
+            <ul class="dw-andock__liste">
+              <li class="dw-andock__item dw-andock__item--l">
                 <span class="dw-steg" data-an="breit:auto"></span>
-                <div class="k dw-pfeiler__karte" data-an={`${i % 2 ? 'rechts' : 'links'}:auto`}>
-                  <span class="k__icon"><Icon name={p.icon} size={22} /></span>
+                <article class="k k--akzent dw-produkt dw-produkt--hervor" aria-labelledby="dw-p-web" data-an="links:auto">
+                  <span class="k__icon"><Icon name="layout" size={22} /></span>
                   <div class="k__inhalt">
-                    <h3>{p.titel}</h3>
-                    <p>{p.text}</p>
-                    {p.zusatz && <p class="dw-pfeiler__zusatz">{p.zusatz}</p>}
+                    <p class="dw-produkt__name">{K.titel}</p>
+                    <h4 id="dw-p-web">{K.kenn}</h4>
+                    <p>{K.text}</p>
+                    <ul class="dw-haken">{K.punkte.map((p) => <li><Icon name="check" size={16} /> {p}</li>)}</ul>
+                    <p class="dw-produkt__preis">{K.preis}</p>
+                    <a class="btn btn--primary" href={href('/angebot/')}>{K.cta} <Icon name="arrow" size={18} /></a>
                   </div>
-                </div>
+                </article>
               </li>
-            ))}
-          </ul>
+              {DW_PRODUKTE.map((p, i) => (
+                <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
+                  <span class="dw-steg" data-an="breit:auto"></span>
+                  <article class="k dw-produkt" aria-labelledby={`dw-p-${p.id}`} data-an={`${i % 2 ? 'links' : 'rechts'}:auto`}>
+                    <span class="k__icon"><Icon name={p.icon} size={22} /></span>
+                    <div class="k__inhalt">
+                      <h4 id={`dw-p-${p.id}`}>{p.name}</h4>
+                      <p class="dw-produkt__nutzen">{p.nutzen}</p>
+                      <p>{p.text}</p>
+                      <a class="pfeil-link dw-produkt__cta" href={href('/kontakt/')}>Anfragen <Icon name="arrow" size={16} /></a>
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ul>
+            <span class="dw-anker dw-anker--mitte" style="top:100%" data-weg data-weg-nur="d"></span>
+            <span class="dw-anker dw-anker--rand" style="top:100%" data-weg data-weg-nur="m"></span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 9 · DIE DREI PRINZIPIEN: direkt auf der Linie -->
-    <section class="dw-abschnitt dw-prinzipien" aria-labelledby="dw-prinzipien-h">
-      <div class="wrap">
-        <h2 id="dw-prinzipien-h" class="dw-prinzipien__titel">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          {DW_PRINZIPIEN.titel}
-        </h2>
-        <ol class="dw-prinzipien__liste" data-szene>
-          {DW_PRINZIPIEN.liste.map((p) => (
-            <li class="dw-prinzip">
-              <span class="dw-prinzip__wort" data-an="blende:auto"><span class="dw-prinzip__punkt" data-weg></span>{p.wort}</span>
-              <span class="dw-prinzip__text" data-an="auf:auto">{p.text}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <!-- 10 · ABSCHLUSS -->
-    <section class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
-      <div class="wrap dw-raster">
-        <div class="dw-text reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <h2 id="dw-abschluss-h">{DW_ABSCHLUSS.titel}</h2>
-          <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
-          <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
-          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
-          <ul class="dw-vertrauen">{DW_ABSCHLUSS.vertrauen.map((v) => <li><Icon name="check" size={16} /> {v}</li>)}</ul>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+    <!-- ═══ KAPITEL 3 · VERÄNDERUNGEN NACHHALTIG MACHEN ═══ -->
+    <section class="dw-kapitel" id={K3.id} aria-labelledby="k3-h">
+      <!-- Verlässlichkeit: eigener dunkler Kontrastbereich -->
+      <div class="dw-dunkel" id="verlaesslichkeit">
+        <div class="wrap dw-kapitelkopf">
+          <span class="dw-kapitel__marke" data-an-ref="k3" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K3.nr}</span>
+          <div class="dw-kapitel__text" data-szene data-szene-id="k3">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <h2 id="k3-h">{K3.titel}</h2>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
         </div>
-        <DwFortschritt />
+        <div class="dw-abschnitt">
+          <div class="wrap">
+            <div class="dw-text dw-text--oben reveal">
+              <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+              <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+              <span class="dw-kenn"><Icon name="shield" size={18} /> Verlässlichkeit</span>
+              <h3>{DW_VERLAESSLICH.titel}</h3>
+              <p>{DW_VERLAESSLICH.text}</p>
+              <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+              <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+            </div>
+            <div class="dw-pfeiler dw-andock" data-szene>
+              <span class="dw-saeule" data-an="hoch:0-0.96"></span>
+              <span class="dw-anker dw-anker--mitte dw-nur-d-anker" style="top:0" data-weg="ein" data-weg-nur="d"></span>
+              <span class="dw-anker dw-anker--rand" style="top:0" data-weg="ein" data-weg-nur="m"></span>
+              <span class="dw-anker dw-anker--mitte" style="top:100%" data-weg="aus" data-weg-nur="d"></span>
+              <span class="dw-anker dw-anker--rand" style="top:100%" data-weg="aus" data-weg-nur="m"></span>
+              <ul class="dw-andock__liste">
+                {DW_VERLAESSLICH.pfeiler.map((p, i) => (
+                  <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--r' : 'dw-andock__item--l']}>
+                    <span class="dw-steg" data-an="breit:auto"></span>
+                    <div class="k dw-pfeiler__karte" data-an={`${i % 2 ? 'rechts' : 'links'}:auto`}>
+                      <span class="k__icon"><Icon name={p.icon} size={26} /></span>
+                      <div class="k__inhalt">
+                        <h4>{p.titel}</h4>
+                        <p>{p.text}</p>
+                        {p.zusatz && <p class="dw-pfeiler__zusatz">{p.zusatz}</p>}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Die drei Prinzipien: direkt auf der Linie -->
+        <div class="dw-abschnitt dw-prinzipien" aria-labelledby="dw-prinzipien-h">
+          <div class="wrap">
+            <h3 id="dw-prinzipien-h" class="dw-mitteltitel">
+              <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+              {DW_PRINZIPIEN.titel}
+            </h3>
+            <ol class="dw-prinzipien__liste" data-szene>
+              {DW_PRINZIPIEN.liste.map((p) => (
+                <li class="dw-prinzip">
+                  <span class="dw-prinzip__wort" data-an="blende:auto"><span class="dw-prinzip__punkt" data-weg></span>{p.wort}</span>
+                  <span class="dw-prinzip__text" data-an="auf:auto">{p.text}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
       </div>
-      <p class="dw-slogan">{DW_ABSCHLUSS.slogan}</p>
+
+      <div class="dw-abschnitt dw-abschnitt--eng">
+        <div class="wrap"><DwFrage nr={3} /></div>
+      </div>
+
+      <!-- Verbessern -->
+      <div class="dw-abschnitt" id="verbessern">
+        <div class="wrap dw-raster dw-raster--spiegel">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
+            <h3>{DW_VERBESSERN.titel}</h3>
+            <ul class="dw-schritte">{DW_VERBESSERN.kreis.map((k) => <li>{k}</li>)}</ul>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwVerbessern />
+        </div>
+      </div>
+
+      <!-- Ihr Veränderungsprofil -->
+      <div class="dw-abschnitt dw-abschnitt--eng">
+        <div class="wrap"><DwProfil /></div>
+      </div>
+
+      <!-- Kontakt -->
+      <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
+        <div class="wrap dw-raster">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <h3 id="dw-abschluss-h" class="dw-abschluss__titel">{DW_ABSCHLUSS.titel}</h3>
+            <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
+            <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
+            <ul class="dw-vertrauen">{DW_ABSCHLUSS.vertrauen.map((v) => <li><Icon name="check" size={16} /> {v}</li>)}</ul>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwFortschritt />
+        </div>
+        <p class="dw-slogan">{DW_ABSCHLUSS.slogan}</p>
+      </div>
     </section>
   </div>
 </BaseLayout>
 
 <script>
   import '../scripts/denkweise';
+  import '../scripts/veraenderungscheck';
 </script>

@@ -27,7 +27,7 @@ const varianten = VARIANTEN.map(bau);
 const pc = (a: number, b: number) => `${((a / b) * 100).toFixed(2)}%`;
 ---
 {varianten.map((v) => (
-  <div class={`dw-bild dw-bild--breit dw-nur-${v.v}`} data-szene style={`aspect-ratio: ${v.W} / ${v.H}`}>
+  <div class={`dw-bild dw-bild--breit dw-nur-${v.v}`} data-szene data-szene-id={`hf-${v.v}`} style={`aspect-ratio: ${v.W} / ${v.H}`}>
     <svg viewBox={`0 0 ${v.W} ${v.H}`} aria-hidden="true" focusable="false">
       <path class="dw-s" pathLength="1" d={`M ${v.sx} ${v.sy} L ${v.sx} ${v.dy}`} data-an="zeichnen:0.04-0.12" />
       {v.wege.map((w) => <path class="dw-s" pathLength="1" d={w.d} data-an={`zeichnen:${AUF}${w.bleibt ? '' : ` aus:${WAHL}:0.1`}`} />)}
@@ -47,7 +47,14 @@ const pc = (a: number, b: number) => `${((a / b) * 100).toFixed(2)}%`;
       </span>
     ))}
     <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(v.sx, v.W)} + 18px);top:${pc(v.jy, v.H)}`}>
-      <span class="dw-wort dw-wort--akzent" data-an="auf:0.86-0.96">{T.richtung}</span>
+      <span class="dw-phase dw-phase--ziel" data-an="auf:0.86-0.96">{v.v === 'd' && <span class="dw-phase__nr">4</span>}{T.richtung}</span>
     </span>
+    {v.v === 'd' && (
+      <>
+        <span class="dw-pos dw-pos--rechts" style={`left:calc(50% + 96px);top:${pc(v.sy, v.H)}`}><span class="dw-phase" data-an="auf:0.02-0.1"><span class="dw-phase__nr">1</span>{T.phasen[0]}</span></span>
+        <span class="dw-pos dw-pos--rechts" style={`left:calc(50% + 22px);top:${pc(v.dy - 10, v.H)}`}><span class="dw-phase" data-an="auf:0.14-0.24"><span class="dw-phase__nr">2</span>{T.phasen[1]}</span></span>
+        <span class="dw-pos" style={`left:${pc(760, v.W)};top:${pc(392, v.H)}`}><span class="dw-phase" data-an="auf:0.5-0.6"><span class="dw-phase__nr">3</span>{T.phasen[2]}</span></span>
+      </>
+    )}
   </div>
 ))}

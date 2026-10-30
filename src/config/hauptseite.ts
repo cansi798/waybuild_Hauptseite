@@ -229,6 +229,7 @@ export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
  *  Einordnung der Grundsätze: „Wir hören zu“ → Schritt 1 (Gespräch) und Verständnis („Was möchten Sie erreichen?“),
  *  „Wir denken mit“ → Schritt 3 (Vorschlag), „einfache Lösungen / nicht komplizierter als nötig“ → Säule Einfachheit und Leichtigkeit.
  *  Testphase nur nach Jamils Zustimmung ergänzen. */
+// Nicht mehr auf der Startseite (Denkweise, Talk 3818 Punkt 8: „Unternehmens-DNA“ gehört ins Erstgespräch).
 export const START_ABLAUF: { titel: string; text: string; icon: IconName; bild: 'gespraech' | 'dna' | 'analyse' | 'planung' | 'umsetzung' }[] = [
   { titel: 'Lockeres Gespräch', text: 'Strukturiert, damit wir alles Nötige über Ihr Unternehmen erfahren.', icon: 'chat', bild: 'gespraech' },
   { titel: 'Unternehmens-DNA', text: 'Wir halten fest, wer Ihre Kunden sind und wo es heute hakt.', icon: 'idcard', bild: 'dna' },

@@ -19,9 +19,17 @@ export const DW_REISE: { wort: string; icon: IconName }[] = [
   { wort: 'Verbessern', icon: 'chart' },
 ];
 
+/** Drei Kapitel statt vieler Einzelabschnitte (Jamil, Talk 3818 Punkt 7) */
+export const DW_KAPITEL = [
+  { nr: 1, id: 'kapitel-1', titel: 'Veränderungen verstehen', kern: 'Wir verstehen, bevor wir verändern.' },
+  { nr: 2, id: 'kapitel-2', titel: 'Veränderungen umsetzen', kern: '' },
+  { nr: 3, id: 'kapitel-3', titel: 'Veränderungen nachhaltig machen', kern: '' },
+];
+
+// Talk 3818 Punkt 1: „Idee“ ist der eigentliche Einstieg in die Philosophie: Waybuild startet bei Veränderung, nicht bei Produkten.
 export const DW_IDEE = {
   titel: 'Jede Veränderung beginnt mit einer Idee.',
-  zeilen: ['Eine Idee.', 'Ein Wunsch.', 'Eine Herausforderung.'],
+  zeilen: ['Eine Idee.', 'Ein Wunsch.', 'Ein Problem.'],
   gefuehl: 'Oder einfach das Gefühl:',
   zitat: 'Das müsste doch einfacher gehen.',
   schluss: 'Genau dort beginnen die meisten Veränderungen.',
@@ -54,6 +62,9 @@ export const DW_VERSTEHEN = {
 
 export const DW_HINTERFRAGEN = {
   titel: 'Wir setzen nicht einfach um.',
+  // Talk 3818 Punkt 2: Botschaft und kurze Beschriftungen der Phasen, damit die Szene auf Anhieb verständlich ist
+  botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
+  phasen: ['Die erste Idee', 'Mögliche Wege', 'Prüfen: Was bringt Sie weiter?', 'Eine Richtung'],
   zeilen: ['Nicht jede Herausforderung braucht eine neue Website.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
   schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Abläufe.',
   start: 'Neue Website',
@@ -91,16 +102,18 @@ export const DW_UMSETZEN = {
   karte: {
     kenn: 'Für viele Unternehmen beginnt die Zusammenarbeit hier.',
     titel: 'Website Service',
-    text: 'Veränderungen an Ihrer Website einfach umsetzen.',
+    // Reihenfolge nach Talk 3818 Punkt 6: erst Einstieg, dann Einfachheit, Preis zuletzt
+    text: 'Veränderungen auf Ihrer Website einfach umsetzen.',
     punkte: ['Fester Ansprechpartner', 'Laufende Betreuung', 'Änderungen ohne Projektstress', 'Planbare Kosten'],
     // Preis wörtlich aus Jamils Konzept (Talk 3799); netto/brutto und 80 € statt 79 €: Frage b) an Jamil, Talk 3800
-    preis: 'ab 80 € monatlich',
+    preis: 'ab 80 € / Monat',
     cta: 'Mehr erfahren',
   },
 };
 
+// Talk 3818 Punkt 9: kürzer und konkreter
 export const DW_VERBESSERN = {
-  titel: 'Veränderung hört nicht bei der Umsetzung auf.',
+  titel: 'Gute Veränderungen entwickeln sich weiter.',
   zeilen: ['Gute Veränderungen brauchen Verantwortung, Struktur und Verlässlichkeit.', 'Deshalb bleiben wir nicht bei der Umsetzung stehen.', 'Wir helfen dabei, Veränderungen dauerhaft erfolgreich zu machen.'],
   kreis: ['Feedback', 'Lernen', 'Optimieren', 'Weiterentwickeln'],
 };
@@ -140,4 +153,47 @@ export const DW_ABSCHLUSS = {
   vertrauen: ['kostenlos', 'unverbindlich', 'feste Ansprechpartner', 'verständliche Kommunikation', 'verlässliche Rückmeldungen'],
   kreis: 'Fortschritt',
   slogan: 'Wir machen Veränderungen einfach.',
+};
+
+/** Produkte als eigene Karten (Talk 3818 Punkt 5). Website Service ist die hervorgehobene Karte (DW_UMSETZEN.karte).
+ *  Nutzen = Zweck aus PRODUKTE; die kurzen Beschreibungen sind vorsichtige Vorschläge (beschreiben nur, was eine
+ *  Kundenverwaltung bzw. App ist) und von Jamil zu bestätigen. */
+export const DW_PRODUKTE = [
+  { id: 'crm-handwerk', name: 'Kundenverwaltung für Handwerksbetriebe', nutzen: 'Ein CRM, gemacht für den Alltag im Handwerk.', text: 'Kunden und Anfragen übersichtlich an einem Ort.', icon: 'tools' as IconName },
+  { id: 'crm-azav', name: 'Kundenverwaltung für AZAV-Bildungsträger', nutzen: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', text: 'Anfragen und Abläufe übersichtlich an einem Ort.', icon: 'book' as IconName },
+  { id: 'apps', name: 'Apps für App Store und Google Play', nutzen: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', text: 'Für Smartphone und Tablet, über App Store und Google Play.', icon: 'smartphone' as IconName },
+];
+
+/** Veränderungs-Check (Talk 3818 Punkt 3): je eine Frage nach Verstehen, Hinterfragen und Verlässlichkeit; 1 = kaum, 5 = sehr.
+ *  Ergebnis kurz vor dem Kontakt: größte Stärke (niedrigster Wert), größter Engpass (höchster Wert) und größtes
+ *  Potenzial (dort, wo der Engpass liegt). Keine Zahlen, nichts wird gesendet oder gespeichert. */
+export const DW_CHECK = {
+  titel: 'Ihr Veränderungsprofil',
+  fragen: [
+    {
+      id: 'frage-1', nach: 'Verstehen', frage: 'Wie abhängig sind wichtige Abläufe von einzelnen Personen?',
+      stufen: ['kaum', 'wenig', 'teils, teils', 'stark', 'sehr stark'],
+      staerke: 'Wichtiges Wissen ist bei Ihnen gut verteilt. Abläufe hängen nicht an einzelnen Personen.',
+      engpass: 'Wichtige Abläufe hängen an einzelnen Personen. Fällt jemand aus, bleibt vieles liegen.',
+      potenzial: 'Abläufe festhalten und Wissen teilen, damit mehrere Personen sie übernehmen können.',
+    },
+    {
+      id: 'frage-2', nach: 'Hinterfragen', frage: 'Wie oft wird über Lösungen gesprochen, bevor das eigentliche Problem verstanden wurde?',
+      stufen: ['nie', 'selten', 'manchmal', 'oft', 'sehr oft'],
+      staerke: 'Bei Ihnen wird zuerst das Problem verstanden und dann über Lösungen gesprochen.',
+      engpass: 'Über Lösungen wird oft gesprochen, bevor das eigentliche Problem klar ist.',
+      potenzial: 'Erst gemeinsam das Problem klären, dann entscheiden. Das spart Umwege.',
+    },
+    {
+      id: 'frage-3', nach: 'Verlässlichkeit', frage: 'Wie oft müssen Sie nach einer Rückmeldung erneut nachfragen?',
+      stufen: ['nie', 'selten', 'manchmal', 'oft', 'sehr oft'],
+      staerke: 'Rückmeldungen kommen bei Ihnen verlässlich, ohne dass Sie nachfragen müssen.',
+      engpass: 'Sie müssen oft nachfragen, bis eine Rückmeldung kommt.',
+      potenzial: 'Feste Rückmeldezeiten und klare Zuständigkeiten, damit nichts liegen bleibt.',
+    },
+  ],
+  ohneEngpass: 'Kein deutlicher Engpass: Bei Ihnen läuft schon vieles rund.',
+  ohnePotenzial: 'Gute Voraussetzungen, um die nächste Veränderung ruhig anzugehen.',
+  ohneStaerke: 'Sie sehen genau hin, wo es hakt. Das ist ein guter Ausgangspunkt.',
+  cta: 'Über Ihr Profil sprechen',
 };

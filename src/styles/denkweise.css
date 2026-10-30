@@ -7,6 +7,7 @@
   --rand-x: 32px;           /* Handy: Lage der Linie neben den Texten */
   position: relative;
   overflow-x: clip;
+  isolation: isolate;   /* dunkle Flächen liegen UNTER der Linie (z-index -1), Inhalte darüber */
 }
 .dw--fertig { --weg: var(--accent); --weg-fein: rgb(0 166 161 / 55%); }
 
@@ -22,11 +23,12 @@
 .dw--live [data-an] { will-change: auto; }
 
 /* ── Abschnitte: eine Geschichte, keine Kästen ── */
-.dw-abschnitt { position: relative; z-index: 1; padding-block: clamp(56px, 8vw, 112px); }
+.dw-abschnitt { position: relative; padding-block: clamp(40px, 6vw, 80px); }
+.dw-abschnitt--eng { padding-block: clamp(20px, 3vw, 40px); }
 .dw-hero { padding-block: clamp(36px, 6vw, 80px) clamp(48px, 7vw, 96px); }
 .dw-raster { display: grid; gap: clamp(32px, 6vw, 96px); align-items: start; }
 .dw-text { max-width: 560px; }
-.dw-text h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin-bottom: 0.7em; }
+.dw-text h3 { font-size: clamp(1.55rem, 3.2vw, 2.3rem); font-weight: 700; margin-bottom: 0.7em; }
 .dw-text p { color: var(--ink-soft); line-height: 1.7; }
 .dw-kenn { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
 .dw-zeilen span { display: block; }
@@ -69,26 +71,105 @@
 .dw-bereich__hinweis { font-size: 0.78rem; color: #6f6a60; max-width: 13em; line-height: 1.35; }
 .dw-nur-d { display: none; }
 
-/* ── Umsetzen: Website-Service-Karte (die eine hervorgehobene Karte) ── */
-.dw-karte { max-width: 520px; }
-.dw-karte__kenn { font-size: 0.86rem; font-weight: 600; color: var(--accent-ink) !important; margin-bottom: 6px !important; }
+/* ── Kapitel: Marke auf der Linie, Titel, Kernbotschaft ── */
+.dw-kapitel { position: relative; }
+.dw-kapitelkopf { display: grid; justify-items: start; gap: 18px; padding-block: clamp(64px, 9vw, 128px) clamp(8px, 2vw, 24px); }
+.dw-kapitel__marke { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--paper); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+.dw-kapitel__punkt { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex: none; }
+.dw-kapitel__text { padding-left: calc(var(--rand-x) + 12px); }
+.dw-kapitel__text h2 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.03em; margin: 0; }
+.dw-kern { margin: 14px 0 0; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.3rem, 2.6vw, 1.8rem); color: var(--accent-ink); line-height: 1.3; }
+.dw-mitteltitel { position: relative; font-size: clamp(1.4rem, 3vw, 2rem); margin: 0 0 clamp(24px, 3.5vw, 40px); padding-left: calc(var(--rand-x) + 12px); }
+
+/* ── Idee: der eigentliche Einstieg ── */
+.dw-idee-titel { font-size: clamp(1.9rem, 4.2vw, 2.9rem) !important; line-height: 1.12; letter-spacing: -0.025em; }
+.dw-idee-titel span { display: block; }
+.dw-idee-gefuehl { margin-bottom: 0.4em !important; }
+.dw-zitat--gross { font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--accent-ink); }
+
+/* ── Hinterfragen: Phasen und Botschaft ── */
+.dw-botschaft { margin-top: 1.2em; padding-left: 16px; border-left: 3px solid var(--accent); color: var(--ink) !important; font-weight: 600; }
+.dw-phase { display: inline-flex; align-items: center; gap: 7px; padding: 2px 8px 2px 2px; border-radius: 999px; background: var(--paper); font-size: 0.82rem; font-weight: 650; color: var(--accent-ink); white-space: nowrap; }
+.dw-phase__nr { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-ink); color: var(--white); font-size: 0.75rem; font-weight: 700; flex: none; }
+.dw-phase--ziel { font-size: 0.9rem; }
+.dw-phasen { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; }
+.dw-phasen li { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; color: var(--accent-ink); }
+
+/* ── Andocken: Karten links und rechts an der Linie (Produkte, Verlässlichkeit) ── */
+.dw-andock { position: relative; padding-block: 8px; }
+.dw-anker--mitte { left: 50%; }
+.dw-anker--rand { left: calc(var(--rand-x) - 16px); }
+.dw-andock__liste { list-style: none; margin: 0; padding: 0 0 0 calc(var(--rand-x) + 16px); display: grid; gap: 18px; }
+.dw-andock__item { position: relative; }
+.dw-steg { position: absolute; top: 34px; left: -32px; width: 32px; height: 3px; border-radius: 2px; background: var(--weg); transform-origin: left; transition: background-color 1.2s ease; }
+.dw-pfeiler { margin-top: clamp(32px, 5vw, 64px); }
+.dw-saeule { position: absolute; top: 0; bottom: 0; left: calc(var(--rand-x) - 16px - 3px); width: 6px; border-radius: 3px; background: var(--weg); transform-origin: top; transition: background-color 1.2s ease; }
+
+/* Produkte: jede als eigene Karte, Website Service hervorgehoben */
+.dw-produkt { background: var(--white); }
+.dw-andock .k h4, .dw-produkt h4 { margin: 0 0 6px; font-family: var(--font-head); font-size: 1.12rem; font-weight: 650; line-height: 1.3; }
+.dw-produkt__name { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink) !important; margin-bottom: 6px !important; }
+.dw-produkt--hervor { box-shadow: 0 0 0 4px rgb(0 166 161 / 10%); }
+.dw-produkt--hervor h4 { font-size: 1.3rem; }
+.dw-produkt__nutzen { color: var(--ink) !important; font-weight: 550; margin-bottom: 4px !important; }
+.dw-produkt__preis { font-size: 0.95rem; color: var(--ink-soft) !important; margin: 0 0 14px !important; }
+.dw-produkt__cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-weight: 650; color: var(--accent-ink); }
 .dw-haken { list-style: none; margin: 12px 0 14px; padding: 0; display: grid; gap: 6px; }
 .dw-haken li { display: flex; align-items: center; gap: 8px; color: var(--ink); }
 .dw-haken .icon { color: var(--accent-mid); flex: none; }
-.dw-karte__preis { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; color: var(--ink) !important; margin: 0 0 14px !important; }
 
-/* ── Verlässlichkeit: Pfeiler docken an die stabilere Linie an ── */
-.dw-pfeiler { position: relative; margin-top: clamp(28px, 4vw, 48px); padding-block: 8px; }
-.dw-saeule { position: absolute; top: 0; bottom: 0; left: calc(var(--rand-x) - 16px - 3px); width: 6px; border-radius: 3px; background: var(--weg); transform-origin: top; transition: background-color 1.2s ease; }
-.dw-anker--saeule { left: calc(var(--rand-x) - 16px); }
-.dw-pfeiler__liste { list-style: none; margin: 0; padding: 0 0 0 calc(var(--rand-x) + 16px); display: grid; gap: 18px; }
-.dw-pfeiler__item { position: relative; }
-.dw-steg { position: absolute; top: 34px; left: calc(-1 * (var(--rand-x) + 16px) + var(--rand-x) - 16px); width: calc(32px - 0px); height: 3px; border-radius: 2px; background: var(--weg); transform-origin: left; transition: background-color 1.2s ease; }
-.dw-pfeiler__karte { background: var(--white); }
-.dw-pfeiler__zusatz { margin-top: 6px !important; font-size: 0.92rem; color: var(--accent-ink) !important; }
+/* ── Verlässlichkeit: eigener dunkler Kontrastbereich (liegt unter der Linie) ── */
+.dw-dunkel { position: relative; color: var(--paper); padding-bottom: clamp(24px, 4vw, 56px); --weg: #8cc7c3; }
+.dw-dunkel::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw); background: var(--dark); z-index: -1; }
+.dw-dunkel .dw-kapitel__marke, .dw-dunkel .dw-prinzip__wort { background: var(--dark); border-color: var(--accent-light); color: var(--accent-light); }
+.dw-dunkel .dw-kapitel__punkt, .dw-dunkel .dw-prinzip__punkt { background: var(--accent-light); }
+.dw-dunkel h2, .dw-dunkel h3, .dw-dunkel h4 { color: var(--white); }
+.dw-dunkel .dw-text p, .dw-dunkel .dw-prinzip__text { color: var(--dark-lead); }
+.dw-dunkel .dw-kenn { color: var(--accent-light); }
+.dw-dunkel .dw-prinzip__wort { color: var(--white); }
+.dw-dunkel .k { --k-bg: rgb(255 255 255 / 6%); --k-rand: var(--dark-line); --k-icon: 56px; }
+.dw-dunkel .k p { color: var(--dark-lead); }
+.dw-dunkel .k__icon { background: rgb(95 224 218 / 14%); color: var(--accent-light); border-radius: 16px; }
+.dw-dunkel .dw-andock__liste { gap: 24px; }
+.dw-pfeiler__zusatz { margin-top: 8px !important; font-size: 0.92rem; color: var(--accent-light) !important; }
+
+/* ── Veränderungs-Check: je eine Frage, Ergebnis vor dem Kontakt ── */
+.dw-frage-wrap { margin-top: clamp(36px, 5vw, 56px); }
+.dw-frage { background: var(--white); }
+.dw-frage .k__inhalt { width: 100%; }
+.dw-frage__kenn { font-size: 0.78rem !important; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink) !important; margin-bottom: 8px !important; }
+.dw-frage__text { display: block; margin: 0 0 14px; font-family: var(--font-head); font-weight: 650; font-size: 1.1rem; line-height: 1.4; color: var(--ink); }
+.regler__input { --wert: 50%; -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 44px; margin: 0; background: transparent; cursor: pointer; touch-action: pan-y; }
+.regler__input::-webkit-slider-runnable-track { height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--accent) 0 var(--wert), var(--paper-2) var(--wert) 100%); }
+.regler__input::-moz-range-track { height: 8px; border-radius: 4px; background: var(--paper-2); }
+.regler__input::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--accent); }
+.regler__input::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); box-shadow: 0 1px 3px rgb(0 0 0 / 15%); }
+.regler__input::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--white); border: 3px solid var(--accent); }
+.regler__input:focus-visible { outline: none; }
+.regler__input:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--accent); outline-offset: 3px; }
+.regler__input:focus-visible::-moz-range-thumb { outline: 3px solid var(--accent); outline-offset: 3px; }
+.regler--offen::-webkit-slider-runnable-track { background: var(--paper-2); }
+.regler--offen::-moz-range-progress { background: transparent; }
+.regler--offen::-webkit-slider-thumb { border-style: dashed; border-color: #a8a191; }
+.regler--offen::-moz-range-thumb { border-style: dashed; border-color: #a8a191; }
+.regler__stufen { list-style: none; margin: 2px 0 0; padding: 0; display: flex; justify-content: space-between; gap: 8px; font-size: 0.8rem; color: #6f6a60; }
+.regler__stufen li { flex: 1; text-align: center; line-height: 1.25; }
+.regler__stufen li:first-child { text-align: left; }
+.regler__stufen li:last-child { text-align: right; }
+.regler__wert { margin: 10px 0 0 !important; font-weight: 650; color: var(--accent-ink) !important; }
+.dw-frage:not(.dw-frage--js) .regler__wert { display: none; }
+.dw-profil [hidden] { display: none !important; }
+.dw-profil h3 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin: 0 0 12px; }
+.dw-profil__offen a { color: var(--accent-ink); font-weight: 600; }
+.dw-profil__liste { margin: 0 0 14px; display: grid; gap: 14px; }
+.dw-profil__liste dt { display: flex; align-items: center; gap: 8px; font-family: var(--font-head); font-weight: 700; color: var(--accent-ink); }
+.dw-profil__liste dd { margin: 4px 0 0 26px; color: var(--ink); line-height: 1.55; }
+.dw-profil__hinweis { font-size: 0.88rem; color: #6f6a60 !important; }
+.dw-schritte { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
+.dw-schritte li { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.9rem; font-weight: 600; color: #5d584e; }
+.dw-abschluss__titel { font-size: clamp(1.8rem, 4vw, 2.6rem) !important; }
 
 /* ── Drei Prinzipien: direkt auf der Linie ── */
-.dw-prinzipien__titel { position: relative; font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin: 0 0 clamp(28px, 4vw, 48px); padding-left: calc(var(--rand-x) + 12px); }
 .dw-prinzipien__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 4vw, 44px); }
 .dw-prinzip { display: grid; gap: 8px; justify-items: start; }
 .dw-prinzip__wort { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--paper); font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
@@ -104,11 +185,10 @@
 
 /* ── Handy: Texte rechts der Linie ── */
 @media (max-width: 959px) {
-  .dw-text, .dw-karte-wrap { padding-left: calc(var(--rand-x) + 12px); }
+  .dw-text, .dw-frage-wrap { padding-left: calc(var(--rand-x) + 12px); }
   .dw-raster { gap: 76px; }
   .dw-hero__text { padding-left: 0; }
   .dw-start { margin-top: 8px; }
-  .dw-karte-wrap { margin-top: 0; }
   .dw-bild { max-width: 420px; }
   .dw-chip { font-size: 0.74rem; padding: 3px 9px; }
   .dw-bereich__name { font-size: 0.86rem; }
@@ -121,23 +201,32 @@
   .dw-raster { grid-template-columns: 1fr 1fr; }
   .dw-raster--hero { grid-template-columns: 1.15fr 0.85fr; align-items: center; }
   .dw-raster--spiegel > .dw-bild, .dw-raster--spiegel > :last-child { order: -1; }
-  .dw-raster--umsetzen { grid-template-areas: 'text bild' 'karte bild'; grid-template-rows: auto 1fr; row-gap: 36px; }
-  .dw-raster--umsetzen > .dw-text { grid-area: text; }
-  .dw-raster--umsetzen > .dw-umsetzen__bild { grid-area: bild; }
-  .dw-raster--umsetzen > .dw-karte-wrap { grid-area: karte; }
   .dw-text--oben { max-width: 540px; }
 
-  /* Pfeiler: Linie in der Mitte, Karten abwechselnd links und rechts */
+  /* Kapitel: Marke mittig auf der Linie, Titel darunter (Linie läuft dahinter) */
+  .dw-kapitelkopf { justify-items: center; text-align: center; }
+  .dw-kapitel__marke { margin: 0; }
+  .dw-kapitel__punkt { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+  .dw-kapitel__marke { position: relative; padding: 8px 20px; }
+  .dw-kapitel__text { padding: 8px 24px 12px; background: var(--paper); }
+  .dw-dunkel .dw-kapitel__text, .dw-dunkel .dw-mitteltitel { background: var(--dark); }
+  .dw-mitteltitel { text-align: center; padding: 6px 18px; margin-inline: auto; width: fit-content; background: var(--paper); }
+
+  /* Andocken: Linie in der Mitte, Karten abwechselnd links und rechts */
   .dw-saeule { left: calc(50% - 3px); }
-  .dw-anker--saeule { left: 50%; }
-  .dw-pfeiler__liste { padding: 0; grid-template-columns: 1fr 1fr; column-gap: 120px; row-gap: 22px; }
-  .dw-pfeiler__item--r { margin-top: 70px; }
-  .dw-pfeiler__item--l { margin-bottom: -48px; }
-  .dw-pfeiler__item--l .dw-steg { left: auto; right: -60px; width: 60px; transform-origin: right; }
-  .dw-pfeiler__item--r .dw-steg { left: -60px; width: 60px; }
+  .dw-andock__liste { padding: 0; grid-template-columns: 1fr 1fr; column-gap: 120px; row-gap: 22px; }
+  .dw-andock__item--r { margin-top: 70px; }
+  .dw-andock__item--l { margin-bottom: -48px; }
+  .dw-andock__item--l .dw-steg { left: auto; right: -60px; width: 60px; transform-origin: right; }
+  .dw-andock__item--r .dw-steg { left: -60px; width: 60px; }
+  .dw-dunkel .dw-andock__liste { column-gap: 140px; row-gap: 28px; }
+  .dw-andock--raster .dw-andock__item--r, .dw-andock--raster .dw-andock__item--l { margin: 0; }
+  .dw-andock--raster .dw-andock__liste { row-gap: 28px; }
+
+  /* Fragen und Profil mittig, die Linie läuft rechts daneben */
+  .dw-frage-wrap { max-width: 640px; margin-inline: auto; }
 
   /* Prinzipien: Begriffe mittig auf der Linie, Text daneben */
-  .dw-prinzipien__titel { text-align: center; padding: 6px 18px; margin-inline: auto; width: fit-content; background: var(--paper); }
   .dw-prinzip { grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
   .dw-prinzip__wort { grid-column: 2; margin: 0; padding: 10px 20px; }
   .dw-prinzip__punkt { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }

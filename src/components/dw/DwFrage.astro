@@ -1,0 +1,25 @@
+---
+// Veränderungs-Check, eine Frage (Talk 3818 Punkt 3). Logik wie im bisherigen Selbstcheck: fünf Stufen, Start
+// „noch nicht eingeschätzt“ (zählt erst nach Bewegung oder Tastatur), aria-valuetext mit der Stufe.
+// Auswertung: src/scripts/veraenderungscheck.ts; nichts wird gesendet oder gespeichert.
+import { DW_CHECK } from '../../config/denkweise';
+interface Props { nr: 1 | 2 | 3 }
+const { nr } = Astro.props;
+const f = DW_CHECK.fragen[nr - 1];
+---
+<div class="dw-frage-wrap reveal" id={f.id}>
+  <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+  <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+  <div class="k dw-frage" data-frage={nr - 1} data-stufen={JSON.stringify(f.stufen)}>
+    <div class="k__inhalt">
+      <p class="dw-frage__kenn">Frage {nr} von 3</p>
+      <label class="dw-frage__text" for={`${f.id}-regler`}>{f.frage}</label>
+      <input class="regler__input regler--offen" id={`${f.id}-regler`} type="range" min="1" max="5" step="1" value="3"
+        aria-valuetext="noch nicht eingeschätzt" aria-describedby={`${f.id}-stufen`} />
+      <ol class="regler__stufen" id={`${f.id}-stufen`} aria-hidden="true">{f.stufen.map((s) => <li>{s}</li>)}</ol>
+      <p class="regler__wert" aria-hidden="true">noch nicht eingeschätzt</p>
+    </div>
+  </div>
+  <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+  <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+</div>

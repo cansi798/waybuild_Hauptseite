@@ -43,6 +43,12 @@ if (root) {
     items: Array.from(el.querySelectorAll<HTMLElement>('[data-an]')).map((it) => ({ el: it, spuren: parse(it.dataset.an || ''), alt: {} })),
   }));
 
+  // Elemente außerhalb einer Szene können über [data-an-ref] an eine Szene mit [data-szene-id] gekoppelt werden
+  root.querySelectorAll<HTMLElement>('[data-an-ref]').forEach((it) => {
+    const s = szenen.find((x) => x.el.dataset.szeneId === it.dataset.anRef);
+    if (s) s.items.push({ el: it, spuren: parse(it.dataset.an || ''), alt: {} });
+  });
+
   let L = 1, N = 1, maxY = new Float32Array(1), offset = '', introVon = 0, introBis = 0, introStart = 0, introAktiv = false, introWert = 0, rootTop = 0;
   const SCHRITT = 6;
 

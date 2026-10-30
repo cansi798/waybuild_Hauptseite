@@ -4,7 +4,7 @@
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
-import { DW_HERO, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN } from '../config/denkweise';
+import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN } from '../config/denkweise';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -33,6 +33,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     '## Die Waybuild-Denkweise',
     'Kein Projektablauf, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.',
+    `Kernsatz: ${DW_KAPITEL[0].kern} Die Startseite erzählt das in drei Kapiteln: ${DW_KAPITEL.map((k) => k.titel).join(', ')}.`,
     `1. Idee: ${DW_IDEE.titel} ${DW_IDEE.schluss}`,
     `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.punkte.join(', ')}. ${DW_VERSTEHEN.schluss}`,
     `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,

@@ -23,7 +23,7 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
     <nav aria-label="Produkte">
       <h2 class="footer__h">Produkte</h2>
       <ul>
-        {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/#umsetzen')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
+        {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/#produkte')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
         {/* Kommende Produkte als Satz statt interner Kategorien (Talk 3636) */}
         <li><span class="footer__soon">Weitere Produkte entstehen</span></li>
       </ul>

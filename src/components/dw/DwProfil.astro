@@ -1,0 +1,30 @@
+---
+// Ergebnis des Veränderungs-Checks kurz vor dem Kontakt: größte Stärke, größter Engpass, größtes Potenzial.
+// Ohne JS bzw. bevor alle drei Fragen beantwortet sind: kurzer Hinweis mit Sprungmarken zu den offenen Fragen.
+import Icon from '../Icon.astro';
+import { href } from '../../lib/paths';
+import { DW_CHECK } from '../../config/denkweise';
+---
+<div class="dw-frage-wrap reveal" id="veraenderungsprofil">
+  <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+  <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+  <section class="k k--flaeche dw-profil" aria-labelledby="dw-profil-h" data-profil>
+    <div class="k__inhalt">
+      <h3 id="dw-profil-h">{DW_CHECK.titel}</h3>
+      <p class="dw-profil__offen" data-profil-offen aria-live="polite">
+        {'Beantworten Sie die drei Fragen entlang der Seite, dann sehen Sie hier Ihr Profil: '}
+        {DW_CHECK.fragen.map((f, i) => <><a href={`#${f.id}`}>Frage {i + 1} ({f.nach})</a>{i < 2 ? ', ' : '.'}</>)}
+      </p>
+      <dl class="dw-profil__liste" data-profil-ergebnis aria-live="polite" hidden>
+        <div><dt><Icon name="check" size={18} /> Größte Stärke</dt><dd data-profil-staerke></dd></div>
+        <div><dt><Icon name="target" size={18} /> Größter Engpass</dt><dd data-profil-engpass></dd></div>
+        <div><dt><Icon name="spark" size={18} /> Größtes Potenzial</dt><dd data-profil-potenzial></dd></div>
+      </dl>
+      <p class="dw-profil__hinweis">Ihre Antworten bleiben auf Ihrem Gerät.</p>
+      <a class="btn btn--primary" href={href('/kontakt/')}>{DW_CHECK.cta} <Icon name="arrow" size={18} /></a>
+    </div>
+  </section>
+  <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+  <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
+</div>
+<script define:vars={{ TEXTE: DW_CHECK }} is:inline>window.__dwCheck = TEXTE;</script>
