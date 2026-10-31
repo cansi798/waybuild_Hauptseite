@@ -4,7 +4,7 @@
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
-import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN, DW_PRODUKTBEREICH } from '../config/denkweise';
+import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_PRINZIPIEN, DW_PRODUKTBEREICH } from '../config/denkweise';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -46,11 +46,9 @@ export const GET: APIRoute = ({ site }) => {
     `- ${DW_PRODUKTBEREICH.individuell.name} (${DW_PRODUKTBEREICH.individuell.kenn.toLowerCase()}): ${DW_PRODUKTBEREICH.individuell.text}`,
     `- ${DW_PRODUKTBEREICH.folgt}`,
     '',
-    `## Verlässlichkeit: ${DW_VERLAESSLICH.titel}`,
-    ...DW_VERLAESSLICH.pfeiler.map((p) => `- ${p.titel}: ${p.text}${p.zusatz ? ` ${p.zusatz}` : ''}`),
     '',
-    `## Drei Prinzipien: ${DW_PRINZIPIEN.titel}`,
-    ...DW_PRINZIPIEN.liste.map((p) => `- ${p.wort}: ${p.text}`),
+    `## Unsere Prinzipien: ${DW_PRINZIPIEN.titel}`,
+    ...DW_PRINZIPIEN.liste.map((p) => `- ${p.wort}: ${p.kern} ${p.text.join(' ')}${p.einleitung ? ` ${p.einleitung}` : ''} ${p.punkte.join(', ')}. ${p.schluss}`),
     '',
     '## Das dürfen Sie von uns erwarten',
     ...QUALITAETEN.map((q) => `- ${q.titel}: ${q.text}`),

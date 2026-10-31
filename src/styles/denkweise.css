@@ -125,6 +125,21 @@
 .dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
 .dw-nur-d { display: none; }
 
+/* ── Unsere Prinzipien (Talk 4087): drei gleichwertige Karten im dunklen Bereich ── */
+.dw-alt-anker { display: block; position: relative; top: -80px; height: 0; }
+.dw-prinzipien__titel { margin: 0 0 clamp(24px, 3.5vw, 40px); font-size: clamp(1.6rem, 3.4vw, 2.4rem); letter-spacing: -0.02em; color: var(--white); text-align: center; }
+.dw-prinzipien__raster { display: grid; gap: 18px; }
+.dw-prinzip-karte { padding: 22px 22px 20px; border: 1px solid var(--dark-line); border-radius: var(--radius); background: rgb(255 255 255 / 5%); color: var(--dark-lead); }
+.dw-prinzip-karte__icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 12px; border-radius: 14px; background: rgb(95 224 218 / 14%); color: var(--accent-light); }
+.dw-prinzip-karte h3 { margin: 0 0 4px; font-size: 1.3rem; color: var(--white); }
+.dw-prinzip-karte p { margin: 0 0 10px; line-height: 1.6; color: var(--dark-lead); }
+.dw-prinzip-karte__kern { font-family: var(--font-head); font-weight: 650; color: var(--accent-light) !important; }
+.dw-prinzip-karte__einleitung { margin-bottom: 6px !important; font-weight: 600; color: var(--white) !important; }
+.dw-prinzip-karte__liste { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 5px; }
+.dw-prinzip-karte__liste li { display: flex; align-items: flex-start; gap: 8px; line-height: 1.45; color: var(--white); }
+.dw-prinzip-karte__liste .icon { flex: none; margin-top: 3px; color: var(--accent-light); }
+.dw-prinzip-karte__schluss { margin-bottom: 0 !important; font-style: italic; color: var(--dark-soft) !important; }
+
 /* ── Ab Produkte ohne Linie (Talk 4083): normales Layout, keine Anker, Stege oder Säule ── */
 .dw-ohne-linie .dw-andock__liste { padding-left: 0; }
 .dw-ohne-linie .dw-mitteltitel { padding-left: 0; }
@@ -402,6 +417,7 @@
   .dw-dunkel .dw-andock__liste { column-gap: 140px; row-gap: 28px; }
   .dw-andock--raster .dw-andock__item--r, .dw-andock--raster .dw-andock__item--l { margin: 0; }
   .dw-andock--raster .dw-andock__liste { row-gap: 28px; }
+  .dw-prinzipien__raster { grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
   .dw-ohne-linie .dw-andock__liste { column-gap: 32px; row-gap: 24px; align-items: start; }
   .dw-ohne-linie .dw-mitteltitel { padding: 0; }
   .dw-abschluss .dw-fortschritt { align-self: center; }

@@ -12,6 +12,6 @@ export const NAV: NavItem[] = [
   { label: 'Verstehen', path: '/#kapitel-1' },
   { label: 'Umsetzen', path: '/#kapitel-2' },
   { label: 'Produkte', path: '/#produkte' },   // Positionierung Vorschlag 8 (Talk 4065)
-  { label: 'Verlässlichkeit', path: '/#kapitel-3' },
+  { label: 'Prinzipien', path: '/#prinzipien' },   // Talk 4087 (vorher „Verlässlichkeit“)
   { label: 'Kontakt', path: '/kontakt/' },
 ];

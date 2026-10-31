@@ -26,7 +26,7 @@ import { href } from '../lib/paths';
 import { BESCHREIBUNG } from '../config/hauptseite';
 import {
   DW_HERO, DW_REISE, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN,
-  DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE, DW_PRODUKTBEREICH,
+  DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE, DW_PRODUKTBEREICH,
 } from '../config/denkweise';
 import '../styles/denkweise.css';
 
@@ -308,54 +308,30 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 3 (Überschrift entfernt, Talk 4084) · ohne Linie (Talk 4083) ═══ -->
+    <!-- ═══ KAPITEL 3: Prinzipien (Talk 4087) und Kontakt · ohne Linie (Talk 4083) ═══ -->
     <section class="dw-kapitel dw-ohne-linie" id={K3.id} aria-label={K3.titel}>
-      <!-- Verlässlichkeit: eigener dunkler Kontrastbereich -->
-      <div class="dw-dunkel" id="verlaesslichkeit" data-linie-hell>
+      <!-- Unsere drei Prinzipien (Talk 4087, ersetzt „Verlässlichkeit“): dunkler Kontrastbereich, ohne Linie -->
+      <div class="dw-dunkel" id="prinzipien" data-linie-hell>
+        <span id="verlaesslichkeit" class="dw-alt-anker"></span>
         <div class="dw-abschnitt">
           <div class="wrap">
-            <div class="dw-text dw-text--oben reveal">
-              <span class="dw-kenn"><Icon name="shield" size={18} /> Verlässlichkeit</span>
-              <h3>{DW_VERLAESSLICH.titel}</h3>
-              <p>{DW_VERLAESSLICH.text}</p>
-            </div>
-            <div class="dw-pfeiler dw-andock" data-szene>
-              <ul class="dw-andock__liste">
-                {DW_VERLAESSLICH.pfeiler.map((p, i) => (
-                  <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--r' : 'dw-andock__item--l']}>
-                    <div class="k dw-pfeiler__karte" data-an={`${i % 2 ? 'rechts' : 'links'}:auto`}>
-                      <span class="k__icon"><Icon name={p.icon} size={26} /></span>
-                      <div class="k__inhalt">
-                        <h4>{p.titel}</h4>
-                        <p>{p.text}</p>
-                        {p.zusatz && <p class="dw-pfeiler__zusatz">{p.zusatz}</p>}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- Die drei Prinzipien -->
-        <div class="dw-abschnitt dw-prinzipien" aria-labelledby="dw-prinzipien-h">
-          <div class="wrap">
-            <h3 id="dw-prinzipien-h" class="dw-mitteltitel">
-              {DW_PRINZIPIEN.titel}
-            </h3>
-            <ol class="dw-prinzipien__liste" data-szene>
-              {DW_PRINZIPIEN.liste.map((p) => (
-                <li class="dw-prinzip">
-                  <span class="dw-prinzip__wort" data-an="blende:auto"><span class="dw-prinzip__punkt"></span>{p.wort}</span>
-                  <span class="dw-prinzip__text" data-an="auf:auto">{p.text}</span>
-                </li>
+            <h2 class="dw-prinzipien__titel" id="dw-prinzipien-h">{DW_PRINZIPIEN.titel}</h2>
+            <div class="dw-prinzipien__raster" data-szene>
+              {DW_PRINZIPIEN.liste.map((p, i) => (
+                <article class="dw-prinzip-karte" aria-labelledby={`dw-pr-${i}`} data-an="auf:auto">
+                  <span class="dw-prinzip-karte__icon"><Icon name={p.icon} size={24} /></span>
+                  <h3 id={`dw-pr-${i}`}>{p.wort}</h3>
+                  <p class="dw-prinzip-karte__kern">{p.kern}</p>
+                  {p.text.map((t) => <p>{t}</p>)}
+                  {p.einleitung && <p class="dw-prinzip-karte__einleitung">{p.einleitung}</p>}
+                  <ul class="dw-prinzip-karte__liste">{p.punkte.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}</ul>
+                  <p class="dw-prinzip-karte__schluss">{p.schluss}</p>
+                </article>
               ))}
-            </ol>
+            </div>
           </div>
         </div>
       </div>
-
-
 
       <!-- Kontakt -->
       <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">

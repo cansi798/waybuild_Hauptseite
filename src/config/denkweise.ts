@@ -27,7 +27,7 @@ export const DW_REISE: { wort: string; icon: IconName }[] = [
 export const DW_KAPITEL = [
   { nr: 1, id: 'kapitel-1', titel: 'Gute Lösungen beginnen mit Verständnis', kern: 'Wir verstehen, bevor wir umsetzen.' }, // Talk 4035
   { nr: 2, id: 'kapitel-2', titel: 'Veränderungen umsetzen', kern: '' },
-  { nr: 3, id: 'kapitel-3', titel: 'Veränderungen nachhaltig machen', kern: '' },
+  { nr: 3, id: 'kapitel-3', titel: 'Unsere Prinzipien', kern: '' },   // Überschrift nicht sichtbar (Talk 4084), nur für Screenreader
 ];
 
 // Talk 3818 Punkt 1: „Idee“ ist der eigentliche Einstieg in die Philosophie: Waybuild startet bei Veränderung, nicht bei Produkten.
@@ -139,26 +139,35 @@ export const DW_VERBESSERN = {
   text: 'Auch nach dem Start bleibt eine Lösung nicht stehen. Wir prüfen, was sie bewirkt, und verbessern sie Schritt für Schritt.',
 };
 
-export const DW_VERLAESSLICH = {
-  titel: 'Gute digitale Lösungen brauchen Verlässlichkeit.', // Talk 4029
-  text: 'Klare Ansprechpartner, nachvollziehbare Prozesse und verständliche Kommunikation sorgen dafür, dass unsere digitalen Lösungen zuverlässig funktionieren.', // Talk 4030
-  pfeiler: [
-    { titel: 'Klare Ansprechpartner', text: 'Sie wissen, wer sich kümmert.', icon: 'user' as IconName, zusatz: '' },
-    // bestätigte Zusagen (Jamil, Talk 3720/3726): 1 Stunde in den Servicezeiten, spätestens nächster Werktag
-    { titel: 'Verlässliche Rückmeldungen', text: 'Sie wissen, wie es weitergeht.', icon: 'clock' as IconName, zusatz: 'Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag der nächste Schritt.' },
-    { titel: 'Nachvollziehbare Prozesse', text: 'Nichts geht verloren.', icon: 'doc' as IconName, zusatz: '' },
-    { titel: 'Verständliche Kommunikation', text: 'Klare Sprache statt Fachbegriffe.', icon: 'chat' as IconName, zusatz: '' },
-    { titel: 'Verantwortung', text: 'Offene Themen bleiben sichtbar.', icon: 'eye' as IconName, zusatz: '' },
-    { titel: 'Kontinuierliche Verbesserung', text: 'Veränderungen entwickeln sich weiter.', icon: 'refresh' as IconName, zusatz: '' },
-  ],
-};
-
+/** Talk 4087: Statt „Verlässlichkeit“ stellen wir unsere drei Prinzipien vor (Jamils Reihenfolge und Wortlaut;
+ *  „Prozesse“ statt „Abläufe“ nach der Sprachregel der Website, „Freigaben gehen“ grammatisch ergänzt). */
 export const DW_PRINZIPIEN = {
-  titel: 'Klarheit. Verlässlichkeit. Einfachheit.',
+  titel: 'Klarheit. Einfachheit. Verlässlichkeit.',
   liste: [
-    { wort: 'Klarheit', text: 'Sie wissen jederzeit, woran Sie sind.' },
-    { wort: 'Verlässlichkeit', text: 'Zusagen gelten. Verantwortung ist klar.' },
-    { wort: 'Einfachheit', text: 'Veränderungen sollen leichter werden, nicht komplizierter.' },
+    {
+      wort: 'Klarheit', icon: 'search' as IconName,
+      kern: 'Sie wissen jederzeit, woran Sie sind.',
+      text: ['Digitale Lösungen müssen kein Rätsel sein.', 'Wir erklären verständlich, zeigen nachvollziehbare Optionen und sprechen Klartext statt Fachsprache.'],
+      einleitung: 'So wissen Sie jederzeit:',
+      punkte: ['was gerade passiert', 'warum etwas empfohlen wird', 'welche Möglichkeiten es gibt', 'was der nächste Schritt ist'],
+      schluss: 'Sie müssen kein IT-Experte sein, um Entscheidungen treffen zu können.',
+    },
+    {
+      wort: 'Einfachheit', icon: 'arrow' as IconName,
+      kern: 'Die Zusammenarbeit soll einfach sein.',
+      text: ['Probleme melden, Änderungen anstoßen oder neue Ideen umsetzen sollte kein Projekt für sich sein.', 'Deshalb legen wir Wert darauf, dass jede Interaktion mit uns möglichst unkompliziert bleibt.'],
+      einleitung: '',
+      punkte: ['Eine Nachricht genügt.', 'Ein Screenshot reicht oft aus.', 'Änderungen müssen nicht durch viele Freigaben gehen.', 'Neue Ideen können schnell besprochen werden.'],
+      schluss: 'Sie sollen sich auf Ihr Unternehmen konzentrieren können, nicht auf IT-Prozesse.',
+    },
+    {
+      wort: 'Verlässlichkeit', icon: 'shield' as IconName,
+      kern: 'Sie können sich darauf verlassen.',
+      text: ['Digitale Lösungen funktionieren nur dann langfristig, wenn Verantwortlichkeiten, Kommunikation und Prozesse klar geregelt sind.'],
+      einleitung: 'Deshalb sorgen wir für:',
+      punkte: ['feste Ansprechpartner', 'nachvollziehbare Zuständigkeiten', 'verlässliche Rückmeldungen', 'dokumentierte Prozesse'],
+      schluss: 'Damit nichts verloren geht und Sie wissen, dass sich jemand kümmert.',
+    },
   ],
 };
 
