@@ -49,6 +49,16 @@
 .dw-start { position: relative; display: grid; justify-items: center; padding-block: 8px 0; }
 .dw-start__linie { position: absolute; top: 0; left: 50%; overflow: visible; pointer-events: none; }
 .dw-start__linie .dw-strich { stroke: var(--accent-mid); stroke-width: 3; }
+/* Talk 4079: waagerechte Hero-Grafik nur auf dem Handy */
+.dw-quer { display: none; position: relative; width: 100%; max-width: 440px; margin: 4px 0 22px; }
+.dw-quer > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.dw-quer__linie { fill: none; stroke: var(--accent-mid); stroke-width: 2.5; stroke-linecap: round; }
+.dw-quer__punkt { fill: var(--paper); stroke: var(--accent-mid); stroke-width: 2.5; }
+.dw-quer__wort { font-family: var(--font-head); font-size: 12.5px; font-weight: 650; fill: var(--accent-ink); }
+.dw-quer__wort--gross { font-size: 13.5px; font-weight: 700; }
+.dw-quer .dw-idee__kreis, .dw-quer .dw-ziel { width: 46px; height: 46px; border-width: 2.5px; }
+.dw-quer .dw-idee__kreis .icon, .dw-quer .dw-ziel .icon { width: 22px; height: 22px; }
+.dw-quer .dw-ziel__licht { stroke: url(#dw-ziel-grad-m); }
 .dw-idee { position: relative; display: block; }
 /* Hero-Prozess (Talk 3922): ganz in Türkis; Talk 4063: ~85 % der vorigen Größe. --hs skaliert den Versatz.
  * Maße gelten auch für das feste Linien-SVG in index.astro (heroLinien) – dort mitziehen! */
@@ -114,6 +124,17 @@
 .dw-s--folgt { stroke-dasharray: 4 6; }
 .dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
 .dw-nur-d { display: none; }
+
+/* ── Ab Produkte ohne Linie (Talk 4083): normales Layout, keine Anker, Stege oder Säule ── */
+.dw-ohne-linie .dw-andock__liste { padding-left: 0; }
+.dw-ohne-linie .dw-mitteltitel { padding-left: 0; }
+.dw-ohne-linie .dw-text, .dw-ohne-linie .dw-prinzip__text { padding-left: 0 !important; }
+.dw-ohne-linie .dw-produkte__folgt { margin-left: 0; }
+.dw-ohne-linie .dw-andock__item--r, .dw-ohne-linie .dw-andock__item--l { margin: 0 !important; }
+.dw-abschluss .dw-text { padding-left: 0 !important; }
+.dw-fortschritt { display: grid; place-items: center; }
+.dw-fortschritt__kreis { display: grid; place-items: center; align-content: center; gap: 6px; width: 200px; height: 200px; border-radius: 50%; border: 3px solid var(--accent-mid); background: rgb(0 166 161 / 9%); color: var(--accent-mid); }
+.dw-fortschritt__wort { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; color: var(--accent-ink); }
 
 /* ── Umsetzen (Talk 4050): Erkenntnisse fließen in einen Knoten, ein Website-Fenster setzt sich aus Bausteinen zusammen ── */
 .dw-umsetzen { container-type: inline-size; }
@@ -325,6 +346,15 @@
 
 /* ── Handy: Texte rechts der Linie ── */
 @media (max-width: 959px) {
+  /* Talk 4079: Hero kompakter, waagerechte Grafik statt der senkrechten */
+  .dw-start { display: none; }
+  .dw-quer { display: block; }
+  .dw-hero { padding-block: 22px 40px; }
+  .dw-hero h1 { font-size: clamp(2.1rem, 9vw, 2.6rem); margin-bottom: 14px; }
+  .dw-hero__eyebrow { margin-bottom: 10px; }
+  .dw-hero__lead { font-size: 1rem; line-height: 1.55; margin-bottom: 14px; }
+  .dw-hero .btn--lg { padding-block: 13px; }
+  .dw-hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.06em; }
   .dw-text, .dw-frage-wrap { padding-left: calc(var(--rand-x) + 12px); }
   .dw-raster { gap: 76px; }
   .dw-hero__text { padding-left: 0; }
@@ -372,6 +402,9 @@
   .dw-dunkel .dw-andock__liste { column-gap: 140px; row-gap: 28px; }
   .dw-andock--raster .dw-andock__item--r, .dw-andock--raster .dw-andock__item--l { margin: 0; }
   .dw-andock--raster .dw-andock__liste { row-gap: 28px; }
+  .dw-ohne-linie .dw-andock__liste { column-gap: 32px; row-gap: 24px; align-items: start; }
+  .dw-ohne-linie .dw-mitteltitel { padding: 0; }
+  .dw-abschluss .dw-fortschritt { align-self: center; }
   .dw-produkte__folgt { margin: 36px auto 0; }
 
   /* Fragen und Profil mittig, die Linie läuft rechts daneben */
@@ -393,6 +426,17 @@
   .dw-reise { padding-top: 37px; gap: 49px; }
   .dw-reise .dw-punkt { width: 15px; height: 15px; }
   .dw-reise .dw-wort { left: 29px; font-size: 1.12rem; }
+}
+
+/* Talk 4079: kleine Handys (z. B. iPhone SE, sichtbar ≈ 550 px): Hero noch straffer, damit alles im ersten Bildschirm steht */
+@media (max-width: 959px) and (max-height: 720px) {
+  .dw-hero { padding-top: 12px; }
+  .dw-hero h1 { font-size: 1.85rem; margin-bottom: 10px; }
+  .dw-hero__eyebrow { margin-bottom: 8px; }
+  .dw-hero__lead { font-size: 0.95rem; line-height: 1.5; margin-bottom: 8px; }
+  .dw-quer { margin-bottom: 12px; }
+  .dw-hero__aktionen { gap: 8px 20px; }
+  .dw-hero .btn--lg { padding-block: 11px; }
 }
 
 /* Ohne Animation (reduzierte Bewegung): keine Übergänge */

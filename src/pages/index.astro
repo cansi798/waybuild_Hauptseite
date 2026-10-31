@@ -48,6 +48,19 @@ const heroLinien = ([['m', 63, 29, 13, 36, 0.98], ['d', 82, 37, 15, 49, 1.45]] a
   return { v, d, w: 200, h: Math.ceil(pkt[pkt.length - 1].y + kreis / 2 + 8) };
 });
 const [K1, K2, K3] = DW_KAPITEL;
+// Talk 4079: Handy-Hero mit waagerechter Prozessgrafik (statisch, sofort fertig). viewBox 360 × 104, Linie auf y = 54,
+// Idee- und Verbessern-Kreis als HTML (46 px, Glimmen/Schimmer wie am Desktop), dazwischen vier Punkte im leichten
+// Wechsel nach oben/unten, Begriffe abwechselnd darüber/darunter (lesbar ab 360 px).
+const Q = { W: 360, H: 104, Y: 54, X0: 25, X1: 335, WELLE: 9 };
+const quer = (() => {
+  const xs = [0, 1, 2, 3, 4, 5].map((i) => Q.X0 + (i * (Q.X1 - Q.X0)) / 5);
+  const ys = xs.map((_, i) => (i === 0 || i === 5 ? Q.Y : Q.Y + (i % 2 ? Q.WELLE : -Q.WELLE)));
+  let d = `M ${xs[0]} ${ys[0]}`;
+  for (let i = 1; i < 6; i++) { const mx = (xs[i - 1] + xs[i]) / 2; d += ` C ${mx.toFixed(1)} ${ys[i - 1]} ${mx.toFixed(1)} ${ys[i]} ${xs[i].toFixed(1)} ${ys[i]}`; }
+  const punkte = [1, 2, 3, 4].map((i) => ({ x: xs[i], y: ys[i], wort: DW_REISE[i - 1].wort, unten: i % 2 === 1 }));
+  return { d, punkte, xs };
+})();
+const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 ---
 
 <BaseLayout
@@ -65,6 +78,32 @@ const [K1, K2, K3] = DW_KAPITEL;
           <p class="eyebrow eyebrow--weg dw-hero__eyebrow">{DW_HERO.eyebrow}</p>
           <h1 id="dw-h1">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
           <p class="dw-hero__lead">{DW_HERO.lead}</p>
+          {/* Talk 4079: waagerechte Prozessgrafik nur auf dem Handy (unter 960 px), direkt unter der Unterzeile */}
+          <div class="dw-quer" style={`aspect-ratio: ${Q.W} / ${Q.H}`}>
+            <svg viewBox={`0 0 ${Q.W} ${Q.H}`} aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="dw-ziel-grad-m" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
+                  <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
+                </linearGradient>
+              </defs>
+              <path class="dw-quer__linie" d={quer.d} />
+              {quer.punkte.map((p) => <circle class="dw-quer__punkt" cx={p.x} cy={p.y} r="5.5" />)}
+              {quer.punkte.map((p) => <text class="dw-quer__wort" x={p.x} y={p.unten ? p.y + 24 : p.y - 15} text-anchor="middle">{p.wort}</text>)}
+              <text class="dw-quer__wort dw-quer__wort--gross" x="2" y={Q.H - 2} text-anchor="start">Idee</text>
+              <text class="dw-quer__wort dw-quer__wort--gross" x={Q.W - 2} y={Q.H - 2} text-anchor="end">{DW_REISE[DW_REISE.length - 1].wort}</text>
+            </svg>
+            <span class="dw-pos" style={`left:${qpc(quer.xs[0], Q.W)};top:${qpc(Q.Y, Q.H)}`}><span class="dw-idee__kreis"><Icon name="idee" size={22} /></span></span>
+            <span class="dw-pos" style={`left:${qpc(quer.xs[5], Q.W)};top:${qpc(Q.Y, Q.H)}`}>
+              <span class="dw-ziel">
+                <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                  <g class="dw-ziel__schimmer"><path class="dw-ziel__licht" d="M 50 2 A 48 48 0 0 1 91.6 26" /></g>
+                  {[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" style={`animation-delay:${((((g - 60 + 360) % 360) / 360 - 1) * 3.6).toFixed(2)}s`} d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}
+                </svg>
+                <Icon name="refresh" size={22} />
+              </span>
+            </span>
+          </div>
           <div class="dw-hero__aktionen">
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
             <a class="pfeil-link" href={href('/angebot/')}>{DW_HERO.link} <Icon name="arrow" size={16} /></a>
@@ -218,15 +257,13 @@ const [K1, K2, K3] = DW_KAPITEL;
       </div>
 
       <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben -->
-      <div class="dw-abschnitt dw-abschnitt--eng" id="produkte" aria-labelledby="dw-produkte-h">
+      <!-- Ab hier ohne Linie (Talk 4083): die Scroll-Linie endet am Verbessern-Kreis -->
+      <div class="dw-abschnitt dw-abschnitt--eng dw-ohne-linie" id="produkte" aria-labelledby="dw-produkte-h">
         <div class="wrap">
-          <h3 class="dw-mitteltitel" id="dw-produkte-h"><span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>{DW_PRODUKTBEREICH.titel}</h3>
+          <h3 class="dw-mitteltitel" id="dw-produkte-h">{DW_PRODUKTBEREICH.titel}</h3>
           <div class="dw-andock dw-andock--raster" data-szene>
-            <span class="dw-anker dw-anker--mitte" style="top:0" data-weg data-weg-nur="d"></span>
-            <span class="dw-anker dw-anker--rand" style="top:0" data-weg data-weg-nur="m"></span>
             <ul class="dw-andock__liste">
               <li class="dw-andock__item dw-andock__item--l">
-                <span class="dw-steg" data-an="breit:auto"></span>
                 <article class="k k--akzent dw-produkt dw-produkt--hervor" aria-labelledby="dw-p-web" data-an="links:auto">
                   <span class="k__icon"><Icon name="layout" size={22} /></span>
                   <div class="k__inhalt">
@@ -242,7 +279,6 @@ const [K1, K2, K3] = DW_KAPITEL;
               </li>
               {DW_PRODUKTE.map((p, i) => (
                 <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
-                  <span class="dw-steg" data-an="breit:auto"></span>
                   <article class="k dw-produkt" aria-labelledby={`dw-p-${p.id}`} data-an={`${i % 2 ? 'links' : 'rechts'}:auto`}>
                     <span class="k__icon"><Icon name={p.icon} size={22} /></span>
                     <div class="k__inhalt">
@@ -255,7 +291,6 @@ const [K1, K2, K3] = DW_KAPITEL;
                 </li>
               ))}
               <li class:list={['dw-andock__item', DW_PRODUKTE.length % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
-                <span class="dw-steg" data-an="breit:auto"></span>
                 <article class="k dw-produkt dw-produkt--individuell" aria-labelledby="dw-p-individuell" data-an={`${DW_PRODUKTE.length % 2 ? 'links' : 'rechts'}:auto`}>
                   <span class="k__icon"><Icon name={DW_PRODUKTBEREICH.individuell.icon} size={22} /></span>
                   <div class="k__inhalt">
@@ -268,47 +303,26 @@ const [K1, K2, K3] = DW_KAPITEL;
               </li>
             </ul>
             <p class="dw-produkte__folgt" data-an="auf:auto"><Icon name="spark" size={16} /> {DW_PRODUKTBEREICH.folgt}</p>
-            <span class="dw-anker dw-anker--mitte" style="top:100%" data-weg data-weg-nur="d"></span>
-            <span class="dw-anker dw-anker--rand" style="top:100%" data-weg data-weg-nur="m"></span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 3 · VERÄNDERUNGEN NACHHALTIG MACHEN ═══ -->
-    <section class="dw-kapitel" id={K3.id} aria-labelledby="k3-h">
+    <!-- ═══ KAPITEL 3 (Überschrift entfernt, Talk 4084) · ohne Linie (Talk 4083) ═══ -->
+    <section class="dw-kapitel dw-ohne-linie" id={K3.id} aria-label={K3.titel}>
       <!-- Verlässlichkeit: eigener dunkler Kontrastbereich -->
       <div class="dw-dunkel" id="verlaesslichkeit" data-linie-hell>
-        <div class="wrap dw-kapitelkopf">
-          <div class="dw-kapitel__text" data-szene data-szene-id="k3">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-wp" data-weg data-weg-nur="d"></span>
-            <h2 id="k3-h">{K3.titel}</h2>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-wp" data-weg data-weg-nur="d"></span>
-          </div>
-        </div>
         <div class="dw-abschnitt">
           <div class="wrap">
             <div class="dw-text dw-text--oben reveal">
-              <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-              <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
               <span class="dw-kenn"><Icon name="shield" size={18} /> Verlässlichkeit</span>
               <h3>{DW_VERLAESSLICH.titel}</h3>
               <p>{DW_VERLAESSLICH.text}</p>
-              <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-              <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
             </div>
             <div class="dw-pfeiler dw-andock" data-szene>
-              <span class="dw-saeule" data-an="hoch:0-0.96"></span>
-              <span class="dw-anker dw-anker--mitte dw-nur-d-anker" style="top:0" data-weg="ein" data-weg-nur="d"></span>
-              <span class="dw-anker dw-anker--rand" style="top:0" data-weg="ein" data-weg-nur="m"></span>
-              <span class="dw-anker dw-anker--mitte" style="top:100%" data-weg="aus" data-weg-nur="d"></span>
-              <span class="dw-anker dw-anker--rand" style="top:100%" data-weg="aus" data-weg-nur="m"></span>
               <ul class="dw-andock__liste">
                 {DW_VERLAESSLICH.pfeiler.map((p, i) => (
                   <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--r' : 'dw-andock__item--l']}>
-                    <span class="dw-steg" data-an="breit:auto"></span>
                     <div class="k dw-pfeiler__karte" data-an={`${i % 2 ? 'rechts' : 'links'}:auto`}>
                       <span class="k__icon"><Icon name={p.icon} size={26} /></span>
                       <div class="k__inhalt">
@@ -323,17 +337,16 @@ const [K1, K2, K3] = DW_KAPITEL;
             </div>
           </div>
         </div>
-        <!-- Die drei Prinzipien: direkt auf der Linie -->
+        <!-- Die drei Prinzipien -->
         <div class="dw-abschnitt dw-prinzipien" aria-labelledby="dw-prinzipien-h">
           <div class="wrap">
             <h3 id="dw-prinzipien-h" class="dw-mitteltitel">
-              <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
               {DW_PRINZIPIEN.titel}
             </h3>
             <ol class="dw-prinzipien__liste" data-szene>
               {DW_PRINZIPIEN.liste.map((p) => (
                 <li class="dw-prinzip">
-                  <span class="dw-prinzip__wort" data-an="blende:auto"><span class="dw-prinzip__punkt" data-weg></span>{p.wort}</span>
+                  <span class="dw-prinzip__wort" data-an="blende:auto"><span class="dw-prinzip__punkt"></span>{p.wort}</span>
                   <span class="dw-prinzip__text" data-an="auf:auto">{p.text}</span>
                 </li>
               ))}
@@ -348,13 +361,11 @@ const [K1, K2, K3] = DW_KAPITEL;
       <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
         <div class="wrap dw-raster">
           <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <h3 id="dw-abschluss-h" class="dw-abschluss__titel">{DW_ABSCHLUSS.titel}</h3>
             <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
             <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
             <ul class="dw-vertrauen">{DW_ABSCHLUSS.vertrauen.map((v) => <li><Icon name="check" size={16} /> {v}</li>)}</ul>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           </div>
           <DwFortschritt />
         </div>
