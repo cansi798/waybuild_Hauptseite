@@ -61,7 +61,7 @@ export const DW_VERSTEHEN = {
 };
 
 export const DW_HINTERFRAGEN = {
-  titel: 'Wir setzen nicht einfach um.',
+  titel: 'Wir verstehen, bevor wir verändern.',
   // Talk 3818 Punkt 2: Botschaft und kurze Beschriftungen der Phasen, damit die Szene auf Anhieb verständlich ist
   botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
   phasen: ['Die erste Idee', 'Mögliche Wege', 'Prüfen: Was bringt Sie weiter?', 'Eine Richtung'],
