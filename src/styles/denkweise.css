@@ -126,6 +126,15 @@
 .dw-ideebild__knoten { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent-mid); color: var(--accent-ink); }
 .dw-ideebild__knoten .icon { position: relative; z-index: 1; filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
 .dw-ideebild__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
+/* Verstehen (Talk 4042): Kreis so groß wie der Ideen-Knoten, Lupe statt Wort; die Äste zeichnet ein eigenes kleines SVG */
+.dw-verstehen__kreis { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); color: var(--accent-ink); }
+.dw-verstehen__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 2; }
+.dw-verstehen__ast { stroke-width: 2.5px; vector-effect: non-scaling-stroke; }
+.dw-verstehen__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
+.dw-verstehen__lupe { position: relative; z-index: 1; display: grid; }
+.dw-verstehen__lupe .icon { filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
+.dw--live .dw-verstehen__kreis .icon { animation: dw-birne 3.6s ease-in-out infinite paused; }
+.dw--live .dw-verstehen__kreis.ist-sichtbar .icon { animation-play-state: running; }
 .dw--live .dw-ideebild__knoten .icon { animation: dw-birne 3.6s ease-in-out infinite paused; }
 .dw--live .dw-ideebild__knoten.ist-sichtbar .icon { animation-play-state: running; }
 
@@ -358,7 +367,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
   .dw-kreis__schimmer { animation: none !important; }
-  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ideebild__knoten .icon { animation: none !important; }
+  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ideebild__knoten .icon, .dw-verstehen__kreis .icon { animation: none !important; }
 }
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */

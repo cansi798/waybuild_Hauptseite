@@ -48,16 +48,17 @@ export const DW_IDEE = {
 export const DW_VERSTEHEN = {
   titel: 'Bevor wir etwas verändern, möchten wir es verstehen.',
   einleitung: 'Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen:',
-  // Talk 4012: ergänzt; „wo Reibung entsteht“ wurde zu „wo digitale Reibung entsteht“ (keine Doppelung)
-  punkte: ['wie Ihr Unternehmen arbeitet', 'welche Ziele wichtig sind', 'wie Entscheidungen entstehen', 'wie Menschen heute arbeiten', 'welche digitalen Werkzeuge sie nutzen', 'wo digitale Reibung entsteht', 'welche Prozesse vorhanden sind'],
+  // Talk 4012 ergänzt („wo digitale Reibung entsteht“ statt „wo Reibung entsteht“), Talk 4039: die ersten drei entfernt
+  punkte: ['wie Menschen heute arbeiten', 'welche digitalen Werkzeuge sie nutzen', 'wo digitale Reibung entsteht', 'welche Prozesse vorhanden sind'],
   schluss: 'Denn nicht jede Herausforderung benötigt eine neue Lösung.',
-  /** Begriffe rund um den Kreis (Bildfläche 440 × 420, Kreis um 220/210, r = 104) */
+  /** Begriffe rund um den Kreis (Talk 4042: kleiner Kreis wie der Ideen-Knoten). Lage in viewBox-Einheiten der
+   *  Bildfläche 440 × 360, Kreis in der Mitte (220/180). */
   begriffe: [
-    { text: 'Unternehmen', x: 73, y: 15, kx: 278, ky: 124 },
-    { text: 'Menschen', x: 87, y: 50, kx: 324, ky: 210 },
-    { text: 'Ziele', x: 72, y: 86, kx: 278, ky: 296 },
-    { text: 'Kommunikation', x: 25, y: 86, kx: 160, ky: 296 },
-    { text: 'Prozesse', x: 12, y: 50, kx: 116, ky: 210 },
+    { text: 'Unternehmen', x: 328, y: 92 },
+    { text: 'Menschen', x: 356, y: 180 },
+    { text: 'Ziele', x: 322, y: 268 },
+    { text: 'Kommunikation', x: 112, y: 268 },
+    { text: 'Prozesse', x: 88, y: 180 },
   ],
   mitte: 'Verständnis',
 };
