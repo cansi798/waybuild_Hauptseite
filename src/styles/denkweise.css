@@ -65,7 +65,11 @@
 .dw-ziel-huelle { display: block; }
 .dw-reise__ziel .dw-idee__wort { white-space: nowrap; }
 .dw-ziel__ring { position: absolute; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; z-index: 1; pointer-events: none; }
-.dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;; transform-box: fill-box; transform-origin: center; }
+/* Talk 4038: Pfeile leuchten kurz auf und schieben leicht nach vorn, wenn der Lichtschimmer sie erreicht (gleiche Runde) */
+.dw--live .dw-ziel__pfeil { animation: dw-pfeil-puls 3.6s linear infinite paused; }
+.dw--live .dw-ziel.ist-sichtbar .dw-ziel__pfeil { animation-play-state: running; }
+@keyframes dw-pfeil-puls { 0%, 13%, 100% { transform: none; stroke: var(--accent-mid); } 4% { transform: translateX(calc(var(--dw-r, 1) * 3px)) scale(1.3); stroke: var(--accent-light); } }
 .dw-ziel__schimmer { transform-origin: 50px 50px; transform: rotate(200deg); }
 /* Talk 4031: Lichtschimmer genau so breit wie der Rand (3 px), heller Türkiston, damit er auf dem Rand sichtbar bleibt */
 .dw-ziel__licht { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 3px; vector-effect: non-scaling-stroke; stroke-linecap: butt; }
@@ -119,7 +123,11 @@
 .dw-ideebild { container-type: inline-size; }
 .dw-ideebild__idee { display: inline-flex; align-items: center; justify-content: center; gap: 6px; max-width: 12em; padding: 6px 12px; border-radius: 16px; border: 1px solid rgb(0 143 138 / 38%); background: #e8f3f0; box-shadow: 0 2px 8px rgb(0 107 104 / 8%); font-size: 0.82rem; font-weight: 650; line-height: 1.25; color: var(--accent-ink); text-align: center; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-ideebild__idee .icon { flex: none; color: var(--accent-mid); }
-.dw-ideebild__hof { fill: rgb(0 166 161 / 16%); transform-box: fill-box; transform-origin: center; }
+.dw-ideebild__knoten { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent-mid); color: var(--accent-ink); }
+.dw-ideebild__knoten .icon { position: relative; z-index: 1; filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
+.dw-ideebild__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
+.dw--live .dw-ideebild__knoten .icon { animation: dw-birne 3.6s ease-in-out infinite paused; }
+.dw--live .dw-ideebild__knoten.ist-sichtbar .icon { animation-play-state: running; }
 
 /* ── Entscheiden (Talk 3938/3939): Wege abwägen (Nutzen/Aufwand), Reihenfolge, Wahl türkis mit Haken ── */
 .dw-pos--spalte { transform: translate(-50%, 0); }   /* Spaltenkopf hängt am Ende des Astes */
@@ -155,6 +163,9 @@
 .dw--live .dw-kreis.ist-zu .dw-kreis__ring, .dw--live .dw-kreis.ist-zu .dw-pfeil { opacity: 1; transform: none; }
 .dw--live .dw-kreis.ist-zu .dw-kreis__schimmer { opacity: 1; transition: opacity 0.5s ease 0.5s; animation: dw-kreis-dreh 7.5s linear 0.5s infinite paused; }
 .dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-kreis__schimmer { animation-play-state: running; }
+.dw-pfeil path { transform-box: fill-box; transform-origin: center; }
+.dw--live .dw-kreis.ist-zu .dw-pfeil path { animation: dw-pfeil-puls 7.5s linear var(--d, 0s) infinite paused; }
+.dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-pfeil path { animation-play-state: running; }
 @keyframes dw-kreis-dreh { to { transform: rotate(calc(var(--dw-r, 1) * 360deg)); } }
 
 /* ── Kapitel: Marke auf der Linie, Titel, Kernbotschaft ── */
@@ -347,7 +358,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
   .dw-kreis__schimmer { animation: none !important; }
-  .dw-idee__kreis .icon, .dw-ziel__schimmer { animation: none !important; }
+  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ideebild__knoten .icon { animation: none !important; }
 }
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */

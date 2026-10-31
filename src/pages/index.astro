@@ -74,7 +74,8 @@ const [K1, K2, K3] = DW_KAPITEL;
                     <g class="dw-ziel__schimmer">
                       <path class="dw-ziel__licht" d="M 50 2 A 48 48 0 0 1 91.6 26" />
                     </g>
-                    {[45, 135, 225, 315].map((g) => <path class="dw-ziel__pfeil" transform={`rotate(${g} 50 50)`} d="M 45 -4.5 L 52.5 2 L 45 8.5" />)}
+                    {/* Pfeile reagieren, wenn der Lichtschimmer (Kopf startet bei 60°, 3,6 s je Runde) sie erreicht (Talk 4038) */}
+                    {[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" style={`animation-delay:${((((g - 60 + 360) % 360) / 360 - 1) * 3.6).toFixed(2)}s`} d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}
                   </svg>
                   <Icon name="refresh" size={34} />
                 </span></span>

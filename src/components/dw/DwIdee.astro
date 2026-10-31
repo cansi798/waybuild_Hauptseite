@@ -1,7 +1,7 @@
 ---
 // Szene „Idee“ (Jamil, Talk 4007): Sechs Ideen schweben als kleine türkise Ideen-Karten um den Knoten auf der Linie.
 // Beim Scrollen werden sie nacheinander in den Knoten gezogen (wandern, schrumpfen, verschmelzen); danach leuchtet der
-// Knoten auf: aus vielen Ideen wird eine. Keine Verbindungslinien mehr („Spinnenbeine“).
+// Knoten (groß, mit Glühbirne) auf: aus vielen Ideen wird eine. Keine Verbindungslinien mehr („Spinnenbeine“).
 // Technik: Alle Karten sitzen im Knoten; ihre Ruhelage ist ein Versatz in Container-Einheiten (--ox/--oy in cqw), den
 // die Spur „fliessen“ in denkweise.ts auf 0 zieht. Ohne JS / reduzierte Bewegung: Ideen ruhig um den Knoten.
 import Icon from '../Icon.astro';
@@ -11,16 +11,13 @@ const f = (n: number) => n.toFixed(3);
 const ideen = DW_IDEE.ideen.map((i, k) => ({
   ...i, k,
   ox: f(((i.x - MX) / W) * 100), oy: f(((i.y - MY) / W) * 100),
-  // fließen, während die Linie auf den Knoten zuläuft (Spitze erreicht ihn bei p ≈ 0.68)
-  an: `auf:${f(0.02 + k * 0.04)}-${f(0.12 + k * 0.04)} fliessen:${f(0.48 + k * 0.05)}-${f(0.64 + k * 0.05)}`,
+  // Talk 4037: erst gut lesbar stehen lassen, dann (wenn die Linie den Knoten erreicht, p ≈ 0.68) nacheinander einfließen
+  an: `auf:${f(0.02 + k * 0.04)}-${f(0.12 + k * 0.04)} fliessen:${f(0.62 + k * 0.045)}-${f(0.76 + k * 0.045)}`,
 }));
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 ---
 <div class="dw-bild dw-ideebild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    <circle class="dw-ideebild__hof" cx={MX} cy={MY} r="22" data-an="erscheinen:0.86-0.97" />
-    <circle class="dw-knoten" cx={MX} cy={MY} r="7" data-an="erscheinen:0.3-0.4" />
-    <circle class="dw-knoten dw-knoten--akzent" cx={MX} cy={MY} r="7" data-an="erscheinen:0.84-0.94" />
   </svg>
   <span class="dw-anker" style="left:50%;top:0%" data-weg></span>
   <span class="dw-anker" style={`left:50%;top:${pc(MY, H)}`} data-weg></span>
@@ -30,4 +27,11 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       <span class="dw-ideebild__idee" style={`--ox:${i.ox};--oy:${i.oy}`} data-an={i.an}><Icon name="idee" size={14} />{i.text}</span>
     </span>
   ))}
+  {/* Talk 4037: größerer Knoten mit Glühbirne (wie der Idee-Kreis im Hero); füllt sich, wenn alle Ideen drin sind */}
+  <span class="dw-pos" style={`left:${pc(MX, W)};top:${pc(MY, H)}`}>
+    <span class="dw-ideebild__knoten" data-an="erscheinen:0.3-0.4">
+      <span class="dw-ideebild__fuell" data-an="blende:0.9-0.99"></span>
+      <Icon name="idee" size={22} />
+    </span>
+  </span>
 </div>

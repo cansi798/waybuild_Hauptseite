@@ -237,7 +237,7 @@ if (root) {
     const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('ist-sichtbar', e.isIntersecting)));
     szenen.forEach((s) => { if (s.zu >= 0) io.observe(s.el); });
     // Glimmen von Idee- und Verbessern-Kreis im Hero sowie deren Lichtschimmer ebenfalls nur im Bild (Talk 3930/3933)
-    root.querySelectorAll('.dw-idee__kreis, .dw-ziel').forEach((el) => io.observe(el));
+    root.querySelectorAll('.dw-idee__kreis, .dw-ziel, .dw-ideebild__knoten').forEach((el) => io.observe(el));
   }
   if (!reduce) { introStart = performance.now() + 450; introAktiv = true; anfordern(); }
   window.addEventListener('scroll', anfordern, { passive: true });

@@ -21,7 +21,7 @@ export const DW_REISE: { wort: string; icon: IconName }[] = [
 
 /** Drei Kapitel statt vieler Einzelabschnitte (Jamil, Talk 3818 Punkt 7) */
 export const DW_KAPITEL = [
-  { nr: 1, id: 'kapitel-1', titel: 'Veränderungen verstehen', kern: 'Wir verstehen, bevor wir verändern.' },
+  { nr: 1, id: 'kapitel-1', titel: 'Gute Lösungen beginnen mit Verständnis', kern: 'Wir verstehen, bevor wir umsetzen.' }, // Talk 4035
   { nr: 2, id: 'kapitel-2', titel: 'Veränderungen umsetzen', kern: '' },
   { nr: 3, id: 'kapitel-3', titel: 'Veränderungen nachhaltig machen', kern: '' },
 ];
