@@ -63,7 +63,7 @@ export const DW_VERSTEHEN = {
 };
 
 export const DW_HINTERFRAGEN = {
-  titel: 'Wir verstehen, bevor wir verändern.',
+  titel: 'Bevor wir digitale Lösungen entwickeln, möchten wir verstehen.', // Talk 4013
   // Talk 3818 Punkt 2: Botschaft und kurze Beschriftungen der Phasen, damit die Szene auf Anhieb verständlich ist
   botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
   phasen: ['Die erste Idee', 'Mögliche Wege', 'Prüfen: Was bringt Sie weiter?', 'Eine Richtung'],
@@ -132,12 +132,12 @@ export const DW_VERBESSERN = {
 
 export const DW_VERLAESSLICH = {
   titel: 'Veränderung darf nicht vom Zufall abhängen.',
-  text: 'Damit Veränderungen zuverlässig vorankommen, braucht es klare Verantwortlichkeiten, nachvollziehbare Abläufe und verständliche Kommunikation.',
+  text: 'Damit Veränderungen zuverlässig vorankommen, braucht es klare Verantwortlichkeiten, nachvollziehbare Prozesse und verständliche Kommunikation.',
   pfeiler: [
     { titel: 'Klare Ansprechpartner', text: 'Sie wissen, wer sich kümmert.', icon: 'user' as IconName, zusatz: '' },
     // bestätigte Zusagen (Jamil, Talk 3720/3726): 1 Stunde in den Servicezeiten, spätestens nächster Werktag
     { titel: 'Verlässliche Rückmeldungen', text: 'Sie wissen, wie es weitergeht.', icon: 'clock' as IconName, zusatz: 'Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag der nächste Schritt.' },
-    { titel: 'Nachvollziehbare Abläufe', text: 'Nichts geht verloren.', icon: 'doc' as IconName, zusatz: '' },
+    { titel: 'Nachvollziehbare Prozesse', text: 'Nichts geht verloren.', icon: 'doc' as IconName, zusatz: '' },
     { titel: 'Verständliche Kommunikation', text: 'Klare Sprache statt Fachbegriffe.', icon: 'chat' as IconName, zusatz: '' },
     { titel: 'Verantwortung', text: 'Offene Themen bleiben sichtbar.', icon: 'eye' as IconName, zusatz: '' },
     { titel: 'Kontinuierliche Verbesserung', text: 'Veränderungen entwickeln sich weiter.', icon: 'refresh' as IconName, zusatz: '' },
@@ -172,7 +172,7 @@ export const DW_ABSCHLUSS = {
  *  Kundenverwaltung bzw. App ist) und von Jamil zu bestätigen. */
 export const DW_PRODUKTE = [
   { id: 'crm-handwerk', name: 'Kundenverwaltung für Handwerksbetriebe', nutzen: 'Ein CRM, gemacht für den Alltag im Handwerk.', text: 'Kunden und Anfragen übersichtlich an einem Ort.', icon: 'tools' as IconName },
-  { id: 'crm-azav', name: 'Kundenverwaltung für AZAV-Bildungsträger', nutzen: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', text: 'Anfragen und Abläufe übersichtlich an einem Ort.', icon: 'book' as IconName },
+  { id: 'crm-azav', name: 'Kundenverwaltung für AZAV-Bildungsträger', nutzen: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', text: 'Anfragen und Prozesse übersichtlich an einem Ort.', icon: 'book' as IconName },
   { id: 'apps', name: 'Apps für App Store und Google Play', nutzen: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', text: 'Für Smartphone und Tablet, über App Store und Google Play.', icon: 'smartphone' as IconName },
 ];
 

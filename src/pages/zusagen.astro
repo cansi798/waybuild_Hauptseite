@@ -16,11 +16,11 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
 ---
 
 <BaseLayout
-  title="Unsere Zusagen: Reaktionszeit und Ablauf"
-  description="Unsere Zusagen für alle Produkte: feste Zeiten, ein klarer Ablauf für jede Anfrage und die Werte, nach denen Waybuild arbeitet."
+  title="Unsere Zusagen: Reaktionszeit und Prozess"
+  description="Unsere Zusagen für alle Produkte: feste Zeiten, ein klarer Prozess für jede Anfrage und die Werte, nach denen Waybuild arbeitet."
   breadcrumb={[{ name: 'Unsere Zusagen', path: '/zusagen/' }]}
 >
-  <PageHeader eyebrow="Unsere Zusagen" title="Was Sie von uns" accent="erwarten können." lead="Für alle unsere Produkte: feste Zeiten, ein klarer Ablauf, einfache Worte." />
+  <PageHeader eyebrow="Unsere Zusagen" title="Was Sie von uns" accent="erwarten können." lead="Für alle unsere Produkte: feste Zeiten, ein klarer Prozess, einfache Worte." />
 
   <section class="section section--dark etappe" id="zusagen" aria-labelledby="zusagen-h">
     <WegTrenner variante={2} />
@@ -48,7 +48,7 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   <section class="section etappe" id="ticketsystem" aria-labelledby="ticket-h">
     <WegTrenner variante={1} />
     <div class="wrap">
-      <SectionHead eyebrow="So läuft eine Anfrage" pre="Eine Nachricht. " accent="Ein fester Ablauf." text="Sie müssen nichts ausfüllen. Den Rest erledigen wir." id="ticket-h" />
+      <SectionHead eyebrow="So läuft eine Anfrage" pre="Eine Nachricht. " accent="Ein fester Prozess." text="Sie müssen nichts ausfüllen. Den Rest erledigen wir." id="ticket-h" />
       <Weg art="gerade" stationen={TICKET.map((t) => ({ titel: t.title, text: t.text, icon: t.icon }))} zeichnen nummern />
     </div>
   </section>
@@ -56,7 +56,7 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   <section class="section section--sand etappe" id="prozesse" aria-labelledby="prozesse-h">
     <WegTrenner variante={2} />
     <div class="wrap prozesse">
-      <SectionHead eyebrow="Abläufe & Transparenz" pre="Struktur statt " accent="Zufall." text="Jedes Anliegen läuft nach einem festen Ablauf, und den verbessern wir laufend." id="prozesse-h" />
+      <SectionHead eyebrow="Prozesse & Transparenz" pre="Struktur statt " accent="Zufall." text="Jedes Anliegen läuft nach einem festen Prozess, und den verbessern wir laufend." id="prozesse-h" />
       <ul class="liste">
         {PROZESSE.map((p) => (
           <li class="reveal">

@@ -60,12 +60,12 @@ export const WERTE: { icon: IconName; title: string; lead: string; text: string 
 /** „Klein, aber mit den Standards der Großen“ (Jamil 21.10.2026, Sprachnachricht 2960).
  *  Gegenüberstellung bewusst sachlich – kein Herabsetzen anderer Anbieter. */
 export const STANDARDS = {
-  text: 'waybuild IT ist ein kleines, junges Unternehmen. Beim Service arbeiten wir trotzdem wie die Großen: mit festem Ticketsystem, schriftlichen Service-Zusagen und klaren Abläufen. Bei vielen IT-Dienstleistern läuft dagegen alles übers Telefon. Man ruft „seinen“ IT-Mann an und hofft, dass er Zeit hat.',
+  text: 'waybuild IT ist ein kleines, junges Unternehmen. Beim Service arbeiten wir trotzdem wie die Großen: mit festem Ticketsystem, schriftlichen Service-Zusagen und klaren Prozessen. Bei vielen IT-Dienstleistern läuft dagegen alles übers Telefon. Man ruft „seinen“ IT-Mann an und hofft, dass er Zeit hat.',
   vergleich: [
     { thema: 'Anfragen', oft: 'Anruf beim „Lieblings-IT-Mann“', wir: 'Festes Ticketsystem, in dem nichts verloren geht' },
     { thema: 'Reaktionszeit', oft: 'Wenn gerade jemand Zeit hat', wir: 'Schriftlich zugesagt (SLA)' },
     { thema: 'Ansprechpartner', oft: 'Wer gerade ans Telefon geht', wir: 'Ihr fester Ansprechpartner' },
-    { thema: 'Abläufe', oft: 'Im Kopf einzelner Personen', wir: 'Feste, dokumentierte Prozesse' },
+    { thema: 'Prozesse', oft: 'Im Kopf einzelner Personen', wir: 'Feste, dokumentierte Prozesse' },
   ],
 };
 
@@ -98,9 +98,9 @@ export const TICKET: { icon: IconName; title: string; text: string }[] = [
 
 /** Prozesse & Transparenz (Jamil 21.10.2026) */
 export const PROZESSE: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'doc', title: 'Klare Abläufe', text: 'Jede Anfrage läuft über denselben festen Weg. Nichts hängt an einer einzelnen Person.' },
+  { icon: 'doc', title: 'Klare Prozesse', text: 'Jede Anfrage läuft über denselben festen Weg. Nichts hängt an einer einzelnen Person.' },
   { icon: 'eye', title: 'Transparent', text: 'Sie wissen vorher, was passiert, wie lange es dauert und was es kostet.' },
-  { icon: 'refresh', title: 'Laufend verbessert', text: 'Wir prüfen unsere Abläufe regelmäßig und machen sie Schritt für Schritt besser.' },
+  { icon: 'refresh', title: 'Laufend verbessert', text: 'Wir prüfen unsere Prozesse regelmäßig und machen sie Schritt für Schritt besser.' },
   { icon: 'users', title: 'Kundenorientiert', text: 'Maßstab ist, was Ihnen hilft: verständlich, schnell und verlässlich.' },
 ];
 
@@ -222,7 +222,7 @@ export const QUALITAETEN: { titel: string; text: string; icon: IconName }[] = [
   { titel: 'Nichts geht verloren', text: 'Jedes Anliegen wird dokumentiert und verfolgt, bis es abgeschlossen ist.', icon: 'doc' },
   { titel: 'Probleme bleiben nicht liegen', text: 'Wenn etwas feststeckt oder eine Antwort ausbleibt, wird das Thema automatisch weitergegeben.', icon: 'refresh' },
   { titel: 'Sie wissen jederzeit, woran Sie sind', text: 'Keine Überraschungen. Keine Funkstille.', icon: 'eye' },
-  { titel: 'Echter Mehrwert', text: 'Was wir umsetzen, soll Zeit sparen, Abläufe erleichtern oder ein konkretes Problem lösen.', icon: 'spark' },
+  { titel: 'Echter Mehrwert', text: 'Was wir umsetzen, soll Zeit sparen, Prozesse erleichtern oder ein konkretes Problem lösen.', icon: 'spark' },
 ];
 
 /** „So beginnt die Zusammenarbeit“ (Jamil, Talk 3725/3727, 29.10.2026) – ersetzt die vier Grundsätze auf der Startseite.

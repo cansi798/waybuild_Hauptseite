@@ -156,11 +156,11 @@ export const BERATUNG_THEMEN = ['Zielgruppen', 'Positionierung', 'Customer Journ
 export const faqsAllgemein = [
   {
     q: 'Was macht Waybuild?',
-    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Abläufen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, zwei Kundenverwaltungen und Apps dazu. Weitere Produkte folgen.',
+    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, zwei Kundenverwaltungen und Apps dazu. Weitere Produkte folgen.',
   },
   {
     q: 'Gelten Ihre Zusagen für alle Produkte?',
-    a: 'Ja. Unsere Zusagen, unsere Werte und unser Ablauf gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.',
+    a: 'Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.',
   },
   {
     q: 'Wie schnell bekomme ich eine Antwort?',
