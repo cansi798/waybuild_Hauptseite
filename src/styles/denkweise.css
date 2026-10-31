@@ -2,16 +2,18 @@
  * Ohne JS bzw. mit reduzierter Bewegung stehen alle Szenen im fertigen Zustand (Animationen setzt nur .dw--live). */
 
 .dw {
-  --weg: #c2b9a9;          /* Linie: warmes, ruhiges Grau */
-  --weg-fein: #cfc7b9;
+  --weg: var(--accent-mid); /* Linie generell türkis (Jamil, Talk 3922); auf dunklen Flächen hell, siehe unten */
+  --weg-fein: #cfc7b9;      /* feine Nebenlinien (Impulse, Abzweige) bleiben warm-grau und fließen in die türkise Linie */
   --rand-x: 32px;           /* Handy: Lage der Linie neben den Texten */
   position: relative;
   overflow-x: clip;
   isolation: isolate;   /* dunkle Flächen liegen UNTER der Linie (z-index -1), Inhalte darüber */
 }
-.dw--fertig { --weg: var(--accent); --weg-fein: rgb(0 166 161 / 55%); }
+.dw--fertig { --weg-fein: rgb(0 143 138 / 55%); }
 
 .dw-linie { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+.dw-linie-hell .dw-strich { stroke: var(--accent-light); }   /* Kopie der Linie über dunklen Flächen */
+.dw-strich--hero { stroke-width: 3.5; }
 .dw-strich, .dw-s { fill: none; stroke: var(--weg); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 1.2s ease; }
 .dw-s--fein { stroke: var(--weg-fein); stroke-width: 2; }
 .dw-s--stark { stroke-width: 3.5; }
@@ -43,11 +45,14 @@
 .dw-hero__lead { font-size: clamp(1.08rem, 1.8vw, 1.25rem); line-height: 1.7; color: var(--ink-soft); max-width: 42ch; margin: 0 0 28px; }
 .dw-start { position: relative; display: grid; justify-items: center; padding-block: 8px 0; }
 .dw-idee { position: relative; display: block; }
-.dw-idee__kreis { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent); color: var(--accent-ink); }
-.dw-idee__wort { position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); font-family: var(--font-head); font-weight: 650; font-size: 0.98rem; color: var(--ink); }
-.dw-reise { list-style: none; margin: 0; padding: 26px 0 0; display: grid; gap: 34px; justify-items: center; }
-.dw-reise li { position: relative; display: flex; align-items: center; transform: translateX(var(--dx, 0)); }
-.dw-reise .dw-wort { position: absolute; left: 20px; white-space: nowrap; }
+/* Hero-Prozess (Talk 3922): ganz in Türkis und deutlich größer; --hs skaliert Abstände und Versatz */
+.dw-start { --hs: 1.15; }
+.dw-idee__kreis { display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
+.dw-idee__wort { position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%); font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; color: var(--accent-ink); }
+.dw-reise { list-style: none; margin: 0; padding: 34px 0 0; display: grid; gap: 42px; justify-items: center; }
+.dw-reise li { position: relative; display: flex; align-items: center; transform: translateX(calc(var(--dx, 0) * var(--hs) * 1px)); }
+.dw-reise .dw-punkt { width: 15px; height: 15px; border-width: 3px; }
+.dw-reise .dw-wort { position: absolute; left: 26px; white-space: nowrap; font-family: var(--font-head); font-size: 1.05rem; font-weight: 650; color: var(--accent-ink); }
 .dw-punkt { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--weg); transition: border-color 1.2s ease; }
 .dw-wort { font-size: 0.86rem; font-weight: 600; color: #6a6459; letter-spacing: 0.01em; background: var(--paper); padding: 1px 6px; border-radius: 6px; }
 .dw-wort--akzent { color: var(--accent-ink); }
@@ -76,7 +81,7 @@
  * Ohne JS bzw. reduzierte Bewegung: fertiger türkiser Kreis mit Pfeilen, kein Fluss. Mit .dw--live erscheint alles
  * erst, wenn das Skript ist-zu setzt; der Fluss läuft nur bei ist-sichtbar (Kreis im Bild). Nur opacity/transform. */
 .dw-kreis { --dw-t: 12s; --dw-start: 1.3s; }
-.dw-kreis__ring { fill: none; stroke: var(--accent-mid); stroke-width: 3; }
+.dw-kreis__ring { fill: none; stroke: var(--accent-mid); stroke-width: 3.75; }   /* geschlossen: kräftiger (die Linie selbst ist schon türkis) */
 .dw-pfeil path { fill: none; stroke: var(--accent-mid); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .dw-pfeil { transform-box: fill-box; transform-origin: center; }
 .dw-fluss { opacity: 0; pointer-events: none; }
@@ -147,7 +152,7 @@
 .dw-haken .icon { color: var(--accent-mid); flex: none; }
 
 /* ── Verlässlichkeit: eigener dunkler Kontrastbereich (liegt unter der Linie) ── */
-.dw-dunkel { position: relative; color: var(--paper); padding-bottom: clamp(24px, 4vw, 56px); --weg: #8cc7c3; }
+.dw-dunkel { position: relative; color: var(--paper); padding-bottom: clamp(24px, 4vw, 56px); --weg: var(--accent-light); }
 .dw-dunkel::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw); background: var(--dark); z-index: -1; }
 .dw-dunkel .dw-kapitel__marke, .dw-dunkel .dw-prinzip__wort { background: var(--dark); border-color: var(--accent-light); color: var(--accent-light); }
 .dw-dunkel .dw-kapitel__punkt, .dw-dunkel .dw-prinzip__punkt { background: var(--accent-light); }
@@ -261,6 +266,15 @@
   .dw-prinzip__text { grid-column: 3; padding: 0; max-width: 32ch; }
 
   .dw-abschluss .dw-bild--klein { align-self: center; }
+
+  /* Hero-Prozess am Desktop noch größer */
+  .dw-start { --hs: 1.7; }
+  .dw-idee__kreis { width: 96px; height: 96px; }
+  .dw-idee__kreis .icon { width: 40px; height: 40px; }
+  .dw-idee__wort { font-size: 1.6rem; left: calc(100% + 18px); }
+  .dw-reise { padding-top: 44px; gap: 58px; }
+  .dw-reise .dw-punkt { width: 18px; height: 18px; }
+  .dw-reise .dw-wort { left: 34px; font-size: 1.32rem; }
 }
 
 /* Ohne Animation (reduzierte Bewegung): keine Übergänge */

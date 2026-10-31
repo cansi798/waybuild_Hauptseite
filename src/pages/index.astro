@@ -2,9 +2,12 @@
 // Startseite „Denkweise“ nach Jamils Konzept (Talk 3798/3799) mit Feinschliff (Talk 3818, 30.10.2026).
 // Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Kapitel statt vieler Einzelabschnitte:
 //   Kapitel 1 · Veränderungen verstehen: Idee, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
-//   Kapitel 2 · Veränderungen umsetzen: Vereinfachen, Umsetzen, Produkte (eigene Karten, Website Service hervorgehoben)
+//   Kapitel 2 · Veränderungen umsetzen: Vereinfachen, Umsetzen, Verbessern (Prozessreihenfolge, Jamil Talk 3922),
+//   Produkte (eigene Karten, Website Service hervorgehoben)
 //   Kapitel 3 · Veränderungen nachhaltig machen: Verlässlichkeit (dunkler Bereich, mit den drei Prinzipien auf der
-//   Linie, danach Frage 3), Verbessern, Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
+//   Linie, danach Frage 3), Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
+// Hero: die Prozess-Animation (Idee → … → Verbessern) ist eine eigene, größere türkise Linie und endet bei
+// „Verbessern“; die durchgehende Scroll-Linie beginnt erst bei Kapitel 1 (Talk 3922).
 // Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
 // Veränderungs-Check in src/scripts/veraenderungscheck.ts. Die Unternehmens-DNA steht bewusst nicht hier (Talk 3818/8).
 // Vorherige Fassung: Git-Tag startseite-v3-anfragereise-20261030; Komponenten in src/components/story/.
@@ -47,11 +50,11 @@ const [K1, K2, K3] = DW_KAPITEL;
           <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
         </div>
         <div class="dw-start" data-szene>
-          <span class="dw-idee"><span class="dw-idee__kreis" data-weg="start"><Icon name="idee" size={24} /></span><span class="dw-idee__wort">Idee</span></span>
+          <span class="dw-idee"><span class="dw-idee__kreis" data-weg="start"><Icon name="idee" size={34} /></span><span class="dw-idee__wort">Idee</span></span>
           <ol class="dw-reise" aria-label="Die Waybuild-Denkweise">
             {DW_REISE.map((r, i) => (
-              <li style={`--dx:${[-34, 30, -26, 34, -18][i]}px`}>
-                <span class="dw-punkt" data-weg {...(i === DW_REISE.length - 1 ? { 'data-intro-ende': '' } : {})} data-an="erscheinen:auto"></span>
+              <li style={`--dx:${[-34, 30, -26, 34, -18][i]}`}>
+                <span class="dw-punkt" {...(i === DW_REISE.length - 1 ? { 'data-weg': 'ein', 'data-intro-ende': '' } : { 'data-weg': '' })} data-an="erscheinen:auto"></span>
                 <span class="dw-wort" data-an="auf:auto">{r.wort}</span>
               </li>
             ))}
@@ -168,6 +171,20 @@ const [K1, K2, K3] = DW_KAPITEL;
         </div>
       </div>
 
+      <!-- Verbessern: direkt nach Umsetzen (Prozessreihenfolge, Jamil Talk 3922) -->
+      <div class="dw-abschnitt" id="verbessern">
+        <div class="wrap dw-raster dw-raster--spiegel">
+          <div class="dw-text reveal">
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
+            <h3>{DW_VERBESSERN.titel}</h3>
+            <ul class="dw-schritte">{DW_VERBESSERN.kreis.map((k) => <li>{k}</li>)}</ul>
+            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          </div>
+          <DwVerbessern />
+        </div>
+      </div>
+
       <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben -->
       <div class="dw-abschnitt dw-abschnitt--eng" id="produkte" aria-labelledby="dw-produkte-h">
         <div class="wrap">
@@ -215,7 +232,7 @@ const [K1, K2, K3] = DW_KAPITEL;
     <!-- ═══ KAPITEL 3 · VERÄNDERUNGEN NACHHALTIG MACHEN ═══ -->
     <section class="dw-kapitel" id={K3.id} aria-labelledby="k3-h">
       <!-- Verlässlichkeit: eigener dunkler Kontrastbereich -->
-      <div class="dw-dunkel" id="verlaesslichkeit">
+      <div class="dw-dunkel" id="verlaesslichkeit" data-linie-hell>
         <div class="wrap dw-kapitelkopf">
           <span class="dw-kapitel__marke" data-an-ref="k3" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K3.nr}</span>
           <div class="dw-kapitel__text" data-szene data-szene-id="k3">
@@ -280,20 +297,6 @@ const [K1, K2, K3] = DW_KAPITEL;
 
       <div class="dw-abschnitt dw-abschnitt--eng">
         <div class="wrap"><DwFrage nr={3} /></div>
-      </div>
-
-      <!-- Verbessern -->
-      <div class="dw-abschnitt" id="verbessern">
-        <div class="wrap dw-raster dw-raster--spiegel">
-          <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
-            <h3>{DW_VERBESSERN.titel}</h3>
-            <ul class="dw-schritte">{DW_VERBESSERN.kreis.map((k) => <li>{k}</li>)}</ul>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          </div>
-          <DwVerbessern />
-        </div>
       </div>
 
       <!-- Ihr Veränderungsprofil -->

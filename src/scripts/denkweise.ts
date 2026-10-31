@@ -29,7 +29,13 @@ if (root) {
   // Je Teilstück ein eigener <path>: Chrome beginnt das Strichmuster an jedem Teilpfad (M) neu,
   // deshalb wird jedes Stück einzeln über seinen Anteil an der Gesamtlänge aufgedeckt.
   const vorlage = svg.querySelector<SVGPathElement>('path')!;
-  let stuecke: { el: SVGPathElement; start: number; len: number; off: string }[] = [];
+  // Über dunklen Flächen ([data-linie-hell], z. B. Verlässlichkeit) liegt eine helle Kopie der Linie, auf deren
+  // Rechtecke beschnitten: so bleibt die türkise Linie überall sichtbar (Jamil, Talk 3922).
+  const NS = 'http://www.w3.org/2000/svg';
+  const clip = document.createElementNS(NS, 'clipPath'); clip.id = 'dw-hell-clip';
+  const defs = document.createElementNS(NS, 'defs'); defs.appendChild(clip); svg.insertBefore(defs, svg.firstChild);
+  const hell = document.createElementNS(NS, 'g'); hell.setAttribute('class', 'dw-linie-hell'); hell.setAttribute('clip-path', 'url(#dw-hell-clip)'); svg.appendChild(hell);
+  let stuecke: { el: SVGPathElement; el2: SVGPathElement; start: number; len: number; off: string }[] = [];
   const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const glatt = (t: number) => t * t * (3 - 2 * t);
 
@@ -71,6 +77,7 @@ if (root) {
       punkte.push({ x, y: r.top + r.height / 2 - rr.top, typ: el.dataset.weg || 'durch' });
     });
     const ds: string[] = [];
+    const heroStart = punkte[0]?.typ === 'start';
     punkte.forEach((pt, i) => {
       const vor = punkte[i - 1];
       if (!vor || vor.typ === 'ein') { ds.push(`M ${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`); return; }
@@ -78,14 +85,29 @@ if (root) {
       ds[ds.length - 1] += ` C ${vor.x.toFixed(1)} ${(vor.y + dy * k).toFixed(1)} ${pt.x.toFixed(1)} ${(pt.y - dy * k).toFixed(1)} ${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`;
     });
     const teile = ds.filter((d) => d.includes('C'));
-    while (stuecke.length > teile.length) stuecke.pop()!.el.remove();
-    while (stuecke.length < teile.length) { const el = vorlage.cloneNode() as SVGPathElement; svg.appendChild(el); stuecke.push({ el, start: 0, len: 1, off: '' }); }
+    while (stuecke.length > teile.length) { const st = stuecke.pop()!; st.el.remove(); st.el2.remove(); }
+    while (stuecke.length < teile.length) {
+      const el = vorlage.cloneNode() as SVGPathElement, el2 = vorlage.cloneNode() as SVGPathElement;
+      svg.insertBefore(el, hell); hell.appendChild(el2); stuecke.push({ el, el2, start: 0, len: 1, off: '' });
+    }
     vorlage.style.display = 'none';
+    // Hero-Prozess (Idee → … → Verbessern) ist ein eigenes, kräftigeres Stück; die Scroll-Linie beginnt bei Kapitel 1
+    stuecke.forEach((st, i) => { const h = heroStart && i === 0; st.el.classList.toggle('dw-strich--hero', h); st.el2.classList.toggle('dw-strich--hero', h); });
+    clip.replaceChildren();
+    root.querySelectorAll<HTMLElement>('[data-linie-hell]').forEach((el) => {
+      const r = el.getBoundingClientRect(); if (!r.height) return;
+      const rect = document.createElementNS(NS, 'rect');
+      rect.setAttribute('x', '0'); rect.setAttribute('y', (r.top - rr.top).toFixed(1));
+      rect.setAttribute('width', String(w)); rect.setAttribute('height', r.height.toFixed(1));
+      clip.appendChild(rect);
+    });
+    hell.style.display = clip.childNodes.length ? '' : 'none';
     L = 0;
     stuecke.forEach((st, i) => {
       st.el.setAttribute('d', teile[i]); st.el.style.display = '';
+      st.el2.setAttribute('d', teile[i]); st.el2.style.display = '';
       st.start = L; st.len = Math.max(1, st.el.getTotalLength()); L += st.len; st.off = '';
-      st.el.style.strokeDasharray = `${st.len.toFixed(1)} ${(st.len + 10).toFixed(1)}`;
+      st.el.style.strokeDasharray = st.el2.style.strokeDasharray = `${st.len.toFixed(1)} ${(st.len + 10).toFixed(1)}`;
     });
     L = Math.max(1, L);
     N = Math.ceil(L / SCHRITT);
@@ -173,7 +195,7 @@ if (root) {
       offset = o;
       for (const st of stuecke) {
         const so = (st.len - clamp(len - st.start, 0, st.len)).toFixed(1);
-        if (so !== st.off) { st.off = so; st.el.style.strokeDashoffset = so; }
+        if (so !== st.off) { st.off = so; st.el.style.strokeDashoffset = st.el2.style.strokeDashoffset = so; }
       }
     }
     let ende = false;
