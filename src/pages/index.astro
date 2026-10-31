@@ -1,13 +1,15 @@
 ---
 // Startseite „Denkweise“ nach Jamils Konzept (Talk 3798/3799) mit Feinschliff (Talk 3818, 30.10.2026).
-// Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Kapitel statt vieler Einzelabschnitte:
+// Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Teile statt vieler Einzelabschnitte
+// (intern „Kapitel“, sichtbar ohne Kapitel-Marke – Jamil, Talk 3935: die Linie entsteht aus der Überschrift heraus):
 //   Kapitel 1 · Veränderungen verstehen: Idee, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
 //   Kapitel 2 · Veränderungen umsetzen: Vereinfachen, Umsetzen, Verbessern (Prozessreihenfolge, Jamil Talk 3922),
 //   Produkte (eigene Karten, Website Service hervorgehoben)
 //   Kapitel 3 · Veränderungen nachhaltig machen: Verlässlichkeit (dunkler Bereich, mit den drei Prinzipien auf der
 //   Linie, danach Frage 3), Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
 // Hero: die Prozess-Animation (Idee → … → Verbessern) ist eine eigene, größere türkise Linie und endet bei
-// „Verbessern“; die durchgehende Scroll-Linie beginnt erst bei Kapitel 1 (Talk 3922).
+// „Verbessern“; die durchgehende Scroll-Linie beginnt erst unter der ersten Überschrift „Veränderungen verstehen“
+// (Talk 3922/3935).
 // Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
 // Veränderungs-Check in src/scripts/veraenderungscheck.ts. Die Unternehmens-DNA steht bewusst nicht hier (Talk 3818/8).
 // Vorherige Fassung: Git-Tag startseite-v3-anfragereise-20261030; Komponenten in src/components/story/.
@@ -52,10 +54,32 @@ const [K1, K2, K3] = DW_KAPITEL;
         <div class="dw-start" data-szene>
           <span class="dw-idee"><span class="dw-idee__kreis" data-weg="start"><Icon name="idee" size={34} /></span><span class="dw-idee__wort">Idee</span></span>
           <ol class="dw-reise" aria-label="Die Waybuild-Denkweise">
-            {DW_REISE.map((r, i) => (
+            {DW_REISE.map((r, i) => i < DW_REISE.length - 1 ? (
               <li style={`--dx:${[-34, 30, -26, 34, -18][i]}`}>
-                <span class="dw-punkt" {...(i === DW_REISE.length - 1 ? { 'data-weg': 'ein', 'data-intro-ende': '' } : { 'data-weg': '' })} data-an="erscheinen:auto"></span>
+                <span class="dw-punkt" data-weg data-an="erscheinen:auto"></span>
                 <span class="dw-wort" data-an="auf:auto">{r.wort}</span>
+              </li>
+            ) : (
+              <li class="dw-reise__ziel" style="--dx:-18">
+                {/* Ziel „Verbessern“ (Talk 3933): großer Kreis wie die Idee, Pfeile im Uhrzeigersinn, Lichtschimmer läuft
+                    im Uhrzeigersinn den Rand entlang; die Hero-Linie endet hier (in seiner Mitte, verdeckt) */}
+                <span class="dw-ziel" data-weg="ein" data-intro-ende data-an="erscheinen:auto">
+                  <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                    <defs>
+                      <linearGradient id="dw-ziel-grad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
+                        <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
+                      </linearGradient>
+                    </defs>
+                    <g class="dw-ziel__schimmer">
+                      <path class="dw-ziel__hof" d="M 50 2 A 48 48 0 0 1 91.6 26" />
+                      <path class="dw-ziel__licht" d="M 50 2 A 48 48 0 0 1 91.6 26" />
+                    </g>
+                    {[45, 135, 225, 315].map((g) => <path class="dw-ziel__pfeil" transform={`rotate(${g} 50 50)`} d="M 45 -4.5 L 52.5 2 L 45 8.5" />)}
+                  </svg>
+                  <Icon name="refresh" size={34} />
+                </span>
+                <span class="dw-idee__wort">{r.wort}</span>
               </li>
             ))}
           </ol>
@@ -66,12 +90,12 @@ const [K1, K2, K3] = DW_KAPITEL;
     <!-- ═══ KAPITEL 1 · VERÄNDERUNGEN VERSTEHEN ═══ -->
     <section class="dw-kapitel" id={K1.id} aria-labelledby="k1-h">
       <div class="wrap dw-kapitelkopf">
-        <span class="dw-kapitel__marke" data-an-ref="k1" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K1.nr}</span>
         <div class="dw-kapitel__text" data-szene data-szene-id="k1">
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           <h2 id="k1-h">{K1.titel}</h2>
           <p class="dw-kern">{K1.kern}</p>
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d"></span>
         </div>
       </div>
 
@@ -134,11 +158,12 @@ const [K1, K2, K3] = DW_KAPITEL;
     <!-- ═══ KAPITEL 2 · VERÄNDERUNGEN UMSETZEN ═══ -->
     <section class="dw-kapitel" id={K2.id} aria-labelledby="k2-h">
       <div class="wrap dw-kapitelkopf">
-        <span class="dw-kapitel__marke" data-an-ref="k2" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K2.nr}</span>
         <div class="dw-kapitel__text" data-szene data-szene-id="k2">
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d"></span>
           <h2 id="k2-h">{K2.titel}</h2>
           <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d"></span>
         </div>
       </div>
 
@@ -234,11 +259,12 @@ const [K1, K2, K3] = DW_KAPITEL;
       <!-- Verlässlichkeit: eigener dunkler Kontrastbereich -->
       <div class="dw-dunkel" id="verlaesslichkeit" data-linie-hell>
         <div class="wrap dw-kapitelkopf">
-          <span class="dw-kapitel__marke" data-an-ref="k3" data-an="blende:0-0.3"><span class="dw-kapitel__punkt" data-weg></span>Kapitel {K3.nr}</span>
           <div class="dw-kapitel__text" data-szene data-szene-id="k3">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-wp" data-weg data-weg-nur="d"></span>
             <h2 id="k3-h">{K3.titel}</h2>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+            <span class="dw-wp" data-weg data-weg-nur="d"></span>
           </div>
         </div>
         <div class="dw-abschnitt">
@@ -326,5 +352,6 @@ const [K1, K2, K3] = DW_KAPITEL;
 
 <script>
   import '../scripts/denkweise';
+  import '../scripts/kreisfluss';
   import '../scripts/veraenderungscheck';
 </script>

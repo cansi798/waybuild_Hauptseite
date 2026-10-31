@@ -194,7 +194,8 @@ if (root) {
     if (o !== offset) {
       offset = o;
       for (const st of stuecke) {
-        const so = (st.len - clamp(len - st.start, 0, st.len)).toFixed(1);
+        // +0.5: kein runder Punkt (Strich der Länge 0) am Anfang noch nicht gezeichneter Stücke
+        const so = (st.len - clamp(len - st.start, 0, st.len) + 0.5).toFixed(1);
         if (so !== st.off) { st.off = so; st.el.style.strokeDashoffset = st.el2.style.strokeDashoffset = so; }
       }
     }
