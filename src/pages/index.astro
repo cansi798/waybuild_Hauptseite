@@ -302,7 +302,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
             <h2 class="dw-prinzipien__titel" id="dw-prinzipien-h">{DW_PRINZIPIEN.titel}</h2>
             <div class="dw-prinzipien__raster" data-szene>
               {DW_PRINZIPIEN.liste.map((p, i) => (
-                <article class="dw-prinzip-karte" aria-labelledby={`dw-pr-${i}`} data-an="auf:auto">
+                <article class="dw-prinzip-karte" aria-labelledby={`dw-pr-${i}`}>
                   <span class="dw-prinzip-karte__icon"><Icon name={p.icon} size={24} /></span>
                   <h3 id={`dw-pr-${i}`}>{p.wort}</h3>
                   <p class="dw-prinzip-karte__kern">{p.kern}</p>
