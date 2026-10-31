@@ -5,9 +5,11 @@
 import type { IconName } from './site';
 
 export const DW_HERO = {
-  titel: 'Wir machen Veränderungen einfach.',
-  // Talk 4065 (Positionierung Vorschlag 1, Variante A)
-  lead: 'Wir entwickeln digitale Lösungen für Unternehmen, als fertiges Produkt oder individuell. Oft fangen wir mit der Website an.',
+  // Talk 4101: neue Überschrift und Unterzeile (vorher „Wir machen Veränderungen einfach.“ – bleibt als Footer-Claim)
+  titel: 'Digitale Lösungen, die zu Ihrem Unternehmen passen.',
+  titelVor: 'Digitale Lösungen, die zu Ihrem Unternehmen ',
+  titelAkzent: 'passen.',
+  lead: 'Wir entwickeln keine Lösungen von der Stange. Wir verstehen Ihr Unternehmen, empfehlen den sinnvollsten Weg und setzen passende digitale Lösungen um.',
   // Vorschlag 2: kleine Zeile über der Überschrift; Vorschlag 7: zweiter Weg im Hero
   eyebrow: 'Websites und digitale Lösungen für Unternehmen',
   link: 'Website Service ansehen',

@@ -75,7 +75,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       <div class="wrap dw-raster dw-raster--hero">
         <div class="dw-hero__text">
           <p class="eyebrow eyebrow--weg dw-hero__eyebrow">{DW_HERO.eyebrow}</p>
-          <h1 id="dw-h1">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
+          <h1 id="dw-h1">{DW_HERO.titelVor}<span class="accent">{DW_HERO.titelAkzent}</span></h1>
           <p class="dw-hero__lead">{DW_HERO.lead}</p>
           {/* Talk 4079: waagerechte Prozessgrafik nur auf dem Handy (unter 960 px), direkt unter der Unterzeile */}
           <div class="dw-quer" style={`aspect-ratio: ${Q.W} / ${Q.H}`}>
