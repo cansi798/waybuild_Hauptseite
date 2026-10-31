@@ -143,7 +143,7 @@ export const DW_VERBESSERN = {
 /** Talk 4087: Statt „Verlässlichkeit“ stellen wir unsere drei Prinzipien vor (Jamils Reihenfolge und Wortlaut;
  *  „Prozesse“ statt „Abläufe“ nach der Sprachregel der Website, „Freigaben gehen“ grammatisch ergänzt). */
 export const DW_PRINZIPIEN = {
-  titel: 'Klarheit. Einfachheit. Verlässlichkeit.',
+  titel: 'Unsere Prinzipien',   // Talk 4110 (vorher „Klarheit. Einfachheit. Verlässlichkeit.“)
   liste: [
     {
       wort: 'Klarheit', icon: 'search' as IconName,

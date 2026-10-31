@@ -34,17 +34,17 @@ const K = DW_UMSETZEN.karte;
 // (Talk 4063 ~85 %: Kreis 63/82 px, Abstand oben 29/37, Punkte 13/15 px, Lücke 36/49, Versatz --dx × 0,98/1,45, Ziel mit 5 px Abstand).
 // Gleiche weiche S-Kurven mit senkrechten Tangenten wie die Scroll-Linie. Bei Änderungen am Hero-CSS hier mitziehen.
 const DX = [-34, 30, -26, 34, -18];
-const heroLinien = ([['m', 63, 29, 13, 36, 0.98], ['d', 82, 37, 15, 49, 1.45]] as const).map(([v, kreis, oben, punkt, luecke, hs]) => {
+const heroLinien = ([['m', 63, 29, 13, 36, 0.98, 56], ['d', 82, 37, 15, 49, 1.45, 72]] as const).map(([v, kreis, oben, punkt, luecke, hs, ziel]) => {
   const pkt: { x: number; y: number }[] = [{ x: 0, y: 8 + kreis / 2 }];
   const liTop = 8 + kreis + oben;
   for (let i = 0; i < 4; i++) pkt.push({ x: DX[i] * hs, y: liTop + i * (punkt + luecke) + punkt / 2 });
-  pkt.push({ x: DX[4] * hs, y: liTop + 4 * (punkt + luecke) + 5 + kreis / 2 });
+  pkt.push({ x: DX[4] * hs, y: liTop + 4 * (punkt + luecke) + 5 + ziel / 2 });   // Talk 4114: Ziel-Kreis etwas kleiner
   let d = `M ${pkt[0].x} ${pkt[0].y}`;
   for (let i = 1; i < pkt.length; i++) {
     const a = pkt[i - 1], b = pkt[i], dy = b.y - a.y, k = 0.55;
     d += ` C ${a.x.toFixed(1)} ${(a.y + dy * k).toFixed(1)} ${b.x.toFixed(1)} ${(b.y - dy * k).toFixed(1)} ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
   }
-  return { v, d, w: 200, h: Math.ceil(pkt[pkt.length - 1].y + kreis / 2 + 8) };
+  return { v, d, w: 200, h: Math.ceil(pkt[pkt.length - 1].y + ziel / 2 + 8) };
 });
 const [K1, K2, K3] = DW_KAPITEL;
 // Talk 4079: Handy-Hero mit waagerechter Prozessgrafik (statisch, sofort fertig). viewBox 360 × 104, Linie auf y = 54,
@@ -80,12 +80,6 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
           {/* Talk 4079: waagerechte Prozessgrafik nur auf dem Handy (unter 960 px), direkt unter der Unterzeile */}
           <div class="dw-quer" style={`aspect-ratio: ${Q.W} / ${Q.H}`}>
             <svg viewBox={`0 0 ${Q.W} ${Q.H}`} aria-hidden="true" focusable="false">
-              <defs>
-                <linearGradient id="dw-ziel-grad-m" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
-                  <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
-                </linearGradient>
-              </defs>
               <path class="dw-quer__linie" d={quer.d} />
               {quer.punkte.map((p) => <circle class="dw-quer__punkt" cx={p.x} cy={p.y} r="5.5" />)}
               {quer.punkte.map((p) => <text class="dw-quer__wort" x={p.x} y={p.unten ? p.y + 24 : p.y - 15} text-anchor="middle">{p.wort}</text>)}
@@ -96,7 +90,6 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
             <span class="dw-pos" style={`left:${qpc(quer.xs[5], Q.W)};top:${qpc(Q.Y, Q.H)}`}>
               <span class="dw-ziel">
                 <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                  <g class="dw-ziel__schimmer"><path class="dw-ziel__licht" d="M 50 2 A 48 48 0 0 1 91.6 26" /></g>
                   {[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" style={`animation-delay:${((((g - 60 + 360) % 360) / 360 - 1) * 3.6).toFixed(2)}s`} d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}
                 </svg>
                 <Icon name="refresh" size={22} />
@@ -120,20 +113,11 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
               </li>
             ) : (
               <li class="dw-reise__ziel" style="--dx:-18">
-                {/* Ziel „Verbessern“ (Talk 3933): großer Kreis wie die Idee, Pfeile im Uhrzeigersinn, Lichtschimmer läuft
+                {/* Ziel „Verbessern“ (Talk 3933/4114): Kreis mit Pfeilen im Uhrzeigersinn (kein Lichtschimmer mehr); früher lief
                     im Uhrzeigersinn den Rand entlang; die Hero-Linie endet hier (in seiner Mitte, verdeckt) */}
                 <span class="dw-ziel-huelle"><span class="dw-ziel">
                   <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                    <defs>
-                      <linearGradient id="dw-ziel-grad" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
-                        <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
-                      </linearGradient>
-                    </defs>
-                    <g class="dw-ziel__schimmer">
-                      <path class="dw-ziel__licht" d="M 50 2 A 48 48 0 0 1 91.6 26" />
-                    </g>
-                    {/* Pfeile reagieren, wenn der Lichtschimmer (Kopf startet bei 60°, 3,6 s je Runde) sie erreicht (Talk 4038) */}
+                    {/* Pfeile schieben sich nacheinander im Uhrzeigersinn vor (Talk 4038/4114, ohne Lichtschimmer) */}
                     {[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" style={`animation-delay:${((((g - 60 + 360) % 360) / 360 - 1) * 3.6).toFixed(2)}s`} d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}
                   </svg>
                   <Icon name="refresh" size={34} />
@@ -341,7 +325,6 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
             <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
             <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
-            <ul class="dw-vertrauen">{DW_ABSCHLUSS.vertrauen.map((v) => <li><Icon name="check" size={16} /> {v}</li>)}</ul>
           </div>
         </div>
       </div>

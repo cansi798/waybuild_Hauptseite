@@ -57,6 +57,7 @@
 .dw-quer__wort { font-family: var(--font-head); font-size: 12.5px; font-weight: 650; fill: var(--accent-ink); }
 .dw-quer__wort--gross { font-size: 13.5px; font-weight: 700; }
 .dw-quer .dw-idee__kreis, .dw-quer .dw-ziel { width: 46px; height: 46px; border-width: 2.5px; }
+.dw-quer .dw-ziel { width: 41px; height: 41px; }
 .dw-quer .dw-idee__kreis .icon, .dw-quer .dw-ziel .icon { width: 22px; height: 22px; }
 .dw-quer .dw-ziel__licht { stroke: url(#dw-ziel-grad-m); }
 .dw-idee { position: relative; display: block; }
@@ -73,10 +74,15 @@
 .dw--live .dw-idee__kreis .icon { animation: dw-birne 3.6s ease-in-out infinite paused; }
 .dw--live .dw-idee__kreis.ist-sichtbar .icon { animation-play-state: running; }
 /* Talk 4044: deutlicher – zwischen gedämpft und kräftig hell, mit doppeltem türkisem Schein direkt am Symbol */
+/* Talk 4115: die ganze Innenfläche des Idee-Kreises glimmt (weicher türkiser Schein von innen, Rand bleibt klar) */
+.dw-idee__kreis::after, .dw-ideebild__knoten::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: radial-gradient(circle, rgb(0 166 161 / 40%) 0%, rgb(0 166 161 / 18%) 50%, rgb(0 166 161 / 4%) 78%, rgb(0 166 161 / 0%) 100%); opacity: 0.6; pointer-events: none; }
+.dw--live .dw-idee__kreis::after, .dw--live .dw-ideebild__knoten::after { animation: dw-innen-glimmen 3.6s ease-in-out infinite paused; }
+.dw--live .dw-idee__kreis.ist-sichtbar::after, .dw--live .dw-ideebild__knoten.ist-sichtbar::after { animation-play-state: running; }
+@keyframes dw-innen-glimmen { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
 @keyframes dw-birne { 0%, 100% { opacity: 0.4; color: var(--accent-ink); filter: drop-shadow(0 0 0 rgb(0 166 161 / 0%)); } 50% { opacity: 1; color: var(--accent); filter: drop-shadow(0 0 4px rgb(0 166 161 / 95%)) drop-shadow(0 0 12px rgb(0 166 161 / 70%)); } }
 /* Talk 3933: Ziel „Verbessern“ im Hero – gleiche Größe wie die Idee, Pfeile im Uhrzeigersinn auf dem Rand, ein
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
-.dw-ziel { position: relative; display: grid; place-items: center; width: 63px; height: 63px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
+.dw-ziel { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 .dw-reise__ziel { margin-top: 5px; }
 /* Einblenden (transform) auf der Hülle: sonst wird der Kreis selbst Stapelkontext und der Lichthof (z-index −1) färbt sein Inneres */
 .dw-ziel-huelle { display: block; }
@@ -263,7 +269,7 @@
 .dw--live .dw-kreis.ist-zu .dw-kreis__schimmer { opacity: 1; transition: opacity 0.5s ease 0.5s; animation: dw-kreis-dreh 7.5s linear 0.5s infinite paused; }
 .dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-kreis__schimmer { animation-play-state: running; }
 .dw-pfeil path { transform-box: fill-box; transform-origin: center; }
-.dw--live .dw-kreis.ist-zu .dw-pfeil path { animation: dw-pfeil-puls 7.5s linear var(--d, 0s) infinite paused; }
+.dw--live .dw-kreis.ist-zu .dw-pfeil path { animation: dw-pfeil-puls 5s linear var(--d, 0s) infinite paused; }
 .dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-pfeil path { animation-play-state: running; }
 @keyframes dw-kreis-dreh { to { transform: rotate(calc(var(--dw-r, 1) * 360deg)); } }
 
@@ -464,7 +470,8 @@
 
   /* Hero-Prozess am Desktop noch größer */
   .dw-start { --hs: 1.45; }
-  .dw-idee__kreis, .dw-ziel { width: 82px; height: 82px; }
+  .dw-idee__kreis { width: 82px; height: 82px; }
+  .dw-ziel { width: 72px; height: 72px; }   /* Talk 4114: etwas kleiner (heroLinien in index.astro mitgezogen) */
   .dw-idee__kreis .icon, .dw-ziel .icon { width: 34px; height: 34px; }
   .dw-idee__wort { font-size: 1.36rem; left: calc(100% + 15px); }
   .dw-reise { padding-top: 37px; gap: 49px; }
@@ -487,7 +494,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
   .dw-kreis__schimmer { animation: none !important; }
-  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ideebild__knoten .icon, .dw-verstehen__kreis .icon { animation: none !important; }
+  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ideebild__knoten .icon, .dw-verstehen__kreis .icon, .dw-idee__kreis::after, .dw-ideebild__knoten::after { animation: none !important; }
 }
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */

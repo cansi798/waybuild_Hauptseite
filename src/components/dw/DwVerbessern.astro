@@ -1,13 +1,11 @@
 ---
-// Szene „Verbessern“ (Jamil, Talk 3920): Die Linie läuft mittig auf den Kreis zu, teilt sich am oberen Scheitel in
-// zwei Äste, die links und rechts herum den Kreis zeichnen und sich unten in der Mitte wieder treffen; von dort läuft
-// sie mittig weiter. Ist der Kreis geschlossen (Klasse ist-zu, gesetzt vom Skript über data-zu), entstehen zwischen
-// den Begriffen Pfeile, und ein Lichtschimmer kreist (ständiges Verbessern); er läuft nur, solange der Kreis im Bild
-// ist (ist-sichtbar). Ohne JS / reduzierte Bewegung: geschlossener türkiser Kreis mit Pfeilen, ohne Schimmer.
-// Talk 3929: Der Kreis erscheint schneller. Talk 3942: dezenter – Strich wie die normale Linie, statt Lichtpunkt läuft
-// (wie beim Verbessern-Kreis im Hero) ein Lichtschimmer im Türkis der Linie im Uhrzeigersinn den Rand entlang.
+// Szene „Verbessern“ (Jamil, Talk 3920/4094/4113): Die Linie läuft mittig auf den Kreis zu, teilt sich am oberen
+// Scheitel in zwei Äste, die den Kreis zeichnen und sich unten wieder treffen – dort endet die Scroll-Linie (Talk 4083/
+// 4096). Ist der Kreis geschlossen (ist-zu, per data-zu), erscheinen zwischen Feedback, Analysieren, Planen und
+// Verbessern Pfeile im Uhrzeigersinn, die sich nacheinander vorschieben (nur im Bild). Kein Lichtschimmer mehr (4113).
+// Ohne JS / reduzierte Bewegung: geschlossener Kreis mit Pfeilen.
 import { DW_VERBESSERN as T } from '../../config/denkweise';
-const W = 440, H = 330, CX = 220, CY = 210, R = 96;   // Talk 4051: ~80 % (vorher 120)
+const W = 440, H = 300, CX = 220, CY = 200, R = 84;   // Talk 4113: etwas kleiner (vorher 96, davor 120)
 // Laufrichtung der Pfeile und des Lichtpunkts: +1 = im Uhrzeigersinn (Optimieren → Lernen → Feedback →
 // Weiterentwickeln → Optimieren; Jamil, Talk 3932), -1 = gegen den Uhrzeigersinn.
 const RICHTUNG: 1 | -1 = 1;
@@ -25,23 +23,13 @@ const punkte = [
 ].map((p) => ({ ...p, ...punkt(p.grad) }));
 // Pfeile zwischen den Begriffen (45°, 135°, 225°, 315°), Spitze in Laufrichtung; gezeichnet bei 12 Uhr, dann gedreht
 const pfeilD = `M ${CX - 5 * RICHTUNG} ${oben - 7} L ${CX + 3 * RICHTUNG} ${oben} L ${CX - 5 * RICHTUNG} ${oben + 7}`;
-// Pfeile reagieren, wenn der Lichtschimmer sie erreicht (Talk 4038): Kopf startet bei 60° in Laufrichtung, eine Runde
-// 7,5 s, Start 0,5 s nach dem Schließen → Phasenversatz je Pfeil (negative Verzögerung, synchron zur Drehung)
-const RUNDE = 7.5, START = 0.5;
+// Talk 4113: kein Lichtschimmer mehr; die Pfeile schieben sich nacheinander im Uhrzeigersinn vor (eine Runde 5 s)
+const RUNDE = 5, START = 0.5;
 const pfeile = [45, 135, 225, 315].map((grad, i) => ({ grad, i, d: (START + ((((RICHTUNG * (grad - 60)) % 360) + 360) % 360) / 360 * RUNDE - RUNDE).toFixed(2) }));
-// Lichtschimmer: Bogen von 12 Uhr über 60° in Laufrichtung, Verlauf transparent → Türkis der Linie; dreht per CSS
-const ende = punkt(60 * RICHTUNG);
-const schimmerD = `M ${CX} ${oben} A ${R} ${R} 0 0 ${RICHTUNG > 0 ? 1 : 0} ${ende.x.toFixed(1)} ${ende.y.toFixed(1)}`;
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 ---
 <div class="dw-bild dw-kreis" data-szene data-zu={ZU} style={`aspect-ratio: ${W} / ${H}; --dw-r: ${RICHTUNG}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    <defs>
-      <linearGradient id="dw-kreis-grad" x1={RICHTUNG > 0 ? 0 : 1} y1="0" x2={RICHTUNG > 0 ? 1 : 0} y2="0">
-        <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
-        <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
-      </linearGradient>
-    </defs>
     <path class="dw-s" pathLength="1" d={`M ${CX} 0 L ${CX} ${oben}`} data-an={`linear:0-${TEIL}`} />
     <path class="dw-s" pathLength="1" d={`M ${CX} ${oben} A ${R} ${R} 0 0 0 ${CX} ${unten}`} data-an={`linear:${TEIL}-${ZU}`} />
     <path class="dw-s" pathLength="1" d={`M ${CX} ${oben} A ${R} ${R} 0 0 1 ${CX} ${unten}`} data-an={`linear:${TEIL}-${ZU}`} />
@@ -52,9 +40,6 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
         <g class="dw-pfeil" style={`--i:${p.i}`}><path d={pfeilD} style={`--d:${p.d}s`} /></g>
       </g>
     ))}
-    <g class="dw-kreis__schimmer" style={`transform-origin:${CX}px ${CY}px`}>
-      <path class="dw-kreis__licht" d={schimmerD} />
-    </g>
   </svg>
   <span class="dw-anker" style="left:50%;top:0%" data-weg="ein"></span>
   {punkte.map((p) => (
