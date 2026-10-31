@@ -68,7 +68,7 @@ export const DW_VERSTEHEN = {
 };
 
 export const DW_HINTERFRAGEN = {
-  titel: 'Bevor wir digitale Lösungen entwickeln, möchten wir verstehen.', // Talk 4013
+  titel: 'Erst das Warum, dann das Wie.', // Talk 4069/4071
   // Talk 3818 Punkt 2: Botschaft, damit die Szene auf Anhieb verständlich ist
   botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
   // Vorschlag 4: nicht die Website aussortieren, sondern den Neubau
