@@ -124,7 +124,10 @@ export const DW_UMSETZEN = {
 export const DW_VERBESSERN = {
   titel: 'Gute Veränderungen entwickeln sich weiter.',
   zeilen: ['Gute Veränderungen brauchen Verantwortung, Struktur und Verlässlichkeit.', 'Deshalb bleiben wir nicht bei der Umsetzung stehen.', 'Wir helfen dabei, Veränderungen dauerhaft erfolgreich zu machen.'],
-  kreis: ['Feedback', 'Lernen', 'Optimieren', 'Weiterentwickeln'],
+  // Talk 4052: PDCA im Uhrzeigersinn ab 12 Uhr (oben, rechts, unten, links), englisch als feine Zweitzeile
+  kreis: ['Planen', 'Umsetzen', 'Prüfen', 'Anpassen'],
+  kreisEn: ['Plan', 'Do', 'Check', 'Act'],
+  unterzeile: 'Planen, umsetzen, prüfen, anpassen. Und dann wieder von vorn.',
 };
 
 export const DW_VERLAESSLICH = {

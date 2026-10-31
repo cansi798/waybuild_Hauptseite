@@ -39,7 +39,7 @@ export const GET: APIRoute = ({ site }) => {
     `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,
     `4. Entscheiden: ${DW_ENTSCHEIDEN.titel} ${DW_ENTSCHEIDEN.zeilen.join(' ')} ${DW_ENTSCHEIDEN.ziel.join(' ')}`,
     `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')}`,
-    `6. Verbessern: ${DW_VERBESSERN.titel} ${DW_VERBESSERN.kreis.join(', ')}.`,
+    `6. Verbessern: ${DW_VERBESSERN.titel} ${DW_VERBESSERN.unterzeile} (PDCA: ${DW_VERBESSERN.kreis.map((k, i) => `${k}/${DW_VERBESSERN.kreisEn[i]}`).join(', ')})`,
     '',
     '## Bereiche',
     ...DW_UMSETZEN.bereiche.filter((b) => !b.folgt).map((b) => `- ${b.name}${b.hinweis ? ` (${b.hinweis})` : ''}`),

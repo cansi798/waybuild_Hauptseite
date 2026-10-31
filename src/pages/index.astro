@@ -131,38 +131,27 @@ const [K1, K2, K3] = DW_KAPITEL;
 
       <!-- Hinterfragen -->
       <div class="dw-abschnitt" id="hinterfragen">
-        <div class="wrap">
-          <div class="dw-text dw-text--oben reveal">
+        <div class="wrap dw-raster dw-raster--spiegel">
+          <div class="dw-text reveal">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
             <span class="dw-kenn"><Icon name="frage" size={18} /> Hinterfragen</span>
             <h3>{DW_HINTERFRAGEN.titel}</h3>
             <p class="dw-zeilen">{DW_HINTERFRAGEN.zeilen.map((z) => <span>{z}</span>)}</p>
             <p>{DW_HINTERFRAGEN.schluss}</p>
             <p class="dw-zeilen dw-botschaft">{DW_HINTERFRAGEN.botschaft.map((z) => <span>{z}</span>)}</p>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
           </div>
           <DwHinterfragen />
         </div>
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 2 · VERÄNDERUNGEN UMSETZEN ═══ -->
-    <section class="dw-kapitel" id={K2.id} aria-labelledby="k2-h">
-      <div class="wrap dw-kapitelkopf">
-        <div class="dw-kapitel__text" data-szene data-szene-id="k2">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d"></span>
-          <h2 id="k2-h">{K2.titel}</h2>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d"></span>
-        </div>
-      </div>
+    <!-- ═══ KAPITEL 2 (Überschrift „Veränderungen umsetzen“ entfernt, Talk 4049) ═══ -->
+    <section class="dw-kapitel" id={K2.id} aria-label={K2.titel}>
 
       <!-- Entscheiden (Talk 3938/3939, ersetzt „Vereinfachen“) -->
       <div class="dw-abschnitt" id="entscheiden">
-        <div class="wrap dw-raster dw-raster--spiegel">
+        <div class="wrap dw-raster">
           <div class="dw-text reveal">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <span class="dw-kenn"><Icon name="target" size={18} /> Entscheiden</span>
@@ -177,7 +166,7 @@ const [K1, K2, K3] = DW_KAPITEL;
 
       <!-- Umsetzen -->
       <div class="dw-abschnitt" id="umsetzen">
-        <div class="wrap dw-raster">
+        <div class="wrap dw-raster dw-raster--spiegel">
           <div class="dw-text reveal">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <span class="dw-kenn"><Icon name="rocket" size={18} /> Umsetzen</span>
@@ -191,12 +180,12 @@ const [K1, K2, K3] = DW_KAPITEL;
 
       <!-- Verbessern: direkt nach Umsetzen (Prozessreihenfolge, Jamil Talk 3922) -->
       <div class="dw-abschnitt" id="verbessern">
-        <div class="wrap dw-raster dw-raster--spiegel">
+        <div class="wrap dw-raster">
           <div class="dw-text reveal">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
             <h3>{DW_VERBESSERN.titel}</h3>
-            <ul class="dw-schritte">{DW_VERBESSERN.kreis.map((k) => <li>{k}</li>)}</ul>
+            <p class="dw-unterzeile">{DW_VERBESSERN.unterzeile}</p>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           </div>
           <DwVerbessern />

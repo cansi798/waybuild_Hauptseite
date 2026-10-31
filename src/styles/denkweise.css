@@ -109,6 +109,24 @@
 .dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
 .dw-nur-d { display: none; }
 
+/* ── Umsetzen (Talk 4050): Erkenntnisse fließen in einen Knoten, ein Website-Fenster setzt sich aus Bausteinen zusammen ── */
+.dw-umsetzen { container-type: inline-size; }
+.dw-umsetzen__flaeche { fill: var(--paper); }
+.dw-umsetzen__punkt { fill: rgb(0 143 138 / 45%); transform-box: fill-box; transform-origin: center; }
+.dw-umsetzen__baustein { fill: #e8f3f0; stroke: rgb(0 143 138 / 35%); stroke-width: 1.2; }
+.dw-umsetzen__baustein--akzent { fill: rgb(0 143 138 / 18%); }
+.dw-umsetzen__baustein--knopf { fill: var(--accent-mid); stroke: none; }
+.dw-umsetzen__erkenntnis { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgb(0 143 138 / 40%); background: #e8f3f0; color: var(--accent-ink); transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
+.dw-umsetzen__knoten { position: relative; display: block; width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--paper); }
+.dw-umsetzen__fuell { position: absolute; inset: 3px; border-radius: 50%; background: var(--accent-mid); }
+.dw-umsetzen__notiz { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--paper); font-size: 0.8rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.dw-umsetzen__ergebnis { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--accent-mid); background: #e8f3f0; font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.dw-umsetzen__folgt { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; border: 1px dashed rgb(0 143 138 / 45%); background: var(--paper); font-size: 0.8rem; font-weight: 600; color: var(--accent-ink); white-space: nowrap; }
+.dw-umsetzen__folgt .icon, .dw-umsetzen__ergebnis .icon { color: var(--accent-mid); }
+.dw-unterzeile { font-family: var(--font-head); font-weight: 650; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--accent-ink) !important; margin-top: -0.2em; }
+.dw-chip__en { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; color: #6f6a60; }
+.dw-chip--zwei { flex-direction: column; gap: 0; line-height: 1.15; padding: 4px 12px; }
+
 /* ── Hinterfragen (Talk 4020): erste Idee → Warum? → Ziele → Möglichkeiten → eine Richtung; alles türkis ── */
 .dw-pos--links { transform: translate(-100%, -50%); }
 .dw-hf-chip { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgb(0 143 138 / 38%); background: var(--paper); color: var(--accent-ink); font-size: 0.82rem; font-weight: 650; line-height: 1.25; white-space: nowrap; text-align: center; }
@@ -119,6 +137,13 @@
 .dw-hf-chip--bleibt { background: #e8f3f0; border: 2px solid var(--accent-mid); padding: 4px 11px; }
 .dw-hf-warum { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--accent-ink); white-space: nowrap; }
 .dw-hf-richtung { display: inline-block; padding: 2px 6px; border-radius: 6px; background: var(--paper); font-size: 0.88rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.dw-hf__schritt { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--paper); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; color: var(--accent-ink); white-space: nowrap; }
+.dw-hf__schritt--ziel { font-size: 0.86rem; }
+.dw-hf__warum { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--paper); }
+.dw-hf__warum-text { position: relative; z-index: 1; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; color: var(--accent-ink); }
+.dw-hf__steg--wahl { stroke-width: 3.5; }
+.dw-hf-chip--ziel .icon { color: var(--white); }
+.dw-hf .dw-hf-chip { white-space: nowrap; max-width: none; }
 
 /* ── Idee (Talk 4007): Ideen-Karten um den Knoten, fließen nacheinander hinein; alles türkis ── */
 .dw-ideebild { container-type: inline-size; }

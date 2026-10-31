@@ -7,7 +7,7 @@
 // Talk 3929: Der Kreis erscheint schneller. Talk 3942: dezenter – Strich wie die normale Linie, statt Lichtpunkt läuft
 // (wie beim Verbessern-Kreis im Hero) ein Lichtschimmer im Türkis der Linie im Uhrzeigersinn den Rand entlang.
 import { DW_VERBESSERN as T } from '../../config/denkweise';
-const W = 440, H = 440, CX = 220, CY = 210, R = 120;
+const W = 440, H = 440, CX = 220, CY = 210, R = 96;   // Talk 4051: ~80 % (vorher 120)
 // Laufrichtung der Pfeile und des Lichtpunkts: +1 = im Uhrzeigersinn (Optimieren → Lernen → Feedback →
 // Weiterentwickeln → Optimieren; Jamil, Talk 3932), -1 = gegen den Uhrzeigersinn.
 const RICHTUNG: 1 | -1 = 1;
@@ -18,10 +18,10 @@ const oben = CY - R, unten = CY + R;
 // Winkel ab 12 Uhr im Uhrzeigersinn: Optimieren 0°, Lernen 90°, Feedback 180°, Weiterentwickeln 270°
 const punkt = (grad: number, r = R) => { const a = (grad * Math.PI) / 180; return { x: CX + r * Math.sin(a), y: CY - r * Math.cos(a) }; };
 const punkte = [
-  { t: T.kreis[2], grad: 0, an: `${(TEIL - 0.04).toFixed(2)}-${(TEIL + 0.03).toFixed(2)}` },
-  { t: T.kreis[1], grad: 90, an: `${((TEIL + ZU) / 2 - 0.04).toFixed(2)}-${((TEIL + ZU) / 2 + 0.02).toFixed(2)}` },
-  { t: T.kreis[0], grad: 180, an: `${(ZU - 0.04).toFixed(2)}-${(ZU + 0.01).toFixed(2)}` },
-  { t: T.kreis[3], grad: 270, an: `${((TEIL + ZU) / 2 - 0.04).toFixed(2)}-${((TEIL + ZU) / 2 + 0.02).toFixed(2)}` },
+  { t: T.kreis[0], en: T.kreisEn[0], grad: 0, an: `${(TEIL - 0.04).toFixed(2)}-${(TEIL + 0.03).toFixed(2)}` },
+  { t: T.kreis[1], en: T.kreisEn[1], grad: 90, an: `${((TEIL + ZU) / 2 - 0.04).toFixed(2)}-${((TEIL + ZU) / 2 + 0.02).toFixed(2)}` },
+  { t: T.kreis[2], en: T.kreisEn[2], grad: 180, an: `${(ZU - 0.04).toFixed(2)}-${(ZU + 0.01).toFixed(2)}` },
+  { t: T.kreis[3], en: T.kreisEn[3], grad: 270, an: `${((TEIL + ZU) / 2 - 0.04).toFixed(2)}-${((TEIL + ZU) / 2 + 0.02).toFixed(2)}` },
 ].map((p) => ({ ...p, ...punkt(p.grad) }));
 // Pfeile zwischen den Begriffen (45°, 135°, 225°, 315°), Spitze in Laufrichtung; gezeichnet bei 12 Uhr, dann gedreht
 const pfeilD = `M ${CX - 5 * RICHTUNG} ${oben - 7} L ${CX + 3 * RICHTUNG} ${oben} L ${CX - 5 * RICHTUNG} ${oben + 7}`;
@@ -60,7 +60,7 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
   <span class="dw-anker" style="left:50%;top:100%" data-weg="aus"></span>
   {punkte.map((p) => (
     <span class="dw-pos" style={`left:${pc(p.x, W)};top:${pc(p.y, H)}`}>
-      <span class="dw-chip dw-chip--auf-linie" data-an={`auf:${p.an}`}>{p.t}</span>
+      <span class="dw-chip dw-chip--auf-linie dw-chip--zwei" data-an={`auf:${p.an}`} lang="de">{p.t}<span class="dw-chip__en" lang="en">{p.en}</span></span>
     </span>
   ))}
 </div>

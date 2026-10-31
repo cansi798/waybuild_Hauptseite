@@ -1,32 +1,63 @@
 ---
-// Szene „Umsetzen“: Die Hauptlinie läuft weiter; aus ihr zweigt der Website Service ab, darunter dezent (gestrichelt)
-// „Weitere Produkte folgen.“ (Talk 4024; vorher fünf Bereiche).
+// Szene „Umsetzen“ (Jamil, Talk 4050; Inhalt nach Talk 4024): Aus Erkenntnissen entstehen Lösungen.
+// Drei Erkenntnisse (Lupe, Glühbirne, Ziel) fließen in einen Knoten auf der Linie; die Linie läuft weiter in ein
+// Website-Fenster, dessen Bausteine nacheinander einrasten. Darunter „Website Service“ und dezent „Weitere Produkte
+// folgen.“ Scrollgekoppelt; ohne JS / reduzierte Bewegung: fertiges Fenster mit allen Bausteinen.
 import Icon from '../Icon.astro';
 import { DW_UMSETZEN as T } from '../../config/denkweise';
-const W = 440, H = 320, X = 88, IX = 210;
-const b = T.bereiche.map((x, k) => {
-  const y = 96 + k * 130;
-  return { ...x, k, y, d: `M ${X} ${y - 36} C ${X} ${y - 8}, ${X + 34} ${y}, ${X + 70} ${y} L ${IX - 22} ${y}` };
-});
+const W = 440, H = 440, CX = 220, KY = 70;
+// Fenster
+const FX = 96, FY = 132, FW = 248, FH = 176, KOPF = 22;
+const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+const erkenntnisse = [
+  { icon: 'search', x: 92, y: 40 },
+  { icon: 'idee', x: 348, y: 34 },
+  { icon: 'target', x: 330, y: 104 },
+].map((e, k) => ({ ...e, k, ox: f(((e.x - CX) / W) * 100), oy: f(((e.y - KY) / W) * 100) }));
+// Bausteine im Fenster (x, y, b, h relativ zur Bildfläche), rasten nacheinander ein
+const bausteine = [
+  { x: FX + 14, y: FY + KOPF + 12, w: FW - 28, h: 40, akzent: true },
+  { x: FX + 14, y: FY + KOPF + 62, w: (FW - 38) / 2, h: 46, akzent: false },
+  { x: FX + 24 + (FW - 38) / 2, y: FY + KOPF + 62, w: (FW - 38) / 2, h: 46, akzent: false },
+  { x: FX + 14, y: FY + KOPF + 118, w: 74, h: 18, akzent: true, knopf: true },
+].map((b, k) => ({ ...b, k }));
+const website = T.bereiche.find((b) => !b.folgt)!;
+const folgt = T.bereiche.find((b) => b.folgt);
 ---
-<div class="dw-bild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+<div class="dw-bild dw-umsetzen" data-szene style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    {b.map((x) => <path class={`dw-s dw-s--fein${x.hervor ? ' dw-s--akzent' : ''}${x.folgt ? ' dw-s--folgt' : ''}`} pathLength="1" d={x.d} data-an={`zeichnen:${(0.1 + x.k * 0.3).toFixed(2)}-${(0.26 + x.k * 0.3).toFixed(2)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} 0 L ${CX} ${KY}`} data-an="linear:0-0.14" />
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${KY} L ${CX} ${FY}`} data-an="linear:0.34-0.42" />
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY + FH} L ${CX} ${H}`} data-an="linear:0.8-0.97" />
+    {/* Fenster: Rahmen zeichnet sich, Fläche und Kopfzeile blenden ein */}
+    <rect class="dw-umsetzen__flaeche" x={FX} y={FY} width={FW} height={FH} rx="12" data-an="blende:0.42-0.5" />
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY} H ${FX + FW - 12} A 12 12 0 0 1 ${FX + FW} ${FY + 12} V ${FY + FH - 12} A 12 12 0 0 1 ${FX + FW - 12} ${FY + FH} H ${FX + 12} A 12 12 0 0 1 ${FX} ${FY + FH - 12} V ${FY + 12} A 12 12 0 0 1 ${FX + 12} ${FY} Z`} data-an="zeichnen:0.42-0.56" />
+    <path class="dw-s dw-s--fein" pathLength="1" d={`M ${FX} ${FY + KOPF} H ${FX + FW}`} data-an="zeichnen:0.52-0.58" />
+    {[0, 1, 2].map((i) => <circle class="dw-umsetzen__punkt" cx={FX + 14 + i * 11} cy={FY + KOPF / 2} r="3.2" data-an={`erscheinen:${f(0.54 + i * 0.02)}-${f(0.58 + i * 0.02)}`} />)}
+    {bausteine.map((b) => <rect class:list={['dw-umsetzen__baustein', { 'dw-umsetzen__baustein--akzent': b.akzent && !b.knopf, 'dw-umsetzen__baustein--knopf': b.knopf }]} x={b.x} y={b.y} width={b.w} height={b.h} rx={b.knopf ? 9 : 6} data-an={`auf:${f(0.58 + b.k * 0.05)}-${f(0.66 + b.k * 0.05)}`} />)}
   </svg>
-  <span class="dw-anker" style={`left:${pc(X, W)};top:0%`} data-weg></span>
-  <span class="dw-anker" style={`left:${pc(X, W)};top:100%`} data-weg></span>
-  {b.map((x) => (
-    <>
-      <span class="dw-pos" style={`left:${pc(IX, W)};top:${pc(x.y, H)}`}>
-        <span class:list={['dw-icon', { 'dw-icon--hervor': x.hervor, 'dw-icon--folgt': x.folgt }]} data-an={`erscheinen:${(0.22 + x.k * 0.3).toFixed(2)}-${(0.32 + x.k * 0.3).toFixed(2)}`}><Icon name={x.icon} size={20} /></span>
-      </span>
-      <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(IX, W)} + 30px);top:${pc(x.y, H)}`}>
-        <span class:list={['dw-bereich', { 'dw-bereich--folgt': x.folgt }]} data-an={`auf:${(0.24 + x.k * 0.3).toFixed(2)}-${(0.36 + x.k * 0.3).toFixed(2)}`}>
-          <span class="dw-bereich__name">{x.name}</span>
-          {x.hinweis && <span class="dw-bereich__hinweis">{x.hinweis}</span>}
-        </span>
-      </span>
-    </>
+  <span class="dw-anker" style={`left:${pc(CX, W)};top:0%`} data-weg="ein"></span>
+  <span class="dw-anker" style={`left:${pc(CX, W)};top:100%`} data-weg="aus"></span>
+
+  {erkenntnisse.map((e) => (
+    <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(KY, H)}`}>
+      <span class="dw-umsetzen__erkenntnis" style={`--ox:${e.ox};--oy:${e.oy}`} data-an={`auf:${f(0.02 + e.k * 0.04)}-${f(0.1 + e.k * 0.04)} fliessen:${f(0.16 + e.k * 0.05)}-${f(0.3 + e.k * 0.05)}`}><Icon name={e.icon as any} size={16} /></span>
+    </span>
   ))}
+  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(CX, W)} + 22px);top:${pc(KY, H)}`}>
+    <span class="dw-umsetzen__notiz" data-an="auf:0.38-0.46">Erkenntnisse</span>
+  </span>
+  <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(KY, H)}`}>
+    <span class="dw-umsetzen__knoten" data-an="blende:0.1-0.18"><span class="dw-umsetzen__fuell" data-an="blende:0.3-0.4"></span></span>
+  </span>
+
+  <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FH + 34, H)}`}>
+    <span class="dw-umsetzen__ergebnis" data-an="auf:0.8-0.88"><Icon name={website.icon} size={18} /> {website.name}</span>
+  </span>
+  {folgt && (
+    <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FH + 82, H)}`}>
+      <span class="dw-umsetzen__folgt" data-an="auf:0.86-0.94"><Icon name={folgt.icon} size={14} /> {folgt.name}</span>
+    </span>
+  )}
 </div>

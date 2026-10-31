@@ -1,87 +1,86 @@
 ---
-// Szene „Hinterfragen“ (Jamil, Talk 4020), scrollgekoppelt in sechs Zuständen:
-//   1 „Neue Website“ – die erste Idee        2 Die Linie stoppt, ein Kreis „Warum?“ entsteht (teilt sich wie alle Kreise)
-//   3 Darunter erscheinen vier Ziele         4 Ein Ziel wird hervorgehoben („Mehr Anfragen“), die anderen treten zurück
-//   5 Möglichkeiten entstehen                6 Eine Richtung bleibt: die passenden Möglichkeiten docken an, „Website“
-//                                              allein tritt zurück, die Linie läuft weiter (zu „Entscheiden“)
-// Ziele und Möglichkeiten stehen ruhig links und rechts der Linie (keine Verbindungslinien quer über das Bild).
-// Desktop breit (880 × 560), Handy schmal (440 × 720). Ohne JS / reduzierte Bewegung: fertiges Endbild.
+// Szene „Hinterfragen“ (Talk 4020, verständlicher und neben dem Text nach Talk 4048). Die Linie läuft links, die
+// Schritte stehen rechts daneben, jeder mit sichtbarer Nummer:
+//   ① Die erste Idee („Neue Website“)   ② Warum? – die Linie stoppt, ein kleiner Kreis entsteht (teilt sich wie alle)
+//   ③ Mögliche Ziele (an der Linie)      ④ Ein Ziel wählen – „Mehr Anfragen“ mit Haken, die anderen grau
+//   ⑤ Möglichkeiten für mehr Anfragen    ⑥ Eine Richtung – die passenden docken an, „Website“ allein tritt zurück
+// Ohne JS / reduzierte Bewegung: fertiges Endbild.
 import Icon from '../Icon.astro';
 import { DW_HINTERFRAGEN } from '../../config/denkweise';
 const T = DW_HINTERFRAGEN.szene;
-
-type V = { v: 'd' | 'm'; W: number; H: number; sx: number; chipY: number; cy: number; r: number; zielY: number[]; moegY: number[]; knotY: number };
-const VARIANTEN: V[] = [
-  { v: 'd', W: 880, H: 560, sx: 440, chipY: 40, cy: 150, r: 44, zielY: [250, 300], moegY: [385, 435], knotY: 495 },
-  { v: 'm', W: 440, H: 720, sx: 220, chipY: 36, cy: 156, r: 54, zielY: [262, 332], moegY: [462, 532], knotY: 620 },
-];
-const ABST = 26;   // Abstand der Begriffe von der Linie (viewBox-Einheiten)
+const W = 440, H = 640, X = 56, STEG = 24, WY = 132;
+const ROW = { start: 58, ziele: [236, 270, 304, 338], moeg: [446, 480, 514, 548], knot: 598 };
+const CAP = { s1: 24, s2: WY, s3: 204, s4: 374, s5: 414, s6: ROW.knot };
 const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
-// Raster 2 × 2: Index 0 links oben, 1 rechts oben, 2 links unten, 3 rechts unten
-const lage = (i: number, ys: number[]) => ({ links: i % 2 === 0, y: ys[i >> 1] });
+// Linie läuft nach dem Kreis bei p = 0.3 weiter und erreicht y bei p(y); Begriffe erscheinen, wenn sie dort ist
+const LIN0 = 0.3, LIN1 = 0.97;
+const pBei = (y: number) => LIN0 + ((y - WY) / (H - WY)) * (LIN1 - LIN0);
+const steg = (y: number) => `M ${X} ${y} L ${X + STEG} ${y}`;
+const ziele = T.ziele.map((t, i) => ({ t, i, y: ROW.ziele[i], haupt: i === T.ziel, an: pBei(ROW.ziele[i]) - 0.03 }));
+const moeg = T.moeglichkeiten.map((t, i) => ({ t, i, y: ROW.moeg[i], bleibt: T.bleiben.includes(i), an: pBei(ROW.moeg[i]) - 0.03 }));
+const WAHL = 0.6, RICHTUNG = 0.88;
+const rechts = (y: number) => `left:calc(${pc(X, W)} + ${STEG + 6}px);top:${pc(y, H)}`;
+const nr = ['①', '②', '③', '④', '⑤', '⑥'];
 ---
-{VARIANTEN.map((v) => {
-  const ziele = T.ziele.map((t, i) => ({ t, i, ...lage(i, v.zielY), haupt: i === T.ziel }));
-  const moeg = T.moeglichkeiten.map((t, i) => ({ t, i, ...lage(i, v.moegY), bleibt: T.bleiben.includes(i) }));
-  const pos = (links: boolean, y: number) => links
-    ? { cls: 'dw-pos dw-pos--links', style: `left:${pc(v.sx - ABST, v.W)};top:${pc(y, v.H)}` }
-    : { cls: 'dw-pos dw-pos--rechts', style: `left:${pc(v.sx + ABST, v.W)};top:${pc(y, v.H)}` };
-  const steg = (links: boolean, y: number) => `M ${v.sx} ${y} L ${v.sx + (links ? -1 : 1) * (ABST - 2)} ${y}`;
-  const hz = ziele.find((z) => z.haupt)!;
-  return (
-    <div class={`dw-bild dw-bild--breit dw-hf dw-nur-${v.v}`} data-szene data-szene-id={`hf-${v.v}`} style={`aspect-ratio: ${v.W} / ${v.H}`}>
-      <svg viewBox={`0 0 ${v.W} ${v.H}`} aria-hidden="true" focusable="false">
-        <path class="dw-s" pathLength="1" d={`M ${v.sx} 0 L ${v.sx} ${v.cy - v.r}`} data-an="linear:0-0.14" />
-        <path class="dw-s" pathLength="1" d={`M ${v.sx} ${v.cy - v.r} A ${v.r} ${v.r} 0 0 0 ${v.sx} ${v.cy + v.r}`} data-an="linear:0.14-0.26" />
-        <path class="dw-s" pathLength="1" d={`M ${v.sx} ${v.cy - v.r} A ${v.r} ${v.r} 0 0 1 ${v.sx} ${v.cy + v.r}`} data-an="linear:0.14-0.26" />
-        <path class="dw-s" pathLength="1" d={`M ${v.sx} ${v.cy + v.r} L ${v.sx} ${v.H}`} data-an="linear:0.56-0.96" />
-        <path class="dw-s" pathLength="1" d={steg(hz.links, hz.y)} data-an="zeichnen:0.52-0.58" />
-        {moeg.filter((m) => m.bleibt).map((m) => <path class="dw-s" pathLength="1" d={steg(m.links, m.y)} data-an={`zeichnen:${f(0.8 + m.i * 0.02)}-${f(0.86 + m.i * 0.02)}`} />)}
-        <circle class="dw-knoten dw-knoten--akzent" cx={v.sx} cy={v.knotY} r="7" data-an="erscheinen:0.84-0.9" />
-      </svg>
-      <span class="dw-anker" style={`left:${pc(v.sx, v.W)};top:0%`} data-weg="ein" data-weg-nur={v.v}></span>
-      <span class="dw-anker" style={`left:${pc(v.sx, v.W)};top:100%`} data-weg="aus" data-weg-nur={v.v}></span>
+<div class="dw-bild dw-hf" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    <path class="dw-s" pathLength="1" d={`M ${X} 0 L ${X} ${WY}`} data-an="linear:0-0.16" />
+    <path class="dw-s" pathLength="1" d={`M ${X} ${WY} L ${X} ${H}`} data-an={`linear:${LIN0}-${LIN1}`} />
+    <path class="dw-s" pathLength="1" d={steg(ROW.start)} data-an="zeichnen:0.04-0.08" />
+    {ziele.map((z) => <path class={z.haupt ? 'dw-s dw-hf__steg--wahl' : 'dw-s'} pathLength="1" d={steg(z.y)} data-an={`zeichnen:${f(z.an)}-${f(z.an + 0.04)}${z.haupt ? '' : ` aus:${WAHL}-${f(WAHL + 0.08)}:0.3`}`} />)}
+    {moeg.map((m) => <path class="dw-s" pathLength="1" d={steg(m.y)} data-an={`zeichnen:${f(m.an)}-${f(m.an + 0.04)}${m.bleibt ? '' : ` aus:${RICHTUNG}-${f(RICHTUNG + 0.06)}:0.25`}`} />)}
+    <circle class="dw-knoten dw-knoten--akzent" cx={X} cy={ROW.knot} r="7" data-an={`erscheinen:${RICHTUNG}-${f(RICHTUNG + 0.06)}`} />
+  </svg>
+  <span class="dw-anker" style={`left:${pc(X, W)};top:0%`} data-weg="ein"></span>
+  <span class="dw-anker" style={`left:${pc(X, W)};top:100%`} data-weg="aus"></span>
 
-      {/* 1 · die erste Idee */}
-      <span class="dw-pos" style={`left:${pc(v.sx, v.W)};top:${pc(v.chipY, v.H)}`}>
-        <span class="dw-hf-chip dw-hf-chip--start" data-an="auf:0-0.07"><Icon name="idee" size={15} /> {T.start}<span class="dw-hf-notiz">{T.startNotiz}</span></span>
+  {/* Schritt-Beschriftungen */}
+  <span class="dw-pos dw-pos--rechts" style={rechts(CAP.s1)}><span class="dw-hf__schritt" data-an="auf:0-0.06">{nr[0]} Die erste Idee</span></span>
+  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(X, W)} + 40px);top:${pc(CAP.s2, H)}`}><span class="dw-hf__schritt" data-an="auf:0.18-0.26">{nr[1]} Wozu soll es dienen?</span></span>
+  <span class="dw-pos dw-pos--rechts" style={rechts(CAP.s3)}><span class="dw-hf__schritt" data-an={`auf:${f(pBei(ROW.ziele[0]) - 0.07)}-${f(pBei(ROW.ziele[0]) - 0.03)}`}>{nr[2]} Mögliche Ziele</span></span>
+  <span class="dw-pos dw-pos--rechts" style={rechts(CAP.s4)}><span class="dw-hf__schritt" data-an={`auf:${WAHL}-${f(WAHL + 0.07)}`}>{nr[3]} Ein Ziel wählen</span></span>
+  <span class="dw-pos dw-pos--rechts" style={rechts(CAP.s5)}><span class="dw-hf__schritt" data-an={`auf:${f(pBei(ROW.moeg[0]) - 0.07)}-${f(pBei(ROW.moeg[0]) - 0.03)}`}>{nr[4]} Möglichkeiten dafür</span></span>
+  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(X, W)} + 16px);top:${pc(CAP.s6, H)}`}><span class="dw-hf__schritt dw-hf__schritt--ziel" data-an={`auf:${f(RICHTUNG + 0.02)}-${f(RICHTUNG + 0.09)}`}>{nr[5]} {T.richtung}</span></span>
+
+  {/* ① die erste Idee */}
+  <span class="dw-pos dw-pos--rechts" style={rechts(ROW.start)}>
+    <span class="dw-hf-chip dw-hf-chip--start" data-an="auf:0.02-0.08"><Icon name="idee" size={15} /> {T.start}</span>
+  </span>
+  {/* ② Warum? – kleiner Kreis auf der Linie, teilt sich */}
+  <span class="dw-pos" style={`left:${pc(X, W)};top:${pc(WY, H)}`}>
+    <span class="dw-hf__warum">
+      <svg class="dw-verstehen__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <path class="dw-s dw-verstehen__ast" pathLength="1" d="M 50 1.5 A 48.5 48.5 0 0 0 50 98.5" data-an="linear:0.16-0.26" />
+        <path class="dw-s dw-verstehen__ast" pathLength="1" d="M 50 1.5 A 48.5 48.5 0 0 1 50 98.5" data-an="linear:0.16-0.26" />
+      </svg>
+      <span class="dw-hf__warum-text" data-an="blende:0.2-0.28">{T.warum}</span>
+    </span>
+  </span>
+  {/* ③ + ④ Ziele */}
+  {ziele.map((z) => (
+    <>
+      <span class="dw-pos dw-pos--rechts" style={rechts(z.y)}>
+        <span class="dw-hf-chip" data-an={`auf:${f(z.an)}-${f(z.an + 0.06)}${z.haupt ? '' : ` aus:${WAHL}-${f(WAHL + 0.08)}:0.35`}`}>{z.t}</span>
       </span>
-      {/* 2 · Warum? */}
-      <span class="dw-pos" style={`left:${pc(v.sx, v.W)};top:${pc(v.cy, v.H)}`}>
-        <span class="dw-hf-warum" data-an="auf:0.22-0.3">{T.warum}</span>
+      {z.haupt && (
+        <span class="dw-pos dw-pos--rechts" style={rechts(z.y)}>
+          <span class="dw-hf-chip dw-hf-chip--ziel" data-an={`blende:${WAHL}-${f(WAHL + 0.07)}`}><Icon name="check" size={14} /> {z.t}</span>
+        </span>
+      )}
+    </>
+  ))}
+  {/* ⑤ + ⑥ Möglichkeiten */}
+  {moeg.map((m) => (
+    <>
+      <span class="dw-pos dw-pos--rechts" style={rechts(m.y)}>
+        <span class="dw-hf-chip" data-an={`auf:${f(m.an)}-${f(m.an + 0.06)}${m.bleibt ? '' : ` aus:${RICHTUNG}-${f(RICHTUNG + 0.06)}:0.3`}`}>{m.t}</span>
       </span>
-      {/* 3 + 4 · Ziele, eines wird hervorgehoben */}
-      {ziele.map((z) => {
-        const p = pos(z.links, z.y);
-        return (
-          <span class={p.cls} style={p.style}>
-            <span class="dw-hf-chip" data-an={`auf:${f(0.3 + z.i * 0.04)}-${f(0.38 + z.i * 0.04)}${z.haupt ? '' : ' aus:0.52-0.6:0.35'}`}>{z.t}</span>
-          </span>
-        );
-      })}
-      <span class={pos(hz.links, hz.y).cls} style={pos(hz.links, hz.y).style}>
-        <span class="dw-hf-chip dw-hf-chip--ziel" data-an="blende:0.52-0.6">{hz.t}</span>
-      </span>
-      {/* 5 + 6 · Möglichkeiten, die passenden docken an, eine Richtung bleibt */}
-      {moeg.map((m) => {
-        const p = pos(m.links, m.y);
-        return (
-          <>
-            <span class={p.cls} style={p.style}>
-              <span class="dw-hf-chip" data-an={`auf:${f(0.62 + m.i * 0.035)}-${f(0.7 + m.i * 0.035)}${m.bleibt ? '' : ' aus:0.8-0.88:0.3'}`}>{m.t}</span>
-            </span>
-            {m.bleibt && (
-              <span class={p.cls} style={p.style}>
-                <span class="dw-hf-chip dw-hf-chip--bleibt" data-an={`blende:${f(0.8 + m.i * 0.02)}-${f(0.88 + m.i * 0.02)}`}>{m.t}</span>
-              </span>
-            )}
-          </>
-        );
-      })}
-      <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(v.sx, v.W)} + 16px);top:${pc(v.knotY, v.H)}`}>
-        <span class="dw-hf-richtung" data-an="auf:0.86-0.95">{T.richtung}</span>
-      </span>
-    </div>
-  );
-})}
+      {m.bleibt && (
+        <span class="dw-pos dw-pos--rechts" style={rechts(m.y)}>
+          <span class="dw-hf-chip dw-hf-chip--bleibt" data-an={`blende:${f(RICHTUNG + m.i * 0.015)}-${f(RICHTUNG + 0.06 + m.i * 0.015)}`}>{m.t}</span>
+        </span>
+      )}
+    </>
+  ))}
+</div>
