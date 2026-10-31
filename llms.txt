@@ -22,7 +22,7 @@ Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei
 3. Hinterfragen: Bevor wir digitale Lösungen entwickeln, möchten wir verstehen. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
 4. Entscheiden: Wir empfehlen, bevor wir umsetzen. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
 5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist nicht die Technologie. Entscheidend ist, dass sie zum Ziel passt.
-6. Verbessern: Gute Veränderungen entwickeln sich weiter. Feedback, Lernen, Optimieren, Weiterentwickeln.
+6. Verbessern: Gute Veränderungen entwickeln sich weiter. Planen, umsetzen, prüfen, anpassen. Und dann wieder von vorn. (PDCA: Planen/Plan, Umsetzen/Do, Prüfen/Check, Anpassen/Act)
 
 ## Bereiche
 - Website Service
