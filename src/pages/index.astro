@@ -11,7 +11,7 @@
 // „Verbessern“; die durchgehende Scroll-Linie beginnt erst unter der ersten Überschrift „Veränderungen verstehen“
 // (Talk 3922/3935).
 // Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
-// Veränderungs-Check in src/scripts/veraenderungscheck.ts. Die Unternehmens-DNA steht bewusst nicht hier (Talk 3818/8).
+// Veränderungs-Check (Fragen + Profil) vorerst entfernt (Talk 4045; Komponenten DwFrage/DwProfil bleiben im Repo). Die Unternehmens-DNA steht bewusst nicht hier (Talk 3818/8).
 // Vorherige Fassung: Git-Tag startseite-v3-anfragereise-20261030; Komponenten in src/components/story/.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
@@ -22,8 +22,6 @@ import DwEntscheiden from '../components/dw/DwEntscheiden.astro';
 import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
 import DwVerbessern from '../components/dw/DwVerbessern.astro';
 import DwFortschritt from '../components/dw/DwFortschritt.astro';
-import DwFrage from '../components/dw/DwFrage.astro';
-import DwProfil from '../components/dw/DwProfil.astro';
 import { href } from '../lib/paths';
 import {
   DW_HERO, DW_REISE, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN,
@@ -129,7 +127,6 @@ const [K1, K2, K3] = DW_KAPITEL;
           </div>
           <DwVerstehen />
         </div>
-        <div class="wrap"><DwFrage nr={1} /></div>
       </div>
 
       <!-- Hinterfragen -->
@@ -147,7 +144,6 @@ const [K1, K2, K3] = DW_KAPITEL;
             <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
           </div>
           <DwHinterfragen />
-          <DwFrage nr={2} />
         </div>
       </div>
     </section>
@@ -319,14 +315,7 @@ const [K1, K2, K3] = DW_KAPITEL;
         </div>
       </div>
 
-      <div class="dw-abschnitt dw-abschnitt--eng">
-        <div class="wrap"><DwFrage nr={3} /></div>
-      </div>
 
-      <!-- Ihr Veränderungsprofil -->
-      <div class="dw-abschnitt dw-abschnitt--eng">
-        <div class="wrap"><DwProfil /></div>
-      </div>
 
       <!-- Kontakt -->
       <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
@@ -350,5 +339,4 @@ const [K1, K2, K3] = DW_KAPITEL;
 
 <script>
   import '../scripts/denkweise';
-  import '../scripts/veraenderungscheck';
 </script>

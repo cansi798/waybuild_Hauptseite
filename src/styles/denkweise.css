@@ -56,7 +56,8 @@
 .dw-idee__kreis .icon { filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
 .dw--live .dw-idee__kreis .icon { animation: dw-birne 3.6s ease-in-out infinite paused; }
 .dw--live .dw-idee__kreis.ist-sichtbar .icon { animation-play-state: running; }
-@keyframes dw-birne { 0%, 100% { opacity: 0.78; filter: drop-shadow(0 0 0 rgb(0 166 161 / 0%)); } 50% { opacity: 1; filter: drop-shadow(0 0 6px rgb(0 166 161 / 75%)); } }
+/* Talk 4044: deutlicher – zwischen gedämpft und kräftig hell, mit doppeltem türkisem Schein direkt am Symbol */
+@keyframes dw-birne { 0%, 100% { opacity: 0.4; color: var(--accent-ink); filter: drop-shadow(0 0 0 rgb(0 166 161 / 0%)); } 50% { opacity: 1; color: var(--accent); filter: drop-shadow(0 0 4px rgb(0 166 161 / 95%)) drop-shadow(0 0 12px rgb(0 166 161 / 70%)); } }
 /* Talk 3933: Ziel „Verbessern“ im Hero – gleiche Größe wie die Idee, Pfeile im Uhrzeigersinn auf dem Rand, ein
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
 .dw-ziel { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
