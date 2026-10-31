@@ -16,7 +16,7 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 
 ## Die Waybuild-Denkweise
 Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
-Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei Teilen: Gute Lösungen beginnen mit Verständnis, Veränderungen umsetzen, Veränderungen nachhaltig machen.
+Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei Teilen: Gute Lösungen beginnen mit Verständnis, Veränderungen umsetzen, Unsere Prinzipien.
 1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
 2. Verstehen: Bevor wir etwas verändern, möchten wir es verstehen. Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen: wie Menschen heute arbeiten, welche digitalen Werkzeuge sie nutzen, wo digitale Reibung entsteht, welche Prozesse vorhanden sind. Denn nicht jede Herausforderung benötigt eine neue Lösung.
 3. Hinterfragen: Erst das Warum, dann das Wie. Nicht jede Website muss neu gebaut werden. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
@@ -29,18 +29,11 @@ Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei
 - Individuelle Software (auf anfrage): Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.
 - Weitere Produkte folgen.
 
-## Verlässlichkeit: Gute digitale Lösungen brauchen Verlässlichkeit.
-- Klare Ansprechpartner: Sie wissen, wer sich kümmert.
-- Verlässliche Rückmeldungen: Sie wissen, wie es weitergeht. Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag der nächste Schritt.
-- Nachvollziehbare Prozesse: Nichts geht verloren.
-- Verständliche Kommunikation: Klare Sprache statt Fachbegriffe.
-- Verantwortung: Offene Themen bleiben sichtbar.
-- Kontinuierliche Verbesserung: Veränderungen entwickeln sich weiter.
 
-## Drei Prinzipien: Klarheit. Verlässlichkeit. Einfachheit.
-- Klarheit: Sie wissen jederzeit, woran Sie sind.
-- Verlässlichkeit: Zusagen gelten. Verantwortung ist klar.
-- Einfachheit: Veränderungen sollen leichter werden, nicht komplizierter.
+## Unsere Prinzipien: Klarheit. Einfachheit. Verlässlichkeit.
+- Klarheit: Sie wissen jederzeit, woran Sie sind. Digitale Lösungen müssen kein Rätsel sein. Wir erklären verständlich, zeigen nachvollziehbare Optionen und sprechen Klartext statt Fachsprache. So wissen Sie jederzeit: was gerade passiert, warum etwas empfohlen wird, welche Möglichkeiten es gibt, was der nächste Schritt ist. Sie müssen kein IT-Experte sein, um Entscheidungen treffen zu können.
+- Einfachheit: Die Zusammenarbeit soll einfach sein. Probleme melden, Änderungen anstoßen oder neue Ideen umsetzen sollte kein Projekt für sich sein. Deshalb legen wir Wert darauf, dass jede Interaktion mit uns möglichst unkompliziert bleibt. Eine Nachricht genügt., Ein Screenshot reicht oft aus., Änderungen müssen nicht durch viele Freigaben gehen., Neue Ideen können schnell besprochen werden.. Sie sollen sich auf Ihr Unternehmen konzentrieren können, nicht auf IT-Prozesse.
+- Verlässlichkeit: Sie können sich darauf verlassen. Digitale Lösungen funktionieren nur dann langfristig, wenn Verantwortlichkeiten, Kommunikation und Prozesse klar geregelt sind. Deshalb sorgen wir für: feste Ansprechpartner, nachvollziehbare Zuständigkeiten, verlässliche Rückmeldungen, dokumentierte Prozesse. Damit nichts verloren geht und Sie wissen, dass sich jemand kümmert.
 
 ## Das dürfen Sie von uns erwarten
 - Sie erhalten eine Antwort: Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung. Spätestens am nächsten Werktag wissen Sie, wer sich kümmert und was der nächste Schritt ist.
