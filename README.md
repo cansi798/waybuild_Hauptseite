@@ -119,3 +119,8 @@ Prüfung: `npm run seo:preview` nach dem Vorschau-Build bzw. `npm run seo` nach 
 - Mit vollständiger Adresse wird zusätzlich `ProfessionalService` (lokales Unternehmen) ausgegeben
 - Keine Cookies, kein Tracking, Schriften lokal – kein Cookie-Banner nötig
 - Bewusst **kein** Font-Preload: kostete 300 ms Blocking Time ohne LCP-Gewinn (gemessen)
+
+## Lizenz
+
+Alle Rechte vorbehalten – © 2026 Waybuild UG (haftungsbeschränkt). Siehe [`LICENSE`](LICENSE).
+Die Einsicht über GitHub ist nur zur Ansicht gestattet; Kopieren, Weiterverwenden oder Bearbeiten ist ohne schriftliche Zustimmung nicht erlaubt.
