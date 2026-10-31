@@ -39,16 +39,15 @@ export const DW_IDEE = {
   gefuehl: 'Oder einfach das Gefühl:',
   zitat: 'Das müsste doch einfacher gehen.',
   schluss: 'Genau dort beginnen die meisten Veränderungen.',
-  /** Ideen (Talk 4007): schweben um den Knoten und fließen beim Scrollen nacheinander hinein.
-   *  Lage in viewBox-Einheiten der Bildfläche 440 × 400, Knoten bei 220/232. */
-  ideen: [
-    { text: 'Neue Website', x: 108, y: 58 },
-    { text: 'Digitale Zusammenarbeit', x: 336, y: 52 },
-    { text: 'Kundenportal', x: 86, y: 160 },
-    { text: 'Mehr Anfragen', x: 350, y: 156 },
-    { text: 'Weniger Aufwand', x: 104, y: 330 },
-    { text: 'Neue Software', x: 340, y: 334 },
-  ],
+  /** Ideen (Talk 4007): schweben um den Knoten und fließen beim Scrollen hinein.
+   *  Talk 4122: passend zu „Eine Idee. Ein Wunsch. Ein Problem.“ drei Gruppen à zwei Karten (je Gruppe eigenes
+   *  Symbol und ein kleines Label auf der Linie); sie fließen gruppenweise nacheinander ein (Ideen → Wünsche → Probleme).
+   *  Lage in viewBox-Einheiten der Bildfläche 440 × 430, Knoten bei 220/256; Label liegt auf der Linie (x 220). */
+  gruppen: [
+    { label: 'Ideen', icon: 'idee', y: 26, karten: [{ text: 'Neue Website', x: 112, y: 68 }, { text: 'Kundenportal', x: 328, y: 68 }] },
+    { label: 'Wünsche', icon: 'stern', y: 124, karten: [{ text: 'Mehr Anfragen', x: 112, y: 168 }, { text: 'Digitale Zusammenarbeit', x: 328, y: 168 }] },
+    { label: 'Probleme', icon: 'warnung', y: 330, karten: [{ text: 'Zu viel Aufwand', x: 112, y: 374 }, { text: 'Veraltete Software', x: 328, y: 374 }] },
+  ] as { label: string; icon: 'idee' | 'stern' | 'warnung'; y: number; karten: { text: string; x: number; y: number }[] }[],
 };
 
 export const DW_VERSTEHEN = {

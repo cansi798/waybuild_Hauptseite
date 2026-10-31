@@ -1,20 +1,31 @@
 ---
-// Szene „Idee“ (Jamil, Talk 4007): Sechs Ideen schweben als kleine türkise Ideen-Karten um den Knoten auf der Linie.
-// Beim Scrollen werden sie nacheinander in den Knoten gezogen (wandern, schrumpfen, verschmelzen); danach leuchtet der
-// Knoten (groß, mit Glühbirne) auf: aus vielen Ideen wird eine. Keine Verbindungslinien mehr („Spinnenbeine“).
+// Szene „Idee“ (Jamil, Talk 4007): Ideen-Karten schweben als kleine türkise Karten um den Knoten auf der Linie.
+// Talk 4122: passend zu „Eine Idee. Ein Wunsch. Ein Problem.“ sind es drei Gruppen à zwei Karten (Ideen, Wünsche,
+// Probleme), jede mit eigenem Symbol und einem kleinen Label, das auf der Linie sitzt. Beim Scrollen fließen die Gruppen
+// nacheinander in den Knoten (wandern, schrumpfen, verschmelzen; das Label wandert mit); danach leuchtet der Knoten
+// (groß, mit Glühbirne) auf: aus vielen Anliegen wird eine Idee. Keine Verbindungslinien („Spinnenbeine“).
 // Technik: Alle Karten sitzen im Knoten; ihre Ruhelage ist ein Versatz in Container-Einheiten (--ox/--oy in cqw), den
-// die Spur „fliessen“ in denkweise.ts auf 0 zieht. Ohne JS / reduzierte Bewegung: Ideen ruhig um den Knoten.
+// die Spur „fliessen“ in denkweise.ts auf 0 zieht. Ohne JS / reduzierte Bewegung: ruhiges, gruppiertes Bild.
 import Icon from '../Icon.astro';
 import { DW_IDEE } from '../../config/denkweise';
-const W = 440, H = 400, MX = 220, MY = 232;
+const W = 440, H = 430, MX = 220, MY = 256;
 const f = (n: number) => n.toFixed(3);
-const ideen = DW_IDEE.ideen.map((i, k) => ({
-  ...i, k,
-  ox: f(((i.x - MX) / W) * 100), oy: f(((i.y - MY) / W) * 100),
-  // Talk 4037: erst gut lesbar stehen lassen, dann (wenn die Linie den Knoten erreicht, p ≈ 0.68) nacheinander einfließen
-  an: `auf:${f(0.02 + k * 0.04)}-${f(0.12 + k * 0.04)} fliessen:${f(0.62 + k * 0.045)}-${f(0.76 + k * 0.045)}`,
-}));
+const ox = (x: number) => f(((x - MX) / W) * 100);
+const oy = (y: number) => f(((y - MY) / W) * 100);
+// Talk 4037: erst gut lesbar stehen lassen, dann (wenn die Linie den Knoten erreicht) einfließen – Talk 4122 gruppenweise
+const gruppen = DW_IDEE.gruppen.map((g, gi) => {
+  const fl = 0.62 + gi * 0.11;
+  return {
+    ...g,
+    an: `auf:${f(0.02 + gi * 0.09)}-${f(0.1 + gi * 0.09)} fliessen:${f(fl)}-${f(fl + 0.12)}`,
+    karten: g.karten.map((k, j) => ({
+      ...k,
+      an: `auf:${f(0.04 + gi * 0.09 + j * 0.03)}-${f(0.13 + gi * 0.09 + j * 0.03)} fliessen:${f(fl + j * 0.02)}-${f(fl + 0.12 + j * 0.02)}`,
+    })),
+  };
+});
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
 ---
 <div class="dw-bild dw-ideebild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
@@ -22,13 +33,18 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
   <span class="dw-anker" style="left:50%;top:0%" data-weg></span>
   <span class="dw-anker" style={`left:50%;top:${pc(MY, H)}`} data-weg></span>
   <span class="dw-anker" style="left:50%;top:100%" data-weg></span>
-  {ideen.map((i) => (
-    <span class="dw-pos" style={`left:${pc(MX, W)};top:${pc(MY, H)}`}>
-      <span class="dw-ideebild__idee" style={`--ox:${i.ox};--oy:${i.oy}`} data-an={i.an}><Icon name="idee" size={14} />{i.text}</span>
+  {gruppen.map((g) => (
+    <span class="dw-pos" style={knoten}>
+      <span class="dw-ideebild__gruppe" style={`--ox:0;--oy:${oy(g.y)}`} data-an={g.an}><Icon name={g.icon} size={13} />{g.label}</span>
     </span>
   ))}
+  {gruppen.map((g) => g.karten.map((k) => (
+    <span class="dw-pos" style={knoten}>
+      <span class="dw-ideebild__idee" style={`--ox:${ox(k.x)};--oy:${oy(k.y)}`} data-an={k.an}><Icon name={g.icon} size={14} />{k.text}</span>
+    </span>
+  )))}
   {/* Talk 4037: größerer Knoten mit Glühbirne (wie der Idee-Kreis im Hero); füllt sich, wenn alle Ideen drin sind */}
-  <span class="dw-pos" style={`left:${pc(MX, W)};top:${pc(MY, H)}`}>
+  <span class="dw-pos" style={knoten}>
     <span class="dw-ideebild__knoten" data-an="erscheinen:0.3-0.4">
       <span class="dw-ideebild__fuell" data-an="blende:0.9-0.99"></span>
       <Icon name="idee" size={22} />
