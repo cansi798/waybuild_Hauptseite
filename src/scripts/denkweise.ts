@@ -239,7 +239,7 @@ if (root) {
     // Glimmen von Idee- und Verbessern-Kreis im Hero sowie deren Lichtschimmer ebenfalls nur im Bild (Talk 3930/3933)
     root.querySelectorAll('.dw-idee__kreis, .dw-ziel, .dw-ideebild__knoten, .dw-verstehen__kreis').forEach((el) => io.observe(el));
   }
-  if (!reduce) { introStart = performance.now() + 450; introAktiv = true; anfordern(); }
+  // Talk 4057: kein Einzeichnen im Hero mehr (die Hero-Linie ist ein festes SVG in index.astro)
   window.addEventListener('scroll', anfordern, { passive: true });
   let rz = 0;
   const spaeter = () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(neu); };
