@@ -4,7 +4,7 @@
 
 Kurz gesagt: Waybuild ist ein IT-Dienstleister aus Norderstedt für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
-Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Ablauf gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
+Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
@@ -15,11 +15,11 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 - Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr (ohne gesetzliche Feiertage).
 
 ## Die Waybuild-Denkweise
-Kein Projektablauf, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
+Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
 Kernsatz: Wir verstehen, bevor wir verändern. Die Startseite erzählt das in drei Teilen: Veränderungen verstehen, Veränderungen umsetzen, Veränderungen nachhaltig machen.
 1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
 2. Verstehen: Bevor wir etwas verändern, möchten wir es verstehen. Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen: wie Ihr Unternehmen arbeitet, welche Ziele wichtig sind, wie Entscheidungen entstehen, wie Menschen heute arbeiten, welche digitalen Werkzeuge sie nutzen, wo digitale Reibung entsteht, welche Prozesse vorhanden sind. Denn nicht jede Herausforderung benötigt eine neue Lösung.
-3. Hinterfragen: Wir verstehen, bevor wir verändern. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
+3. Hinterfragen: Bevor wir digitale Lösungen entwickeln, möchten wir verstehen. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
 4. Entscheiden: Erst abwägen, dann entscheiden. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
 5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist nicht die Technologie. Entscheidend ist, dass sie zum Ziel passt.
 6. Verbessern: Gute Veränderungen entwickeln sich weiter. Feedback, Lernen, Optimieren, Weiterentwickeln.
@@ -34,7 +34,7 @@ Kernsatz: Wir verstehen, bevor wir verändern. Die Startseite erzählt das in dr
 ## Verlässlichkeit: Veränderung darf nicht vom Zufall abhängen.
 - Klare Ansprechpartner: Sie wissen, wer sich kümmert.
 - Verlässliche Rückmeldungen: Sie wissen, wie es weitergeht. Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag der nächste Schritt.
-- Nachvollziehbare Abläufe: Nichts geht verloren.
+- Nachvollziehbare Prozesse: Nichts geht verloren.
 - Verständliche Kommunikation: Klare Sprache statt Fachbegriffe.
 - Verantwortung: Offene Themen bleiben sichtbar.
 - Kontinuierliche Verbesserung: Veränderungen entwickeln sich weiter.
@@ -50,7 +50,7 @@ Kernsatz: Wir verstehen, bevor wir verändern. Die Startseite erzählt das in dr
 - Nichts geht verloren: Jedes Anliegen wird dokumentiert und verfolgt, bis es abgeschlossen ist.
 - Probleme bleiben nicht liegen: Wenn etwas feststeckt oder eine Antwort ausbleibt, wird das Thema automatisch weitergegeben.
 - Sie wissen jederzeit, woran Sie sind: Keine Überraschungen. Keine Funkstille.
-- Echter Mehrwert: Was wir umsetzen, soll Zeit sparen, Abläufe erleichtern oder ein konkretes Problem lösen.
+- Echter Mehrwert: Was wir umsetzen, soll Zeit sparen, Prozesse erleichtern oder ein konkretes Problem lösen.
 
 ## Produkte
 - Website Service, verfügbar: Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten. Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt. Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
@@ -74,8 +74,8 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text, wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
 
 ## Häufige Fragen zu Waybuild
-- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Abläufen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, zwei Kundenverwaltungen und Apps dazu. Weitere Produkte folgen.
-- Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Ablauf gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
+- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, zwei Kundenverwaltungen und Apps dazu. Weitere Produkte folgen.
+- Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
 - Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
 - Welche Rolle spielt KI? Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.
@@ -94,7 +94,7 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
 - [Website Service](https://cansi798.github.io/waybuild_Hauptseite/angebot/): Preise und Details
-- [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Ablauf einer Anfrage, Werte
+- [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Prozess einer Anfrage, Werte
 - [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
 - [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
 - [Impressum](https://cansi798.github.io/waybuild_Hauptseite/impressum/)
