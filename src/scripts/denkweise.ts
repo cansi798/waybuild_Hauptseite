@@ -8,7 +8,7 @@
 // - Die Spitze der Linie folgt einer Lese-Höhe im Fenster (62 %); beim Laden zeichnet sie sich im Hero einmal von selbst.
 // - Szenen [data-szene]: Fortschritt 0…1, solange die Spitze durch ihre Fläche läuft. Elemente darin tragen
 //   [data-an="art:a-b[:min] …"] mit art = zeichnen | linear | auf | aus | blende | wachsen | erscheinen | links |
-//   rechts | breit | hoch (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
+//   rechts | breit | hoch | fliessen (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
 //   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene).
 // - Kreis-Szenen mit [data-zu="p"]: ab Fortschritt p bekommt die Szene die Klasse ist-zu (Kreis geschlossen), solange
 //   sie im Bild ist zusätzlich ist-sichtbar (nur dann läuft der Dauer-Fluss per CSS).
@@ -168,6 +168,14 @@ if (root) {
           case 'rechts': op *= t; opNutzt = true; tf += ` translate3d(${((1 - t) * 28).toFixed(1)}px, 0, 0)`; break;
           case 'breit': tf += ` scaleX(${t.toFixed(3)})`; break;
           case 'hoch': tf += ` scaleY(${t.toFixed(4)})`; break;
+          // Idee fließt aus ihrer Ruhelage (--ox/--oy in cqw) in den Knoten, schrumpft und verschmilzt (Talk 4007);
+          // bei reduzierter Bewegung bleibt sie ruhig in der Ruhelage
+          case 'fliessen': {
+            const r = reduce ? 1 : 1 - t;
+            tf += ` translate(calc(var(--ox) * ${r.toFixed(3)} * 1cqw), calc(var(--oy) * ${r.toFixed(3)} * 1cqw)) scale(${(0.18 + 0.82 * r).toFixed(3)})`;
+            if (!reduce) { op *= 1 - glatt(clamp((t - 0.55) / 0.45)); opNutzt = true; }
+            break;
+          }
         }
       }
       if (dash >= 0) setz(it, 'stroke-dashoffset', dash.toFixed(4));

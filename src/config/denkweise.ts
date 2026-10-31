@@ -33,14 +33,15 @@ export const DW_IDEE = {
   gefuehl: 'Oder einfach das Gefühl:',
   zitat: 'Das müsste doch einfacher gehen.',
   schluss: 'Genau dort beginnen die meisten Veränderungen.',
-  /** Impulse: Position in Prozent der Bildfläche (440 × 400) */
-  impulse: [
-    { text: 'Neue Website', x: 24, y: 11 },
-    { text: 'Bessere Zusammenarbeit', x: 76, y: 10 },
-    { text: 'Mehr Anfragen', x: 19, y: 38 },
-    { text: 'Weniger Aufwand', x: 81, y: 36 },
-    { text: 'Neue Software', x: 23, y: 84 },
-    { text: 'Mehr Übersicht', x: 77, y: 86 },
+  /** Ideen (Talk 4007): schweben um den Knoten und fließen beim Scrollen nacheinander hinein.
+   *  Lage in viewBox-Einheiten der Bildfläche 440 × 400, Knoten bei 220/232. */
+  ideen: [
+    { text: 'Neue Website', x: 108, y: 58 },
+    { text: 'Digitale Zusammenarbeit', x: 336, y: 52 },
+    { text: 'Kundenportal', x: 86, y: 160 },
+    { text: 'Mehr Anfragen', x: 350, y: 156 },
+    { text: 'Weniger Aufwand', x: 104, y: 330 },
+    { text: 'Neue Software', x: 340, y: 334 },
   ],
 };
 
@@ -55,7 +56,7 @@ export const DW_VERSTEHEN = {
     { text: 'Menschen', x: 87, y: 50, kx: 324, ky: 210 },
     { text: 'Ziele', x: 72, y: 86, kx: 278, ky: 296 },
     { text: 'Kommunikation', x: 25, y: 86, kx: 160, ky: 296 },
-    { text: 'Abläufe', x: 12, y: 50, kx: 116, ky: 210 },
+    { text: 'Prozesse', x: 12, y: 50, kx: 116, ky: 210 },
   ],
   mitte: 'Verständnis',
 };
@@ -66,7 +67,7 @@ export const DW_HINTERFRAGEN = {
   botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
   phasen: ['Die erste Idee', 'Mögliche Wege', 'Prüfen: Was bringt Sie weiter?', 'Eine Richtung'],
   zeilen: ['Nicht jede Herausforderung braucht eine neue Website.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
-  schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Abläufe.',
+  schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.',
   start: 'Neue Website',
   /** bleibt = verbindet sich am Ende wieder zu einer Richtung; die anderen verblassen */
   wege: [
@@ -155,7 +156,7 @@ export const DW_ABSCHLUSS = {
   titel: 'Was möchten Sie verändern?',
   zeilen: [
     'Vielleicht gibt es eine Idee, die schon lange umgesetzt werden sollte.',
-    'Vielleicht einen Ablauf, der unnötig kompliziert geworden ist.',
+    'Vielleicht einen Prozess, der unnötig kompliziert geworden ist.',
     'Oder vielleicht möchten Sie einfach herausfinden, wo Potenzial verborgen liegt.',
   ],
   einladung: 'Lassen Sie uns darüber sprechen.',
@@ -181,11 +182,11 @@ export const DW_CHECK = {
   titel: 'Ihr Veränderungsprofil',
   fragen: [
     {
-      id: 'frage-1', nach: 'Verstehen', frage: 'Wie abhängig sind wichtige Abläufe von einzelnen Personen?',
+      id: 'frage-1', nach: 'Verstehen', frage: 'Wie abhängig sind wichtige Prozesse von einzelnen Personen?',
       stufen: ['kaum', 'wenig', 'teils, teils', 'stark', 'sehr stark'],
-      staerke: 'Wichtiges Wissen ist bei Ihnen gut verteilt. Abläufe hängen nicht an einzelnen Personen.',
-      engpass: 'Wichtige Abläufe hängen an einzelnen Personen. Fällt jemand aus, bleibt vieles liegen.',
-      potenzial: 'Abläufe festhalten und Wissen teilen, damit mehrere Personen sie übernehmen können.',
+      staerke: 'Wichtiges Wissen ist bei Ihnen gut verteilt. Prozesse hängen nicht an einzelnen Personen.',
+      engpass: 'Wichtige Prozesse hängen an einzelnen Personen. Fällt jemand aus, bleibt vieles liegen.',
+      potenzial: 'Prozesse festhalten und Wissen teilen, damit mehrere Personen sie übernehmen können.',
     },
     {
       id: 'frage-2', nach: 'Hinterfragen', frage: 'Wie oft wird über Lösungen gesprochen, bevor das eigentliche Problem verstanden wurde?',

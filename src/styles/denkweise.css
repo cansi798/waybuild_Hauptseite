@@ -98,6 +98,12 @@
 .dw-bereich__hinweis { font-size: 0.78rem; color: #6f6a60; max-width: 13em; line-height: 1.35; }
 .dw-nur-d { display: none; }
 
+/* ── Idee (Talk 4007): Ideen-Karten um den Knoten, fließen nacheinander hinein; alles türkis ── */
+.dw-ideebild { container-type: inline-size; }
+.dw-ideebild__idee { display: inline-flex; align-items: center; justify-content: center; gap: 6px; max-width: 12em; padding: 6px 12px; border-radius: 16px; border: 1px solid rgb(0 143 138 / 38%); background: #e8f3f0; box-shadow: 0 2px 8px rgb(0 107 104 / 8%); font-size: 0.82rem; font-weight: 650; line-height: 1.25; color: var(--accent-ink); text-align: center; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
+.dw-ideebild__idee .icon { flex: none; color: var(--accent-mid); }
+.dw-ideebild__hof { fill: rgb(0 166 161 / 16%); transform-box: fill-box; transform-origin: center; }
+
 /* ── Entscheiden (Talk 3938/3939): Wege abwägen (Nutzen/Aufwand), Reihenfolge, Wahl türkis mit Haken ── */
 .dw-pos--kopf { transform: translate(0, -13px); }   /* Kopfzeile (Rang + Begriff) liegt auf Höhe des Knotens */
 .dw-wahl { display: grid; gap: 5px; }
@@ -257,6 +263,7 @@
   .dw-bild { max-width: 420px; }
   .dw-chip { font-size: 0.74rem; padding: 3px 9px; }
   .dw-bereich__name { font-size: 0.86rem; }
+  .dw-ideebild__idee { font-size: 0.74rem; padding: 5px 9px; max-width: 12.5em; }
 }
 
 /* ── Desktop ── */
