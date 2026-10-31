@@ -216,7 +216,9 @@
 .dw-ideebild__idee { display: inline-flex; align-items: center; justify-content: center; gap: 6px; max-width: 12em; padding: 6px 12px; border-radius: 16px; border: 1px solid rgb(0 143 138 / 38%); background: #e8f3f0; box-shadow: 0 2px 8px rgb(0 107 104 / 8%); font-size: 0.82rem; font-weight: 650; line-height: 1.25; color: var(--accent-ink); text-align: center; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-ideebild__idee .icon { flex: none; color: var(--accent-mid); }
 /* Talk 4122: Gruppen-Label (Ideen / Wünsche / Probleme) sitzt auf der Linie, Papiergrund deckt sie ab */
-.dw-ideebild__gruppe { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; background: var(--paper); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; color: var(--accent-ink); white-space: nowrap; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
+.dw-ideebild__gruppe { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; background: var(--paper); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; color: var(--accent-ink); white-space: nowrap; }
+/* Lage des Labels auf einer eigenen Hülle, damit die Spuren (auf/weg) am Label selbst den Versatz nicht überschreiben */
+.dw-ideebild__lage { display: block; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-ideebild__gruppe .icon { flex: none; color: var(--accent-mid); }
 .dw-ideebild__knoten { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent-mid); color: var(--accent-ink); }
 .dw-ideebild__knoten .icon { position: relative; z-index: 1; filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }

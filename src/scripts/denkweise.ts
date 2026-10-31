@@ -8,7 +8,7 @@
 // - Die Spitze der Linie folgt einer Lese-Höhe im Fenster (62 %); beim Laden zeichnet sie sich im Hero einmal von selbst.
 // - Szenen [data-szene]: Fortschritt 0…1, solange die Spitze durch ihre Fläche läuft. Elemente darin tragen
 //   [data-an="art:a-b[:min] …"] mit art = zeichnen | linear | auf | aus | blende | wachsen | erscheinen | links |
-//   rechts | breit | hoch | fliessen (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
+//   rechts | breit | hoch | fliessen | weg (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
 //   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene).
 // - Kreis-Szenen mit [data-zu="p"]: ab Fortschritt p bekommt die Szene die Klasse ist-zu (Kreis geschlossen), solange
 //   sie im Bild ist zusätzlich ist-sichtbar (nur dann läuft der Dauer-Fluss per CSS).
@@ -170,6 +170,8 @@ if (root) {
           case 'auf': op *= t; opNutzt = true; tf += ` translate3d(0, ${((1 - t) * 10).toFixed(1)}px, 0)`; break;
           case 'aus': op *= 1 - (1 - sp.min) * t; opNutzt = true; break;
           case 'blende': op *= t; opNutzt = true; break;
+          // ausblenden, nur mit Bewegung (bei reduzierter Bewegung bleibt das Element stehen), z. B. Gruppen-Label der Idee
+          case 'weg': if (!reduce) { op *= 1 - t; opNutzt = true; } break;
           case 'wachsen': tf += ` scale(${t.toFixed(3)})`; break;
           case 'erscheinen': op *= t; opNutzt = true; tf += ` scale(${(0.6 + 0.4 * t).toFixed(3)})`; break;
           case 'links': op *= t; opNutzt = true; tf += ` translate3d(${(-(1 - t) * 28).toFixed(1)}px, 0, 0)`; break;
