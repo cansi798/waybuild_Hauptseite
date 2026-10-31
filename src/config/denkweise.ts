@@ -70,7 +70,7 @@ export const DW_VERSTEHEN = {
 export const DW_HINTERFRAGEN = {
   titel: 'Erst das Warum, dann das Wie.', // Talk 4069/4071
   // Talk 3818 Punkt 2: Botschaft, damit die Szene auf Anhieb verständlich ist
-  botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
+  botschaft: ['Die erste Idee ist oft erst der Anfang.'], // Talk 4075
   // Vorschlag 4: nicht die Website aussortieren, sondern den Neubau
   zeilen: ['Nicht jede Website muss neu gebaut werden.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
   schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.',
