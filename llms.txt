@@ -1,8 +1,8 @@
 # Waybuild UG (haftungsbeschränkt)
 
-> Wir machen Veränderungen einfach. Wir unterstützen Unternehmen dabei, digitale Lösungen verständlich, einfach und verlässlich umzusetzen.
+> Wir machen Veränderungen einfach. Wir entwickeln digitale Lösungen für Unternehmen, als fertiges Produkt oder individuell. Oft fangen wir mit der Website an.
 
-Kurz gesagt: Waybuild ist ein IT-Dienstleister aus Norderstedt für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
+Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
 Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
@@ -19,13 +19,14 @@ Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. P
 Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei Teilen: Gute Lösungen beginnen mit Verständnis, Veränderungen umsetzen, Veränderungen nachhaltig machen.
 1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
 2. Verstehen: Bevor wir etwas verändern, möchten wir es verstehen. Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen: wie Menschen heute arbeiten, welche digitalen Werkzeuge sie nutzen, wo digitale Reibung entsteht, welche Prozesse vorhanden sind. Denn nicht jede Herausforderung benötigt eine neue Lösung.
-3. Hinterfragen: Bevor wir digitale Lösungen entwickeln, möchten wir verstehen. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
+3. Hinterfragen: Bevor wir digitale Lösungen entwickeln, möchten wir verstehen. Nicht jede Website muss neu gebaut werden. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
 4. Entscheiden: Wir empfehlen, bevor wir umsetzen. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
-5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist nicht die Technologie. Entscheidend ist, dass sie zum Ziel passt.
+5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist, dass sie zum Ziel passt. Positionierung, Inhalte und Anfrageprozess landen bei den meisten Unternehmen auf der Website. Deshalb fangen wir oft dort an, und vieles andere baut später darauf auf.
 6. Verbessern: Gute Veränderungen entwickeln sich weiter. Planen, umsetzen, prüfen, anpassen. Und dann wieder von vorn. (PDCA: Planen/Plan, Umsetzen/Do, Prüfen/Check, Anpassen/Act)
 
-## Bereiche
-- Website Service
+## Fertige Produkte und individuelle Lösungen
+- Fertige Produkte mit festem Umfang: siehe „Produkte“ unten (Hauptprodukt: Website Service).
+- Individuelle Lösungen (auf anfrage): Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.
 - Weitere Produkte folgen.
 
 ## Verlässlichkeit: Gute digitale Lösungen brauchen Verlässlichkeit.
@@ -54,7 +55,7 @@ Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei
 - Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 
-## Website Service (erstes Produkt)
+## Website Service (Hauptprodukt)
 Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Enthalten: Professionelle Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups, Laufende Betreuung, KI-gestützte Erstellung, Sprachgesteuerte Änderungen.
 - Geschäftsmodell: Keine Einrichtungskosten, Fester Monatspreis, netto zzgl. MwSt., 24 Monate Laufzeit, Website, Code und Domain gehören Ihnen, Keine versteckten Kosten, Kein künstlicher Lock-in.
@@ -66,7 +67,7 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text, wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
 
 ## Häufige Fragen zu Waybuild
-- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, eine Kundenverwaltung für AZAV-Bildungsträger und Apps dazu. Weitere Produkte folgen.
+- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, eine Kundenverwaltung für AZAV-Bildungsträger und Apps dazu. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell. Weitere Produkte folgen.
 - Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
 - Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
