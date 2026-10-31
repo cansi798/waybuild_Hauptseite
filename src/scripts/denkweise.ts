@@ -10,6 +10,8 @@
 //   [data-an="art:a-b[:min] …"] mit art = zeichnen | linear | auf | aus | blende | wachsen | erscheinen | links |
 //   rechts | breit | hoch (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
 //   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene).
+// - Kreis-Szenen mit [data-zu="p"]: ab Fortschritt p bekommt die Szene die Klasse ist-zu (Kreis geschlossen), solange
+//   sie im Bild ist zusätzlich ist-sichtbar (nur dann läuft der Dauer-Fluss per CSS).
 //
 // Performance: alle Maße einmal messen (Laden, Schriften, Größenänderung, Kopfzeilen-Wechsel); pro Frame nur scrollY
 // lesen, Nachschlagetabelle statt getPointAtLength, nur sichtbare Szenen, nur transform/opacity/dashoffset schreiben
@@ -17,7 +19,7 @@
 
 type Spur = { art: string; a: number; b: number; min: number; auto: boolean };
 type Item = { el: HTMLElement | SVGElement; spuren: Spur[]; alt: Record<string, string> };
-type Szene = { el: HTMLElement; top: number; h: number; items: Item[]; p: number; ende: boolean };
+type Szene = { el: HTMLElement; top: number; h: number; items: Item[]; p: number; ende: boolean; zu: number };
 
 const root = document.querySelector<HTMLElement>('[data-denkweise]');
 if (root) {
@@ -39,7 +41,7 @@ if (root) {
   });
 
   const szenen: Szene[] = Array.from(root.querySelectorAll<HTMLElement>('[data-szene]')).map((el) => ({
-    el, top: 0, h: 1, p: -1, ende: el.hasAttribute('data-szene-ende'),
+    el, top: 0, h: 1, p: -1, ende: el.hasAttribute('data-szene-ende'), zu: el.dataset.zu ? +el.dataset.zu : -1,
     items: Array.from(el.querySelectorAll<HTMLElement>('[data-an]')).map((it) => ({ el: it, spuren: parse(it.dataset.an || ''), alt: {} })),
   }));
 
@@ -150,6 +152,8 @@ if (root) {
       if (opNutzt) setz(it, 'opacity', op.toFixed(3));
       if (tf) setz(it, 'transform', tf.trim());
     }
+    // Kreis-Szenen [data-zu]: ab diesem Fortschritt ist der Kreis geschlossen (Türkis, Pfeile, Fluss per CSS)
+    if (s.zu >= 0) s.el.classList.toggle('ist-zu', p >= s.zu);
   };
 
   let laeuft = false, fertig = false;
@@ -189,6 +193,11 @@ if (root) {
 
   if (!reduce) root.classList.add('dw--live');
   neu();
+  // Dauer-Fluss der Kreise läuft nur, solange der Kreis im Bild ist (sonst pausiert, spart Rechenzeit)
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('ist-sichtbar', e.isIntersecting)));
+    szenen.forEach((s) => { if (s.zu >= 0) io.observe(s.el); });
+  }
   if (!reduce) { introStart = performance.now() + 450; introAktiv = true; anfordern(); }
   window.addEventListener('scroll', anfordern, { passive: true });
   let rz = 0;

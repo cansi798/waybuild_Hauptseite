@@ -1,24 +1,31 @@
 ---
-// Szene „Verstehen“: Die Linie erreicht einen großen Kreis und hält an. Nacheinander verbinden sich Unternehmen,
-// Menschen, Ziele, Kommunikation und Abläufe mit dem Kreis, er füllt sich, dann erscheint „Verständnis“.
+// Szene „Verstehen“: Die Linie läuft mittig auf den großen Kreis zu und teilt sich am oberen Scheitel in zwei Äste,
+// die links und rechts herum den Kreis bilden und sich unten in der Mitte treffen (Jamil, Talk 3920); von dort läuft
+// die Linie mittig weiter. Nacheinander verbinden sich Unternehmen, Menschen, Ziele, Kommunikation und Abläufe mit dem
+// Kreis, er füllt sich, dann erscheint „Verständnis“. Die Teilung beginnt erst, wenn die Linie oben angekommen ist.
 import { DW_VERSTEHEN } from '../../config/denkweise';
 const W = 440, H = 420, CX = 220, CY = 210, R = 104;
+// Spitze erreicht den oberen Scheitel bei p = (CY - R) / H / 0.85 ≈ 0.30 (Szenen-Fortschritt, siehe denkweise.ts)
+const TEIL = 0.3, ZU = 0.56;
 const b = DW_VERSTEHEN.begriffe.map((x, k) => ({ ...x, k, d: `M ${(x.x / 100) * W} ${(x.y / 100) * H} L ${x.kx} ${x.ky}` }));
 ---
 <div class="dw-bild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    <circle class="dw-fuell" cx={CX} cy={CY} r={R - 4} data-an="wachsen:0.6-0.84" />
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${CY - R} A ${R} ${R} 0 0 1 ${CX} ${CY + R} A ${R} ${R} 0 0 1 ${CX} ${CY - R}`} data-an="zeichnen:0-0.24" />
-    {b.map((x) => <path class="dw-s dw-s--fein" pathLength="1" d={x.d} data-an={`zeichnen:${(0.24 + x.k * 0.075).toFixed(3)}-${(0.32 + x.k * 0.075).toFixed(3)}`} />)}
+    <circle class="dw-fuell" cx={CX} cy={CY} r={R - 4} data-an="wachsen:0.74-0.9" />
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${CY - R} A ${R} ${R} 0 0 0 ${CX} ${CY + R}`} data-an={`linear:${TEIL}-${ZU}`} />
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${CY - R} A ${R} ${R} 0 0 1 ${CX} ${CY + R}`} data-an={`linear:${TEIL}-${ZU}`} />
+    {b.map((x) => <path class="dw-s dw-s--fein" pathLength="1" d={x.d} data-an={`zeichnen:${(0.5 + x.k * 0.055).toFixed(3)}-${(0.58 + x.k * 0.055).toFixed(3)}`} />)}
+    <circle class="dw-knoten" cx={CX} cy={CY - R} r="6" data-an={`erscheinen:${(TEIL - 0.02).toFixed(2)}-${(TEIL + 0.04).toFixed(2)}`} />
+    <circle class="dw-knoten" cx={CX} cy={CY + R} r="6" data-an={`erscheinen:${(ZU - 0.03).toFixed(2)}-${(ZU + 0.03).toFixed(2)}`} />
   </svg>
   <span class="dw-anker" style={`left:50%;top:${((CY - R) / H) * 100}%`} data-weg="ein"></span>
   <span class="dw-anker" style={`left:50%;top:${((CY + R) / H) * 100}%`} data-weg="aus"></span>
   {b.map((x) => (
     <span class="dw-pos" style={`left:${x.x}%;top:${x.y}%`}>
-      <span class="dw-chip" data-an={`auf:${(0.2 + x.k * 0.075).toFixed(3)}-${(0.3 + x.k * 0.075).toFixed(3)}`}>{x.text}</span>
+      <span class="dw-chip" data-an={`auf:${(0.44 + x.k * 0.055).toFixed(3)}-${(0.54 + x.k * 0.055).toFixed(3)}`}>{x.text}</span>
     </span>
   ))}
   <span class="dw-pos" style="left:50%;top:50%">
-    <span class="dw-mitte" data-an="auf:0.8-0.94">{DW_VERSTEHEN.mitte}</span>
+    <span class="dw-mitte" data-an="auf:0.86-0.97">{DW_VERSTEHEN.mitte}</span>
   </span>
 </div>
