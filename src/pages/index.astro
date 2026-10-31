@@ -31,14 +31,14 @@ import '../styles/denkweise.css';
 
 const K = DW_UMSETZEN.karte;
 // Hero-Prozesslinie (Talk 4057) als festes SVG: Lage der Kreise und Punkte folgt aus dem CSS-Raster in denkweise.css
-// (Kreis 74/96 px, Abstand oben 34/44, Punkte 15/18 px, Lücke 42/58, Versatz --dx × 1,15/1,7, Ziel mit 6 px Abstand).
+// (Talk 4063 ~85 %: Kreis 63/82 px, Abstand oben 29/37, Punkte 13/15 px, Lücke 36/49, Versatz --dx × 0,98/1,45, Ziel mit 5 px Abstand).
 // Gleiche weiche S-Kurven mit senkrechten Tangenten wie die Scroll-Linie. Bei Änderungen am Hero-CSS hier mitziehen.
 const DX = [-34, 30, -26, 34, -18];
-const heroLinien = ([['m', 74, 34, 15, 42, 1.15], ['d', 96, 44, 18, 58, 1.7]] as const).map(([v, kreis, oben, punkt, luecke, hs]) => {
+const heroLinien = ([['m', 63, 29, 13, 36, 0.98], ['d', 82, 37, 15, 49, 1.45]] as const).map(([v, kreis, oben, punkt, luecke, hs]) => {
   const pkt: { x: number; y: number }[] = [{ x: 0, y: 8 + kreis / 2 }];
   const liTop = 8 + kreis + oben;
   for (let i = 0; i < 4; i++) pkt.push({ x: DX[i] * hs, y: liTop + i * (punkt + luecke) + punkt / 2 });
-  pkt.push({ x: DX[4] * hs, y: liTop + 4 * (punkt + luecke) + 6 + kreis / 2 });
+  pkt.push({ x: DX[4] * hs, y: liTop + 4 * (punkt + luecke) + 5 + kreis / 2 });
   let d = `M ${pkt[0].x} ${pkt[0].y}`;
   for (let i = 1; i < pkt.length; i++) {
     const a = pkt[i - 1], b = pkt[i], dy = b.y - a.y, k = 0.55;
