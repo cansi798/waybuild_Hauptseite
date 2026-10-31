@@ -48,7 +48,8 @@ export const DW_IDEE = {
 export const DW_VERSTEHEN = {
   titel: 'Bevor wir etwas verändern, möchten wir es verstehen.',
   einleitung: 'Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen:',
-  punkte: ['wie Ihr Unternehmen arbeitet', 'welche Ziele wichtig sind', 'wie Entscheidungen entstehen', 'wo Reibung entsteht'],
+  // Talk 4012: ergänzt; „wo Reibung entsteht“ wurde zu „wo digitale Reibung entsteht“ (keine Doppelung)
+  punkte: ['wie Ihr Unternehmen arbeitet', 'welche Ziele wichtig sind', 'wie Entscheidungen entstehen', 'wie Menschen heute arbeiten', 'welche digitalen Werkzeuge sie nutzen', 'wo digitale Reibung entsteht', 'welche Prozesse vorhanden sind'],
   schluss: 'Denn nicht jede Herausforderung benötigt eine neue Lösung.',
   /** Begriffe rund um den Kreis (Bildfläche 440 × 420, Kreis um 220/210, r = 104) */
   begriffe: [
