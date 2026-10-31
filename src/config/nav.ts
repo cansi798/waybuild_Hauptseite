@@ -9,7 +9,7 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 // 30.10.2026: Startseite „Denkweise“ (Jamil, Talk 3799) – Anker an die neue Geschichte angepasst.
 export const NAV: NavItem[] = [
   // Talk 3818: drei Kapitel – Verstehen, Umsetzen, nachhaltig machen (Verlässlichkeit)
-  { label: 'Verstehen', path: '/#kapitel-1' },
+  { label: 'Verstehen', path: '/#verstehen' },
   { label: 'Umsetzen', path: '/#kapitel-2' },
   { label: 'Produkte', path: '/#produkte' },   // Positionierung Vorschlag 8 (Talk 4065)
   { label: 'Prinzipien', path: '/#prinzipien' },   // Talk 4087 (vorher „Verlässlichkeit“)

@@ -1,63 +1,60 @@
 ---
-// Szene „Umsetzen“ (Jamil, Talk 4050; Inhalt nach Talk 4024): Aus Erkenntnissen entstehen Lösungen.
-// Drei Erkenntnisse (Lupe, Glühbirne, Ziel) fließen in einen Knoten auf der Linie; die Linie läuft weiter in ein
-// Website-Fenster, dessen Bausteine nacheinander einrasten. Darunter „Website Service“ und dezent „Weitere Produkte
-// folgen.“ Scrollgekoppelt; ohne JS / reduzierte Bewegung: fertiges Fenster mit allen Bausteinen.
+// Szene „Umsetzen“ (Talk 4050/4091/4093): Drei Erkenntnisse (Lupe, Glühbirne, Ziel) stehen in einer Reihe über dem
+// Knoten, bleiben eine Weile stehen und fließen dann der Reihe nach (links → Mitte → rechts) hinein. Der Knoten ist so
+// groß wie die Lupe bei „Verstehen“ und trägt ein Funkeln (Erkenntnis). Danach läuft die Linie in eine allgemeine
+// „Lösung“: Bausteine schieben sich zu einem fertigen Ganzen zusammen (kein Produktname). Ohne JS / reduzierte
+// Bewegung: fertiges Bild.
 import Icon from '../Icon.astro';
-import { DW_UMSETZEN as T } from '../../config/denkweise';
-const W = 440, H = 440, CX = 220, KY = 70;
-// Fenster
-const FX = 96, FY = 132, FW = 248, FH = 176, KOPF = 22;
+const W = 440, H = 440, CX = 220, KY = 124, RY = 40;
+// Lösung: Rahmen mit vier Bausteinen (2 × 2)
+const FX = 145, FY = 196, FS = 150, PAD = 10, GAP = 10, BS = (FS - 2 * PAD - GAP) / 2;
 const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 const erkenntnisse = [
-  { icon: 'search', x: 92, y: 40 },
-  { icon: 'idee', x: 348, y: 34 },
-  { icon: 'target', x: 330, y: 104 },
-].map((e, k) => ({ ...e, k, ox: f(((e.x - CX) / W) * 100), oy: f(((e.y - KY) / W) * 100) }));
-// Bausteine im Fenster (x, y, b, h relativ zur Bildfläche), rasten nacheinander ein
+  { icon: 'search', x: 146 },
+  { icon: 'idee', x: 220 },
+  { icon: 'target', x: 294 },
+].map((e, k) => ({ ...e, k, ox: f(((e.x - CX) / W) * 100), oy: f(((RY - KY) / W) * 100), an: `auf:${f(0.02 + k * 0.03)}-${f(0.1 + k * 0.03)} fliessen:${f(0.3 + k * 0.08)}-${f(0.42 + k * 0.08)}` }));
 const bausteine = [
-  { x: FX + 14, y: FY + KOPF + 12, w: FW - 28, h: 40, akzent: true },
-  { x: FX + 14, y: FY + KOPF + 62, w: (FW - 38) / 2, h: 46, akzent: false },
-  { x: FX + 24 + (FW - 38) / 2, y: FY + KOPF + 62, w: (FW - 38) / 2, h: 46, akzent: false },
-  { x: FX + 14, y: FY + KOPF + 118, w: 74, h: 18, akzent: true, knopf: true },
+  { x: FX + PAD, y: FY + PAD, von: 'links' },
+  { x: FX + PAD + BS + GAP, y: FY + PAD, von: 'rechts' },
+  { x: FX + PAD, y: FY + PAD + BS + GAP, von: 'links' },
+  { x: FX + PAD + BS + GAP, y: FY + PAD + BS + GAP, von: 'rechts', akzent: true },
 ].map((b, k) => ({ ...b, k }));
-const website = T.bereiche.find((b) => !b.folgt)!;
-const folgt = T.bereiche.find((b) => b.folgt);
+const rahmen = `M ${CX} ${FY} H ${FX + FS - 14} A 14 14 0 0 1 ${FX + FS} ${FY + 14} V ${FY + FS - 14} A 14 14 0 0 1 ${FX + FS - 14} ${FY + FS} H ${FX + 14} A 14 14 0 0 1 ${FX} ${FY + FS - 14} V ${FY + 14} A 14 14 0 0 1 ${FX + 14} ${FY} Z`;
 ---
 <div class="dw-bild dw-umsetzen" data-szene style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    <path class="dw-s" pathLength="1" d={`M ${CX} 0 L ${CX} ${KY}`} data-an="linear:0-0.14" />
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${KY} L ${CX} ${FY}`} data-an="linear:0.34-0.42" />
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY + FH} L ${CX} ${H}`} data-an="linear:0.8-0.97" />
-    {/* Fenster: Rahmen zeichnet sich, Fläche und Kopfzeile blenden ein */}
-    <rect class="dw-umsetzen__flaeche" x={FX} y={FY} width={FW} height={FH} rx="12" data-an="blende:0.42-0.5" />
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY} H ${FX + FW - 12} A 12 12 0 0 1 ${FX + FW} ${FY + 12} V ${FY + FH - 12} A 12 12 0 0 1 ${FX + FW - 12} ${FY + FH} H ${FX + 12} A 12 12 0 0 1 ${FX} ${FY + FH - 12} V ${FY + 12} A 12 12 0 0 1 ${FX + 12} ${FY} Z`} data-an="zeichnen:0.42-0.56" />
-    <path class="dw-s dw-s--fein" pathLength="1" d={`M ${FX} ${FY + KOPF} H ${FX + FW}`} data-an="zeichnen:0.52-0.58" />
-    {[0, 1, 2].map((i) => <circle class="dw-umsetzen__punkt" cx={FX + 14 + i * 11} cy={FY + KOPF / 2} r="3.2" data-an={`erscheinen:${f(0.54 + i * 0.02)}-${f(0.58 + i * 0.02)}`} />)}
-    {bausteine.map((b) => <rect class:list={['dw-umsetzen__baustein', { 'dw-umsetzen__baustein--akzent': b.akzent && !b.knopf, 'dw-umsetzen__baustein--knopf': b.knopf }]} x={b.x} y={b.y} width={b.w} height={b.h} rx={b.knopf ? 9 : 6} data-an={`auf:${f(0.58 + b.k * 0.05)}-${f(0.66 + b.k * 0.05)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${KY} L ${CX} ${FY}`} data-an="linear:0.6-0.66" />
+    <rect class="dw-umsetzen__flaeche" x={FX} y={FY} width={FS} height={FS} rx="14" data-an="blende:0.64-0.7" />
+    <path class="dw-s" pathLength="1" d={rahmen} data-an="zeichnen:0.64-0.76" />
+    {bausteine.map((b) => <rect class:list={['dw-umsetzen__baustein', { 'dw-umsetzen__baustein--knopf': b.akzent }]} x={b.x} y={b.y} width={BS} height={BS} rx="8" data-an={`${b.von}:${f(0.7 + b.k * 0.04)}-${f(0.78 + b.k * 0.04)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY + FS} L ${CX} ${H}`} data-an="linear:0.86-0.97" />
   </svg>
-  <span class="dw-anker" style={`left:${pc(CX, W)};top:0%`} data-weg="ein"></span>
-  <span class="dw-anker" style={`left:${pc(CX, W)};top:100%`} data-weg="aus"></span>
 
   {erkenntnisse.map((e) => (
     <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(KY, H)}`}>
-      <span class="dw-umsetzen__erkenntnis" style={`--ox:${e.ox};--oy:${e.oy}`} data-an={`auf:${f(0.02 + e.k * 0.04)}-${f(0.1 + e.k * 0.04)} fliessen:${f(0.16 + e.k * 0.05)}-${f(0.3 + e.k * 0.05)}`}><Icon name={e.icon as any} size={16} /></span>
+      <span class="dw-umsetzen__erkenntnis" style={`--ox:${e.ox};--oy:${e.oy}`} data-an={e.an}><Icon name={e.icon as any} size={16} /></span>
     </span>
   ))}
-  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(CX, W)} + 22px);top:${pc(KY, H)}`}>
-    <span class="dw-umsetzen__notiz" data-an="auf:0.38-0.46">Erkenntnisse</span>
-  </span>
+  {/* Knoten „Erkenntnisse“: so groß wie die Lupe bei „Verstehen“, teilt sich wie alle Kreise */}
   <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(KY, H)}`}>
-    <span class="dw-umsetzen__knoten" data-an="blende:0.1-0.18"><span class="dw-umsetzen__fuell" data-an="blende:0.3-0.4"></span></span>
-  </span>
-
-  <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FH + 34, H)}`}>
-    <span class="dw-umsetzen__ergebnis" data-an="auf:0.8-0.88"><Icon name={website.icon} size={18} /> {website.name}</span>
-  </span>
-  {folgt && (
-    <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FH + 82, H)}`}>
-      <span class="dw-umsetzen__folgt" data-an="auf:0.86-0.94"><Icon name={folgt.icon} size={14} /> {folgt.name}</span>
+    <span class="dw-verstehen__kreis">
+      <svg class="dw-verstehen__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <path class="dw-s dw-verstehen__ast" pathLength="1" d="M 50 1.5 A 48.5 48.5 0 0 0 50 98.5" data-an="linear:0.16-0.26" />
+        <path class="dw-s dw-verstehen__ast" pathLength="1" d="M 50 1.5 A 48.5 48.5 0 0 1 50 98.5" data-an="linear:0.16-0.26" />
+      </svg>
+      <span class="dw-verstehen__fuell" data-an="blende:0.56-0.62"></span>
+      <span class="dw-verstehen__lupe" data-an="blende:0.2-0.28"><Icon name="spark" size={22} /></span>
+      <span class="dw-anker" style="left:50%;top:0" data-weg="ein"></span>
     </span>
-  )}
+  </span>
+  {/* „aus“ steht nach dem Kreis-Anker „ein“: Wegpunkte zählen in Dokument-Reihenfolge */}
+  <span class="dw-anker" style={`left:${pc(CX, W)};top:100%`} data-weg="aus"></span>
+  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(CX, W)} + 38px);top:${pc(KY, H)}`}>
+    <span class="dw-umsetzen__notiz" data-an="auf:0.5-0.6">Erkenntnisse</span>
+  </span>
+  <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FS + 30, H)}`}>
+    <span class="dw-umsetzen__ergebnis" data-an="auf:0.84-0.92"><Icon name="check" size={18} /> Lösung</span>
+  </span>
 </div>

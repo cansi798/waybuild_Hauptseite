@@ -50,20 +50,22 @@ export const DW_IDEE = {
 };
 
 export const DW_VERSTEHEN = {
-  titel: 'Bevor wir etwas verändern, möchten wir es verstehen.',
-  einleitung: 'Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen:',
-  // Talk 4012 ergänzt („wo digitale Reibung entsteht“ statt „wo Reibung entsteht“), Talk 4039: die ersten drei entfernt
-  punkte: ['wie Menschen heute arbeiten', 'welche digitalen Werkzeuge sie nutzen', 'wo digitale Reibung entsteht', 'welche Prozesse vorhanden sind'],
-  schluss: 'Denn nicht jede Herausforderung benötigt eine neue Lösung.',
-  /** Begriffe rund um den Kreis (Talk 4042: kleiner Kreis wie der Ideen-Knoten). Lage in viewBox-Einheiten der
-   *  Bildfläche 440 × 360, Kreis in der Mitte (220/180). */
+  // Talk 4088: neue Texte (Überschrift und Kernsatz stehen jetzt nur noch hier, der Teil-Kopf darüber ist entfernt)
+  titel: 'Gute Lösungen beginnen mit Verständnis.',
+  unterzeile: 'Wir verstehen, bevor wir umsetzen.',
+  einleitung: 'Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir verstehen:',
+  punkte: ['wie Menschen heute arbeiten', 'welche digitalen Werkzeuge sie nutzen', 'wo digitale Reibung entsteht', 'welche Ziele verfolgt werden'],
+  dna: ['Aus diesen Erkenntnissen entsteht ein klares Bild Ihres Unternehmens.', 'Wir nennen es Ihre Unternehmens-DNA.'],
+  dnaText: 'Sie hilft dabei, Entscheidungen nachvollziehbar zu treffen und digitale Lösungen zu entwickeln, die wirklich zu Ihrem Unternehmen passen.',
+  /** Szene: diese Begriffe fließen in die Lupe, daraus entsteht die Unternehmens-DNA (Doppelstrang). Lage in
+   *  viewBox-Einheiten der Bildfläche 440 × 440, Lupe bei 220/112. */
   begriffe: [
-    { text: 'Unternehmen', x: 328, y: 92 },
-    { text: 'Menschen', x: 356, y: 180 },
-    { text: 'Ziele', x: 322, y: 268 },
-    { text: 'Kommunikation', x: 112, y: 268 },
-    { text: 'Prozesse', x: 88, y: 180 },
+    { text: 'Menschen', x: 96, y: 52 },
+    { text: 'Werkzeuge', x: 344, y: 52 },
+    { text: 'Reibung', x: 84, y: 158 },
+    { text: 'Ziele', x: 356, y: 158 },
   ],
+  dnaLabel: 'Ihre Unternehmens-DNA',
   mitte: 'Verständnis',
 };
 
@@ -109,7 +111,7 @@ export const DW_UMSETZEN = {
   zeilen: ['Je nach Unternehmen entstehen unterschiedliche Lösungen.', 'Entscheidend ist, dass sie zum Ziel passt.'],
   // Vorschlag 3: Brücke von den drei Wegen zur Website (erklärt das Website-Bild daneben)
   bruecke: 'Positionierung, Inhalte und Anfrageprozess landen bei den meisten Unternehmen auf der Website. Deshalb fangen wir oft dort an, und vieles andere baut später darauf auf.',
-  /** Talk 4024: nur der Website Service wird gezeigt, darunter dezent „Weitere Produkte folgen.“ (folgt = Hinweis,
+  /** Seit Talk 4093 nicht mehr angezeigt (Umsetzen zeigt eine allgemeine „Lösung“). Talk 4024: nur der Website Service, darunter dezent „Weitere Produkte folgen.“ (folgt = Hinweis,
    *  kein Angebot). Software/Workplace/Cloud/Process Service zeigt Jamil derzeit nicht. */
   bereiche: [
     { name: 'Website Service', icon: 'layout' as IconName, hinweis: '', hervor: true, folgt: false },
@@ -131,10 +133,9 @@ export const DW_UMSETZEN = {
 export const DW_VERBESSERN = {
   titel: 'Gute Veränderungen entwickeln sich weiter.',
   zeilen: ['Gute Veränderungen brauchen Verantwortung, Struktur und Verlässlichkeit.', 'Deshalb bleiben wir nicht bei der Umsetzung stehen.', 'Wir helfen dabei, Veränderungen dauerhaft erfolgreich zu machen.'],
-  // Talk 4052: PDCA im Uhrzeigersinn ab 12 Uhr (oben, rechts, unten, links), englisch als feine Zweitzeile
-  kreis: ['Planen', 'Umsetzen', 'Prüfen', 'Anpassen'],
-  kreisEn: ['Plan', 'Do', 'Check', 'Act'],
-  unterzeile: 'Planen, umsetzen, prüfen, anpassen. Und dann wieder von vorn.',
+  // Talk 4094: Kreislauf im Uhrzeigersinn ab 12 Uhr (oben, rechts, unten, links); vorher PDCA (Talk 4052)
+  kreis: ['Feedback', 'Analysieren', 'Planen', 'Verbessern'],
+  unterzeile: 'Feedback sammeln, auswerten, planen, verbessern. Und dann wieder von vorn.',
   // Story-Brücke von „Umsetzen“: die Lösung bleibt nach dem Start nicht stehen (belegt: hauptseite.ts, Website Service)
   text: 'Auch nach dem Start bleibt eine Lösung nicht stehen. Wir prüfen, was sie bewirkt, und verbessern sie Schritt für Schritt.',
 };

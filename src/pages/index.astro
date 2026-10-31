@@ -11,7 +11,7 @@
 // „Verbessern“; die durchgehende Scroll-Linie beginnt erst unter der ersten Überschrift „Veränderungen verstehen“
 // (Talk 3922/3935).
 // Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
-// Veränderungs-Check (Fragen + Profil) vorerst entfernt (Talk 4045; Komponenten DwFrage/DwProfil bleiben im Repo). Die Unternehmens-DNA steht bewusst nicht hier (Talk 3818/8).
+// Veränderungs-Check (Fragen + Profil) vorerst entfernt (Talk 4045; Komponenten DwFrage/DwProfil bleiben im Repo). Die Unternehmens-DNA kommt seit Talk 4088 bei „Verstehen“ vor.
 // Vorherige Fassung: Git-Tag startseite-v3-anfragereise-20261030; Komponenten in src/components/story/.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
@@ -21,7 +21,6 @@ import DwHinterfragen from '../components/dw/DwHinterfragen.astro';
 import DwEntscheiden from '../components/dw/DwEntscheiden.astro';
 import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
 import DwVerbessern from '../components/dw/DwVerbessern.astro';
-import DwFortschritt from '../components/dw/DwFortschritt.astro';
 import { href } from '../lib/paths';
 import { BESCHREIBUNG } from '../config/hauptseite';
 import {
@@ -147,18 +146,9 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 1 · VERÄNDERUNGEN VERSTEHEN ═══ -->
+    <!-- ═══ KAPITEL 1 (Teil-Kopf entfernt, Talk 4088: Überschrift und Kernsatz stehen bei „Verstehen“) ═══ -->
     <section class="dw-kapitel" id={K1.id} aria-labelledby="k1-h">
-      <div class="wrap dw-kapitelkopf">
-        <div class="dw-kapitel__text" data-szene data-szene-id="k1">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <h2 id="k1-h">{K1.titel}</h2>
-          <p class="dw-kern">{K1.kern}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d"></span>
-        </div>
-      </div>
-
+      <h2 class="sr-only" id="k1-h">Unsere Denkweise: von der Idee zur passenden Lösung</h2>
       <!-- Idee -->
       <div class="dw-abschnitt" id="denkweise">
         <div class="wrap dw-raster dw-raster--spiegel">
@@ -182,9 +172,11 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <span class="dw-kenn"><Icon name="search" size={18} /> Verstehen</span>
             <h3>{DW_VERSTEHEN.titel}</h3>
+            <p class="dw-unterzeile">{DW_VERSTEHEN.unterzeile}</p>
             <p>{DW_VERSTEHEN.einleitung}</p>
             <ul class="dw-liste">{DW_VERSTEHEN.punkte.map((p) => <li>{p}</li>)}</ul>
-            <p>{DW_VERSTEHEN.schluss}</p>
+            <p class="dw-zeilen dw-zeilen--betont">{DW_VERSTEHEN.dna.map((z) => <span>{z}</span>)}</p>
+            <p>{DW_VERSTEHEN.dnaText}</p>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           </div>
           <DwVerstehen />
@@ -335,7 +327,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 
       <!-- Kontakt -->
       <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
-        <div class="wrap dw-raster">
+        <div class="wrap">
           <div class="dw-text reveal">
             <h3 id="dw-abschluss-h" class="dw-abschluss__titel">{DW_ABSCHLUSS.titel}</h3>
             <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
@@ -343,9 +335,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
             <ul class="dw-vertrauen">{DW_ABSCHLUSS.vertrauen.map((v) => <li><Icon name="check" size={16} /> {v}</li>)}</ul>
           </div>
-          <DwFortschritt />
         </div>
-        <p class="dw-slogan">{DW_ABSCHLUSS.slogan}</p>
       </div>
     </section>
   </div>

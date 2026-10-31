@@ -1,27 +1,48 @@
 ---
-// Szene „Verstehen“ (Talk 3920/4042): Der Kreis ist jetzt so groß wie der Ideen-Knoten (52 px) und trägt eine Lupe
-// statt des Wortes „Verständnis“ (für Screenreader bleibt „Verständnis“). Die Linie läuft mittig auf ihn zu, teilt sich
-// am oberen Scheitel in zwei Äste, die den Kreis bilden und sich unten treffen; von dort läuft sie mittig weiter.
-// Unternehmen, Menschen, Ziele, Kommunikation und Prozesse stehen ringsum und verbinden sich mit kurzen Linien mit dem
-// Kreis (die Linien enden unter dem Kreis), dann füllt er sich.
-// Der Kreis ist ein HTML-Element mit eigenem kleinem SVG für die beiden Äste, damit er auf jeder Breite 52 px bleibt;
-// die Anker der Linie sitzen an seinem oberen und unteren Rand. Kein Einblenden per transform (sonst stimmt die Messung nicht).
+// Szene „Verstehen“ (Talk 4042/4088): Die Linie läuft in den kleinen Kreis mit der Lupe (teilt sich wie alle Kreise).
+// Menschen, Werkzeuge, Reibung und Ziele fließen nacheinander in die Lupe (keine Verbindungslinien). Danach läuft die
+// Linie weiter und teilt sich in einen Doppelstrang: die Unternehmens-DNA (Sprossen erscheinen nacheinander), unten
+// treffen sich die Stränge wieder und die Linie läuft weiter. Ohne JS / reduzierte Bewegung: fertiges Bild mit DNA.
+// Der Kreis ist ein HTML-Element (52 px) mit eigenem SVG für die Teilung; die Begriffe ruhen per --ox/--oy (cqw).
 import Icon from '../Icon.astro';
 import { DW_VERSTEHEN } from '../../config/denkweise';
-const W = 440, H = 360, CX = 220, CY = 180;
-// Spitze erreicht den oberen Kreisrand bei p ≈ (CY − 30) / H / 0.85 ≈ 0.49
-const TEIL = 0.46, ZU = 0.6;
+const W = 440, H = 440, CX = 220, CY = 112;
+// Doppelstrang: zwei Sinus-Stränge um die Achse, zwei volle Windungen, beginnen und enden auf der Linie
+const D0 = 196, D1 = 370, A = 34, WINDUNGEN = 2, SPROSSEN = 10;
+const strang = (vz: 1 | -1) => {
+  const pts: string[] = [];
+  for (let i = 0; i <= 64; i++) {
+    const y = D0 + ((D1 - D0) * i) / 64;
+    const x = CX + vz * A * Math.sin((2 * Math.PI * WINDUNGEN * (y - D0)) / (D1 - D0));
+    pts.push(`${i ? 'L' : 'M'} ${x.toFixed(1)} ${y.toFixed(1)}`);
+  }
+  return pts.join(' ');
+};
+const sprossen = Array.from({ length: SPROSSEN }, (_, k) => {
+  const y = D0 + ((D1 - D0) * (k + 0.5)) / SPROSSEN;
+  const dx = A * Math.sin((2 * Math.PI * WINDUNGEN * (y - D0)) / (D1 - D0));
+  return { k, y, x1: CX - dx, x2: CX + dx };
+}).filter((s) => Math.abs(s.x2 - s.x1) > 10);
 const f = (n: number) => n.toFixed(3);
-const b = DW_VERSTEHEN.begriffe.map((x, k) => ({ ...x, k, d: `M ${x.x} ${x.y} L ${CX} ${CY}` }));
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+const TEIL = 0.24, ZU = 0.34;
+const b = DW_VERSTEHEN.begriffe.map((x, k) => ({
+  ...x, k,
+  ox: f(((x.x - CX) / W) * 100), oy: f(((x.y - CY) / W) * 100),
+  an: `auf:${f(0.04 + k * 0.04)}-${f(0.14 + k * 0.04)} fliessen:${f(0.36 + k * 0.05)}-${f(0.5 + k * 0.05)}`,
+}));
 ---
-<div class="dw-bild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+<div class="dw-bild dw-verstehen" data-szene style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    {b.map((x) => <path class="dw-s dw-s--fein" pathLength="1" d={x.d} data-an={`zeichnen:${f(0.6 + x.k * 0.04)}-${f(0.7 + x.k * 0.04)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${CY} L ${CX} ${D0}`} data-an="linear:0.58-0.64" />
+    <path class="dw-s" pathLength="1" d={strang(1)} data-an="linear:0.64-0.84" />
+    <path class="dw-s" pathLength="1" d={strang(-1)} data-an="linear:0.64-0.84" />
+    {sprossen.map((s, i) => <path class="dw-s dw-s--fein dw-verstehen__sprosse" pathLength="1" d={`M ${s.x1.toFixed(1)} ${s.y.toFixed(1)} L ${s.x2.toFixed(1)} ${s.y.toFixed(1)}`} data-an={`zeichnen:${f(0.66 + i * 0.022)}-${f(0.7 + i * 0.022)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${D1} L ${CX} ${H}`} data-an="linear:0.84-0.96" />
   </svg>
   {b.map((x) => (
-    <span class="dw-pos" style={`left:${pc(x.x, W)};top:${pc(x.y, H)}`}>
-      <span class="dw-chip" data-an={`auf:${f(0.1 + x.k * 0.06)}-${f(0.2 + x.k * 0.06)}`}>{x.text}</span>
+    <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(CY, H)}`}>
+      <span class="dw-hf-chip dw-verstehen__begriff" style={`--ox:${x.ox};--oy:${x.oy}`} data-an={x.an}>{x.text}</span>
     </span>
   ))}
   <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(CY, H)}`}>
@@ -30,11 +51,15 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
         <path class="dw-s dw-verstehen__ast" pathLength="1" d="M 50 1.5 A 48.5 48.5 0 0 0 50 98.5" data-an={`linear:${TEIL}-${ZU}`} />
         <path class="dw-s dw-verstehen__ast" pathLength="1" d="M 50 1.5 A 48.5 48.5 0 0 1 50 98.5" data-an={`linear:${TEIL}-${ZU}`} />
       </svg>
-      <span class="dw-verstehen__fuell" data-an="blende:0.82-0.94"></span>
-      <span class="dw-verstehen__lupe" data-an={`blende:${f(ZU - 0.06)}-${f(ZU + 0.04)}`}><Icon name="search" size={22} /></span>
+      <span class="dw-verstehen__fuell" data-an="blende:0.56-0.64"></span>
+      <span class="dw-verstehen__lupe" data-an={`blende:${f(ZU - 0.06)}-${f(ZU + 0.02)}`}><Icon name="search" size={22} /></span>
       <span class="sr-only">{DW_VERSTEHEN.mitte}</span>
       <span class="dw-anker" style="left:50%;top:0" data-weg="ein"></span>
-      <span class="dw-anker" style="left:50%;top:100%" data-weg="aus"></span>
     </span>
+  </span>
+  {/* „aus“ steht nach dem Kreis-Anker „ein“: Wegpunkte zählen in Dokument-Reihenfolge */}
+  <span class="dw-anker" style={`left:${pc(CX, W)};top:100%`} data-weg="aus"></span>
+  <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(D1 + 26, H)}`}>
+    <span class="dw-verstehen__dna" data-an="auf:0.84-0.92">{DW_VERSTEHEN.dnaLabel}</span>
   </span>
 </div>
