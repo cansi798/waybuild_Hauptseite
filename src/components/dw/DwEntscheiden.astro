@@ -1,0 +1,45 @@
+---
+// Szene „Entscheiden“ (Jamil, Talk 3938/3939; ersetzt „Vereinfachen“): Die drei Wege aus dem Hinterfragen docken an
+// der Linie an. Bei jedem wachsen Nutzen und Aufwand, dann bekommen sie eine Reihenfolge: der erste wird türkis und
+// bekommt einen Haken auf der Linie, die anderen treten zurück. Ab data-zu (Entscheidung) setzt denkweise.ts ist-zu.
+// Ohne JS / reduzierte Bewegung: fertiger Zustand (Reihenfolge, Haken, Wahl türkis).
+import Icon from '../Icon.astro';
+import { DW_ENTSCHEIDEN as T } from '../../config/denkweise';
+const W = 440, H = 440, X = 110, ZU = 0.58;
+const o = T.optionen.map((x, k) => ({ ...x, k, y: 80 + k * 120, wahl: x.rang === 1 }));
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+const f = (n: number) => n.toFixed(2);
+---
+<div class="dw-bild dw-wahlbild" data-szene data-zu={ZU} style={`aspect-ratio: ${W} / ${H}`}>
+  <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    <path class="dw-s" pathLength="1" d={`M ${X} 0 L ${X} ${H}`} data-an="linear:0-0.9" />
+    {o.map((x) => <path class={x.wahl ? 'dw-s dw-wahl__steg--wahl' : 'dw-s dw-s--fein'} pathLength="1" d={`M ${X} ${x.y} L ${X + 24} ${x.y}`} data-an={`zeichnen:${f(0.06 + x.k * 0.1)}-${f(0.12 + x.k * 0.1)}`} />)}
+    {o.map((x) => <circle class="dw-knoten" cx={X} cy={x.y} r="6" data-an={`erscheinen:${f(0.04 + x.k * 0.1)}-${f(0.1 + x.k * 0.1)}`} />)}
+  </svg>
+  <span class="dw-anker" style={`left:${pc(X, W)};top:0%`} data-weg="ein"></span>
+  <span class="dw-anker" style={`left:${pc(X, W)};top:100%`} data-weg="aus"></span>
+  {o.map((x) => (
+    <>
+      {x.wahl && (
+        <span class="dw-pos" style={`left:${pc(X, W)};top:${pc(x.y, H)}`}>
+          <span class="dw-wahl__haken" data-an={`erscheinen:${f(ZU)}-${f(ZU + 0.1)}`}><Icon name="check" size={14} /></span>
+        </span>
+      )}
+      <span class="dw-pos dw-pos--kopf" style={`left:calc(${pc(X, W)} + 30px);top:${pc(x.y, H)}`}>
+        <span class:list={['dw-wahl', { 'dw-wahl--gewaehlt': x.wahl }]} data-an={`auf:${f(0.04 + x.k * 0.1)}-${f(0.14 + x.k * 0.1)}${x.wahl ? '' : ` aus:${f(ZU + 0.02)}-${f(ZU + 0.14)}:0.5`}`}>
+          <span class="dw-wahl__kopf">
+            <span class="dw-wahl__rang" data-an={`erscheinen:${f(0.46 + (x.rang - 1) * 0.04)}-${f(0.54 + (x.rang - 1) * 0.04)}`}>{x.rang}</span>
+            <span class="dw-chip">{x.text}</span>
+            {x.wahl && <span class="dw-wahl__zuerst" data-an={`auf:${f(ZU + 0.06)}-${f(ZU + 0.16)}`}>{T.ergebnis}</span>}
+          </span>
+          {[[T.nutzen, x.nutzen], [T.aufwand, x.aufwand]].map(([name, w], j) => (
+            <span class="dw-wahl__zeile">
+              <span>{name}</span>
+              <span class="dw-wahl__bahn"><span class="dw-wahl__wert" style={`--w:${Math.round(+w * 100)}%`} data-an={`breit:${f(0.14 + x.k * 0.1 + j * 0.03)}-${f(0.28 + x.k * 0.1 + j * 0.03)}`}></span></span>
+            </span>
+          ))}
+        </span>
+      </span>
+    </>
+  ))}
+</div>

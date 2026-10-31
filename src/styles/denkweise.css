@@ -48,16 +48,13 @@
 /* Hero-Prozess (Talk 3922): ganz in Türkis und deutlich größer; --hs skaliert Abstände und Versatz */
 .dw-start { --hs: 1.15; }
 .dw-idee__kreis { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
-/* Talk 3930: die Glühbirne glimmt ständig sanft (Hof außen + Licht innen, nur opacity/transform, ~3,6 s).
+/* Talk 3930/3938: der äußere Kreis glimmt ständig sanft (nur Lichthof außen, kein Licht auf dem Symbol; ~3,6 s).
  * Läuft nur mit JS und solange sichtbar (ist-sichtbar, kreisfluss.ts); sonst bzw. bei reduzierter Bewegung statisch leicht leuchtend. */
 .dw-idee__kreis::before, .dw-ziel::before { content: ''; position: absolute; inset: -18px; border-radius: 50%; background: radial-gradient(circle, rgb(0 166 161 / 30%) 45%, rgb(0 166 161 / 0%) 72%); opacity: 0.55; z-index: -1; pointer-events: none; }
-.dw-idee__kreis::after, .dw-ziel::after { content: ''; position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle, rgb(255 214 120 / 55%) 0%, rgb(95 224 218 / 22%) 45%, rgb(95 224 218 / 0%) 72%); opacity: 0.5; pointer-events: none; }
 .dw-idee__kreis .icon, .dw-ziel .icon { position: relative; z-index: 1; }
 .dw--live .dw-idee__kreis::before, .dw--live .dw-ziel::before { animation: dw-glimmen-hof 3.6s ease-in-out infinite paused; }
-.dw--live .dw-idee__kreis::after, .dw--live .dw-ziel::after { animation: dw-glimmen 3.6s ease-in-out infinite paused; }
-.dw--live .dw-idee__kreis.ist-sichtbar::before, .dw--live .dw-idee__kreis.ist-sichtbar::after, .dw--live .dw-ziel.ist-sichtbar::before, .dw--live .dw-ziel.ist-sichtbar::after { animation-play-state: running; }
+.dw--live .dw-idee__kreis.ist-sichtbar::before, .dw--live .dw-ziel.ist-sichtbar::before { animation-play-state: running; }
 @keyframes dw-glimmen-hof { 0%, 100% { opacity: 0.35; transform: scale(0.94); } 50% { opacity: 0.9; transform: scale(1.06); } }
-@keyframes dw-glimmen { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.95; transform: scale(1.05); } }
 /* Talk 3933: Ziel „Verbessern“ im Hero – gleiche Größe wie die Idee, Pfeile im Uhrzeigersinn auf dem Rand, ein
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
 .dw-ziel { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
@@ -98,6 +95,22 @@
 .dw-bereich__name { font-family: var(--font-head); font-size: 0.92rem; font-weight: 650; color: var(--ink); white-space: nowrap; }
 .dw-bereich__hinweis { font-size: 0.78rem; color: #6f6a60; max-width: 13em; line-height: 1.35; }
 .dw-nur-d { display: none; }
+
+/* ── Entscheiden (Talk 3938/3939): Wege abwägen (Nutzen/Aufwand), Reihenfolge, Wahl türkis mit Haken ── */
+.dw-pos--kopf { transform: translate(0, -13px); }   /* Kopfzeile (Rang + Begriff) liegt auf Höhe des Knotens */
+.dw-wahl { display: grid; gap: 5px; }
+.dw-wahl__kopf { display: flex; align-items: center; gap: 8px; height: 26px; }
+.dw-wahl__rang { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--paper-2); border: 1px solid var(--line); color: #5d584e; font-size: 0.75rem; font-weight: 700; flex: none; transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; }
+.dw-wahl__zuerst { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent-ink); white-space: nowrap; }
+.dw-wahl__zeile { display: grid; grid-template-columns: 4.4em 120px; align-items: center; gap: 8px; padding-left: 30px; font-size: 0.74rem; color: #6f6a60; }
+.dw-wahl__bahn { display: block; height: 6px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
+.dw-wahl__wert { display: block; height: 100%; width: var(--w); border-radius: 3px; background: #b3aa99; transform-origin: left; transition: background-color 0.5s ease; }
+.dw-wahl__haken { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-mid); color: var(--white); box-shadow: 0 0 0 4px var(--paper); }
+.dw-wahl__steg--wahl { stroke-width: 3; }
+.dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-wahl__rang, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-wahl__rang { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--white); }
+.dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-wahl__wert, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-wahl__wert { background: var(--accent-mid); }
+.dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-chip, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-chip { border-color: var(--accent-mid); color: var(--accent-ink); }
+.dw-wahl .dw-chip { transition: border-color 0.5s ease, color 0.5s ease; }
 .dw-s--weiter { stroke: url(#dw-weiter); }
 
 /* ── Kreis „Verbessern“ (Jamil, Talk 3920): geschlossen → türkis, Pfeile zwischen den Begriffen, ruhiger Fluss.
@@ -300,7 +313,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
   .dw-kreis .dw-fluss { opacity: 0 !important; }
-  .dw-idee__kreis::before, .dw-idee__kreis::after, .dw-ziel::before, .dw-ziel::after, .dw-ziel__schimmer { animation: none !important; }
+  .dw-idee__kreis::before, .dw-ziel::before, .dw-ziel__schimmer { animation: none !important; }
 }
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */

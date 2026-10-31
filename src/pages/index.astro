@@ -3,7 +3,7 @@
 // Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Teile statt vieler Einzelabschnitte
 // (intern „Kapitel“, sichtbar ohne Kapitel-Marke – Jamil, Talk 3935: die Linie entsteht aus der Überschrift heraus):
 //   Kapitel 1 · Veränderungen verstehen: Idee, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
-//   Kapitel 2 · Veränderungen umsetzen: Vereinfachen, Umsetzen, Verbessern (Prozessreihenfolge, Jamil Talk 3922),
+//   Kapitel 2 · Veränderungen umsetzen: Entscheiden (statt Vereinfachen, Talk 3939), Umsetzen, Verbessern (Prozessreihenfolge, Jamil Talk 3922),
 //   Produkte (eigene Karten, Website Service hervorgehoben)
 //   Kapitel 3 · Veränderungen nachhaltig machen: Verlässlichkeit (dunkler Bereich, mit den drei Prinzipien auf der
 //   Linie, danach Frage 3), Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
@@ -18,7 +18,7 @@ import Icon from '../components/Icon.astro';
 import DwIdee from '../components/dw/DwIdee.astro';
 import DwVerstehen from '../components/dw/DwVerstehen.astro';
 import DwHinterfragen from '../components/dw/DwHinterfragen.astro';
-import DwVereinfachen from '../components/dw/DwVereinfachen.astro';
+import DwEntscheiden from '../components/dw/DwEntscheiden.astro';
 import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
 import DwVerbessern from '../components/dw/DwVerbessern.astro';
 import DwFortschritt from '../components/dw/DwFortschritt.astro';
@@ -26,7 +26,7 @@ import DwFrage from '../components/dw/DwFrage.astro';
 import DwProfil from '../components/dw/DwProfil.astro';
 import { href } from '../lib/paths';
 import {
-  DW_HERO, DW_REISE, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN,
+  DW_HERO, DW_REISE, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN,
   DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE,
 } from '../config/denkweise';
 import '../styles/denkweise.css';
@@ -167,18 +167,18 @@ const [K1, K2, K3] = DW_KAPITEL;
         </div>
       </div>
 
-      <!-- Vereinfachen -->
-      <div class="dw-abschnitt" id="vereinfachen">
+      <!-- Entscheiden (Talk 3938/3939, ersetzt „Vereinfachen“) -->
+      <div class="dw-abschnitt" id="entscheiden">
         <div class="wrap dw-raster dw-raster--spiegel">
           <div class="dw-text reveal">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="spark" size={18} /> Vereinfachen</span>
-            <h3>{DW_VEREINFACHEN.titel}</h3>
-            <p class="dw-zeilen">{DW_VEREINFACHEN.zeilen.map((z) => <span>{z}</span>)}</p>
-            <p class="dw-zeilen dw-zeilen--betont">{DW_VEREINFACHEN.ziel.map((z) => <span>{z}</span>)}</p>
+            <span class="dw-kenn"><Icon name="target" size={18} /> Entscheiden</span>
+            <h3>{DW_ENTSCHEIDEN.titel}</h3>
+            <p class="dw-zeilen">{DW_ENTSCHEIDEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p class="dw-zeilen dw-zeilen--betont">{DW_ENTSCHEIDEN.ziel.map((z) => <span>{z}</span>)}</p>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           </div>
-          <DwVereinfachen />
+          <DwEntscheiden />
         </div>
       </div>
 

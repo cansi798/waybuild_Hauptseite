@@ -1,6 +1,6 @@
 // Startseite „Denkweise“ – Texte aus Jamils Konzept (Talk 3798/3799, 30.10.2026), nur minimal geglättet.
 // Kernsatz: Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise:
-// Idee → Verstehen → Hinterfragen → Vereinfachen → Umsetzen → Verbessern. Produkte sind mögliche Ergebnisse.
+// Idee → Verstehen → Hinterfragen → Entscheiden → Umsetzen → Verbessern (Entscheiden statt Vereinfachen: Talk 3939). Produkte sind mögliche Ergebnisse.
 // Vorherige Startseite (Anfrage-Reise, Selbstcheck, Zusammenarbeit): Git-Tag startseite-v3-anfragereise-20261030.
 import type { IconName } from './site';
 
@@ -14,7 +14,7 @@ export const DW_HERO = {
 export const DW_REISE: { wort: string; icon: IconName }[] = [
   { wort: 'Verstehen', icon: 'search' },
   { wort: 'Hinterfragen', icon: 'frage' },
-  { wort: 'Vereinfachen', icon: 'spark' },
+  { wort: 'Entscheiden', icon: 'target' },
   { wort: 'Umsetzen', icon: 'rocket' },
   { wort: 'Verbessern', icon: 'chart' },
 ];
@@ -79,11 +79,21 @@ export const DW_HINTERFRAGEN = {
   richtung: 'Eine Richtung',
 };
 
-export const DW_VEREINFACHEN = {
-  titel: 'Aus Verständnis entsteht Orientierung.',
-  zeilen: ['Wenn die eigentliche Ursache verstanden wurde, wird der Weg klarer.', 'Nicht komplizierter.'],
-  ziel: ['Unser Ziel ist nicht mehr Technologie.', 'Unser Ziel ist weniger Reibung.'],
-  nutzen: ['Weniger Aufwand', 'Mehr Klarheit', 'Schnellere Entscheidungen', 'Mehr Fortschritt'],
+// Talk 3938/3939: „Entscheiden“ ersetzt „Vereinfachen“. Abwägen statt Bauchgefühl: Nutzen und Aufwand der Wege aus dem
+// Hinterfragen nebeneinander, daraus eine Reihenfolge. Die Werte in der Szene sind nur Bild, keine Aussage über Projekte.
+export const DW_ENTSCHEIDEN = {
+  titel: 'Erst abwägen, dann entscheiden.',
+  zeilen: ['Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege.', 'Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten?'],
+  ziel: ['So entsteht eine klare Reihenfolge.', 'Sie entscheiden, und alle wissen, warum.'],
+  nutzen: 'Nutzen',
+  aufwand: 'Aufwand',
+  /** die drei Wege, die im Hinterfragen übrig bleiben; rang = Reihenfolge nach dem Abwägen */
+  optionen: [
+    { text: 'Bessere Inhalte', nutzen: 0.7, aufwand: 0.35, rang: 2 },
+    { text: 'Positionierung', nutzen: 0.8, aufwand: 0.8, rang: 3 },
+    { text: 'Prozess', nutzen: 0.9, aufwand: 0.4, rang: 1 },
+  ],
+  ergebnis: 'Zuerst',
 };
 
 export const DW_UMSETZEN = {

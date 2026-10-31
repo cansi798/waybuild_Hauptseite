@@ -4,7 +4,7 @@
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
-import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_VEREINFACHEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN } from '../config/denkweise';
+import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN } from '../config/denkweise';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -37,7 +37,7 @@ export const GET: APIRoute = ({ site }) => {
     `1. Idee: ${DW_IDEE.titel} ${DW_IDEE.schluss}`,
     `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.punkte.join(', ')}. ${DW_VERSTEHEN.schluss}`,
     `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,
-    `4. Vereinfachen: ${DW_VEREINFACHEN.titel} ${DW_VEREINFACHEN.zeilen.join(' ')} ${DW_VEREINFACHEN.ziel.join(' ')}`,
+    `4. Entscheiden: ${DW_ENTSCHEIDEN.titel} ${DW_ENTSCHEIDEN.zeilen.join(' ')} ${DW_ENTSCHEIDEN.ziel.join(' ')}`,
     `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')}`,
     `6. Verbessern: ${DW_VERBESSERN.titel} ${DW_VERBESSERN.kreis.join(', ')}.`,
     '',
