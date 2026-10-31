@@ -11,6 +11,7 @@ export const NAV: NavItem[] = [
   // Talk 3818: drei Kapitel – Verstehen, Umsetzen, nachhaltig machen (Verlässlichkeit)
   { label: 'Verstehen', path: '/#kapitel-1' },
   { label: 'Umsetzen', path: '/#kapitel-2' },
+  { label: 'Produkte', path: '/#produkte' },   // Positionierung Vorschlag 8 (Talk 4065)
   { label: 'Verlässlichkeit', path: '/#kapitel-3' },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

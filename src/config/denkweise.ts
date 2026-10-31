@@ -6,7 +6,11 @@ import type { IconName } from './site';
 
 export const DW_HERO = {
   titel: 'Wir machen Veränderungen einfach.',
-  lead: 'Wir unterstützen Unternehmen dabei, digitale Lösungen verständlich, einfach und verlässlich umzusetzen.',
+  // Talk 4065 (Positionierung Vorschlag 1, Variante A)
+  lead: 'Wir entwickeln digitale Lösungen für Unternehmen, als fertiges Produkt oder individuell. Oft fangen wir mit der Website an.',
+  // Vorschlag 2: kleine Zeile über der Überschrift; Vorschlag 7: zweiter Weg im Hero
+  eyebrow: 'Websites und digitale Lösungen für Unternehmen',
+  link: 'Website Service ansehen',
   cta: 'Kostenloses Erstgespräch',
 };
 
@@ -67,7 +71,8 @@ export const DW_HINTERFRAGEN = {
   titel: 'Bevor wir digitale Lösungen entwickeln, möchten wir verstehen.', // Talk 4013
   // Talk 3818 Punkt 2: Botschaft, damit die Szene auf Anhieb verständlich ist
   botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
-  zeilen: ['Nicht jede Herausforderung braucht eine neue Website.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
+  // Vorschlag 4: nicht die Website aussortieren, sondern den Neubau
+  zeilen: ['Nicht jede Website muss neu gebaut werden.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
   schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.',
   /** Szene nach Talk 4020: erste Idee → „Warum?“ → Ziele → ein Ziel → Möglichkeiten → eine Richtung.
    *  bleiben = Möglichkeiten, die zur Richtung passen und im Abschnitt „Entscheiden“ abgewogen werden. */
@@ -77,7 +82,7 @@ export const DW_HINTERFRAGEN = {
     warum: 'Warum?',
     ziele: ['Mehr Anfragen', 'Neue Mitarbeiter gewinnen', 'Leistungen besser erklären', 'Kunden einfacher erreichen'],
     ziel: 0,
-    moeglichkeiten: ['Positionierung', 'Inhalte', 'Anfrageprozess', 'Website'],
+    moeglichkeiten: ['Positionierung', 'Inhalte', 'Anfrageprozess', 'Komplett neue Website'],
     bleiben: [0, 1, 2],
     richtung: 'Eine Richtung: Mehr Anfragen',
   },
@@ -101,7 +106,9 @@ export const DW_ENTSCHEIDEN = {
 
 export const DW_UMSETZEN = {
   titel: 'Aus Erkenntnissen entstehen Lösungen.',
-  zeilen: ['Je nach Unternehmen entstehen unterschiedliche Lösungen.', 'Entscheidend ist nicht die Technologie.', 'Entscheidend ist, dass sie zum Ziel passt.'],
+  zeilen: ['Je nach Unternehmen entstehen unterschiedliche Lösungen.', 'Entscheidend ist, dass sie zum Ziel passt.'],
+  // Vorschlag 3: Brücke von den drei Wegen zur Website (erklärt das Website-Bild daneben)
+  bruecke: 'Positionierung, Inhalte und Anfrageprozess landen bei den meisten Unternehmen auf der Website. Deshalb fangen wir oft dort an, und vieles andere baut später darauf auf.',
   /** Talk 4024: nur der Website Service wird gezeigt, darunter dezent „Weitere Produkte folgen.“ (folgt = Hinweis,
    *  kein Angebot). Software/Workplace/Cloud/Process Service zeigt Jamil derzeit nicht. */
   bereiche: [
@@ -128,6 +135,8 @@ export const DW_VERBESSERN = {
   kreis: ['Planen', 'Umsetzen', 'Prüfen', 'Anpassen'],
   kreisEn: ['Plan', 'Do', 'Check', 'Act'],
   unterzeile: 'Planen, umsetzen, prüfen, anpassen. Und dann wieder von vorn.',
+  // Story-Brücke von „Umsetzen“: die Lösung bleibt nach dem Start nicht stehen (belegt: hauptseite.ts, Website Service)
+  text: 'Auch nach dem Start bleibt eine Lösung nicht stehen. Wir prüfen, was sie bewirkt, und verbessern sie Schritt für Schritt.',
 };
 
 export const DW_VERLAESSLICH = {
@@ -174,6 +183,15 @@ export const DW_PRODUKTE = [
   { id: 'crm-azav', name: 'Kundenverwaltung für AZAV-Bildungsträger', nutzen: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', text: 'Anfragen und Prozesse übersichtlich an einem Ort.', icon: 'book' as IconName },
   { id: 'apps', name: 'Apps für App Store und Google Play', nutzen: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', text: 'Für Smartphone und Tablet, über App Store und Google Play.', icon: 'smartphone' as IconName },
 ];
+
+/** Vorschlag 5: Produktbereich trennt fertige Produkte und individuelle Lösungen (holt keine Service-Bereiche zurück).
+ *  Beleg „individuelle Software auf Anfrage“: FAQ in site.ts und AGB. */
+export const DW_PRODUKTBEREICH = {
+  titel: 'Fertige Produkte und individuelle Lösungen',
+  hauptprodukt: 'Unser Hauptprodukt',
+  individuell: { name: 'Individuelle Lösungen', kenn: 'Auf Anfrage', text: 'Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.', icon: 'code' as IconName },
+  folgt: 'Weitere Produkte folgen.',
+};
 
 /** Veränderungs-Check (Talk 3818 Punkt 3): je eine Frage nach Verstehen, Hinterfragen und Verlässlichkeit; 1 = kaum, 5 = sehr.
  *  Ergebnis kurz vor dem Kontakt: größte Stärke (niedrigster Wert), größter Engpass (höchster Wert) und größtes

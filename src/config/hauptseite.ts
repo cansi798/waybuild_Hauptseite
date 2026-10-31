@@ -5,6 +5,7 @@
 import type { IconName } from './site';
 
 /** Startseiten-Hero (Leitbild „Der Weg“, 27.10.2026): roter Faden + in einem Satz, was Waybuild tut. */
+/** NICHT MEHR VERWENDET (Startseite „Denkweise“ nutzt DW_HERO in denkweise.ts); nur als Archiv der früheren Texte. */
 export const HERO = {
   // Zielgruppe (Jamil, Talk 3580). Beleg: Angebot ausschließlich für Unternehmen und Selbstständige (B2B), faqs + AGB § 1.
   eyebrow: 'Für Unternehmen und Selbstständige',
@@ -154,6 +155,9 @@ export type Produkt = {
 
 /** Anzeigename: eigener Produktname oder (solange offen) die Kategorie */
 export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO') ? p.name : p.kategorie);
+
+/** Kurzbeschreibung (Positionierung Vorschlag 9): Meta-Beschreibung der Startseite und JSON-LD der Organisation. */
+export const BESCHREIBUNG = 'Waybuild entwickelt digitale Lösungen für Unternehmen, fertig oder individuell. Oft beginnt es mit der Website. Fester Ansprechpartner, klare Zusagen.';
 
 // Talk 4024/4025 (31.10.2026): Kundenverwaltung Handwerk und die Bereiche Software/Cloud/Workplace/Process Service
 // werden derzeit nicht gezeigt (entfernt; frühere Einträge in der Git-Historie).

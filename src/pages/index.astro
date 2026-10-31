@@ -23,9 +23,10 @@ import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
 import DwVerbessern from '../components/dw/DwVerbessern.astro';
 import DwFortschritt from '../components/dw/DwFortschritt.astro';
 import { href } from '../lib/paths';
+import { BESCHREIBUNG } from '../config/hauptseite';
 import {
   DW_HERO, DW_REISE, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN,
-  DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE,
+  DW_VERLAESSLICH, DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE, DW_PRODUKTBEREICH,
 } from '../config/denkweise';
 import '../styles/denkweise.css';
 
@@ -51,7 +52,7 @@ const [K1, K2, K3] = DW_KAPITEL;
 
 <BaseLayout
   title="Website-Service und digitale Produkte"
-  description="Waybuild hilft Unternehmen, Veränderungen zu verstehen, sinnvoll zu gestalten und zuverlässig umzusetzen. Mit festem Ansprechpartner und klaren Zusagen."
+  description={BESCHREIBUNG}
   hideFooterKontakt
 >
   <div class="dw" data-denkweise>
@@ -61,9 +62,13 @@ const [K1, K2, K3] = DW_KAPITEL;
     <section class="dw-abschnitt dw-hero" aria-labelledby="dw-h1">
       <div class="wrap dw-raster dw-raster--hero">
         <div class="dw-hero__text">
+          <p class="eyebrow eyebrow--weg dw-hero__eyebrow">{DW_HERO.eyebrow}</p>
           <h1 id="dw-h1">Wir machen Veränderungen <span class="accent">einfach.</span></h1>
           <p class="dw-hero__lead">{DW_HERO.lead}</p>
-          <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
+          <div class="dw-hero__aktionen">
+            <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
+            <a class="pfeil-link" href={href('/angebot/')}>{DW_HERO.link} <Icon name="arrow" size={16} /></a>
+          </div>
         </div>
         <div class="dw-start">
           {/* Talk 4057: Prozess-Linie von Anfang an fertig (statisches SVG aus dem festen Hero-Raster, kein Zeichnen) */}
@@ -190,6 +195,7 @@ const [K1, K2, K3] = DW_KAPITEL;
             <span class="dw-kenn"><Icon name="rocket" size={18} /> Umsetzen</span>
             <h3>{DW_UMSETZEN.titel}</h3>
             <p class="dw-zeilen">{DW_UMSETZEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p>{DW_UMSETZEN.bruecke}</p>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           </div>
           <DwUmsetzen />
@@ -204,6 +210,7 @@ const [K1, K2, K3] = DW_KAPITEL;
             <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
             <h3>{DW_VERBESSERN.titel}</h3>
             <p class="dw-unterzeile">{DW_VERBESSERN.unterzeile}</p>
+            <p>{DW_VERBESSERN.text}</p>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
           </div>
           <DwVerbessern />
@@ -213,7 +220,7 @@ const [K1, K2, K3] = DW_KAPITEL;
       <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben -->
       <div class="dw-abschnitt dw-abschnitt--eng" id="produkte" aria-labelledby="dw-produkte-h">
         <div class="wrap">
-          <h3 class="dw-mitteltitel" id="dw-produkte-h"><span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>Unsere Produkte</h3>
+          <h3 class="dw-mitteltitel" id="dw-produkte-h"><span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>{DW_PRODUKTBEREICH.titel}</h3>
           <div class="dw-andock dw-andock--raster" data-szene>
             <span class="dw-anker dw-anker--mitte" style="top:0" data-weg data-weg-nur="d"></span>
             <span class="dw-anker dw-anker--rand" style="top:0" data-weg data-weg-nur="m"></span>
@@ -223,8 +230,9 @@ const [K1, K2, K3] = DW_KAPITEL;
                 <article class="k k--akzent dw-produkt dw-produkt--hervor" aria-labelledby="dw-p-web" data-an="links:auto">
                   <span class="k__icon"><Icon name="layout" size={22} /></span>
                   <div class="k__inhalt">
-                    <p class="dw-produkt__name">{K.titel}</p>
-                    <h4 id="dw-p-web">{K.kenn}</h4>
+                    <p class="dw-produkt__name">{DW_PRODUKTBEREICH.hauptprodukt}</p>
+                    <h4 id="dw-p-web">{K.titel}</h4>
+                    <p class="dw-produkt__nutzen">{K.kenn}</p>
                     <p>{K.text}</p>
                     <ul class="dw-haken">{K.punkte.map((p) => <li><Icon name="check" size={16} /> {p}</li>)}</ul>
                     <p class="dw-produkt__preis">{K.preis}</p>
@@ -246,8 +254,20 @@ const [K1, K2, K3] = DW_KAPITEL;
                   </article>
                 </li>
               ))}
+              <li class:list={['dw-andock__item', DW_PRODUKTE.length % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
+                <span class="dw-steg" data-an="breit:auto"></span>
+                <article class="k dw-produkt dw-produkt--individuell" aria-labelledby="dw-p-individuell" data-an={`${DW_PRODUKTE.length % 2 ? 'links' : 'rechts'}:auto`}>
+                  <span class="k__icon"><Icon name={DW_PRODUKTBEREICH.individuell.icon} size={22} /></span>
+                  <div class="k__inhalt">
+                    <p class="dw-produkt__name">{DW_PRODUKTBEREICH.individuell.kenn}</p>
+                    <h4 id="dw-p-individuell">{DW_PRODUKTBEREICH.individuell.name}</h4>
+                    <p>{DW_PRODUKTBEREICH.individuell.text}</p>
+                    <a class="pfeil-link dw-produkt__cta" href={href('/kontakt/')}>Anfragen <Icon name="arrow" size={16} /></a>
+                  </div>
+                </article>
+              </li>
             </ul>
-            <p class="dw-produkte__folgt" data-an="auf:auto"><Icon name="spark" size={16} /> Weitere Produkte folgen.</p>
+            <p class="dw-produkte__folgt" data-an="auf:auto"><Icon name="spark" size={16} /> {DW_PRODUKTBEREICH.folgt}</p>
             <span class="dw-anker dw-anker--mitte" style="top:100%" data-weg data-weg-nur="d"></span>
             <span class="dw-anker dw-anker--rand" style="top:100%" data-weg data-weg-nur="m"></span>
           </div>

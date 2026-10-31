@@ -4,7 +4,7 @@
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
-import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN } from '../config/denkweise';
+import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_VERLAESSLICH, DW_PRINZIPIEN, DW_PRODUKTBEREICH } from '../config/denkweise';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -21,7 +21,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     `> ${DW_HERO.titel} ${DW_HERO.lead}`,
     '',
-    `Kurz gesagt: ${company.name} ist ein IT-Dienstleister${adresse.length ? ` aus ${company.city}` : ''} für Unternehmen und Selbstständige in Deutschland (B2B). Erstes Produkt ist ein Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
+    `Kurz gesagt: ${company.name}${adresse.length ? ` aus ${company.city}` : ''} entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
     '',
     'Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).',
     '',
@@ -38,12 +38,13 @@ export const GET: APIRoute = ({ site }) => {
     `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.punkte.join(', ')}. ${DW_VERSTEHEN.schluss}`,
     `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,
     `4. Entscheiden: ${DW_ENTSCHEIDEN.titel} ${DW_ENTSCHEIDEN.zeilen.join(' ')} ${DW_ENTSCHEIDEN.ziel.join(' ')}`,
-    `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')}`,
+    `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')} ${DW_UMSETZEN.bruecke}`,
     `6. Verbessern: ${DW_VERBESSERN.titel} ${DW_VERBESSERN.unterzeile} (PDCA: ${DW_VERBESSERN.kreis.map((k, i) => `${k}/${DW_VERBESSERN.kreisEn[i]}`).join(', ')})`,
     '',
-    '## Bereiche',
-    ...DW_UMSETZEN.bereiche.filter((b) => !b.folgt).map((b) => `- ${b.name}${b.hinweis ? ` (${b.hinweis})` : ''}`),
-    '- Weitere Produkte folgen.',
+    `## ${DW_PRODUKTBEREICH.titel}`,
+    '- Fertige Produkte mit festem Umfang: siehe „Produkte“ unten (Hauptprodukt: Website Service).',
+    `- ${DW_PRODUKTBEREICH.individuell.name} (${DW_PRODUKTBEREICH.individuell.kenn.toLowerCase()}): ${DW_PRODUKTBEREICH.individuell.text}`,
+    `- ${DW_PRODUKTBEREICH.folgt}`,
     '',
     `## Verlässlichkeit: ${DW_VERLAESSLICH.titel}`,
     ...DW_VERLAESSLICH.pfeiler.map((p) => `- ${p.titel}: ${p.text}${p.zusatz ? ` ${p.zusatz}` : ''}`),
@@ -59,7 +60,7 @@ export const GET: APIRoute = ({ site }) => {
       ? `- ${produktName(p)}${produktName(p) === p.kategorie ? '' : ` (${p.kategorie})`}, verfügbar: ` + [p.nutzen ?? p.zweck ?? '', ...(p.punkte ?? []).map((x) => x.text), p.url || p.pfad ? `Seite: ${p.url || url(p.pfad!)}` : `Anfrage: ${url('/kontakt/')}`].filter(Boolean).join(' ')
       : `- ${produktName(p)}: einzelne Projekte auf Anfrage.`),
     '',
-    `## ${websiteName} (erstes Produkt)`,
+    `## ${websiteName} (Hauptprodukt)`,
     `${WAAS.claim}`,
     `- Enthalten: ${INKLUSIVE.map((i) => i.title).join(', ')}.`,
     `- Geschäftsmodell: ${MODELL.join(', ')}.`,

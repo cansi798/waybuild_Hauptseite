@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import StickyBar from '../components/StickyBar.astro';
 import { company, isMissing } from '../config/site';
-import { PRODUKTE, produktName } from '../config/hauptseite';
+import { PRODUKTE, produktName, BESCHREIBUNG } from '../config/hauptseite';
 import { href, absolute } from '../lib/paths';
 import { IS_PREVIEW } from '../lib/env';
 // Schriften für den ersten Bildschirm früh laden (Überschrift = größtes Element, wichtig für LCP)
@@ -42,6 +42,7 @@ const organization = {
   '@id': `${siteRoot}#organization`,
   name: company.legalName,
   alternateName: company.name,
+  description: BESCHREIBUNG,
   url: siteRoot,
   logo: absolute('/icon-512.png', Astro.site),
   image: ogImage,
