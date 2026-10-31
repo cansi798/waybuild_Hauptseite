@@ -16,7 +16,7 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 
 ## Die Waybuild-Denkweise
 Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
-Kernsatz: Wir verstehen, bevor wir verändern. Die Startseite erzählt das in drei Teilen: Veränderungen verstehen, Veränderungen umsetzen, Veränderungen nachhaltig machen.
+Kernsatz: Wir verstehen, bevor wir umsetzen. Die Startseite erzählt das in drei Teilen: Gute Lösungen beginnen mit Verständnis, Veränderungen umsetzen, Veränderungen nachhaltig machen.
 1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
 2. Verstehen: Bevor wir etwas verändern, möchten wir es verstehen. Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen: wie Ihr Unternehmen arbeitet, welche Ziele wichtig sind, wie Entscheidungen entstehen, wie Menschen heute arbeiten, welche digitalen Werkzeuge sie nutzen, wo digitale Reibung entsteht, welche Prozesse vorhanden sind. Denn nicht jede Herausforderung benötigt eine neue Lösung.
 3. Hinterfragen: Bevor wir digitale Lösungen entwickeln, möchten wir verstehen. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
