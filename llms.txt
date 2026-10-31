@@ -20,18 +20,15 @@ Kernsatz: Wir verstehen, bevor wir verändern. Die Startseite erzählt das in dr
 1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
 2. Verstehen: Bevor wir etwas verändern, möchten wir es verstehen. Bevor wir Empfehlungen geben oder Lösungen entwickeln, möchten wir verstehen: wie Ihr Unternehmen arbeitet, welche Ziele wichtig sind, wie Entscheidungen entstehen, wie Menschen heute arbeiten, welche digitalen Werkzeuge sie nutzen, wo digitale Reibung entsteht, welche Prozesse vorhanden sind. Denn nicht jede Herausforderung benötigt eine neue Lösung.
 3. Hinterfragen: Bevor wir digitale Lösungen entwickeln, möchten wir verstehen. Nicht jede Herausforderung braucht eine neue Website. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
-4. Entscheiden: Erst abwägen, dann entscheiden. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
+4. Entscheiden: Wir empfehlen, bevor wir umsetzen. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
 5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist nicht die Technologie. Entscheidend ist, dass sie zum Ziel passt.
 6. Verbessern: Gute Veränderungen entwickeln sich weiter. Feedback, Lernen, Optimieren, Weiterentwickeln.
 
 ## Bereiche
 - Website Service
-- Software Service (z. B. Kundenverwaltungen, Apps)
-- Workplace Service (auf Anfrage)
-- Cloud Service (auf Anfrage)
-- Process Service (auf Anfrage)
+- Weitere Produkte folgen.
 
-## Verlässlichkeit: Veränderung darf nicht vom Zufall abhängen.
+## Verlässlichkeit: Gute digitale Lösungen brauchen Verlässlichkeit.
 - Klare Ansprechpartner: Sie wissen, wer sich kümmert.
 - Verlässliche Rückmeldungen: Sie wissen, wie es weitergeht. Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag der nächste Schritt.
 - Nachvollziehbare Prozesse: Nichts geht verloren.
@@ -54,13 +51,8 @@ Kernsatz: Wir verstehen, bevor wir verändern. Die Startseite erzählt das in dr
 
 ## Produkte
 - Website Service, verfügbar: Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten. Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt. Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
-- Kundenverwaltung für Handwerksbetriebe, verfügbar: Ein CRM, gemacht für den Alltag im Handwerk. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Apps für App Store und Google Play, verfügbar: Zum Beispiel zur Prüfungsvorbereitung in Berufen. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
 - Kundenverwaltung für AZAV-Bildungsträger, verfügbar: Ein CRM für Bildungsträger mit AZAV-Zulassung. Anfrage: https://cansi798.github.io/waybuild_Hauptseite/kontakt/
-- Software Service: einzelne Projekte auf Anfrage.
-- Cloud Service: einzelne Projekte auf Anfrage.
-- Workplace Service: einzelne Projekte auf Anfrage.
-- Process Service: einzelne Projekte auf Anfrage.
 
 ## Website Service (erstes Produkt)
 Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
@@ -74,12 +66,12 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text, wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
 
 ## Häufige Fragen zu Waybuild
-- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, zwei Kundenverwaltungen und Apps dazu. Weitere Produkte folgen.
+- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, eine Kundenverwaltung für AZAV-Bildungsträger und Apps dazu. Weitere Produkte folgen.
 - Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
 - Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
 - Welche Rolle spielt KI? Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.
-- Bietet Waybuild auch Software, Cloud und IT an? Neben dem Website Service gibt es Kundenverwaltungen für Handwerksbetriebe und AZAV-Bildungsträger sowie Apps. Software, Cloud, Workplace und Process Service folgen Schritt für Schritt. Einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung setzen wir schon heute auf Anfrage um.
+- Bietet Waybuild auch Software, Cloud und IT an? Neben dem Website Service gibt es eine Kundenverwaltung für AZAV-Bildungsträger und Apps. Weitere Produkte folgen. Einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung setzen wir schon heute auf Anfrage um.
 - Sind die Preise netto? Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Unsere Produkte richten sich ausschließlich an Unternehmen und Selbstständige (B2B).
 
 ## Häufige Fragen zum Website Service
