@@ -178,10 +178,8 @@ export const PRODUKTE: Produkt[] = [
       { icon: 'euro', text: 'Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis.' },
       { icon: 'shield', text: 'Alles mit unserem Serviceversprechen.', link: '/zusagen/' },
     ] },
-  // Von Can als aktuelle Produkte festgelegt (28.10.2026, One-Pager): verfügbar, nur Zweck, keine Funktionsversprechen;
-  // Namen neutral bis Jamil eigene nennt; ohne Produktseite → Knopf „Erstgespräch anfragen“.
-  { id: 'apps', name: 'TODO', kategorie: 'Apps für App Store und Google Play', zweck: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', icon: 'smartphone', aktiv: true, art: 'produkt' },
-  { id: 'crm-azav', saeule: 'Mehr Ordnung im Alltag', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: true, art: 'produkt' },
+  // Talk 4077 (31.10.2026): Kundenverwaltung AZAV und Apps entfernt – gezeigt werden nur der Website Service,
+  // „Individuelle Software“ (auf Anfrage, Startseite) und „Weitere Produkte folgen.“
 ];
 
 /** Erstes Produkt (Website) – für /angebot/, Footer, llms.txt, JSON-LD */

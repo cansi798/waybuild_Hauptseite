@@ -179,9 +179,8 @@ export const DW_ABSCHLUSS = {
 /** Produkte als eigene Karten (Talk 3818 Punkt 5; Kundenverwaltung Handwerk entfernt, Talk 4025). Website Service ist die hervorgehobene Karte (DW_UMSETZEN.karte).
  *  Nutzen = Zweck aus PRODUKTE; die kurzen Beschreibungen sind vorsichtige Vorschläge (beschreiben nur, was eine
  *  Kundenverwaltung bzw. App ist) und von Jamil zu bestätigen. */
-export const DW_PRODUKTE = [
-  { id: 'crm-azav', name: 'Kundenverwaltung für AZAV-Bildungsträger', nutzen: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', text: 'Anfragen und Prozesse übersichtlich an einem Ort.', icon: 'book' as IconName },
-  { id: 'apps', name: 'Apps für App Store und Google Play', nutzen: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', text: 'Für Smartphone und Tablet, über App Store und Google Play.', icon: 'smartphone' as IconName },
+// Talk 4077: AZAV-Kundenverwaltung und Apps entfernt; weitere fertige Produkte kommen hier hinein.
+export const DW_PRODUKTE: { id: string; name: string; nutzen: string; text: string; icon: IconName }[] = [
 ];
 
 /** Vorschlag 5: Produktbereich trennt fertige Produkte und individuelle Lösungen (holt keine Service-Bereiche zurück).
@@ -189,7 +188,7 @@ export const DW_PRODUKTE = [
 export const DW_PRODUKTBEREICH = {
   titel: 'Fertige Produkte und individuelle Lösungen',
   hauptprodukt: 'Unser Hauptprodukt',
-  individuell: { name: 'Individuelle Lösungen', kenn: 'Auf Anfrage', text: 'Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.', icon: 'code' as IconName },
+  individuell: { name: 'Individuelle Software', kenn: 'Auf Anfrage', text: 'Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.', icon: 'code' as IconName },
   folgt: 'Weitere Produkte folgen.',
 };
 

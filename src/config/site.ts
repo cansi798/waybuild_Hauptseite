@@ -156,7 +156,7 @@ export const BERATUNG_THEMEN = ['Zielgruppen', 'Positionierung', 'Customer Journ
 export const faqsAllgemein = [
   {
     q: 'Was macht Waybuild?',
-    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Heute gehören eine Website-Betreuung, eine Kundenverwaltung für AZAV-Bildungsträger und Apps dazu. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell. Weitere Produkte folgen.',
+    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist die Website-Betreuung. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.',
   },
   {
     q: 'Gelten Ihre Zusagen für alle Produkte?',
@@ -177,7 +177,7 @@ export const faqsAllgemein = [
   {
     q: 'Bietet Waybuild auch Software, Cloud und IT an?',
     // 31.10.2026 (Talk 4024/4025): Handwerk und die Service-Bereiche nicht mehr nennen; Fakt „auf Anfrage“ (README, AGB § 2a) bleibt.
-    a: 'Neben dem Website Service gibt es eine Kundenverwaltung für AZAV-Bildungsträger und Apps. Weitere Produkte folgen. Einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung setzen wir schon heute auf Anfrage um.',
+    a: 'Neben dem Website Service setzen wir einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung auf Anfrage um. Weitere Produkte folgen.',
   },
   {
     q: 'Sind die Preise netto?',

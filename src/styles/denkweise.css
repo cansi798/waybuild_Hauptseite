@@ -45,7 +45,7 @@
 .dw-hero__lead { font-size: clamp(1.08rem, 1.8vw, 1.25rem); line-height: 1.7; color: var(--ink-soft); max-width: 42ch; margin: 0 0 28px; }
 .dw-hero__eyebrow { margin: 0 0 14px; }
 .dw-hero__aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
-.dw-produkt--individuell { border-style: dashed; }
+.dw-produkt--individuell { background: var(--white); }
 .dw-start { position: relative; display: grid; justify-items: center; padding-block: 8px 0; }
 .dw-start__linie { position: absolute; top: 0; left: 50%; overflow: visible; pointer-events: none; }
 .dw-start__linie .dw-strich { stroke: var(--accent-mid); stroke-width: 3; }
