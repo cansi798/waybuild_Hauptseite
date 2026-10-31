@@ -6,7 +6,7 @@ import type { IconName } from './site';
 
 export const DW_HERO = {
   titel: 'Wir machen Veränderungen einfach.',
-  lead: 'Von der ersten Idee bis zur erfolgreichen Umsetzung. Wir helfen Unternehmen dabei, Veränderungen zu verstehen, sinnvoll zu gestalten und zuverlässig umzusetzen.',
+  lead: 'Wir unterstützen Unternehmen dabei, digitale Lösungen verständlich, einfach und verlässlich umzusetzen.',
   cta: 'Kostenloses Erstgespräch',
 };
 
