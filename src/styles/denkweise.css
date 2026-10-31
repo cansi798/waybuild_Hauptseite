@@ -146,7 +146,8 @@
 .dw-ohne-linie .dw-text, .dw-ohne-linie .dw-prinzip__text { padding-left: 0 !important; }
 .dw-ohne-linie .dw-produkte__folgt { margin-left: 0; }
 .dw-ohne-linie .dw-andock__item--r, .dw-ohne-linie .dw-andock__item--l { margin: 0 !important; }
-.dw-abschluss .dw-text { padding-left: 0 !important; margin-inline: auto; max-width: 680px; text-align: center; }
+.dw-abschluss .dw-text { padding-left: 0 !important; margin-inline: auto; max-width: 860px; text-align: center; }
+.dw-abschluss .dw-text p { max-width: 640px; margin-inline: auto; }
 .dw-abschluss .dw-vertrauen { justify-content: center; }   /* Talk 4097/4098: ohne Kreis und Slogan, mittig */
 .dw-fortschritt { display: grid; place-items: center; }
 .dw-fortschritt__kreis { display: grid; place-items: center; align-content: center; gap: 6px; width: 200px; height: 200px; border-radius: 50%; border: 3px solid var(--accent-mid); background: rgb(0 166 161 / 9%); color: var(--accent-mid); }
@@ -348,7 +349,7 @@
 .dw-profil__hinweis { font-size: 0.88rem; color: #6f6a60 !important; }
 .dw-schritte { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
 .dw-schritte li { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.9rem; font-weight: 600; color: #5d584e; }
-.dw-abschluss__titel { font-size: clamp(1.8rem, 4vw, 2.6rem) !important; }
+.dw-abschluss__titel { margin: 0 0 0.6em; font-size: clamp(2.3rem, 5.4vw, 3.9rem); line-height: 1.06; letter-spacing: -0.035em; }   /* Talk 4102: wie die Hero-H1 */
 
 /* ── Drei Prinzipien: direkt auf der Linie ── */
 .dw-prinzipien__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 4vw, 44px); }
@@ -371,6 +372,7 @@
   .dw-quer { display: block; }
   .dw-hero { padding-block: 26px 40px; }
   .dw-hero h1 { font-size: clamp(1.75rem, 7.6vw, 2.2rem); line-height: 1.1; max-width: none; margin-bottom: 16px; }
+  .dw-abschluss__titel { font-size: clamp(1.75rem, 7.6vw, 2.2rem); line-height: 1.1; }
   .dw-hero__eyebrow { margin-bottom: 12px; }
   .dw-hero__lead { font-size: 1rem; line-height: 1.6; margin-bottom: 18px; }
   .dw-quer { margin: 8px 0 26px; }

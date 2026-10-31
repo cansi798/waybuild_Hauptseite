@@ -329,7 +329,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
         <div class="wrap">
           <div class="dw-text reveal">
-            <h3 id="dw-abschluss-h" class="dw-abschluss__titel">{DW_ABSCHLUSS.titel}</h3>
+            <h2 id="dw-abschluss-h" class="dw-abschluss__titel">{DW_ABSCHLUSS.titelVor}<span class="accent">{DW_ABSCHLUSS.titelAkzent}</span></h2>
             <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
             <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>

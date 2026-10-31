@@ -176,6 +176,9 @@ export const DW_PRINZIPIEN = {
 
 export const DW_ABSCHLUSS = {
   titel: 'Welche digitale Herausforderung möchten Sie lösen?', // Talk 4027
+  // Talk 4102: so groß wie die Hero-Überschrift, Akzent auf dem letzten Wort wie im Hero („passen.“)
+  titelVor: 'Welche digitale Herausforderung möchten Sie ',
+  titelAkzent: 'lösen?',
   zeilen: [
     'Vielleicht gibt es eine Idee, die schon lange umgesetzt werden sollte.',
     'Vielleicht einen Prozess, der unnötig kompliziert geworden ist.',
