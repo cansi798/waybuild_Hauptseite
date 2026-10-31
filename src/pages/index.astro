@@ -67,12 +67,11 @@ const [K1, K2, K3] = DW_KAPITEL;
                   <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
                     <defs>
                       <linearGradient id="dw-ziel-grad" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0" style="stop-color: var(--accent-mid); stop-opacity: 0" />
-                        <stop offset="1" style="stop-color: var(--accent-mid); stop-opacity: 1" />
+                        <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
+                        <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
                       </linearGradient>
                     </defs>
                     <g class="dw-ziel__schimmer">
-                      <path class="dw-ziel__hof" d="M 50 2 A 48 48 0 0 1 91.6 26" />
                       <path class="dw-ziel__licht" d="M 50 2 A 48 48 0 0 1 91.6 26" />
                     </g>
                     {[45, 135, 225, 315].map((g) => <path class="dw-ziel__pfeil" transform={`rotate(${g} 50 50)`} d="M 45 -4.5 L 52.5 2 L 45 8.5" />)}

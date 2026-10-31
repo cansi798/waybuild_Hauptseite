@@ -50,11 +50,13 @@
 .dw-idee__kreis { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 /* Talk 3930/3938: der äußere Kreis glimmt ständig sanft (nur Lichthof außen, kein Licht auf dem Symbol; ~3,6 s).
  * Läuft nur mit JS und solange sichtbar (ist-sichtbar, gesetzt in denkweise.ts); sonst bzw. bei reduzierter Bewegung statisch leicht leuchtend. */
-.dw-idee__kreis::before, .dw-ziel::before { content: ''; position: absolute; inset: -18px; border-radius: 50%; background: radial-gradient(circle, rgb(0 166 161 / 30%) 45%, rgb(0 166 161 / 0%) 72%); opacity: 0.55; z-index: -1; pointer-events: none; }
+/* Talk 4031/4033: kein äußeres Glimmen mehr; stattdessen glimmt die Glühbirne selbst sanft in Türkis (kein Gelb).
+ * Nur mit JS und solange sichtbar (ist-sichtbar, denkweise.ts); reduzierte Bewegung / ohne JS: leicht leuchtend, statisch. */
 .dw-idee__kreis .icon, .dw-ziel .icon { position: relative; z-index: 1; }
-.dw--live .dw-idee__kreis::before, .dw--live .dw-ziel::before { animation: dw-glimmen-hof 3.6s ease-in-out infinite paused; }
-.dw--live .dw-idee__kreis.ist-sichtbar::before, .dw--live .dw-ziel.ist-sichtbar::before { animation-play-state: running; }
-@keyframes dw-glimmen-hof { 0%, 100% { opacity: 0.35; transform: scale(0.94); } 50% { opacity: 0.9; transform: scale(1.06); } }
+.dw-idee__kreis .icon { filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
+.dw--live .dw-idee__kreis .icon { animation: dw-birne 3.6s ease-in-out infinite paused; }
+.dw--live .dw-idee__kreis.ist-sichtbar .icon { animation-play-state: running; }
+@keyframes dw-birne { 0%, 100% { opacity: 0.78; filter: drop-shadow(0 0 0 rgb(0 166 161 / 0%)); } 50% { opacity: 1; filter: drop-shadow(0 0 6px rgb(0 166 161 / 75%)); } }
 /* Talk 3933: Ziel „Verbessern“ im Hero – gleiche Größe wie die Idee, Pfeile im Uhrzeigersinn auf dem Rand, ein
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
 .dw-ziel { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
@@ -65,8 +67,8 @@
 .dw-ziel__ring { position: absolute; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; z-index: 1; pointer-events: none; }
 .dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
 .dw-ziel__schimmer { transform-origin: 50px 50px; transform: rotate(200deg); }
-.dw-ziel__licht { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 7; stroke-linecap: round; }
-.dw-ziel__hof { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 14; stroke-linecap: round; opacity: 0.3; }
+/* Talk 4031: Lichtschimmer genau so breit wie der Rand (3 px), heller Türkiston, damit er auf dem Rand sichtbar bleibt */
+.dw-ziel__licht { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 3px; vector-effect: non-scaling-stroke; stroke-linecap: butt; }
 .dw--live .dw-ziel__schimmer { animation: dw-schimmer 3.6s linear infinite paused; }
 .dw--live .dw-ziel.ist-sichtbar .dw-ziel__schimmer { animation-play-state: running; }
 @keyframes dw-schimmer { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -144,8 +146,7 @@
 .dw-kreis .dw-chip--auf-linie { position: relative; }
 .dw-kreis.ist-zu .dw-chip--auf-linie, .dw:not(.dw--live) .dw-kreis .dw-chip--auf-linie { border-color: var(--accent-mid); color: var(--accent-ink); }
 /* Lichtschimmer wie beim Verbessern-Kreis im Hero (Talk 3942): Türkis der Linie, läuft im Uhrzeigersinn den Rand entlang */
-.dw-kreis__licht { fill: none; stroke: url(#dw-kreis-grad); stroke-width: 5; stroke-linecap: round; }
-.dw-kreis__hof { fill: none; stroke: url(#dw-kreis-grad); stroke-width: 12; stroke-linecap: round; opacity: 0.22; }
+.dw-kreis__licht { fill: none; stroke: url(#dw-kreis-grad); stroke-width: 2.5; stroke-linecap: butt; }   /* so breit wie der Kreis (Talk 4031) */
 .dw-kreis__schimmer { opacity: 0; }
 
 /* Talk 3929: Kreis erscheint schneller (Ring, Pfeile, Schimmer kurz nacheinander) */
@@ -346,7 +347,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
   .dw-kreis__schimmer { animation: none !important; }
-  .dw-idee__kreis::before, .dw-ziel::before, .dw-ziel__schimmer { animation: none !important; }
+  .dw-idee__kreis .icon, .dw-ziel__schimmer { animation: none !important; }
 }
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */

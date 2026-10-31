@@ -35,8 +35,8 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
     <defs>
       <linearGradient id="dw-kreis-grad" x1={RICHTUNG > 0 ? 0 : 1} y1="0" x2={RICHTUNG > 0 ? 1 : 0} y2="0">
-        <stop offset="0" style="stop-color: var(--accent-mid); stop-opacity: 0" />
-        <stop offset="1" style="stop-color: var(--accent-mid); stop-opacity: 1" />
+        <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
+        <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
       </linearGradient>
     </defs>
     <path class="dw-s" pathLength="1" d={`M ${CX} 0 L ${CX} ${oben}`} data-an={`linear:0-${TEIL}`} />
@@ -50,7 +50,6 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       </g>
     ))}
     <g class="dw-kreis__schimmer" style={`transform-origin:${CX}px ${CY}px`}>
-      <path class="dw-kreis__hof" d={schimmerD} />
       <path class="dw-kreis__licht" d={schimmerD} />
     </g>
   </svg>
