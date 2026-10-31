@@ -78,18 +78,16 @@ export const DW_HINTERFRAGEN = {
   // Vorschlag 4: nicht die Website aussortieren, sondern den Neubau
   zeilen: ['Nicht jede Website muss neu gebaut werden.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
   schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.',
-  /** Szene nach Talk 4020: erste Idee → „Warum?“ → Ziele → ein Ziel → Möglichkeiten → eine Richtung.
-   *  bleiben = Möglichkeiten, die zur Richtung passen und im Abschnitt „Entscheiden“ abgewogen werden. */
-  szene: {
-    start: 'Neue Website',
-    startNotiz: 'Die erste Idee.',
-    warum: 'Warum?',
-    ziele: ['Mehr Anfragen', 'Neue Mitarbeiter gewinnen', 'Leistungen besser erklären', 'Kunden einfacher erreichen'],
-    ziel: 0,
-    moeglichkeiten: ['Positionierung', 'Inhalte', 'Anfrageprozess', 'Komplett neue Website'],
-    bleiben: [0, 1, 2],
-    richtung: 'Eine Richtung: Mehr Anfragen',
-  },
+  /** Szene nach Talk 4106: kurzer Dialog in Sprechblasen (links der Kunde, rechts waybuild), dann das Ergebnis.
+   *  Die drei Punkte des Ergebnisses sind die Wege, die bei „Entscheiden“ abgewogen werden. */
+  dialog: [
+    { wer: 'kunde', text: 'Wir brauchen eine neue Website.' },
+    { wer: 'waybuild', text: 'Warum? Was soll sie bewirken?' },
+    { wer: 'kunde', text: 'Wir wollen mehr Anfragen.' },
+    { wer: 'waybuild', text: 'Was bringt Ihnen mehr Anfragen?' },
+  ] as { wer: 'kunde' | 'waybuild'; text: string }[],
+  ergebnis: ['Klare Positionierung', 'Bessere Inhalte', 'Einfacher Anfrageprozess'],
+  nichtUnbedingt: 'Nicht unbedingt eine komplett neue Website',
 };
 
 export const DW_ENTSCHEIDEN = {

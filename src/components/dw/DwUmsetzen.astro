@@ -1,19 +1,19 @@
 ---
-// Szene „Umsetzen“ (Talk 4050/4091/4093): Drei Erkenntnisse (Lupe, Glühbirne, Ziel) stehen in einer Reihe über dem
-// Knoten, bleiben eine Weile stehen und fließen dann der Reihe nach (links → Mitte → rechts) hinein. Der Knoten ist so
+// Szene „Umsetzen“ (Talk 4050/4091/4093/4109): Drei Erkenntnisse (Lupe, Glühbirne, Ziel) stehen in einer Reihe rechts
+// neben dem Knoten, bleiben eine Weile stehen und fließen dann nacheinander hinein (das nächste zuerst). Der Knoten ist so
 // groß wie die Lupe bei „Verstehen“ und trägt ein Funkeln (Erkenntnis). Danach läuft die Linie in eine allgemeine
 // „Lösung“: Bausteine schieben sich zu einem fertigen Ganzen zusammen (kein Produktname). Ohne JS / reduzierte
 // Bewegung: fertiges Bild.
 import Icon from '../Icon.astro';
-const W = 440, H = 440, CX = 220, KY = 124, RY = 40;
+const W = 440, H = 440, CX = 220, KY = 124, RY = KY;
 // Lösung: Rahmen mit vier Bausteinen (2 × 2)
 const FX = 145, FY = 196, FS = 150, PAD = 10, GAP = 10, BS = (FS - 2 * PAD - GAP) / 2;
 const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 const erkenntnisse = [
-  { icon: 'search', x: 146 },
-  { icon: 'idee', x: 220 },
-  { icon: 'target', x: 294 },
+  { icon: 'search', x: 280 },
+  { icon: 'idee', x: 332 },
+  { icon: 'target', x: 384 },
 ].map((e, k) => ({ ...e, k, ox: f(((e.x - CX) / W) * 100), oy: f(((RY - KY) / W) * 100), an: `auf:${f(0.02 + k * 0.03)}-${f(0.1 + k * 0.03)} fliessen:${f(0.3 + k * 0.08)}-${f(0.42 + k * 0.08)}` }));
 const bausteine = [
   { x: FX + PAD, y: FY + PAD, von: 'links' },
@@ -51,8 +51,8 @@ const rahmen = `M ${CX} ${FY} H ${FX + FS - 14} A 14 14 0 0 1 ${FX + FS} ${FY + 
   </span>
   {/* „aus“ steht nach dem Kreis-Anker „ein“: Wegpunkte zählen in Dokument-Reihenfolge */}
   <span class="dw-anker" style={`left:${pc(CX, W)};top:100%`} data-weg="aus"></span>
-  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(CX, W)} + 38px);top:${pc(KY, H)}`}>
-    <span class="dw-umsetzen__notiz" data-an="auf:0.5-0.6">Erkenntnisse</span>
+  <span class="dw-pos dw-pos--links" style={`left:calc(${pc(CX, W)} - 38px);top:${pc(KY, H)}`}>
+    <span class="dw-umsetzen__notiz" data-an="auf:0.2-0.3">Erkenntnisse</span>
   </span>
   <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FS + 30, H)}`}>
     <span class="dw-umsetzen__ergebnis" data-an="auf:0.84-0.92"><Icon name="check" size={18} /> Lösung</span>

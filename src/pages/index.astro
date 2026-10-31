@@ -146,9 +146,17 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 1 (Teil-Kopf entfernt, Talk 4088: Überschrift und Kernsatz stehen bei „Verstehen“) ═══ -->
+    <!-- ═══ KAPITEL 1 · Teil-Kopf wieder eingefügt (Talk 4108); die Linie entsteht aus der Überschrift ═══ -->
     <section class="dw-kapitel" id={K1.id} aria-labelledby="k1-h">
-      <h2 class="sr-only" id="k1-h">Unsere Denkweise: von der Idee zur passenden Lösung</h2>
+      <div class="wrap dw-kapitelkopf">
+        <div class="dw-kapitel__text" data-szene data-szene-id="k1">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <h2 id="k1-h">{K1.titel}</h2>
+          <p class="dw-kern">{K1.kern}</p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-wp" data-weg data-weg-nur="d"></span>
+        </div>
+      </div>
       <!-- Idee -->
       <div class="dw-abschnitt" id="denkweise">
         <div class="wrap dw-raster dw-raster--spiegel">

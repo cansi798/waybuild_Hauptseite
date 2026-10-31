@@ -125,6 +125,22 @@
 .dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
 .dw-nur-d { display: none; }
 
+/* ── Hinterfragen als Dialog (Talk 4106): Sprechblasen links (Kunde) / rechts (waybuild), Linie in der Mitte ── */
+.dw-dialog { padding-block: 14px 8px; }
+.dw-dialog__linie { position: absolute; top: 0; bottom: 0; left: calc(50% - 1.25px); width: 2.5px; border-radius: 2px; background: var(--accent-mid); transform-origin: top; }
+.dw-dialog__liste { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.dw-dialog__zeile { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: center; }
+.dw-dialog__wer { grid-column: 2; grid-row: 1; justify-self: center; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgb(0 143 138 / 45%); background: var(--paper); color: var(--accent-ink); font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; }
+.dw-dialog__zeile--waybuild .dw-dialog__wer { border-color: var(--accent-mid); background: var(--accent-mid); color: var(--white); }
+.dw-dialog__blase { grid-row: 1; position: relative; padding: 10px 14px; border-radius: 16px; font-size: 0.98rem; font-weight: 600; line-height: 1.4; }
+.dw-dialog__zeile--kunde .dw-dialog__blase { grid-column: 1; justify-self: end; border: 1px solid var(--line); background: var(--white); color: var(--ink); border-bottom-right-radius: 4px; }
+.dw-dialog__zeile--waybuild .dw-dialog__blase { grid-column: 3; justify-self: start; border: 1px solid rgb(0 143 138 / 35%); background: #e8f3f0; color: var(--accent-ink); border-bottom-left-radius: 4px; }
+.dw-dialog__ergebnis { position: relative; z-index: 1; width: fit-content; max-width: 100%; margin: 26px auto 0; padding: 14px 20px; border: 2px solid var(--accent-mid); border-radius: var(--radius); background: var(--paper); box-shadow: 0 0 0 5px rgb(0 166 161 / 10%); }
+.dw-dialog__ergebnis ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.dw-dialog__ergebnis li { display: flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--accent-ink); }
+.dw-dialog__ergebnis .icon { flex: none; color: var(--accent-mid); }
+.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 10px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-size: 0.86rem; color: #8a8478; text-align: center; }
+
 /* ── Unsere Prinzipien (Talk 4087): drei gleichwertige Karten im dunklen Bereich ── */
 .dw-alt-anker { display: block; position: relative; top: -80px; height: 0; }
 .dw-prinzipien__titel { margin: 0 0 clamp(24px, 3.5vw, 40px); font-size: clamp(1.6rem, 3.4vw, 2.4rem); letter-spacing: -0.02em; color: var(--white); text-align: center; }
@@ -389,6 +405,10 @@
   .dw-wahl { width: 6.4rem; padding: 5px 2px 7px; }
   .dw-wahl__name { font-size: 0.68rem; }
   .dw-wahl__zeile { font-size: 0.66rem; }
+  .dw-dialog__blase { font-size: 0.88rem; padding: 9px 12px; }
+  .dw-dialog__zeile { grid-template-columns: 1fr 34px 1fr; }
+  .dw-dialog__wer { width: 28px; height: 28px; font-size: 0.85rem; }
+  .dw-dialog__ergebnis li { font-size: 0.92rem; }
   .dw-hf-chip { font-size: 0.74rem; padding: 4px 9px; white-space: normal; max-width: 10.5em; }
   .dw-hf-chip--start { font-size: 0.8rem; }
   .dw-hf-chip--bleibt { padding: 3px 8px; }
