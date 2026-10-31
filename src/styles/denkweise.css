@@ -49,7 +49,7 @@
 .dw-start { --hs: 1.15; }
 .dw-idee__kreis { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 /* Talk 3930/3938: der äußere Kreis glimmt ständig sanft (nur Lichthof außen, kein Licht auf dem Symbol; ~3,6 s).
- * Läuft nur mit JS und solange sichtbar (ist-sichtbar, kreisfluss.ts); sonst bzw. bei reduzierter Bewegung statisch leicht leuchtend. */
+ * Läuft nur mit JS und solange sichtbar (ist-sichtbar, gesetzt in denkweise.ts); sonst bzw. bei reduzierter Bewegung statisch leicht leuchtend. */
 .dw-idee__kreis::before, .dw-ziel::before { content: ''; position: absolute; inset: -18px; border-radius: 50%; background: radial-gradient(circle, rgb(0 166 161 / 30%) 45%, rgb(0 166 161 / 0%) 72%); opacity: 0.55; z-index: -1; pointer-events: none; }
 .dw-idee__kreis .icon, .dw-ziel .icon { position: relative; z-index: 1; }
 .dw--live .dw-idee__kreis::before, .dw--live .dw-ziel::before { animation: dw-glimmen-hof 3.6s ease-in-out infinite paused; }
@@ -59,12 +59,14 @@
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
 .dw-ziel { position: relative; display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 .dw-reise__ziel { margin-top: 6px; }
+/* Einblenden (transform) auf der Hülle: sonst wird der Kreis selbst Stapelkontext und der Lichthof (z-index −1) färbt sein Inneres */
+.dw-ziel-huelle { display: block; }
 .dw-reise__ziel .dw-idee__wort { white-space: nowrap; }
 .dw-ziel__ring { position: absolute; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; z-index: 1; pointer-events: none; }
 .dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
 .dw-ziel__schimmer { transform-origin: 50px 50px; transform: rotate(200deg); }
-.dw-ziel__licht { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 5; stroke-linecap: round; }
-.dw-ziel__hof { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 12; stroke-linecap: round; opacity: 0.28; }
+.dw-ziel__licht { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 7; stroke-linecap: round; }
+.dw-ziel__hof { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 14; stroke-linecap: round; opacity: 0.3; }
 .dw--live .dw-ziel__schimmer { animation: dw-schimmer 3.6s linear infinite paused; }
 .dw--live .dw-ziel.ist-sichtbar .dw-ziel__schimmer { animation-play-state: running; }
 @keyframes dw-schimmer { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -116,25 +118,23 @@
 /* ── Kreis „Verbessern“ (Jamil, Talk 3920): geschlossen → türkis, Pfeile zwischen den Begriffen, ruhiger Fluss.
  * Ohne JS bzw. reduzierte Bewegung: fertiger türkiser Kreis mit Pfeilen, kein Fluss. Mit .dw--live erscheint alles
  * erst, wenn das Skript ist-zu setzt; der Fluss läuft nur bei ist-sichtbar (Kreis im Bild). Nur opacity/transform. */
-.dw-kreis { --dw-start: 0.5s; }
-.dw-kreis__ring { fill: none; stroke: var(--accent-mid); stroke-width: 3.75; }   /* geschlossen: kräftiger (die Linie selbst ist schon türkis) */
-.dw-pfeil path { fill: none; stroke: var(--accent-mid); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.35s ease-out; }
+.dw-kreis__ring { fill: none; stroke: var(--accent-mid); stroke-width: 2.5; }   /* Talk 3942: so dezent wie die Linie */
+.dw-pfeil path { fill: none; stroke: var(--accent-mid); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .dw-pfeil { transform-box: fill-box; transform-origin: center; }
-.dw-pfeil.ist-schub path { transform: translateX(calc(var(--dw-r, -1) * 4px)); }
-.dw-fluss { opacity: 0; pointer-events: none; }
-.dw-bild > svg.dw-kreis__oben { z-index: 2; pointer-events: none; }
-.dw-fluss__kopf, .dw-fluss__geist { fill: var(--accent); }
-.dw-fluss__hof { fill: rgb(0 166 161 / 22%); }
 .dw-kreis .dw-chip--auf-linie { position: relative; }
-.dw-kreis .dw-chip--auf-linie::after { content: ''; position: absolute; inset: -3px; border: 2px solid var(--accent); border-radius: inherit; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
-.dw-kreis .dw-chip--auf-linie.ist-umlauf::after { opacity: 0.6; }
 .dw-kreis.ist-zu .dw-chip--auf-linie, .dw:not(.dw--live) .dw-kreis .dw-chip--auf-linie { border-color: var(--accent-mid); color: var(--accent-ink); }
+/* Lichtschimmer wie beim Verbessern-Kreis im Hero (Talk 3942): Türkis der Linie, läuft im Uhrzeigersinn den Rand entlang */
+.dw-kreis__licht { fill: none; stroke: url(#dw-kreis-grad); stroke-width: 5; stroke-linecap: round; }
+.dw-kreis__hof { fill: none; stroke: url(#dw-kreis-grad); stroke-width: 12; stroke-linecap: round; opacity: 0.22; }
+.dw-kreis__schimmer { opacity: 0; }
 
-/* Talk 3929: Kreis erscheint schneller (Ring, Pfeile, Lichtpunkt kurz nacheinander) */
+/* Talk 3929: Kreis erscheint schneller (Ring, Pfeile, Schimmer kurz nacheinander) */
 .dw--live .dw-kreis__ring { opacity: 0; transition: opacity 0.45s ease; }
 .dw--live .dw-pfeil { opacity: 0; transform: scale(0.3); transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.3, 1.5, 0.5, 1); transition-delay: calc(0.12s + var(--i) * 0.08s); }
 .dw--live .dw-kreis.ist-zu .dw-kreis__ring, .dw--live .dw-kreis.ist-zu .dw-pfeil { opacity: 1; transform: none; }
-.dw--live .dw-kreis.ist-zu .dw-fluss { opacity: 1; transition: opacity 0.5s ease var(--dw-start); }
+.dw--live .dw-kreis.ist-zu .dw-kreis__schimmer { opacity: 1; transition: opacity 0.5s ease 0.5s; animation: dw-kreis-dreh 7.5s linear 0.5s infinite paused; }
+.dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-kreis__schimmer { animation-play-state: running; }
+@keyframes dw-kreis-dreh { to { transform: rotate(calc(var(--dw-r, 1) * 360deg)); } }
 
 /* ── Kapitel: Marke auf der Linie, Titel, Kernbotschaft ── */
 .dw-kapitel { position: relative; }
@@ -312,7 +312,7 @@
 /* Ohne Animation (reduzierte Bewegung): keine Übergänge */
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
-  .dw-kreis .dw-fluss { opacity: 0 !important; }
+  .dw-kreis__schimmer { animation: none !important; }
   .dw-idee__kreis::before, .dw-ziel::before, .dw-ziel__schimmer { animation: none !important; }
 }
 

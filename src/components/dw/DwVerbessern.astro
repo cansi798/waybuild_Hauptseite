@@ -1,11 +1,11 @@
 ---
 // Szene „Verbessern“ (Jamil, Talk 3920): Die Linie läuft mittig auf den Kreis zu, teilt sich am oberen Scheitel in
 // zwei Äste, die links und rechts herum den Kreis zeichnen und sich unten in der Mitte wieder treffen; von dort läuft
-// sie mittig weiter. Ist der Kreis geschlossen (Klasse ist-zu, gesetzt vom Skript über data-zu), wird er türkis,
-// zwischen den Begriffen entstehen Pfeile, und ein ruhiger Lichtpunkt kreist (ständiges Verbessern); die Begriffe
-// leuchten kurz auf, wenn er sie erreicht. Ohne JS / reduzierte Bewegung: geschlossener türkiser Kreis mit Pfeilen.
-// Talk 3929: Der Kreis erscheint schneller; der Lichtpunkt läuft schneller und teilt sich an jedem Begriff: zwei Punkte
-// laufen oben und unten an der Umrandung entlang und treffen sich am anderen Ende wieder (src/scripts/kreisfluss.ts).
+// sie mittig weiter. Ist der Kreis geschlossen (Klasse ist-zu, gesetzt vom Skript über data-zu), entstehen zwischen
+// den Begriffen Pfeile, und ein Lichtschimmer kreist (ständiges Verbessern); er läuft nur, solange der Kreis im Bild
+// ist (ist-sichtbar). Ohne JS / reduzierte Bewegung: geschlossener türkiser Kreis mit Pfeilen, ohne Schimmer.
+// Talk 3929: Der Kreis erscheint schneller. Talk 3942: dezenter – Strich wie die normale Linie, statt Lichtpunkt läuft
+// (wie beim Verbessern-Kreis im Hero) ein Lichtschimmer im Türkis der Linie im Uhrzeigersinn den Rand entlang.
 import { DW_VERBESSERN as T } from '../../config/denkweise';
 const W = 440, H = 440, CX = 220, CY = 210, R = 120;
 // Laufrichtung der Pfeile und des Lichtpunkts: +1 = im Uhrzeigersinn (Optimieren → Lernen → Feedback →
@@ -23,17 +23,22 @@ const punkte = [
   { t: T.kreis[0], grad: 180, an: `${(ZU - 0.04).toFixed(2)}-${(ZU + 0.01).toFixed(2)}` },
   { t: T.kreis[3], grad: 270, an: `${((TEIL + ZU) / 2 - 0.04).toFixed(2)}-${((TEIL + ZU) / 2 + 0.02).toFixed(2)}` },
 ].map((p) => ({ ...p, ...punkt(p.grad) }));
-// Lage in Laufrichtung des Lichtpunkts (0° = Feedback), für src/scripts/kreisfluss.ts
-const lauf = (grad: number) => (((RICHTUNG * (grad - 180)) % 360) + 360) % 360;
 // Pfeile zwischen den Begriffen (45°, 135°, 225°, 315°), Spitze in Laufrichtung; gezeichnet bei 12 Uhr, dann gedreht
 const pfeilD = `M ${CX - 5 * RICHTUNG} ${oben - 7} L ${CX + 3 * RICHTUNG} ${oben} L ${CX - 5 * RICHTUNG} ${oben + 7}`;
-const pfeile = [45, 135, 225, 315].map((grad, i) => ({ grad, i, phi: lauf(grad) }));
-// Lichtpunkt: je Ast ein Kopf mit Hof und drei Nachleucht-Punkten (Ast 2 nur sichtbar, solange er geteilt ist)
-const ASTE = [0, 1], GEISTER = [3.4, 2.6, 1.9];
+const pfeile = [45, 135, 225, 315].map((grad, i) => ({ grad, i }));
+// Lichtschimmer: Bogen von 12 Uhr über 60° in Laufrichtung, Verlauf transparent → Türkis der Linie; dreht per CSS
+const ende = punkt(60 * RICHTUNG);
+const schimmerD = `M ${CX} ${oben} A ${R} ${R} 0 0 ${RICHTUNG > 0 ? 1 : 0} ${ende.x.toFixed(1)} ${ende.y.toFixed(1)}`;
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 ---
-<div class="dw-bild dw-kreis" data-szene data-zu={ZU} data-kreis={JSON.stringify({ W, CX, CY, R, r: RICHTUNG })} style={`aspect-ratio: ${W} / ${H}; --dw-r: ${RICHTUNG}`}>
+<div class="dw-bild dw-kreis" data-szene data-zu={ZU} style={`aspect-ratio: ${W} / ${H}; --dw-r: ${RICHTUNG}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="dw-kreis-grad" x1={RICHTUNG > 0 ? 0 : 1} y1="0" x2={RICHTUNG > 0 ? 1 : 0} y2="0">
+        <stop offset="0" style="stop-color: var(--accent-mid); stop-opacity: 0" />
+        <stop offset="1" style="stop-color: var(--accent-mid); stop-opacity: 1" />
+      </linearGradient>
+    </defs>
     <path class="dw-s" pathLength="1" d={`M ${CX} 0 L ${CX} ${oben}`} data-an={`linear:0-${TEIL}`} />
     <path class="dw-s" pathLength="1" d={`M ${CX} ${oben} A ${R} ${R} 0 0 0 ${CX} ${unten}`} data-an={`linear:${TEIL}-${ZU}`} />
     <path class="dw-s" pathLength="1" d={`M ${CX} ${oben} A ${R} ${R} 0 0 1 ${CX} ${unten}`} data-an={`linear:${TEIL}-${ZU}`} />
@@ -41,27 +46,19 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
     <circle class="dw-kreis__ring" cx={CX} cy={CY} r={R} />
     {pfeile.map((p) => (
       <g transform={`rotate(${p.grad} ${CX} ${CY})`}>
-        <g class="dw-pfeil" style={`--i:${p.i}`} data-phi={p.phi}><path d={pfeilD} /></g>
+        <g class="dw-pfeil" style={`--i:${p.i}`}><path d={pfeilD} /></g>
       </g>
     ))}
+    <g class="dw-kreis__schimmer" style={`transform-origin:${CX}px ${CY}px`}>
+      <path class="dw-kreis__hof" d={schimmerD} />
+      <path class="dw-kreis__licht" d={schimmerD} />
+    </g>
   </svg>
   <span class="dw-anker" style="left:50%;top:0%" data-weg="ein"></span>
   <span class="dw-anker" style="left:50%;top:100%" data-weg="aus"></span>
   {punkte.map((p) => (
     <span class="dw-pos" style={`left:${pc(p.x, W)};top:${pc(p.y, H)}`}>
-      <span class="dw-chip dw-chip--auf-linie" data-phi={lauf(p.grad)} data-an={`auf:${p.an}`}>{p.t}</span>
+      <span class="dw-chip dw-chip--auf-linie" data-an={`auf:${p.an}`}>{p.t}</span>
     </span>
   ))}
-  <!-- Lichtpunkt über den Begriffen, damit die Teilung an der Umrandung ganz zu sehen ist -->
-  <svg class="dw-kreis__oben" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    <g class="dw-fluss">
-      {ASTE.map((a) => (
-        <g class="dw-fluss__ast" data-ast={a}>
-          {GEISTER.map((r, k) => <circle class="dw-fluss__geist" data-geist={k + 1} cx={CX} cy={CY + R} r={r} style={`opacity:${[0.5, 0.32, 0.18][k]}`} />)}
-          <circle class="dw-fluss__hof" data-geist="0" cx={CX} cy={CY + R} r="9" />
-          <circle class="dw-fluss__kopf" data-geist="0" cx={CX} cy={CY + R} r="4.5" />
-        </g>
-      ))}
-    </g>
-  </svg>
 </div>

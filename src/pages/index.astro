@@ -63,12 +63,12 @@ const [K1, K2, K3] = DW_KAPITEL;
               <li class="dw-reise__ziel" style="--dx:-18">
                 {/* Ziel „Verbessern“ (Talk 3933): großer Kreis wie die Idee, Pfeile im Uhrzeigersinn, Lichtschimmer läuft
                     im Uhrzeigersinn den Rand entlang; die Hero-Linie endet hier (in seiner Mitte, verdeckt) */}
-                <span class="dw-ziel" data-weg="ein" data-intro-ende data-an="erscheinen:auto">
+                <span class="dw-ziel-huelle" data-an="erscheinen:auto"><span class="dw-ziel" data-weg="ein" data-intro-ende>
                   <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
                     <defs>
                       <linearGradient id="dw-ziel-grad" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0" style="stop-color: var(--accent-light); stop-opacity: 0" />
-                        <stop offset="1" style="stop-color: var(--accent-light); stop-opacity: 1" />
+                        <stop offset="0" style="stop-color: var(--accent-mid); stop-opacity: 0" />
+                        <stop offset="1" style="stop-color: var(--accent-mid); stop-opacity: 1" />
                       </linearGradient>
                     </defs>
                     <g class="dw-ziel__schimmer">
@@ -78,7 +78,7 @@ const [K1, K2, K3] = DW_KAPITEL;
                     {[45, 135, 225, 315].map((g) => <path class="dw-ziel__pfeil" transform={`rotate(${g} 50 50)`} d="M 45 -4.5 L 52.5 2 L 45 8.5" />)}
                   </svg>
                   <Icon name="refresh" size={34} />
-                </span>
+                </span></span>
                 <span class="dw-idee__wort">{r.wort}</span>
               </li>
             ))}
@@ -352,6 +352,5 @@ const [K1, K2, K3] = DW_KAPITEL;
 
 <script>
   import '../scripts/denkweise';
-  import '../scripts/kreisfluss';
   import '../scripts/veraenderungscheck';
 </script>
