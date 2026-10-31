@@ -64,36 +64,36 @@ export const DW_VERSTEHEN = {
 
 export const DW_HINTERFRAGEN = {
   titel: 'Bevor wir digitale Lösungen entwickeln, möchten wir verstehen.', // Talk 4013
-  // Talk 3818 Punkt 2: Botschaft und kurze Beschriftungen der Phasen, damit die Szene auf Anhieb verständlich ist
+  // Talk 3818 Punkt 2: Botschaft, damit die Szene auf Anhieb verständlich ist
   botschaft: ['Wir verkaufen nicht die erste Idee.', 'Wir helfen dabei, die richtige Entscheidung zu treffen.'],
-  phasen: ['Die erste Idee', 'Mögliche Wege', 'Prüfen: Was bringt Sie weiter?', 'Eine Richtung'],
   zeilen: ['Nicht jede Herausforderung braucht eine neue Website.', 'Nicht jedes Problem braucht neue Software.', 'Manchmal liegt die eigentliche Verbesserung ganz woanders.'],
   schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.',
-  start: 'Neue Website',
-  /** bleibt = verbindet sich am Ende wieder zu einer Richtung; die anderen verblassen */
-  wege: [
-    { text: 'Website', bleibt: false },
-    { text: 'Bessere Inhalte', bleibt: true },
-    { text: 'Positionierung', bleibt: true },
-    { text: 'Prozess', bleibt: true },
-    { text: 'Kommunikation', bleibt: false },
-  ],
-  richtung: 'Eine Richtung',
+  /** Szene nach Talk 4020: erste Idee → „Warum?“ → Ziele → ein Ziel → Möglichkeiten → eine Richtung.
+   *  bleiben = Möglichkeiten, die zur Richtung passen und im Abschnitt „Entscheiden“ abgewogen werden. */
+  szene: {
+    start: 'Neue Website',
+    startNotiz: 'Die erste Idee.',
+    warum: 'Warum?',
+    ziele: ['Mehr Anfragen', 'Neue Mitarbeiter gewinnen', 'Leistungen besser erklären', 'Kunden einfacher erreichen'],
+    ziel: 0,
+    moeglichkeiten: ['Positionierung', 'Inhalte', 'Anfrageprozess', 'Website'],
+    bleiben: [0, 1, 2],
+    richtung: 'Eine Richtung: Mehr Anfragen',
+  },
 };
 
-// Talk 3938/3939: „Entscheiden“ ersetzt „Vereinfachen“. Abwägen statt Bauchgefühl: Nutzen und Aufwand der Wege aus dem
-// Hinterfragen nebeneinander, daraus eine Reihenfolge. Die Werte in der Szene sind nur Bild, keine Aussage über Projekte.
 export const DW_ENTSCHEIDEN = {
-  titel: 'Erst abwägen, dann entscheiden.',
+  titel: 'Wir empfehlen, bevor wir umsetzen.', // Talk 4021
   zeilen: ['Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege.', 'Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten?'],
   ziel: ['So entsteht eine klare Reihenfolge.', 'Sie entscheiden, und alle wissen, warum.'],
   nutzen: 'Nutzen',
   aufwand: 'Aufwand',
-  /** die drei Wege, die im Hinterfragen übrig bleiben; rang = Reihenfolge nach dem Abwägen */
+  /** Talk 4022: die drei Wege aus dem Hinterfragen nebeneinander; der mit dem meisten Nutzen und dem wenigsten
+   *  Aufwand (rang 1) steht in der Mitte, dort läuft die Linie weiter. Werte sind nur Bild. */
   optionen: [
-    { text: 'Bessere Inhalte', nutzen: 0.7, aufwand: 0.35, rang: 2 },
     { text: 'Positionierung', nutzen: 0.8, aufwand: 0.8, rang: 3 },
-    { text: 'Prozess', nutzen: 0.9, aufwand: 0.4, rang: 1 },
+    { text: 'Anfrageprozess', nutzen: 0.9, aufwand: 0.35, rang: 1 },
+    { text: 'Inhalte', nutzen: 0.7, aufwand: 0.45, rang: 2 },
   ],
   ergebnis: 'Zuerst',
 };
@@ -101,15 +101,11 @@ export const DW_ENTSCHEIDEN = {
 export const DW_UMSETZEN = {
   titel: 'Aus Erkenntnissen entstehen Lösungen.',
   zeilen: ['Je nach Unternehmen entstehen unterschiedliche Lösungen.', 'Entscheidend ist nicht die Technologie.', 'Entscheidend ist, dass sie zum Ziel passt.'],
-  /** Jamils fünf Bereiche. Verfügbarkeit vorsichtig nach Config: Website Service buchbar; Kundenverwaltungen und Apps
-   *  (PRODUKTE) gehören zur Software; Workplace, Cloud, Process: einzelne Projekte auf Anfrage (FAQ „Bietet Waybuild
-   *  auch Software, Cloud und IT an?“). Offene Frage a) an Jamil, Talk 3800. */
+  /** Talk 4024: nur der Website Service wird gezeigt, darunter dezent „Weitere Produkte folgen.“ (folgt = Hinweis,
+   *  kein Angebot). Software/Workplace/Cloud/Process Service zeigt Jamil derzeit nicht. */
   bereiche: [
-    { name: 'Website Service', icon: 'layout' as IconName, hinweis: '', hervor: true },
-    { name: 'Software Service', icon: 'code' as IconName, hinweis: 'z. B. Kundenverwaltungen, Apps', hervor: false },
-    { name: 'Workplace Service', icon: 'users' as IconName, hinweis: 'auf Anfrage', hervor: false },
-    { name: 'Cloud Service', icon: 'cloud' as IconName, hinweis: 'auf Anfrage', hervor: false },
-    { name: 'Process Service', icon: 'layers' as IconName, hinweis: 'auf Anfrage', hervor: false },
+    { name: 'Website Service', icon: 'layout' as IconName, hinweis: '', hervor: true, folgt: false },
+    { name: 'Weitere Produkte folgen.', icon: 'spark' as IconName, hinweis: '', hervor: false, folgt: true },
   ],
   karte: {
     kenn: 'Für viele Unternehmen beginnt die Zusammenarbeit hier.',
@@ -131,8 +127,8 @@ export const DW_VERBESSERN = {
 };
 
 export const DW_VERLAESSLICH = {
-  titel: 'Veränderung darf nicht vom Zufall abhängen.',
-  text: 'Damit Veränderungen zuverlässig vorankommen, braucht es klare Verantwortlichkeiten, nachvollziehbare Prozesse und verständliche Kommunikation.',
+  titel: 'Gute digitale Lösungen brauchen Verlässlichkeit.', // Talk 4029
+  text: 'Klare Ansprechpartner, nachvollziehbare Prozesse und verständliche Kommunikation sorgen dafür, dass unsere digitalen Lösungen zuverlässig funktionieren.', // Talk 4030
   pfeiler: [
     { titel: 'Klare Ansprechpartner', text: 'Sie wissen, wer sich kümmert.', icon: 'user' as IconName, zusatz: '' },
     // bestätigte Zusagen (Jamil, Talk 3720/3726): 1 Stunde in den Servicezeiten, spätestens nächster Werktag
@@ -154,7 +150,7 @@ export const DW_PRINZIPIEN = {
 };
 
 export const DW_ABSCHLUSS = {
-  titel: 'Was möchten Sie verändern?',
+  titel: 'Welche digitale Herausforderung möchten Sie lösen?', // Talk 4027
   zeilen: [
     'Vielleicht gibt es eine Idee, die schon lange umgesetzt werden sollte.',
     'Vielleicht einen Prozess, der unnötig kompliziert geworden ist.',
@@ -167,11 +163,10 @@ export const DW_ABSCHLUSS = {
   slogan: 'Wir machen Veränderungen einfach.',
 };
 
-/** Produkte als eigene Karten (Talk 3818 Punkt 5). Website Service ist die hervorgehobene Karte (DW_UMSETZEN.karte).
+/** Produkte als eigene Karten (Talk 3818 Punkt 5; Kundenverwaltung Handwerk entfernt, Talk 4025). Website Service ist die hervorgehobene Karte (DW_UMSETZEN.karte).
  *  Nutzen = Zweck aus PRODUKTE; die kurzen Beschreibungen sind vorsichtige Vorschläge (beschreiben nur, was eine
  *  Kundenverwaltung bzw. App ist) und von Jamil zu bestätigen. */
 export const DW_PRODUKTE = [
-  { id: 'crm-handwerk', name: 'Kundenverwaltung für Handwerksbetriebe', nutzen: 'Ein CRM, gemacht für den Alltag im Handwerk.', text: 'Kunden und Anfragen übersichtlich an einem Ort.', icon: 'tools' as IconName },
   { id: 'crm-azav', name: 'Kundenverwaltung für AZAV-Bildungsträger', nutzen: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', text: 'Anfragen und Prozesse übersichtlich an einem Ort.', icon: 'book' as IconName },
   { id: 'apps', name: 'Apps für App Store und Google Play', nutzen: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', text: 'Für Smartphone und Tablet, über App Store und Google Play.', icon: 'smartphone' as IconName },
 ];

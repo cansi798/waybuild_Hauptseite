@@ -143,9 +143,6 @@ const [K1, K2, K3] = DW_KAPITEL;
             <p class="dw-zeilen">{DW_HINTERFRAGEN.zeilen.map((z) => <span>{z}</span>)}</p>
             <p>{DW_HINTERFRAGEN.schluss}</p>
             <p class="dw-zeilen dw-botschaft">{DW_HINTERFRAGEN.botschaft.map((z) => <span>{z}</span>)}</p>
-            <ol class="dw-phasen dw-nur-m" aria-label="So läuft die Entscheidung">
-              {DW_HINTERFRAGEN.phasen.map((ph, i) => <li data-an-ref="hf-m" data-an={`auf:${[0.02, 0.14, 0.5, 0.86][i]}-${[0.1, 0.24, 0.6, 0.96][i]}`}><span class="dw-phase__nr">{i + 1}</span>{ph}</li>)}
-            </ol>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <span class="dw-wp" data-weg data-weg-nur="d" data-weg-x="rechts"></span>
           </div>
@@ -247,6 +244,7 @@ const [K1, K2, K3] = DW_KAPITEL;
                 </li>
               ))}
             </ul>
+            <p class="dw-produkte__folgt" data-an="auf:auto"><Icon name="spark" size={16} /> Weitere Produkte folgen.</p>
             <span class="dw-anker dw-anker--mitte" style="top:100%" data-weg data-weg-nur="d"></span>
             <span class="dw-anker dw-anker--rand" style="top:100%" data-weg data-weg-nur="m"></span>
           </div>

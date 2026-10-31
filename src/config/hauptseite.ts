@@ -155,6 +155,8 @@ export type Produkt = {
 /** Anzeigename: eigener Produktname oder (solange offen) die Kategorie */
 export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO') ? p.name : p.kategorie);
 
+// Talk 4024/4025 (31.10.2026): Kundenverwaltung Handwerk und die Bereiche Software/Cloud/Workplace/Process Service
+// werden derzeit nicht gezeigt (entfernt; frühere Einträge in der Git-Historie).
 export const PRODUKTE: Produkt[] = [
   // name: Arbeitsname „Super Duper Website Service“ (Talk 3477) am 28.10.2026 entfernt – Jamil, Talk 3636: „Ersetzen: Super Duper“.
   // Bis ein eigener Name feststeht, zeigt die Seite die Kategorie „Website Service“.
@@ -174,13 +176,8 @@ export const PRODUKTE: Produkt[] = [
     ] },
   // Von Can als aktuelle Produkte festgelegt (28.10.2026, One-Pager): verfügbar, nur Zweck, keine Funktionsversprechen;
   // Namen neutral bis Jamil eigene nennt; ohne Produktseite → Knopf „Erstgespräch anfragen“.
-  { id: 'crm-handwerk', saeule: 'Mehr Ordnung im Alltag', name: 'TODO', kategorie: 'Kundenverwaltung für Handwerksbetriebe', zweck: 'Ein CRM, gemacht für den Alltag im Handwerk.', icon: 'tools', aktiv: true, art: 'produkt' },
   { id: 'apps', name: 'TODO', kategorie: 'Apps für App Store und Google Play', zweck: 'Zum Beispiel zur Prüfungsvorbereitung in Berufen.', icon: 'smartphone', aktiv: true, art: 'produkt' },
   { id: 'crm-azav', saeule: 'Mehr Ordnung im Alltag', name: 'TODO', kategorie: 'Kundenverwaltung für AZAV-Bildungsträger', zweck: 'Ein CRM für Bildungsträger mit AZAV-Zulassung.', icon: 'book', aktiv: true, art: 'produkt' },
-  { id: 'software', art: 'bereich', name: 'TODO', kategorie: 'Software Service', icon: 'code', aktiv: false },
-  { id: 'cloud', art: 'bereich', name: 'TODO', kategorie: 'Cloud Service', icon: 'cloud', aktiv: false },
-  { id: 'workplace', art: 'bereich', name: 'TODO', kategorie: 'Workplace Service', icon: 'users', aktiv: false },
-  { id: 'process', art: 'bereich', name: 'TODO', kategorie: 'Process Service', icon: 'layers', aktiv: false },
 ];
 
 /** Erstes Produkt (Website) – für /angebot/, Footer, llms.txt, JSON-LD */

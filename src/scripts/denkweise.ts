@@ -141,7 +141,15 @@ if (root) {
     if (y <= maxY[0]) return 0;
     let lo = 0, hi = N;
     while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (maxY[mid] >= y) hi = mid; else lo = mid; }
-    const f = (y - maxY[lo]) / Math.max(0.001, maxY[hi] - maxY[lo]);
+    // Sprung zwischen zwei Stücken (Lücke an einer Szene): nicht in das nächste Stück hinein interpolieren,
+    // sonst steht dort vorzeitig ein kurzer Strich bzw. Punkt
+    const dyS = maxY[hi] - maxY[lo];
+    if (dyS > SCHRITT * 3) {
+      const a = (lo / N) * L, b = (hi / N) * L;
+      const naechstes = stuecke.find((st) => st.start > a && st.start <= b);
+      if (naechstes) return naechstes.start;   // vorheriges Stück ganz, vom nächsten noch nichts
+    }
+    const f = (y - maxY[lo]) / Math.max(0.001, dyS);
     return ((lo + clamp(f)) / N) * L;
   };
 

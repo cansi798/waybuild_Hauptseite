@@ -96,7 +96,22 @@
 .dw-bereich { display: grid; gap: 1px; }
 .dw-bereich__name { font-family: var(--font-head); font-size: 0.92rem; font-weight: 650; color: var(--ink); white-space: nowrap; }
 .dw-bereich__hinweis { font-size: 0.78rem; color: #6f6a60; max-width: 13em; line-height: 1.35; }
+.dw-icon--folgt { border-style: dashed; border-color: rgb(0 143 138 / 45%); color: var(--accent-mid); background: var(--paper); }
+.dw-bereich--folgt .dw-bereich__name { font-weight: 600; color: var(--accent-ink); opacity: 0.85; }
+.dw-s--folgt { stroke-dasharray: 4 6; }
+.dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
 .dw-nur-d { display: none; }
+
+/* ── Hinterfragen (Talk 4020): erste Idee → Warum? → Ziele → Möglichkeiten → eine Richtung; alles türkis ── */
+.dw-pos--links { transform: translate(-100%, -50%); }
+.dw-hf-chip { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgb(0 143 138 / 38%); background: var(--paper); color: var(--accent-ink); font-size: 0.82rem; font-weight: 650; line-height: 1.25; white-space: nowrap; text-align: center; }
+.dw-hf-chip .icon { flex: none; color: var(--accent-mid); }
+.dw-hf-chip--start { background: #e8f3f0; font-size: 0.88rem; padding: 6px 14px; }
+.dw-hf-notiz { position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 0.86rem; font-weight: 650; color: var(--accent-ink); }
+.dw-hf-chip--ziel { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--white); }
+.dw-hf-chip--bleibt { background: #e8f3f0; border: 2px solid var(--accent-mid); padding: 4px 11px; }
+.dw-hf-warum { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--accent-ink); white-space: nowrap; }
+.dw-hf-richtung { display: inline-block; padding: 2px 6px; border-radius: 6px; background: var(--paper); font-size: 0.88rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
 
 /* ── Idee (Talk 4007): Ideen-Karten um den Knoten, fließen nacheinander hinein; alles türkis ── */
 .dw-ideebild { container-type: inline-size; }
@@ -105,20 +120,19 @@
 .dw-ideebild__hof { fill: rgb(0 166 161 / 16%); transform-box: fill-box; transform-origin: center; }
 
 /* ── Entscheiden (Talk 3938/3939): Wege abwägen (Nutzen/Aufwand), Reihenfolge, Wahl türkis mit Haken ── */
-.dw-pos--kopf { transform: translate(0, -13px); }   /* Kopfzeile (Rang + Begriff) liegt auf Höhe des Knotens */
-.dw-wahl { display: grid; gap: 5px; }
-.dw-wahl__kopf { display: flex; align-items: center; gap: 8px; height: 26px; }
-.dw-wahl__rang { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--paper-2); border: 1px solid var(--line); color: #5d584e; font-size: 0.75rem; font-weight: 700; flex: none; transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; }
-.dw-wahl__zuerst { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent-ink); white-space: nowrap; }
-.dw-wahl__zeile { display: grid; grid-template-columns: 4.4em 120px; align-items: center; gap: 8px; padding-left: 30px; font-size: 0.74rem; color: #6f6a60; }
-.dw-wahl__bahn { display: block; height: 6px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
+.dw-pos--spalte { transform: translate(-50%, 0); }   /* Spaltenkopf hängt am Ende des Astes */
+.dw-wahl { display: grid; justify-items: center; gap: 4px; width: 7.6rem; padding: 6px 4px 8px; border-radius: 12px; background: var(--paper); text-align: center; }
+.dw-wahl__rang { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--paper-2); border: 1px solid var(--line); color: #5d584e; font-size: 0.75rem; font-weight: 700; transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; }
+.dw-wahl__name { font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--accent-ink); line-height: 1.2; }
+.dw-wahl__zeile { display: grid; justify-items: center; gap: 2px; width: 100%; font-size: 0.72rem; color: #6f6a60; }
+.dw-wahl__bahn { display: block; width: 78%; height: 6px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
 .dw-wahl__wert { display: block; height: 100%; width: var(--w); border-radius: 3px; background: #b3aa99; transform-origin: left; transition: background-color 0.5s ease; }
 .dw-wahl__haken { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-mid); color: var(--white); box-shadow: 0 0 0 4px var(--paper); }
-.dw-wahl__steg--wahl { stroke-width: 3; }
+.dw-wahl__zuerst { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent-ink); white-space: nowrap; }
+.dw-wahlbild.ist-zu .dw-wahl--gewaehlt, .dw:not(.dw--live) .dw-wahl--gewaehlt { box-shadow: 0 0 0 2px var(--accent-mid); }
 .dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-wahl__rang, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-wahl__rang { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--white); }
 .dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-wahl__wert, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-wahl__wert { background: var(--accent-mid); }
-.dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-chip, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-chip { border-color: var(--accent-mid); color: var(--accent-ink); }
-.dw-wahl .dw-chip { transition: border-color 0.5s ease, color 0.5s ease; }
+.dw-wahl { transition: box-shadow 0.5s ease; }
 .dw-s--weiter { stroke: url(#dw-weiter); }
 
 /* ── Kreis „Verbessern“ (Jamil, Talk 3920): geschlossen → türkis, Pfeile zwischen den Begriffen, ruhiger Fluss.
@@ -178,6 +192,8 @@
 
 /* Produkte: jede als eigene Karte, Website Service hervorgehoben */
 .dw-produkt { background: var(--white); }
+.dw-produkte__folgt { position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; width: fit-content; margin: 28px 0 0 calc(var(--rand-x) + 16px); padding: 6px 14px; border: 1px dashed rgb(0 143 138 / 45%); border-radius: 999px; background: var(--paper); font-size: 0.9rem; font-weight: 600; color: var(--accent-ink); }
+.dw-produkte__folgt .icon { color: var(--accent-mid); }
 .dw-andock .k h4, .dw-produkt h4 { margin: 0 0 6px; font-family: var(--font-head); font-size: 1.12rem; font-weight: 650; line-height: 1.3; }
 .dw-produkt__name { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink) !important; margin-bottom: 6px !important; }
 .dw-produkt--hervor { box-shadow: 0 0 0 4px rgb(0 166 161 / 10%); }
@@ -264,6 +280,15 @@
   .dw-chip { font-size: 0.74rem; padding: 3px 9px; }
   .dw-bereich__name { font-size: 0.86rem; }
   .dw-ideebild__idee { font-size: 0.74rem; padding: 5px 9px; max-width: 12.5em; }
+  .dw-wahl { width: 6.4rem; padding: 5px 2px 7px; }
+  .dw-wahl__name { font-size: 0.68rem; }
+  .dw-wahl__zeile { font-size: 0.66rem; }
+  .dw-hf-chip { font-size: 0.74rem; padding: 4px 9px; white-space: normal; max-width: 10.5em; }
+  .dw-hf-chip--start { font-size: 0.8rem; }
+  .dw-hf-chip--bleibt { padding: 3px 8px; }
+  .dw-hf-notiz, .dw-hf-richtung { font-size: 0.78rem; }
+  .dw-hf-warum { font-size: 0.9rem; }
+  .dw-hf-richtung { white-space: normal; max-width: 9em; line-height: 1.3; }
 }
 
 /* ── Desktop ── */
@@ -294,6 +319,7 @@
   .dw-dunkel .dw-andock__liste { column-gap: 140px; row-gap: 28px; }
   .dw-andock--raster .dw-andock__item--r, .dw-andock--raster .dw-andock__item--l { margin: 0; }
   .dw-andock--raster .dw-andock__liste { row-gap: 28px; }
+  .dw-produkte__folgt { margin: 36px auto 0; }
 
   /* Fragen und Profil mittig, die Linie läuft rechts daneben */
   .dw-frage-wrap { max-width: 640px; margin-inline: auto; }
