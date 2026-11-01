@@ -115,12 +115,13 @@ export type Referenz = {
 };
 
 /** Vorbereitete Einträge (Jamil, Talk 4192). Solange freigegeben = false, erscheint davon NICHTS auf der Website
- *  (auch nicht im HTML). Branche und Kurztext ergänzen, sobald der Kunde zugestimmt hat. */
+ *  (auch nicht im HTML). Name, Branche und Kurztext erst nach Zustimmung des Kunden eintragen –
+ *  das Repo ist öffentlich, deshalb stehen hier vorher keine Kundennamen. */
 export const REFERENZEN: Referenz[] = [
-  { id: 'bauwelt', name: 'Bauwelt', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
-  { id: 'destar', name: 'Destar', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
-  { id: 'kerim-tanrikulu', name: 'Kerim Tanrikulu', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
-  { id: 'ilmmeup', name: 'ilmmeup', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
+  { id: 'referenz-1', name: 'TODO', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
+  { id: 'referenz-2', name: 'TODO', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
+  { id: 'referenz-3', name: 'TODO', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
+  { id: 'referenz-4', name: 'TODO', branche: 'TODO', leistung: 'Website', text: 'TODO', freigegeben: false },
 ];
 export const sichtbareReferenzen = () => REFERENZEN.filter((r) => r.freigegeben && !r.text.startsWith('TODO'));
 
