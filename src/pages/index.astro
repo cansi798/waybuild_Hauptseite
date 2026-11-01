@@ -90,9 +90,8 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
             <span class="dw-pos" style={`left:${qpc(quer.xs[5], Q.W)};top:${qpc(Q.Y, Q.H)}`}>
               <span class="dw-ziel">
                 <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                  {[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" style={`animation-delay:${((((g - 60 + 360) % 360) / 360 - 1) * 3.6).toFixed(2)}s`} d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}
+                  <g class="dw-ziel__dreh">{[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}</g>
                 </svg>
-                <Icon name="refresh" size={22} />
               </span>
             </span>
           </div>
@@ -117,10 +116,9 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
                     im Uhrzeigersinn den Rand entlang; die Hero-Linie endet hier (in seiner Mitte, verdeckt) */}
                 <span class="dw-ziel-huelle"><span class="dw-ziel">
                   <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                    {/* Pfeile schieben sich nacheinander im Uhrzeigersinn vor (Talk 4038/4114, ohne Lichtschimmer) */}
-                    {[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" style={`animation-delay:${((((g - 60 + 360) % 360) / 360 - 1) * 3.6).toFixed(2)}s`} d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}
+                    {/* Talk 4141: kein Symbol mehr innen; die vier Pfeile wandern langsam im Uhrzeigersinn auf der Kreislinie */}
+                    <g class="dw-ziel__dreh">{[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}</g>
                   </svg>
-                  <Icon name="refresh" size={34} />
                 </span></span>
                 <span class="dw-idee__wort">{r.wort}</span>
               </li>

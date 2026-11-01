@@ -85,7 +85,7 @@ export const DW_HINTERFRAGEN = {
     { wer: 'kunde', text: 'Viele verstehen nicht genau, was wir anbieten. Und die Anfrage ist umständlich.' },
     { wer: 'waybuild', text: 'Dann setzen wir genau dort an.' },
   ] as { wer: 'kunde' | 'waybuild'; text: string }[],
-  ergebnis: ['Klare Positionierung', 'Bessere Inhalte', 'Einfacher Anfrageprozess'],
+  // Talk 4143: Ergebnis-Karte (Klare Positionierung · Bessere Inhalte · Einfacher Anfrageprozess) entfernt
   nachsatz: ['Manchmal reicht eine Anpassung.', 'Manchmal entsteht etwas komplett Neues.'], // Talk 4135
 };
 

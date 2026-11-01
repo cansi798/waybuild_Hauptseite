@@ -89,9 +89,11 @@
 .dw-reise__ziel .dw-idee__wort { white-space: nowrap; }
 .dw-ziel__ring { position: absolute; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; z-index: 1; pointer-events: none; }
 .dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;; transform-box: fill-box; transform-origin: center; }
-/* Talk 4038: Pfeile leuchten kurz auf und schieben leicht nach vorn, wenn der Lichtschimmer sie erreicht (gleiche Runde) */
-.dw--live .dw-ziel__pfeil { animation: dw-pfeil-puls 3.6s linear infinite paused; }
-.dw--live .dw-ziel.ist-sichtbar .dw-ziel__pfeil { animation-play-state: running; }
+/* Talk 4141: kein Symbol innen; die Pfeilgruppe dreht sich gleichmäßig langsam im Uhrzeigersinn um die Kreismitte
+ * (Pfeile bleiben tangential), nur solange der Kreis im Bild ist; reduzierte Bewegung: Pfeile stehen still */
+.dw-ziel__dreh { transform-box: view-box; transform-origin: 50px 50px; }
+.dw--live .dw-ziel__dreh { animation: dw-kreis-dreh 12s linear infinite paused; }
+.dw--live .dw-ziel.ist-sichtbar .dw-ziel__dreh { animation-play-state: running; }
 @keyframes dw-pfeil-puls { 0%, 13%, 100% { transform: none; } 4% { transform: translateX(calc(var(--dw-r, 1) * 3px)) scale(1.3); } }
 .dw-ziel__schimmer { transform-origin: 50px 50px; transform: rotate(200deg); }
 /* Talk 4031: Lichtschimmer genau so breit wie der Rand (3 px), heller Türkiston, damit er auf dem Rand sichtbar bleibt */
@@ -145,7 +147,7 @@
 .dw-dialog__ergebnis ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .dw-dialog__ergebnis li { display: flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--accent-ink); }
 .dw-dialog__ergebnis .icon { flex: none; color: var(--accent-mid); }
-.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 10px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); text-align: center; }
+.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 28px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); text-align: center; }
 .dw-dialog__nicht span { display: block; }
 
 /* ── Unsere Prinzipien (Talk 4087): drei gleichwertige Karten im dunklen Bereich ── */
@@ -276,8 +278,11 @@
 .dw--live .dw-kreis.ist-zu .dw-kreis__schimmer { opacity: 1; transition: opacity 0.5s ease 0.5s; animation: dw-kreis-dreh 7.5s linear 0.5s infinite paused; }
 .dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-kreis__schimmer { animation-play-state: running; }
 .dw-pfeil path { transform-box: fill-box; transform-origin: center; }
-.dw--live .dw-kreis.ist-zu .dw-pfeil path { animation: dw-pfeil-puls 5s linear var(--d, 0s) infinite paused; }
-.dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-pfeil path { animation-play-state: running; }
+/* Talk 4141: die Pfeile wandern auf der Kreislinie im Uhrzeigersinn und verschwinden kurz hinter den Begriffen
+ * (die Begriffe liegen als HTML mit Papiergrund darüber); nur im Bild, reduzierte Bewegung: Pfeile stehen still */
+.dw-kreis__dreh { transform-box: view-box; transform-origin: var(--kx) var(--ky); }
+.dw--live .dw-kreis.ist-zu .dw-kreis__dreh { animation: dw-kreis-dreh 16s linear infinite paused; }
+.dw--live .dw-kreis.ist-zu.ist-sichtbar .dw-kreis__dreh { animation-play-state: running; }
 @keyframes dw-kreis-dreh { to { transform: rotate(calc(var(--dw-r, 1) * 360deg)); } }
 
 /* ── Kapitel: Marke auf der Linie, Titel, Kernbotschaft ── */
@@ -502,7 +507,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dw-strich, .dw-s, .dw-knoten, .dw-punkt, .dw-saeule, .dw-steg, .dw-chip--auf-linie { transition: none; }
   .dw-kreis__schimmer { animation: none !important; }
-  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ideebild__knoten .icon, .dw-verstehen__kreis .icon, .dw-idee__kreis::after, .dw-ideebild__knoten::after { animation: none !important; }
+  .dw-idee__kreis .icon, .dw-ziel__schimmer, .dw-ziel__pfeil, .dw-pfeil path, .dw-ziel__dreh, .dw-kreis__dreh, .dw-ideebild__knoten .icon, .dw-verstehen__kreis .icon, .dw-idee__kreis::after, .dw-ideebild__knoten::after { animation: none !important; }
 }
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */

@@ -2,7 +2,8 @@
 // Szene „Verbessern“ (Jamil, Talk 3920/4094/4113): Die Linie läuft mittig auf den Kreis zu, teilt sich am oberen
 // Scheitel in zwei Äste, die den Kreis zeichnen und sich unten wieder treffen – dort endet die Scroll-Linie (Talk 4083/
 // 4096). Ist der Kreis geschlossen (ist-zu, per data-zu), erscheinen zwischen Feedback, Analysieren, Planen und
-// Verbessern Pfeile im Uhrzeigersinn, die sich nacheinander vorschieben (nur im Bild). Kein Lichtschimmer mehr (4113).
+// Verbessern Pfeile, die seit Talk 4141 langsam im Uhrzeigersinn auf der Kreislinie wandern und hinter den Begriffen
+// kurz verschwinden (nur im Bild). Kein Lichtschimmer mehr (4113).
 // Ohne JS / reduzierte Bewegung: geschlossener Kreis mit Pfeilen.
 import { DW_VERBESSERN as T } from '../../config/denkweise';
 const W = 440, H = 300, CX = 220, CY = 200, R = 84;   // Talk 4113: etwas kleiner (vorher 96, davor 120)
@@ -23,9 +24,7 @@ const punkte = [
 ].map((p) => ({ ...p, ...punkt(p.grad) }));
 // Pfeile zwischen den Begriffen (45°, 135°, 225°, 315°), Spitze in Laufrichtung; gezeichnet bei 12 Uhr, dann gedreht
 const pfeilD = `M ${CX - 5 * RICHTUNG} ${oben - 7} L ${CX + 3 * RICHTUNG} ${oben} L ${CX - 5 * RICHTUNG} ${oben + 7}`;
-// Talk 4113: kein Lichtschimmer mehr; die Pfeile schieben sich nacheinander im Uhrzeigersinn vor (eine Runde 5 s)
-const RUNDE = 5, START = 0.5;
-const pfeile = [45, 135, 225, 315].map((grad, i) => ({ grad, i, d: (START + ((((RICHTUNG * (grad - 60)) % 360) + 360) % 360) / 360 * RUNDE - RUNDE).toFixed(2) }));
+const pfeile = [45, 135, 225, 315].map((grad, i) => ({ grad, i }));
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 ---
 <div class="dw-bild dw-kreis" data-szene data-zu={ZU} style={`aspect-ratio: ${W} / ${H}; --dw-r: ${RICHTUNG}`}>
@@ -35,11 +34,14 @@ const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
     <path class="dw-s" pathLength="1" d={`M ${CX} ${oben} A ${R} ${R} 0 0 1 ${CX} ${unten}`} data-an={`linear:${TEIL}-${ZU}`} />
     {/* Talk 4083/4096: die Scroll-Linie endet hier direkt am Kreis (kein Auslauf, kein Endpunkt) */}
     <circle class="dw-kreis__ring" cx={CX} cy={CY} r={R} />
-    {pfeile.map((p) => (
-      <g transform={`rotate(${p.grad} ${CX} ${CY})`}>
-        <g class="dw-pfeil" style={`--i:${p.i}`}><path d={pfeilD} style={`--d:${p.d}s`} /></g>
-      </g>
-    ))}
+    {/* Talk 4141: die Pfeilgruppe dreht sich langsam im Uhrzeigersinn um die Kreismitte (CSS .dw-kreis__dreh) */}
+    <g class="dw-kreis__dreh" style={`--kx:${CX}px;--ky:${CY}px`}>
+      {pfeile.map((p) => (
+        <g transform={`rotate(${p.grad} ${CX} ${CY})`}>
+          <g class="dw-pfeil" style={`--i:${p.i}`}><path d={pfeilD} /></g>
+        </g>
+      ))}
+    </g>
   </svg>
   <span class="dw-anker" style="left:50%;top:0%" data-weg="ein"></span>
   {punkte.map((p) => (
