@@ -4,7 +4,7 @@
 
 Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
-Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigene Seite. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
+Waybuild ist die Dachmarke. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
@@ -29,8 +29,7 @@ Kernsatz: Wir verstehen, bevor wir umsetzen.
 - Individuelle Software (auf anfrage): Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.
 - Weitere Produkte folgen.
 
-
-## Unsere Prinzipien: Unsere Prinzipien
+## Unsere Prinzipien
 - Klarheit: Sie wissen jederzeit, woran Sie sind. Digitale Lösungen müssen kein Rätsel sein. Wir erklären verständlich, zeigen nachvollziehbare Optionen und sprechen Klartext statt Fachsprache. So wissen Sie jederzeit: was gerade passiert, warum etwas empfohlen wird, welche Möglichkeiten es gibt, was der nächste Schritt ist. Sie müssen kein IT-Experte sein, um Entscheidungen treffen zu können.
 - Einfachheit: Die Zusammenarbeit soll einfach sein. Probleme melden, Änderungen anstoßen oder neue Ideen umsetzen sollte kein Projekt für sich sein. Deshalb legen wir Wert darauf, dass jede Interaktion mit uns möglichst unkompliziert bleibt. Eine Nachricht genügt., Ein Screenshot reicht oft aus., Änderungen müssen nicht durch viele Freigaben gehen., Neue Ideen können schnell besprochen werden.. Sie sollen sich auf Ihr Unternehmen konzentrieren können, nicht auf IT-Prozesse.
 - Verlässlichkeit: Sie können sich darauf verlassen. Digitale Lösungen funktionieren nur dann langfristig, wenn Verantwortlichkeiten, Kommunikation und Prozesse klar geregelt sind. Deshalb sorgen wir für: feste Ansprechpartner, nachvollziehbare Zuständigkeiten, verlässliche Rückmeldungen, dokumentierte Prozesse. Damit nichts verloren geht und Sie wissen, dass sich jemand kümmert.
@@ -58,7 +57,7 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text, wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
 
 ## Häufige Fragen zu Waybuild
-- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist die Website-Betreuung. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.
+- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist der Website Service. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.
 - Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
 - Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
@@ -78,6 +77,11 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
 - [Website Service](https://cansi798.github.io/waybuild_Hauptseite/angebot/): Preise und Details
+- [Produkte](https://cansi798.github.io/waybuild_Hauptseite/produkte/): Website Service, individuelle Software, weitere Produkte folgen
+- [Über uns](https://cansi798.github.io/waybuild_Hauptseite/ueber-uns/): wer wir sind, Mission, Denkweise, Prinzipien
+- [Referenzen](https://cansi798.github.io/waybuild_Hauptseite/referenzen/): Projekte, nur mit Freigabe der Kunden
+- [Partner](https://cansi798.github.io/waybuild_Hauptseite/partner/): Partnerschaften und Partner werden
+- [Karriere](https://cansi798.github.io/waybuild_Hauptseite/karriere/): aktuell keine offenen Stellen, Initiativbewerbung per E-Mail
 - [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Prozess einer Anfrage, Werte
 - [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
 - [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
