@@ -8,7 +8,7 @@
 // - Die Spitze der Linie folgt einer Lese-Höhe im Fenster (62 %); beim Laden zeichnet sie sich im Hero einmal von selbst.
 // - Szenen [data-szene]: Fortschritt 0…1, solange die Spitze durch ihre Fläche läuft. Elemente darin tragen
 //   [data-an="art:a-b[:min] …"] mit art = zeichnen | linear | auf | aus | blende | wachsen | erscheinen | links |
-//   rechts | breit | hoch | fliessen | weg (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
+//   rechts | breit | hoch | fliessen | einfaedeln | weg (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
 //   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene).
 // - Kreis-Szenen mit [data-zu="p"]: ab Fortschritt p bekommt die Szene die Klasse ist-zu (Kreis geschlossen), solange
 //   sie im Bild ist zusätzlich ist-sichtbar (nur dann läuft der Dauer-Fluss per CSS).
@@ -183,6 +183,16 @@ if (root) {
           case 'fliessen': {
             const r = reduce ? 1 : 1 - t;
             tf += ` translate(calc(var(--ox) * ${r.toFixed(3)} * 1cqw), calc(var(--oy) * ${r.toFixed(3)} * 1cqw)) scale(${(0.18 + 0.82 * r).toFixed(3)})`;
+            if (!reduce) { op *= 1 - glatt(clamp((t - 0.55) / 0.45)); opNutzt = true; }
+            break;
+          }
+          // Talk 4128 (Idee, alle Gruppen über dem Knoten): erst seitlich auf die Linie und klein werden, dann an der Linie
+          // hinab in den Knoten – so laufen die Karten durch die Lücke zwischen den noch wartenden Karten darunter
+          case 'einfaedeln': {
+            const rx = reduce ? 1 : 1 - glatt(clamp(t / 0.45));
+            const ry = reduce ? 1 : 1 - glatt(clamp((t - 0.25) / 0.75));
+            const sc = reduce ? 1 : 0.18 + 0.82 * (1 - glatt(clamp(t / 0.6)));
+            tf += ` translate(calc(var(--ox) * ${rx.toFixed(3)} * 1cqw), calc(var(--oy) * ${ry.toFixed(3)} * 1cqw)) scale(${sc.toFixed(3)})`;
             if (!reduce) { op *= 1 - glatt(clamp((t - 0.55) / 0.45)); opNutzt = true; }
             break;
           }

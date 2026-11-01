@@ -39,14 +39,15 @@ export const DW_IDEE = {
   gefuehl: 'Oder einfach das Gefühl:',
   zitat: 'Das müsste doch einfacher gehen.',
   schluss: 'Genau dort beginnen die meisten Veränderungen.',
-  /** Ideen (Talk 4007): schweben um den Knoten und fließen beim Scrollen hinein.
+  /** Ideen (Talk 4007): schweben über dem Knoten und fließen beim Scrollen hinein.
    *  Talk 4122: passend zu „Eine Idee. Ein Wunsch. Ein Problem.“ drei Gruppen à zwei Karten (je Gruppe eigenes
    *  Symbol und ein kleines Label auf der Linie); sie fließen gruppenweise nacheinander ein (Ideen → Wünsche → Probleme).
-   *  Lage in viewBox-Einheiten der Bildfläche 440 × 430, Knoten bei 220/256; Label liegt auf der Linie (x 220). */
+   *  Talk 4128: auch die Probleme stehen über dem Knoten (alle drei Gruppen übereinander).
+   *  Lage in viewBox-Einheiten der Bildfläche 440 × 420, Knoten bei 220/336; Label liegt auf der Linie (x 220). */
   gruppen: [
     { label: 'Ideen', icon: 'idee', y: 26, karten: [{ text: 'Neue Website', x: 112, y: 68 }, { text: 'Kundenportal', x: 328, y: 68 }] },
-    { label: 'Wünsche', icon: 'stern', y: 124, karten: [{ text: 'Mehr Anfragen', x: 112, y: 168 }, { text: 'Digitale Zusammenarbeit', x: 328, y: 168 }] },
-    { label: 'Probleme', icon: 'warnung', y: 330, karten: [{ text: 'Zu viel Aufwand', x: 112, y: 374 }, { text: 'Veraltete Software', x: 328, y: 374 }] },
+    { label: 'Wünsche', icon: 'stern', y: 122, karten: [{ text: 'Mehr Anfragen', x: 112, y: 166 }, { text: 'Digitale Zusammenarbeit', x: 328, y: 166 }] },
+    { label: 'Probleme', icon: 'warnung', y: 220, karten: [{ text: 'Zu viel Aufwand', x: 112, y: 262 }, { text: 'Veraltete Software', x: 328, y: 262 }] },
   ] as { label: string; icon: 'idee' | 'stern' | 'warnung'; y: number; karten: { text: string; x: number; y: number }[] }[],
 };
 
@@ -79,11 +80,12 @@ export const DW_HINTERFRAGEN = {
   schluss: 'Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.',
   /** Szene nach Talk 4106: kurzer Dialog in Sprechblasen (links der Kunde, rechts waybuild), dann das Ergebnis.
    *  Die drei Punkte des Ergebnisses sind die Wege, die bei „Entscheiden“ abgewogen werden. */
+  // Talk 4127: das Beispiel knüpft am Wunsch „Mehr Anfragen“ aus der Idee-Szene an
   dialog: [
-    { wer: 'kunde', text: 'Wir brauchen eine neue Website.' },
-    { wer: 'waybuild', text: 'Warum? Was soll sie bewirken?' },
     { wer: 'kunde', text: 'Wir wollen mehr Anfragen.' },
-    { wer: 'waybuild', text: 'Was bringt Ihnen mehr Anfragen?' },
+    { wer: 'waybuild', text: 'Was hält Interessenten heute davon ab, sich zu melden?' },
+    { wer: 'kunde', text: 'Viele verstehen nicht genau, was wir anbieten. Und die Anfrage ist umständlich.' },
+    { wer: 'waybuild', text: 'Dann setzen wir genau dort an.' },
   ] as { wer: 'kunde' | 'waybuild'; text: string }[],
   ergebnis: ['Klare Positionierung', 'Bessere Inhalte', 'Einfacher Anfrageprozess'],
   nichtUnbedingt: 'Nicht unbedingt eine komplett neue Website',
