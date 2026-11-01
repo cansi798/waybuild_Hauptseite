@@ -33,9 +33,7 @@ export const company = {
 /** Erreichbarkeit (Footer-Kopf, Kontakt). */
 export const HOURS = 'Montag bis Freitag, 9 bis 18 Uhr';
 
-/** Referenzprojekte – leer lassen, bis echte Kundenprojekte (mit Freigabe) vorliegen. */
-// Beispiel: { name: 'Tischlerei Muster', branche: 'Handwerk', url: 'https://…', text: 'Neue Website, 3× mehr Anfragen', bild: 'referenzen/projekt-1' }
-export const references: { name: string; branche: string; url?: string; text: string; bild?: string }[] = [];
+/* Referenzprojekte: seit 01.11.2026 in src/config/unterseiten.ts → REFERENZEN (nur mit Freigabe sichtbar). */
 
 export const VAT_RATE = 0.19;
 
@@ -156,7 +154,7 @@ export const BERATUNG_THEMEN = ['Zielgruppen', 'Positionierung', 'Customer Journ
 export const faqsAllgemein = [
   {
     q: 'Was macht Waybuild?',
-    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist die Website-Betreuung. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.',
+    a: 'Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist der Website Service. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.',
   },
   {
     q: 'Gelten Ihre Zusagen für alle Produkte?',

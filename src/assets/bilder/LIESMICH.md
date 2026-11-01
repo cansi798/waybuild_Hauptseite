@@ -12,7 +12,7 @@ Hier einfach Bilder ablegen – die Website erzeugt daraus beim Build **automati
 | Datei | Wo erscheint es? | Format / Größe |
 |---|---|---|
 | `team/gruender.jpg` | Über uns – Foto der Geschäftsführung | quadratisch, mind. 1200 × 1200 px |
-| `referenzen/projekt-1.jpg` … | Referenzen (Name in `src/config/site.ts → references[].bild`) | 4:3, mind. 1600 × 1200 px |
+| `referenzen/projekt-1.jpg` … | Referenzen (Eintrag in `src/config/unterseiten.ts → REFERENZEN`) | 4:3, mind. 1600 × 1200 px |
 | `allgemein/…` | frei für weitere Bilder | – |
 
 ## Tipps

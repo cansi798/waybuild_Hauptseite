@@ -1,0 +1,76 @@
+---
+// /referenzen/ (Jamil, Talk 4192): Struktur für Referenzprojekte. Kunden erscheinen erst mit Freigabe
+// (src/config/unterseiten.ts → REFERENZEN, freigegeben: true). Bis dahin Platzhalter-Karten, deren Mini-Website sich beim
+// Scrollen Baustein für Baustein zusammensetzt (scrollgekoppelt, reduzierte Bewegung: fertiges Bild).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Hint from '../components/Hint.astro';
+import UsKopf from '../components/us/UsKopf.astro';
+import { href } from '../lib/paths';
+import { REFERENZSEITE as R, sichtbareReferenzen } from '../config/unterseiten';
+import '../styles/denkweise.css';
+import '../styles/unterseiten.css';
+
+const refs = sichtbareReferenzen();
+const platzhalter = refs.length ? [] : Array.from({ length: R.anzahlPlatzhalter }, (_, k) => k);
+// Mini-Website (viewBox 160 × 100): Rahmen, Kopfleiste, Bühne, zwei Blöcke, Knopf
+const rahmen = 'M 80 1 H 151 A 8 8 0 0 1 159 9 V 91 A 8 8 0 0 1 151 99 H 9 A 8 8 0 0 1 1 91 V 9 A 8 8 0 0 1 9 1 Z';
+---
+
+<BaseLayout
+  title="Referenzen: Projekte von Waybuild"
+  description="Referenzprojekte von Waybuild. Wir nennen Kunden erst, wenn sie zugestimmt haben. Im Erstgespräch zeigen wir Beispiele, die zu Ihrer Aufgabe passen."
+  breadcrumb={[{ name: 'Referenzen', path: '/referenzen/' }]}
+>
+  <div class="dw us" data-denkweise>
+    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
+
+    <UsKopf {...R.kopf} />
+
+    <section class="dw-abschnitt" id="projekte" aria-labelledby="projekte-h">
+      <div class="wrap">
+        <h2 class="sr-only" id="projekte-h">{R.titel}</h2>
+        <ul class="us-referenzen" data-szene>
+          {refs.map((r) => (
+            <li class="us-ref">
+              <div class="us-ref__inhalt">
+                <p class="us-ref__branche">{r.branche} · {r.leistung}</p>
+                <h3>{r.name}</h3>
+                <p>{r.text}</p>
+                {r.url && <p><a class="pfeil-link" href={r.url} target="_blank" rel="noopener">Projekt ansehen <Icon name="arrow" size={16} /></a></p>}
+              </div>
+            </li>
+          ))}
+          {platzhalter.map((k) => (
+            <li class="us-ref us-ref--platzhalter">
+              <div class="us-ref__bild us-platzhalter" aria-hidden="true">
+                <span class="us-platzhalter__marke">Platzhalter</span>
+                <svg viewBox="0 0 160 100" focusable="false">
+                  <path class="us-mini__rahmen" pathLength="1" d={rahmen} style="stroke-dasharray:1 1" data-an="zeichnen:auto" />
+                  <rect class="us-mini__leiste" x="8" y="8" width="144" height="10" rx="3" data-an="blende:auto" />
+                  <circle class="us-mini__punkt" cx="15" cy="13" r="2.2" data-an="erscheinen:auto" />
+                  <rect class="us-mini__block" x="8" y="24" width={k === 1 ? 144 : 84} height="38" rx="4" data-an="links:auto" />
+                  {k !== 1 && <rect class="us-mini__block" x="98" y="24" width="54" height="38" rx="4" data-an="rechts:auto" />}
+                  <rect class="us-mini__block" x="8" y="68" width="68" height="22" rx="4" data-an="links:auto" />
+                  <rect class="us-mini__block" x="84" y="68" width="68" height="22" rx="4" data-an="rechts:auto" />
+                  <rect class="us-mini__akzent" x={k === 2 ? 110 : 16} y="50" width="30" height="7" rx="3.5" data-an="erscheinen:auto" />
+                </svg>
+              </div>
+              <div class="us-ref__inhalt">
+                <p class="us-ref__branche">Website</p>
+                <h3>{R.platzhalter.titel}</h3>
+                <p>{R.platzhalter.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        {!refs.length && <Hint block label="Freigaben der Kunden für Referenzen (Name, Branche, kurzer Text, Link, Bild)" where="src/config/unterseiten.ts → REFERENZEN (freigegeben: true)" />}
+        <p class="us-notiz"><Icon name="chat" size={20} /> <span>{R.hinweis} <a class="pfeil-link" href={href('/kontakt/')}>Erstgespräch anfragen</a></span></p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/denkweise';
+</script>

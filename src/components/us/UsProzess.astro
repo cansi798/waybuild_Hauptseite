@@ -1,0 +1,35 @@
+---
+// Denkweise kompakt (Über uns, Talk 4192): die sechs Schritte untereinander auf der Scroll-Linie, gleiche Knoten wie im
+// Hero der Startseite (Talk 4202). Die Linie zeichnet sich mit dem Scrollen von Knoten zu Knoten und endet – wie auf der
+// Startseite – im Verbessern-Kreis. Ohne JS / reduzierte Bewegung: fertiges Bild.
+import Icon from '../Icon.astro';
+import ZielRing from '../dw/ZielRing.astro';
+import { DW_PROZESS } from '../../config/denkweise';
+import { href } from '../../lib/paths';
+const n = DW_PROZESS.length;
+const f = (x: number) => x.toFixed(3);
+---
+<div class="us-prozess" data-szene>
+  <div class="us-prozess__innen">
+  <span class="dw-anker" style="left:30px;top:0" data-weg="ein"></span>
+  <ol class="us-prozess__liste" aria-label="Die Waybuild-Denkweise in sechs Schritten">
+    {DW_PROZESS.map((s, i) => {
+      const a = 0.04 + (i / n) * 0.8;
+      return (
+        <li class:list={['us-prozess__schritt', { 'us-prozess__schritt--anker': s.anker }]}>
+          <span class="us-stamm us-prozess__stamm" data-an={`hoch:${f(a - 0.1)}-${f(a)}`}></span>
+          <a class="us-prozess__link" href={href(`/#${s.ziel_id}`)}>
+            <span class:list={['dw-pk', { 'dw-pk--anker': s.anker, 'dw-pk--ziel': s.ziel }]} data-an={`erscheinen:${f(a - 0.02)}-${f(a + 0.05)}`} aria-hidden="true">
+              {s.ziel ? <ZielRing /> : <Icon name={s.icon} size={s.anker ? 24 : 17} />}
+            </span>
+            <span class="us-prozess__text" data-an={`auf:${f(a)}-${f(a + 0.07)}`}>
+              <span class="us-prozess__wort">{s.wort}</span>
+              <span class="us-prozess__kurz">{s.kurz}</span>
+            </span>
+          </a>
+        </li>
+      );
+    })}
+  </ol>
+  </div>
+</div>

@@ -7,11 +7,22 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 // Hauptnavigation nach Jamils kompaktem Design-Briefing (Talk 3636): Unternehmen, So arbeiten wir, Produkte,
 // Kontakt. „Einblicke“ am 29.10.2026 mit dem Abschnitt entfernt (Jamil, Talk 3651). Zusagen/FAQ stehen im Footer.
 // 30.10.2026: Startseite „Denkweise“ (Jamil, Talk 3799) – Anker an die neue Geschichte angepasst.
+// 01.11.2026 (Jamil, Talk 4192): neue Unterseiten Über uns, Referenzen, Partner, Karriere unter „Unternehmen“;
+// „Produkte“ führt auf die neue Produktübersicht /produkte/; „Umsetzen“ springt direkt zum Abschnitt Umsetzen
+// (vorher /#kapitel-2 = Abschnitt „Entscheiden“).
 export const NAV: NavItem[] = [
-  // Talk 3818: drei Kapitel – Verstehen, Umsetzen, nachhaltig machen (Verlässlichkeit)
   { label: 'Verstehen', path: '/#verstehen' },
-  { label: 'Umsetzen', path: '/#kapitel-2' },
-  { label: 'Produkte', path: '/#produkte' },   // Positionierung Vorschlag 8 (Talk 4065)
+  { label: 'Umsetzen', path: '/#umsetzen' },
+  { label: 'Produkte', path: '/produkte/' },
   { label: 'Prinzipien', path: '/#prinzipien' },   // Talk 4087 (vorher „Verlässlichkeit“)
+  {
+    label: 'Unternehmen',
+    children: [
+      { label: 'Über uns', path: '/ueber-uns/', icon: 'gebaeude', desc: 'Wer wir sind und wie wir denken' },
+      { label: 'Referenzen', path: '/referenzen/', icon: 'stern', desc: 'Projekte mit Freigabe unserer Kunden' },
+      { label: 'Partner', path: '/partner/', icon: 'users', desc: 'Zusammenarbeit mit Partnern' },
+      { label: 'Karriere', path: '/karriere/', icon: 'rocket', desc: 'Arbeiten bei Waybuild' },
+    ],
+  },
   { label: 'Kontakt', path: '/kontakt/' },
 ];

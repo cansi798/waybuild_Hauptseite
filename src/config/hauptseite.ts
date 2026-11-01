@@ -100,7 +100,7 @@ export const TICKET: { icon: IconName; title: string; text: string }[] = [
 /** Prozesse & Transparenz (Jamil 21.10.2026) */
 export const PROZESSE: { icon: IconName; title: string; text: string }[] = [
   { icon: 'doc', title: 'Klare Prozesse', text: 'Jede Anfrage läuft über denselben festen Weg. Nichts hängt an einer einzelnen Person.' },
-  { icon: 'eye', title: 'Transparent', text: 'Sie wissen vorher, was passiert, wie lange es dauert und was es kostet.' },
+  { icon: 'eye', title: 'Nachvollziehbar', text: 'Sie wissen vorher, was passiert, wie lange es dauert und was es kostet.' },
   { icon: 'refresh', title: 'Laufend verbessert', text: 'Wir prüfen unsere Prozesse regelmäßig und machen sie Schritt für Schritt besser.' },
   { icon: 'users', title: 'Kundenorientiert', text: 'Maßstab ist, was Ihnen hilft: verständlich, schnell und verlässlich.' },
 ];

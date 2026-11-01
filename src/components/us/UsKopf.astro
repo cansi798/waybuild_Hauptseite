@@ -1,0 +1,14 @@
+---
+// Seitenkopf der Unterseiten im Stil der Startseite (Talk 4192): Kennzeile, große Überschrift mit türkisem Schluss,
+// Unterzeile, optionale Aktionen (Slot). Gleiche Typografie wie der Hero der Startseite (.dw-hero).
+interface Props { eyebrow: string; titelVor: string; titelAkzent: string; lead: string }
+const { eyebrow, titelVor, titelAkzent, lead } = Astro.props;
+---
+<section class="us-kopf" aria-labelledby="us-h1">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--weg us-kopf__eyebrow">{eyebrow}</p>
+    <h1 id="us-h1">{titelVor}<span class="accent">{titelAkzent}</span></h1>
+    <p class="us-kopf__lead">{lead}</p>
+    <slot />
+  </div>
+</section>

@@ -1,6 +1,7 @@
 // Launch-Checkliste: alles, was vor dem offiziellen Start noch erledigt werden muss.
 // Firmendaten werden automatisch geprüft, der Rest wird hier von Hand abgehakt (done: true).
-import { company, isMissing, references, SHOW_HINTS } from './site';
+import { company, isMissing, SHOW_HINTS } from './site';
+import { sichtbareReferenzen, PARTNER } from './unterseiten';
 
 export type Todo = {
   title: string;
@@ -33,8 +34,11 @@ const auto: Todo[] = companyFields.map(([key, title, detail]) => ({
 
 const manual: Todo[] = [
   // Aus Jamils kompaktem Design-Briefing (Talk 3636, 28.10.2026) – Inhalte, die nur Jamil/Can liefern können:
-  { title: 'Eigene Produktnamen', detail: 'Website Service, Kundenverwaltung Handwerk, Apps, Kundenverwaltung AZAV: bis dahin steht die Kategorie („Super Duper“ wurde auf Wunsch ersetzt).', where: 'src/config/hauptseite.ts → PRODUKTE.name', done: false, priority: 'wichtig' },
-  { title: 'Kundennutzen + kurze Erklärung je Produkt', detail: 'Für Handwerk, Apps und AZAV gibt es bisher nur einen Zweck-Satz. Bitte je einen Nutzen-Satz und eine kurze Erklärung (nur, was das Produkt heute wirklich kann).', where: 'src/config/hauptseite.ts → PRODUKTE.nutzen / erklaerung', done: false, priority: 'wichtig' },
+  // 01.11.2026: Produkte sind nur noch Website Service, Individuelle Software (auf Anfrage) und „Weitere Produkte folgen.“ (Talk 4077)
+  { title: 'Eigener Produktname für den Website Service', detail: 'Bis ein Name feststeht, zeigt die Seite die Kategorie „Website Service“.', where: 'src/config/hauptseite.ts → PRODUKTE.name', done: false, priority: 'wichtig' },
+  { title: 'Ein Preis für den Website Service', detail: 'Startseite und /produkte/: 79,99 € / Monat (Talk 4176). /angebot/, FAQ, AGB, llms.txt und JSON-LD: zwei Varianten 79 € / 139 €. Entscheidung Jamil/Can, dann PAKETE in site.ts anpassen.', where: 'src/config/site.ts → PAKETE, src/config/denkweise.ts → DW_UMSETZEN.karte.preis', done: false, priority: 'pflicht' },
+  { title: 'Partner und Partner-Text', detail: 'Auf /partner/ steht ein markierter Platzhalter-Text und ein Netz mit leeren Plätzen. Partner nur mit deren Zustimmung eintragen.', where: 'src/config/unterseiten.ts → PARTNER, PARTNERSEITE', done: PARTNER.length > 0, priority: 'wichtig' },
+  { title: 'Bewerbungen: Ansprechperson und Datenschutzhinweis', detail: '/karriere/ lädt zu Initiativbewerbungen per E-Mail ein. Datenschutzerklärung um Bewerberdaten ergänzen (rechtliche Prüfung), Ansprechperson und Arbeitsort klären.', where: 'src/pages/datenschutz.astro, src/config/unterseiten.ts → KARRIERESEITE', done: false, priority: 'wichtig' },
   { title: 'Eigene Produktseiten / Websites', detail: 'Ohne Adresse steht auf der Karte „Eigene Produktseite folgt.“. Mit Adresse erscheint der Knopf „Produkt kennenlernen“.', where: 'src/config/hauptseite.ts → PRODUKTE.url', done: false, priority: 'wichtig' },
   { title: 'Echte Kundenbeispiele (später)', detail: 'Abschnitt „Einblicke“ auf Jamils Wunsch entfernt (Talk 3651). Kann mit echten, schriftlich freigegebenen Kundenfällen zurückkommen.', where: 'Git-Historie 2aa2b21 → src/pages/index.astro', done: false, priority: 'später' },
   { title: 'Menschen hinter Waybuild', detail: 'Echte Teamfotos (keine Stockfotos), Namen, Aufgaben und je eine kurze persönliche Aussage.', where: 'src/components/FooterKontakt.astro → fkontakt__menschen + src/assets/bilder/', done: false, priority: 'wichtig' },
@@ -122,24 +126,24 @@ const manual: Todo[] = [
     priority: 'wichtig',
   },
   {
-    title: 'Produktnamen und Produkt-Websites',
-    detail: 'Erstes Produkt heißt vorläufig „Super Duper Website Service“ (Arbeitsname, Jamil 27.10.2026). Adresse der eigenen Produkt-Website fehlt – bis dahin führt die Produktkarte auf /angebot/. waybuild_website erst verlinken, wenn Telefon-/WhatsApp-Platzhalter entfernt sind. Namen für Software, Cloud, Workplace und Process Service fehlen.',
+    title: 'Eigene Produkt-Website',
+    detail: 'Adresse einer eigenen Website für den Website Service fehlt – bis dahin führt die Produktkarte auf /angebot/. waybuild_website erst verlinken, wenn Telefon-/WhatsApp-Platzhalter entfernt sind.',
     where: 'src/config/hauptseite.ts → PRODUKTE',
     done: false,
     priority: 'wichtig',
   },
   {
     title: 'Foto und Kurzvorstellung der Gründer',
-    detail: 'Menschen kaufen von Menschen – ein echtes Foto auf „Über uns“ erhöht die Anfragen deutlich.',
-    where: 'Startseite (src/pages/index.astro) – eigener Abschnitt, sobald Foto/Text vorliegen',
+    detail: 'Auf /ueber-uns/ stehen Foto-Platzhalter (Geschäftsführer aus dem Impressum, weitere Personen offen). Echte Fotos, keine Stockfotos.',
+    where: 'src/config/unterseiten.ts → UEBER_UNS.team',
     done: false,
     priority: 'wichtig',
   },
   {
     title: 'Erste Referenzprojekte',
-    detail: 'Sobald die ersten Kunden live sind (mit deren Freigabe) eintragen. Keine erfundenen Referenzen oder Bewertungen!',
-    where: 'src/config/site.ts → references',
-    done: references.length > 0,
+    detail: 'Bauwelt, Destar, Kerim Tanrikulu und ilmmeup sind vorbereitet, aber unsichtbar. Erst mit schriftlicher Freigabe freigegeben: true setzen und Branche/Text ergänzen. Keine erfundenen Referenzen oder Bewertungen!',
+    where: 'src/config/unterseiten.ts → REFERENZEN',
+    done: sichtbareReferenzen().length > 0,
     priority: 'später',
   },
   {

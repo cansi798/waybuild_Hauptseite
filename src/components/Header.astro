@@ -20,7 +20,7 @@ const isCurrent = (path?: string) => path && current === href(path);
         {NAV.map((item) =>
           item.children ? (
             <li class:list={['dd', { 'dd--mega': item.children.some((c) => c.group) }]}>
-              <button class="hdr__link dd__btn" type="button" aria-expanded="false">
+              <button class:list={['hdr__link', 'dd__btn', { 'is-aktiv': item.children.some((c) => isCurrent(c.path)) }]} type="button" aria-expanded="false">
                 {item.label}
                 <Icon name="chevron" size={16} class="dd__chev" />
               </button>
@@ -103,12 +103,12 @@ const isCurrent = (path?: string) => path && current === href(path);
     font: inherit; font-weight: 600; font-size: 0.95rem; color: var(--ink); text-decoration: none;
     transition: background 0.2s ease;
   }
-  .hdr__link:hover, .hdr__link[aria-current='page'] { background: var(--paper-2); color: var(--accent-ink); }
+  .hdr__link:hover, .hdr__link[aria-current='page'], .hdr__link.is-aktiv { background: var(--paper-2); color: var(--accent-ink); }
   .dd { position: relative; }
   .dd :global(.dd__chev) { transition: transform 0.2s ease; }
   .dd__panel {
     position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
-    min-width: 340px; max-width: 420px; background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    min-width: 320px; max-width: 400px; background: var(--white); border: 1px solid var(--line); border-radius: 18px;
     box-shadow: 0 24px 48px -16px rgb(0 79 76 / 30%); padding: 10px;
     opacity: 0; visibility: hidden; pointer-events: none;
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
@@ -122,7 +122,6 @@ const isCurrent = (path?: string) => path && current === href(path);
   .dd__text { display: grid; line-height: 1.35; }
   .dd__text strong { font-weight: 650; font-size: 0.95rem; }
   .dd__text small { color: var(--ink-soft); font-size: 0.8rem; }
-  .dd:not(.dd--mega) .dd__list li:last-child .dd__item { border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; margin-top: 6px; padding-top: 12px; color: var(--accent-ink); }
   /* Mega-Panel „Leistungen“: am Header-Container ausgerichtet, Gruppen in Spalten */
   .hdr__inner { position: relative; }
   .dd--mega { position: static; }

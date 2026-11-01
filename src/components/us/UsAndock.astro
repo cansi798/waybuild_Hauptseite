@@ -1,0 +1,23 @@
+---
+// Andock-Szene (Unterseiten, Talk 4192): Die Scroll-Linie kommt oben mittig an, erreicht einen Knoten mit Symbol und
+// dockt an eine Karte an; mit ende="aus" läuft sie unter der Karte weiter. Alles scrollgekoppelt über denkweise.ts
+// (data-szene / data-an); ohne JS bzw. bei reduzierter Bewegung steht das fertige Bild.
+import Icon from '../Icon.astro';
+import type { IconName } from '../../config/site';
+interface Props { icon: IconName; start?: boolean; ende?: 'aus' | 'ende'; class?: string }
+const { icon, start = false, ende = 'aus', class: cls } = Astro.props;
+---
+<div class:list={['us-andock', cls]} data-szene>
+  <span class="dw-anker" style="left:50%;top:0" data-weg="ein"></span>
+  {start && <span class="dw-pos dw-nur-d" style="left:50%;top:0"><span class="dw-ideebild__start"></span></span>}
+  <span class="us-stamm us-stamm--oben" data-an="hoch:0-0.12"></span>
+  <span class="dw-pk us-andock__knoten" data-an="erscheinen:0.1-0.18"><Icon name={icon} size={18} /></span>
+  <span class="us-stamm us-stamm--mitte" data-an="hoch:0.16-0.22"></span>
+  <div class="us-andock__karte" data-an="auf:0.18-0.3"><slot /></div>
+  {ende === 'aus' && (
+    <>
+      <span class="us-stamm us-stamm--unten" data-an="hoch:0.82-0.98"></span>
+      <span class="dw-anker" style="left:50%;top:100%" data-weg="aus"></span>
+    </>
+  )}
+</div>
