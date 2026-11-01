@@ -2,12 +2,12 @@
 // Startseite „Denkweise“ nach Jamils Konzept (Talk 3798/3799) mit Feinschliff (Talk 3818, 30.10.2026).
 // Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Teile statt vieler Einzelabschnitte
 // (intern „Kapitel“, sichtbar ohne Kapitel-Marke – Jamil, Talk 3935: die Linie entsteht aus der Überschrift heraus):
-//   Kapitel 1 · Veränderungen verstehen: Idee, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
+//   Kapitel 1 · Veränderungen verstehen: Impuls, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
 //   Kapitel 2 · Veränderungen umsetzen: Entscheiden (statt Vereinfachen, Talk 3939), Umsetzen, Verbessern (Prozessreihenfolge, Jamil Talk 3922),
 //   Produkte (eigene Karten, Website Service hervorgehoben)
 //   Kapitel 3 · Veränderungen nachhaltig machen: Verlässlichkeit (dunkler Bereich, mit den drei Prinzipien auf der
 //   Linie, danach Frage 3), Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
-// Hero: die Prozess-Animation (Idee → … → Verbessern) ist eine eigene, größere türkise Linie und endet bei
+// Hero: die Prozess-Animation (Impuls → … → Verbessern) ist eine eigene, größere türkise Linie und endet bei
 // „Verbessern“; die durchgehende Scroll-Linie beginnt erst unter der ersten Überschrift „Veränderungen verstehen“
 // (Talk 3922/3935).
 // Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
@@ -48,7 +48,7 @@ const heroLinien = ([['m', 63, 29, 13, 36, 0.98, 56], ['d', 82, 37, 15, 49, 1.45
 });
 const [K1, K2, K3] = DW_KAPITEL;
 // Talk 4079: Handy-Hero mit waagerechter Prozessgrafik (statisch, sofort fertig). viewBox 360 × 104, Linie auf y = 54,
-// Idee- und Verbessern-Kreis als HTML (46 px, Glimmen/Schimmer wie am Desktop), dazwischen vier Punkte im leichten
+// Impuls- und Verbessern-Kreis als HTML (46 px, Glimmen/Schimmer wie am Desktop), dazwischen vier Punkte im leichten
 // Wechsel nach oben/unten, Begriffe abwechselnd darüber/darunter (lesbar ab 360 px).
 const Q = { W: 360, H: 104, Y: 54, X0: 25, X1: 335, WELLE: 9 };
 const quer = (() => {
@@ -83,10 +83,10 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
               <path class="dw-quer__linie" d={quer.d} />
               {quer.punkte.map((p) => <circle class="dw-quer__punkt" cx={p.x} cy={p.y} r="5.5" />)}
               {quer.punkte.map((p) => <text class="dw-quer__wort" x={p.x} y={p.unten ? p.y + 24 : p.y - 15} text-anchor="middle">{p.wort}</text>)}
-              <text class="dw-quer__wort dw-quer__wort--gross" x="2" y={Q.H - 2} text-anchor="start">Idee</text>
+              <text class="dw-quer__wort dw-quer__wort--gross" x="2" y={Q.H - 2} text-anchor="start">Impuls</text>
               <text class="dw-quer__wort dw-quer__wort--gross" x={Q.W - 2} y={Q.H - 2} text-anchor="end">{DW_REISE[DW_REISE.length - 1].wort}</text>
             </svg>
-            <span class="dw-pos" style={`left:${qpc(quer.xs[0], Q.W)};top:${qpc(Q.Y, Q.H)}`}><span class="dw-idee__kreis"><Icon name="idee" size={22} /></span></span>
+            <span class="dw-pos" style={`left:${qpc(quer.xs[0], Q.W)};top:${qpc(Q.Y, Q.H)}`}><span class="dw-idee__kreis"><Icon name="impuls" size={22} /></span></span>
             <span class="dw-pos" style={`left:${qpc(quer.xs[5], Q.W)};top:${qpc(Q.Y, Q.H)}`}>
               <span class="dw-ziel">
                 <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
@@ -104,7 +104,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
         <div class="dw-start">
           {/* Talk 4057: Prozess-Linie von Anfang an fertig (statisches SVG aus dem festen Hero-Raster, kein Zeichnen) */}
           {heroLinien.map((h) => <svg class={`dw-start__linie dw-nur-${h.v}`} viewBox={`${-h.w / 2} 0 ${h.w} ${h.h}`} style={`width:${h.w}px;height:${h.h}px;margin-left:${-h.w / 2}px`} aria-hidden="true" focusable="false"><path class="dw-strich dw-strich--hero" d={h.d} /></svg>)}
-          <span class="dw-idee"><span class="dw-idee__kreis"><Icon name="idee" size={34} /></span><span class="dw-idee__wort">Idee</span></span>
+          <span class="dw-idee"><span class="dw-idee__kreis"><Icon name="impuls" size={34} /></span><span class="dw-idee__wort">Impuls</span></span>
           <ol class="dw-reise" aria-label="Die Waybuild-Denkweise">
             {DW_REISE.map((r, i) => i < DW_REISE.length - 1 ? (
               <li style={`--dx:${[-34, 30, -26, 34, -18][i]}`}>
@@ -141,12 +141,12 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
           <span class="dw-wp" data-weg data-weg-nur="d"></span>
         </div>
       </div>
-      <!-- Idee -->
+      <!-- Impuls (erster Schritt, bis Talk 4132 „Idee“) -->
       <div class="dw-abschnitt" id="denkweise">
         <div class="wrap dw-raster dw-raster--spiegel">
           <div class="dw-text reveal">
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="idee" size={18} /> Idee</span>
+            <span class="dw-kenn"><Icon name="impuls" size={18} /> Impuls</span>
             <h3 class="dw-idee-titel" aria-label={DW_IDEE.titel}>{DW_IDEE.zeilen.map((z) => <span>{z}</span>)}</h3>
             <p class="dw-idee-gefuehl">{DW_IDEE.gefuehl}</p>
             <blockquote class="dw-zitat dw-zitat--gross">„{DW_IDEE.zitat}“</blockquote>

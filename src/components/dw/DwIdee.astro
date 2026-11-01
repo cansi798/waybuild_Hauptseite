@@ -1,9 +1,9 @@
 ---
-// Szene „Idee“ (Jamil, Talk 4007): Ideen-Karten schweben als kleine türkise Karten um den Knoten auf der Linie.
+// Szene „Impuls“ (erster Schritt, bis Talk 4132 „Idee“; Jamil, Talk 4007): Ideen-Karten schweben als kleine türkise Karten um den Knoten auf der Linie.
 // Talk 4122: passend zu „Eine Idee. Ein Wunsch. Ein Problem.“ sind es drei Gruppen à zwei Karten (Ideen, Wünsche,
 // Probleme; seit Talk 4128 alle über dem Knoten), jede mit eigenem Symbol und einem kleinen Label, das auf der Linie sitzt. Beim Scrollen fließen die Gruppen
 // nacheinander in den Knoten (wandern, schrumpfen, verschmelzen; die Labels blenden vorher aus); danach leuchtet der Knoten
-// (groß, mit Glühbirne) auf: aus vielen Anliegen wird eine Idee. Keine Verbindungslinien („Spinnenbeine“).
+// (groß, seit Talk 4132 mit dem Impuls-Blitz) auf: aus vielen Anliegen wird eine Idee. Keine Verbindungslinien („Spinnenbeine“).
 // Technik: Alle Karten sitzen im Knoten; ihre Ruhelage ist ein Versatz in Container-Einheiten (--ox/--oy in cqw), den
 // die Spur „einfaedeln“ in denkweise.ts auf 0 zieht (erst seitlich auf die Linie, dann hinab). Ohne JS / reduzierte Bewegung: ruhiges, gruppiertes Bild.
 import Icon from '../Icon.astro';
@@ -46,11 +46,11 @@ const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
       <span class="dw-ideebild__lage" style={`--ox:0;--oy:${oy(g.y)}`}><span class="dw-ideebild__gruppe" data-an={g.an}><Icon name={g.icon} size={13} />{g.label}</span></span>
     </span>
   ))}
-  {/* Talk 4037: größerer Knoten mit Glühbirne (wie der Idee-Kreis im Hero); füllt sich, wenn alle Ideen drin sind */}
+  {/* Talk 4037: größerer Knoten (wie der Impuls-Kreis im Hero), Symbol seit Talk 4132 der Impuls-Blitz; füllt sich, wenn alle Ideen drin sind */}
   <span class="dw-pos" style={knoten}>
     <span class="dw-ideebild__knoten" data-an="erscheinen:0.3-0.4">
       <span class="dw-ideebild__fuell" data-an="blende:0.92-0.99"></span>
-      <Icon name="idee" size={22} />
+      <Icon name="impuls" size={22} />
     </span>
   </span>
 </div>

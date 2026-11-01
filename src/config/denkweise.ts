@@ -1,6 +1,6 @@
 // Startseite „Denkweise“ – Texte aus Jamils Konzept (Talk 3798/3799, 30.10.2026), nur minimal geglättet.
 // Kernsatz: Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise:
-// Idee → Verstehen → Hinterfragen → Entscheiden → Umsetzen → Verbessern (Entscheiden statt Vereinfachen: Talk 3939). Produkte sind mögliche Ergebnisse.
+// Impuls (bis Talk 4132 „Idee“) → Verstehen → Hinterfragen → Entscheiden → Umsetzen → Verbessern (Entscheiden statt Vereinfachen: Talk 3939). Produkte sind mögliche Ergebnisse.
 // Vorherige Startseite (Anfrage-Reise, Selbstcheck, Zusammenarbeit): Git-Tag startseite-v3-anfragereise-20261030.
 import type { IconName } from './site';
 
@@ -32,7 +32,7 @@ export const DW_KAPITEL = [
   { nr: 3, id: 'kapitel-3', titel: 'Unsere Prinzipien', kern: '' },   // Überschrift nicht sichtbar (Talk 4084), nur für Screenreader
 ];
 
-// Talk 3818 Punkt 1: „Idee“ ist der eigentliche Einstieg in die Philosophie: Waybuild startet bei Veränderung, nicht bei Produkten.
+// Talk 3818 Punkt 1: „Idee“ (seit Talk 4132 „Impuls“) ist der eigentliche Einstieg in die Philosophie: Waybuild startet bei Veränderung, nicht bei Produkten.
 export const DW_IDEE = {
   titel: 'Jede Veränderung beginnt mit einer Idee.',
   zeilen: ['Eine Idee.', 'Ein Wunsch.', 'Ein Problem.'],
