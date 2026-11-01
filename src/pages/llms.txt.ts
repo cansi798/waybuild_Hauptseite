@@ -23,7 +23,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     `Kurz gesagt: ${company.name}${adresse.length ? ` aus ${company.city}` : ''} entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
     '',
-    'Waybuild ist die Dachmarke. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).',
+    'Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).',
     '',
     '## Für alle Produkte: Service-Zusagen',
     // Zeilen mit Platzhalter bewusst weglassen – nur zugesagte Werte ausgeben.
@@ -78,7 +78,7 @@ export const GET: APIRoute = ({ site }) => {
     `- [Referenzen](${url('/referenzen/')}): Projekte, nur mit Freigabe der Kunden`,
     `- [Partner](${url('/partner/')}): Partnerschaften und Partner werden`,
     `- [Karriere](${url('/karriere/')}): aktuell keine offenen Stellen, Initiativbewerbung per E-Mail`,
-    `- [Unsere Zusagen](${url('/zusagen/')}): Service-Zusagen, Prozess einer Anfrage, Werte`,
+    `- [Unsere Zusagen](${url('/zusagen/')}): Service-Zusagen, Prozess einer Anfrage, Prinzipien`,
     `- [Häufige Fragen](${url('/faq/')})`,
     `- [Kontakt](${url('/kontakt/')}): kostenloses Erstgespräch`,
     `- [Impressum](${url('/impressum/')})`,

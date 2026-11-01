@@ -1,86 +1,33 @@
 ---
-// /partner/ (Jamil, Talk 4192): Partnerschaften – nur Fakten. Solange keine Partner feststehen (PARTNER leer), zeigt
-// die Seite einen markierten Platzhalter-Text, ein Netz mit leeren Plätzen (keine erfundenen Logos) und
-// „Partner werden“. Animation: vom Waybuild-Knoten aus zeichnen sich die Verbindungen zu den Plätzen beim Scrollen.
+// /partner/ – kurze Einladung „Partner werden“ (Jamil, Talk 4208: noch keine Partner, keine leeren Plätze).
+// Ehrlicher Text ohne erfundene Partner oder Logos; Kontakt per E-Mail oder Formular.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import Hint from '../components/Hint.astro';
 import UsKopf from '../components/us/UsKopf.astro';
 import { href } from '../lib/paths';
 import { company } from '../config/site';
-import { PARTNERSEITE as P, PARTNER } from '../config/unterseiten';
+import { PARTNERSEITE as P } from '../config/unterseiten';
 import '../styles/denkweise.css';
 import '../styles/unterseiten.css';
 
-const W = 440, M = 220;
-const plaetze = [
-  { x: 92, y: 96 }, { x: 348, y: 96 }, { x: 92, y: 344 }, { x: 348, y: 344 },
-].map((p, k) => ({ ...p, k, name: PARTNER[k]?.name }));
-const pc = (a: number) => `${((a / W) * 100).toFixed(2)}%`;
-const f = (n: number) => n.toFixed(2);
 const mailto = `mailto:${company.email}?subject=${encodeURIComponent(P.werden.betreff)}`;
 ---
 
 <BaseLayout
-  title="Partner: Zusammenarbeit mit Waybuild"
-  description="Partnerschaften bei Waybuild: Wir arbeiten mit ausgewählten Partnern zusammen. Ihr Angebot passt zu unseren Produkten? Schreiben Sie uns."
+  title="Partner werden bei Waybuild"
+  description="Partner von Waybuild werden: Sie unterstützen Unternehmen mit etwas, das zu unseren Produkten passt? Schreiben Sie uns, wir melden uns am nächsten Werktag."
   breadcrumb={[{ name: 'Partner', path: '/partner/' }]}
 >
   <div class="dw us" data-denkweise>
     <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
 
-    <UsKopf {...P.kopf}>
-      {!PARTNER.length && <Hint block label="Partner-Text und echte Partner (nur mit deren Zustimmung)" where="src/config/unterseiten.ts → PARTNERSEITE.kopf.lead, PARTNER" />}
-      <div class="us-kopf__aktionen">
-        <a class="btn btn--primary btn--lg" href={href('/partner/#partner-werden')}>Partner werden <Icon name="arrow" size={18} /></a>
-      </div>
-    </UsKopf>
-
-    <section class="dw-abschnitt dw-ohne-linie" id="partner" aria-labelledby="netz-h">
-      <div class="wrap dw-raster">
-        <div class="dw-text reveal">
-          <span class="dw-kenn"><Icon name="users" size={18} /> {P.netz.kenn}</span>
-          <h2 id="netz-h">{P.netz.titel}</h2>
-          <p>{P.netz.text}</p>
-        </div>
-        <div class="us-netz" data-szene>
-          <svg viewBox={`0 0 ${W} ${W}`} aria-hidden="true" focusable="false">
-            {plaetze.map((p) => <path class="us-netz__linie dw-s" pathLength="1" d={`M ${M} ${M} L ${p.x} ${p.y}`} data-an={`zeichnen:${f(0.2 + p.k * 0.08)}-${f(0.42 + p.k * 0.08)}`} />)}
-          </svg>
-          {plaetze.map((p) => (
-            <span class="dw-pos" style={`left:${pc(p.x)};top:${pc(p.y)}`}>
-              <span class="us-netz__partner us-platzhalter" data-an={`erscheinen:${f(0.36 + p.k * 0.08)}-${f(0.48 + p.k * 0.08)}`}>
-                {p.name ?? <><Icon name="users" size={22} /><span class="us-platzhalter__marke">{P.netz.platzhalter}</span></>}
-              </span>
-            </span>
-          ))}
-          <span class="dw-pos" style={`left:${pc(M)};top:${pc(M)}`}>
-            <span class="us-netz__mitte" data-an="erscheinen:0.06-0.2"><Icon name="layers" size={22} />{P.netz.mitte}</span>
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <section class="dw-abschnitt dw-ohne-linie" id="kriterien" aria-labelledby="kriterien-h">
-      <div class="wrap">
-        <div class="us-kopfzeile">
-          <span class="dw-kenn"><Icon name="shield" size={18} /> {P.kriterien.kenn}</span>
-          <h2 id="kriterien-h">{P.kriterien.titel}</h2>
-        </div>
-        <ul class="us-punkte us-punkte--drei">
-          {P.kriterien.punkte.map((x) => (
-            <li><span class="us-punkte__icon"><Icon name={x.icon} size={22} /></span><div><h3>{x.titel}</h3><p>{x.text}</p></div></li>
-          ))}
-        </ul>
-        <Hint block label="Kriterien sind ein Vorschlag aus unseren Prinzipien – bitte bestätigen oder ändern" where="src/config/unterseiten.ts → PARTNERSEITE.kriterien" />
-      </div>
-    </section>
+    <UsKopf {...P.kopf} />
 
     <section class="dw-abschnitt dw-ohne-linie" id="partner-werden" aria-labelledby="werden-h">
       <div class="wrap">
-        <div class="us-cta">
+        <div class="us-cta us-cta--partner">
           <div>
-            <span class="dw-kenn"><Icon name="mail" size={18} /> {P.werden.kenn}</span>
+            <span class="dw-kenn"><Icon name="users" size={18} /> {P.werden.kenn}</span>
             <h2 id="werden-h">{P.werden.titel}</h2>
             <p>{P.werden.text}</p>
           </div>
@@ -88,12 +35,16 @@ const mailto = `mailto:${company.email}?subject=${encodeURIComponent(P.werden.be
             <a class="btn btn--primary btn--lg" href={mailto}><Icon name="mail" size={18} /> E-Mail schreiben<span class="sr-only"> an {company.email}</span></a>
             <a class="pfeil-link" href={href('/kontakt/?leistung=partnerschaft')}>Zum Kontaktformular <Icon name="arrow" size={16} /></a>
           </div>
+          <div class="us-cta__unten">
+            <h3 class="us-cta__klein">{P.werden.wichtig}</h3>
+            <ul class="us-punkte us-punkte--drei us-punkte--flach">
+              {P.werden.punkte.map((x) => (
+                <li><span class="us-punkte__icon"><Icon name={x.icon} size={20} /></span><div><h4>{x.titel}</h4><p>{x.text}</p></div></li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
   </div>
 </BaseLayout>
-
-<script>
-  import '../scripts/denkweise';
-</script>

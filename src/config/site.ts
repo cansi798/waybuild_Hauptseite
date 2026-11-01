@@ -158,7 +158,7 @@ export const faqsAllgemein = [
   },
   {
     q: 'Gelten Ihre Zusagen für alle Produkte?',
-    a: 'Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.',
+    a: 'Ja. Unsere Zusagen, unsere Prinzipien und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.',
   },
   {
     q: 'Wie schnell bekomme ich eine Antwort?',
@@ -173,9 +173,10 @@ export const faqsAllgemein = [
     a: 'Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.',
   },
   {
-    q: 'Bietet Waybuild auch Software, Cloud und IT an?',
+    q: 'Bietet Waybuild neben Websites noch etwas an?',
     // 31.10.2026 (Talk 4024/4025): Handwerk und die Service-Bereiche nicht mehr nennen; Fakt „auf Anfrage“ (README, AGB § 2a) bleibt.
-    a: 'Neben dem Website Service setzen wir einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung auf Anfrage um. Weitere Produkte folgen.',
+    // 01.11.2026 (Jamil, Talk 4208: „erstmal nur Website“): Nextcloud und IT-Betreuung nicht mehr nennen; individuelle Software wie auf der Startseite
+    a: 'Unser Hauptprodukt ist der Website Service. Passt kein fertiges Produkt, entwickeln wir auf Anfrage individuelle Software. Weitere Produkte folgen.',
   },
   {
     q: 'Sind die Preise netto?',

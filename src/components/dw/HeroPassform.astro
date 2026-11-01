@@ -1,0 +1,56 @@
+---
+// Hero-Bild „Passform“ (Jamil, Talk 4209: „erfinde etwas komplett Neues“, Ziel aus 4202: sofort überzeugen,
+// Hochwertigkeit vermitteln). Bildidee zur Überschrift „… die zu Ihrem Unternehmen passen“ und zum Satz „keine Lösungen
+// von der Stange“: Ein Unternehmen als ruhiges Gefüge aus ungleichen Flächen mit einer eigenen, unregelmäßigen Lücke.
+// Zwei Standardformen (Quadrat, Kreis) versuchen es und passen nicht, dann gleitet das türkise Maßstück hinein und sitzt
+// bündig: es senkt sich von oben (zum Betrachter hin) in die Lücke, ohne über andere Flächen zu wandern. Einmalig beim ersten Sichtkontakt (≈ 3 s), reduzierte Bewegung / ohne JS: fertiges Bild.
+// Gestaltung: Fläche 440 × 440, Fugen 12 px, Radius 18; Lage siehe unten. Keine Linien, keine Verbindungen.
+const R = 18;
+const flaechen = [
+  { x: 0, y: 0, w: 200, h: 128, f: '#0b6864' },
+  { x: 212, y: 0, w: 228, h: 128, f: '#08534f' },
+  { x: 0, y: 140, w: 128, h: 300, f: '#095a56' },
+  { x: 232, y: 140, w: 208, h: 76, f: '#0d716c' },
+  { x: 342, y: 228, w: 98, h: 212, f: '#074a47' },
+  { x: 140, y: 312, w: 190, h: 128, f: '#0a5f5b' },
+].map((r, i) => ({ ...r, d: (i * 0.06).toFixed(2) }));
+// Maßstück (L-Form) – füllt die Lücke genau
+const L = 'M 158 140 H 202 A 18 18 0 0 1 220 158 V 210 A 18 18 0 0 0 238 228 H 312 A 18 18 0 0 1 330 246 V 282 A 18 18 0 0 1 312 300 H 158 A 18 18 0 0 1 140 282 V 158 A 18 18 0 0 1 158 140 Z';
+---
+<div class="pf" data-passform aria-hidden="true">
+  <svg class="pf__bild" viewBox="-40 -40 520 520" focusable="false">
+    <defs>
+      <linearGradient id="pf-glanz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".15" /><stop offset=".5" stop-color="#fff" stop-opacity="0" /></linearGradient>
+      <linearGradient id="pf-teil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7beee8" /><stop offset=".5" stop-color="#19b8b2" /><stop offset="1" stop-color="#008f8a" /></linearGradient>
+    </defs>
+    <g class="pf__feld">
+      {flaechen.map((r) => (
+        <g class="pf__flaeche" style={`--d:${r.d}s`}>
+          <rect x={r.x} y={r.y} width={r.w} height={r.h} rx={R} fill={r.f} />
+          <rect x={r.x} y={r.y} width={r.w} height={r.h} rx={R} fill="url(#pf-glanz)" />
+          <rect class="pf__kante" x={r.x + 0.5} y={r.y + 0.5} width={r.w - 1} height={r.h - 1} rx={R - 0.5} />
+        </g>
+      ))}
+    </g>
+    <path class="pf__luecke" d={L} />
+    <rect class="pf__probe pf__probe--1" x="150" y="150" width="96" height="96" rx="18" />
+    <circle class="pf__probe pf__probe--2" cx="200" cy="220" r="56" />
+    <g class="pf__teil">
+      <path d={L} fill="url(#pf-teil)" />
+      <path d={L} fill="url(#pf-glanz)" />
+    </g>
+    <path class="pf__puls" d={L} />
+  </svg>
+</div>
+
+<script>
+  // Die Sequenz läuft einmal, sobald das Bild sichtbar ist (am Handy liegt es unter den Knöpfen)
+  const el = document.querySelector<HTMLElement>('[data-passform]');
+  if (el) {
+    const los = () => el.classList.add('pf--los');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { los(); io.disconnect(); } }, { threshold: 0.35 });
+      io.observe(el);
+    } else los();
+  }
+</script>

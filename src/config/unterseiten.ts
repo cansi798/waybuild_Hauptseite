@@ -60,7 +60,12 @@ export const UEBER_UNS = {
     // wörtlich aus Jamils Design-Briefing (Talk 3636, „Menschen hinter Waybuild“)
     text: 'Wenn Sie Waybuild schreiben, landen Sie nicht anonym in einem System. Sie sprechen mit Menschen, die Ihr Anliegen verstehen und Verantwortung für den nächsten Schritt übernehmen.',
     // Nur Namen, die schon im Impressum stehen. Fotos: Platzhalter, bis echte Fotos vorliegen (keine Stockfotos).
-    personen: [{ name: company.managingDirector, rolle: 'Geschäftsführer', foto: '' }],
+    // 01.11.2026 (Jamil, Talk 4208): Jamil Iqbal mit Foto-Platzhalter neben Can. Seine Rolle steht weder im Impressum noch
+    // auf einer Seite → als Platzhalter markiert (rolleFehlt), bis Jamil sie nennt.
+    personen: [
+      { name: company.managingDirector, rolle: 'Geschäftsführer', rolleFehlt: false, foto: '' },
+      { name: 'Jamil Iqbal', rolle: 'Rolle folgt', rolleFehlt: true, foto: '' },
+    ],
   },
 };
 
@@ -139,39 +144,27 @@ export const REFERENZSEITE = {
 };
 
 /* ─────────────── Partner ─────────────── */
-/** Partner erst eintragen, wenn die Partnerschaft besteht und der Partner der Nennung zugestimmt hat. Keine Logos ohne Freigabe. */
-export const PARTNER: { name: string; text: string; url?: string }[] = [];
-
+/** 01.11.2026 (Jamil, Talk 4208: noch keine Partner): Die Seite ist eine kurze Einladung „Partner werden“.
+ *  Keine leeren Plätze, keine Logos. Partner erst nennen, wenn eine Partnerschaft besteht und der Partner zustimmt. */
 export const PARTNERSEITE = {
   kopf: {
     eyebrow: 'Partner',
-    titelVor: 'Gemeinsam mit ',
-    titelAkzent: 'Partnern.',
-    // PLATZHALTER-Text (Vorgabe Talk 4192) – von Jamil bestätigen lassen
-    lead: 'Wir arbeiten mit ausgewählten Partnern zusammen, wenn ein Projekt Fachwissen braucht, das wir selbst nicht anbieten.',
+    titelVor: 'Partner von Waybuild ',
+    titelAkzent: 'werden.',
+    lead: 'Sie unterstützen Unternehmen mit etwas, das gut zu unseren Produkten passt? Dann sprechen wir gern darüber, wie eine Zusammenarbeit aussehen kann.',
   },
-  netz: {
-    kenn: 'Unsere Partner',
-    titel: 'Partner stellen wir vor, sobald sie zugestimmt haben.',
-    text: 'Bis dahin bleibt dieser Bereich leer. Logos oder Namen zeigen wir nur mit Einverständnis.',
-    mitte: 'Waybuild',
-    platzhalter: 'Partner folgt',
-  },
-  kriterien: {
-    kenn: 'Worauf wir achten',
-    titel: 'Unsere Prinzipien gelten auch für Partner.',
-    // VORSCHLAG aus DW_PRINZIPIEN abgeleitet – von Jamil bestätigen lassen
+  werden: {
+    kenn: 'Partner werden',
+    titel: 'Erzählen Sie uns, was Sie machen.',
+    text: 'Eine kurze Nachricht genügt: Wer Sie sind, was Sie anbieten und wo Sie eine gemeinsame Chance sehen. Wir melden uns spätestens am nächsten Werktag.',
+    betreff: 'Partnerschaft',
+    // aus den drei Prinzipien der Startseite abgeleitet
+    wichtig: 'Was uns in einer Zusammenarbeit wichtig ist',
     punkte: [
       { icon: 'search' as IconName, titel: 'Klarheit', text: 'Unsere Kunden wissen jederzeit, wer zuständig ist.' },
       { icon: 'arrow' as IconName, titel: 'Einfachheit', text: 'Für unsere Kunden bleibt die Zusammenarbeit einfach, auch wenn mehrere mitarbeiten.' },
       { icon: 'shield' as IconName, titel: 'Verlässlichkeit', text: 'Was wir zusagen, gilt auch, wenn ein Partner beteiligt ist.' },
     ],
-  },
-  werden: {
-    kenn: 'Partner werden',
-    titel: 'Ihr Angebot passt zu unseren Produkten?',
-    text: 'Schreiben Sie uns, was Sie machen und wie eine Zusammenarbeit aussehen könnte. Wir melden uns spätestens am nächsten Werktag.',
-    betreff: 'Partnerschaft',
   },
 };
 
@@ -184,7 +177,7 @@ export const KARRIERESEITE = {
     eyebrow: 'Karriere',
     titelVor: 'Arbeiten bei ',
     titelAkzent: 'Waybuild.',
-    lead: 'Gerade haben wir keine offenen Stellen. Initiativbewerbungen lesen wir trotzdem gern.',
+    lead: 'Gerade haben wir keine offenen Stellen. Initiativbewerbungen lesen wir trotzdem gern. Wir arbeiten komplett remote.',
   },
   stellen: {
     kenn: 'Offene Stellen',
@@ -201,6 +194,8 @@ export const KARRIERESEITE = {
       { icon: 'arrow' as IconName, titel: 'Einfache Wege', text: 'Eine Nachricht genügt. Änderungen müssen nicht durch viele Freigaben gehen.' },
       { icon: 'shield' as IconName, titel: 'Verlässlichkeit', text: 'Feste Zuständigkeiten und dokumentierte Prozesse, damit nichts verloren geht.' },
       { icon: 'spark' as IconName, titel: 'Moderne Werkzeuge', text: 'Bei der Umsetzung helfen uns KI-gestützte Werkzeuge.' },
+      // Jamil, Talk 4208
+      { icon: 'globe' as IconName, titel: 'Komplett remote', text: 'Wir arbeiten ortsunabhängig. Abstimmung läuft digital.' },
     ],
   },
   bewerben: {

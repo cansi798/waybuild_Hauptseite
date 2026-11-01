@@ -185,3 +185,10 @@
 @media (min-width: 600px) and (max-width: 959px) {
   .us-referenzen { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Partner: Einladung mit drei Punkten unten in der Karte */
+.us-cta__unten { grid-column: 1 / -1; margin-top: 8px; padding-top: 22px; border-top: 1px solid var(--paper-2); }
+.us-cta__klein { margin: 0 0 14px; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+.us-punkte--flach li { padding: 0; border: 0; background: none; }
+.us-punkte h4 { margin: 0 0 4px; font-family: var(--font-head); font-size: 1.02rem; }
+.us-person__rolle--fehlt { display: inline-block; padding: 1px 8px; border-radius: 6px; background: #fff4c2; border: 1px dashed #d4a300; color: #5c4400 !important; font-size: 0.85rem; font-weight: 600; }

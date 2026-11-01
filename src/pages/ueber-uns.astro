@@ -10,6 +10,7 @@ import UsAndock from '../components/us/UsAndock.astro';
 import UsProzess from '../components/us/UsProzess.astro';
 import { href, absolute } from '../lib/paths';
 import { UEBER_UNS as U } from '../config/unterseiten';
+import { SHOW_HINTS } from '../config/site';
 import '../styles/denkweise.css';
 import '../styles/unterseiten.css';
 ---
@@ -129,18 +130,13 @@ import '../styles/unterseiten.css';
                 <Icon name="user" size={40} /><span class="us-platzhalter__marke">Foto folgt</span>
               </div>
               <h3>{p.name}</h3>
-              <p>{p.rolle}</p>
+              {p.rolleFehlt
+                ? (SHOW_HINTS ? <p><span class="us-person__rolle--fehlt">Platzhalter: {p.rolle}</span></p> : null)
+                : <p>{p.rolle}</p>}
             </li>
           ))}
-          <li class="us-person us-person--leer">
-            <div class="us-person__foto us-platzhalter" role="img" aria-label="Platzhalter für weitere Teammitglieder">
-              <Icon name="users" size={40} /><span class="us-platzhalter__marke">Platzhalter</span>
-            </div>
-            <h3>Weitere Menschen bei Waybuild</h3>
-            <p>Folgen, sobald Fotos und Freigaben vorliegen.</p>
-          </li>
         </ul>
-        <Hint block label="Echte Teamfotos, Namen und Aufgaben (keine Stockfotos); ob weitere Personen genannt werden sollen" where="src/config/unterseiten.ts → UEBER_UNS.team" />
+        <Hint block label="Echte Teamfotos (keine Stockfotos) und die Rolle von Jamil Iqbal" where="src/config/unterseiten.ts → UEBER_UNS.team" />
       </div>
     </section>
   </div>

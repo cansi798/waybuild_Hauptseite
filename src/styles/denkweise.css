@@ -19,7 +19,7 @@
 .dw-s--stark { stroke-width: 3.5; }
 .dw-s--akzent { stroke: var(--accent-mid); }
 .dw--live .dw-s[data-an] { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
-.dw-knoten { fill: var(--paper); stroke: var(--weg); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; transition: stroke 1.2s ease; }
+.dw-knoten { fill: var(--grund, var(--paper)); stroke: var(--weg); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; transition: stroke 1.2s ease; }
 .dw-knoten--akzent { stroke: var(--accent); fill: var(--accent); }
 .dw-fuell { fill: rgb(0 166 161 / 9%); transform-box: fill-box; transform-origin: center; }
 .dw--live [data-an] { will-change: auto; }
@@ -40,7 +40,7 @@
 .dw-wp { display: block; height: 0; }
 /* Talk 4179: Startpunkt der Scroll-Linie am Handy (Mitte = Wegpunkt links am Text, 28 px vor der Textkante) */
 .dw-linienstart { position: relative; display: block; height: 0; }
-.dw-linienstart::before { content: ''; position: absolute; left: -35px; top: -7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--paper); z-index: 1; }
+.dw-linienstart::before { content: ''; position: absolute; left: -35px; top: -7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund, var(--paper)); z-index: 1; }
 .dw-anker { position: absolute; width: 0; height: 0; }
 
 /* ── Hero ── */
@@ -53,7 +53,7 @@
 .dw-idee { position: relative; display: block; }
 /* Hero-Prozess (Talk 3922): ganz in Türkis; Talk 4063: ~85 % der vorigen Größe. --hs skaliert den Versatz.
  * Maße gelten auch für das feste Linien-SVG in index.astro (heroLinien) – dort mitziehen! */
-.dw-idee__kreis { position: relative; display: grid; place-items: center; width: 63px; height: 63px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
+.dw-idee__kreis { position: relative; display: grid; place-items: center; width: 63px; height: 63px; border-radius: 50%; background: var(--grund, var(--paper)); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 /* Talk 3930/3938: der äußere Kreis glimmt ständig sanft (nur Lichthof außen, kein Licht auf dem Symbol; ~3,6 s).
  * Läuft nur mit JS und solange sichtbar (ist-sichtbar, gesetzt in denkweise.ts); sonst bzw. bei reduzierter Bewegung statisch leicht leuchtend. */
 /* Talk 4031/4033: kein äußeres Glimmen mehr; stattdessen glimmt die Glühbirne selbst sanft in Türkis (kein Gelb).
@@ -71,7 +71,7 @@
 @keyframes dw-birne { 0%, 100% { opacity: 0.4; color: var(--accent-ink); filter: drop-shadow(0 0 0 rgb(0 166 161 / 0%)); } 50% { opacity: 1; color: var(--accent); filter: drop-shadow(0 0 4px rgb(0 166 161 / 95%)) drop-shadow(0 0 12px rgb(0 166 161 / 70%)); } }
 /* Talk 3933: Ziel „Verbessern“ im Hero – gleiche Größe wie die Idee, Pfeile im Uhrzeigersinn auf dem Rand, ein
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
-.dw-ziel { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
+.dw-ziel { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--grund, var(--paper)); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 /* Einblenden (transform) auf der Hülle: sonst wird der Kreis selbst Stapelkontext und der Lichthof (z-index −1) färbt sein Inneres */
 .dw-ziel__ring { position: absolute; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; z-index: 1; pointer-events: none; }
 .dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;; transform-box: fill-box; transform-origin: center; }
@@ -83,8 +83,8 @@
 @keyframes dw-pfeil-puls { 0%, 13%, 100% { transform: none; } 4% { transform: translateX(calc(var(--dw-r, 1) * 3px)) scale(1.3); } }
 /* Talk 4031: Lichtschimmer genau so breit wie der Rand (3 px), heller Türkiston, damit er auf dem Rand sichtbar bleibt */
 @keyframes dw-schimmer { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.dw-punkt { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--weg); transition: border-color 1.2s ease; }
-.dw-wort { font-size: 0.86rem; font-weight: 600; color: #6a6459; letter-spacing: 0.01em; background: var(--paper); padding: 1px 6px; border-radius: 6px; }
+.dw-punkt { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--grund, var(--paper)); border: 2.5px solid var(--weg); transition: border-color 1.2s ease; }
+.dw-wort { font-size: 0.86rem; font-weight: 600; color: #6a6459; letter-spacing: 0.01em; background: var(--grund, var(--paper)); padding: 1px 6px; border-radius: 6px; }
 .dw-wort--akzent { color: var(--accent-ink); }
 
 /* ── Bildszenen ── */
@@ -94,17 +94,17 @@
 .dw-bild > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .dw-pos { position: absolute; transform: translate(-50%, -50%); z-index: 1; }
 .dw-pos--rechts { transform: translate(0, -50%); }
-.dw-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: #5d584e; white-space: nowrap; }
+.dw-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: #5d584e; white-space: nowrap; }
 .dw-chip--start { border-color: rgb(0 166 161 / 45%); color: var(--accent-ink); font-size: 0.86rem; padding: 6px 13px; }
 .dw-chip--auf-linie { border-color: var(--weg); transition: border-color 1.2s ease, color 0.9s ease; }
 .dw-mitte { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--accent-ink); white-space: nowrap; }
 .dw-mitte--gross { font-size: 1.2rem; }
-.dw-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--paper); border: 1.5px solid var(--weg-fein); color: #6a6459; }
+.dw-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--grund, var(--paper)); border: 1.5px solid var(--weg-fein); color: #6a6459; }
 .dw-icon--hervor { border-color: var(--accent); color: var(--accent-ink); background: rgb(0 166 161 / 8%); }
 .dw-bereich { display: grid; gap: 1px; }
 .dw-bereich__name { font-family: var(--font-head); font-size: 0.92rem; font-weight: 650; color: var(--ink); white-space: nowrap; }
 .dw-bereich__hinweis { font-size: 0.78rem; color: #6f6a60; max-width: 13em; line-height: 1.35; }
-.dw-icon--folgt { border-style: dashed; border-color: rgb(0 143 138 / 45%); color: var(--accent-mid); background: var(--paper); }
+.dw-icon--folgt { border-style: dashed; border-color: rgb(0 143 138 / 45%); color: var(--accent-mid); background: var(--grund, var(--paper)); }
 .dw-bereich--folgt .dw-bereich__name { font-weight: 600; color: var(--accent-ink); opacity: 0.85; }
 .dw-s--folgt { stroke-dasharray: 4 6; }
 .dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
@@ -115,16 +115,16 @@
 .dw-dialog__linie { position: absolute; top: 0; bottom: 0; left: calc(50% - 1.25px); width: 2.5px; border-radius: 2px; background: var(--accent-mid); transform-origin: top; }
 .dw-dialog__liste { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
 .dw-dialog__zeile { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: center; }
-.dw-dialog__wer { grid-column: 2; grid-row: 1; justify-self: center; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgb(0 143 138 / 45%); background: var(--paper); color: var(--accent-ink); font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; }
+.dw-dialog__wer { grid-column: 2; grid-row: 1; justify-self: center; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgb(0 143 138 / 45%); background: var(--grund, var(--paper)); color: var(--accent-ink); font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; }
 .dw-dialog__zeile--waybuild .dw-dialog__wer { border-color: var(--accent-mid); background: var(--accent-mid); color: var(--white); }
 .dw-dialog__blase { grid-row: 1; position: relative; padding: 10px 14px; border-radius: 16px; font-size: 0.98rem; font-weight: 600; line-height: 1.4; }
 .dw-dialog__zeile--kunde .dw-dialog__blase { grid-column: 1; justify-self: end; border: 1px solid var(--line); background: var(--white); color: var(--ink); border-bottom-right-radius: 4px; }
 .dw-dialog__zeile--waybuild .dw-dialog__blase { grid-column: 3; justify-self: start; border: 1px solid rgb(0 143 138 / 35%); background: #e8f3f0; color: var(--accent-ink); border-bottom-left-radius: 4px; }
-.dw-dialog__ergebnis { position: relative; z-index: 1; width: fit-content; max-width: 100%; margin: 26px auto 0; padding: 14px 20px; border: 2px solid var(--accent-mid); border-radius: var(--radius); background: var(--paper); box-shadow: 0 0 0 5px rgb(0 166 161 / 10%); }
+.dw-dialog__ergebnis { position: relative; z-index: 1; width: fit-content; max-width: 100%; margin: 26px auto 0; padding: 14px 20px; border: 2px solid var(--accent-mid); border-radius: var(--radius); background: var(--grund, var(--paper)); box-shadow: 0 0 0 5px rgb(0 166 161 / 10%); }
 .dw-dialog__ergebnis ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .dw-dialog__ergebnis li { display: flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--accent-ink); }
 .dw-dialog__ergebnis .icon { flex: none; color: var(--accent-mid); }
-.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 28px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); text-align: center; }
+.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 28px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); text-align: center; }
 .dw-dialog__nicht span { display: block; }
 
 /* ── Unsere Prinzipien (Talk 4087): drei gleichwertige Karten im dunklen Bereich ── */
@@ -159,17 +159,17 @@
 
 /* ── Umsetzen (Talk 4050): Erkenntnisse fließen in einen Knoten, ein Website-Fenster setzt sich aus Bausteinen zusammen ── */
 .dw-umsetzen { container-type: inline-size; }
-.dw-umsetzen__flaeche { fill: var(--paper); }
+.dw-umsetzen__flaeche { fill: var(--grund, var(--paper)); }
 .dw-umsetzen__punkt { fill: rgb(0 143 138 / 45%); transform-box: fill-box; transform-origin: center; }
 .dw-umsetzen__baustein { fill: #e8f3f0; stroke: rgb(0 143 138 / 35%); stroke-width: 1.2; }
 .dw-umsetzen__baustein--akzent { fill: rgb(0 143 138 / 18%); }
 .dw-umsetzen__baustein--knopf { fill: var(--accent-mid); stroke: none; }
 .dw-umsetzen__erkenntnis { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgb(0 143 138 / 40%); background: #e8f3f0; color: var(--accent-ink); transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
-.dw-umsetzen__knoten { position: relative; display: block; width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--paper); }
+.dw-umsetzen__knoten { position: relative; display: block; width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund, var(--paper)); }
 .dw-umsetzen__fuell { position: absolute; inset: 3px; border-radius: 50%; background: var(--accent-mid); }
-.dw-umsetzen__notiz { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--paper); font-size: 0.8rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.dw-umsetzen__notiz { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
 .dw-umsetzen__ergebnis { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--accent-mid); background: #e8f3f0; font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
-.dw-umsetzen__folgt { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; border: 1px dashed rgb(0 143 138 / 45%); background: var(--paper); font-size: 0.8rem; font-weight: 600; color: var(--accent-ink); white-space: nowrap; }
+.dw-umsetzen__folgt { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; border: 1px dashed rgb(0 143 138 / 45%); background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 600; color: var(--accent-ink); white-space: nowrap; }
 .dw-umsetzen__folgt .icon, .dw-umsetzen__ergebnis .icon { color: var(--accent-mid); }
 .dw-unterzeile { font-family: var(--font-head); font-weight: 650; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--accent-ink) !important; margin-top: -0.2em; }
 .dw-chip__en { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; color: #6f6a60; }
@@ -177,17 +177,17 @@
 
 /* ── Hinterfragen (Talk 4020): erste Idee → Warum? → Ziele → Möglichkeiten → eine Richtung; alles türkis ── */
 .dw-pos--links { transform: translate(-100%, -50%); }
-.dw-hf-chip { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgb(0 143 138 / 38%); background: var(--paper); color: var(--accent-ink); font-size: 0.82rem; font-weight: 650; line-height: 1.25; white-space: nowrap; text-align: center; }
+.dw-hf-chip { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgb(0 143 138 / 38%); background: var(--grund, var(--paper)); color: var(--accent-ink); font-size: 0.82rem; font-weight: 650; line-height: 1.25; white-space: nowrap; text-align: center; }
 .dw-hf-chip .icon { flex: none; color: var(--accent-mid); }
 .dw-hf-chip--start { background: #e8f3f0; font-size: 0.88rem; padding: 6px 14px; }
 .dw-hf-notiz { position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 0.86rem; font-weight: 650; color: var(--accent-ink); }
 .dw-hf-chip--ziel { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--white); }
 .dw-hf-chip--bleibt { background: #e8f3f0; border: 2px solid var(--accent-mid); padding: 4px 11px; }
 .dw-hf-warum { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--accent-ink); white-space: nowrap; }
-.dw-hf-richtung { display: inline-block; padding: 2px 6px; border-radius: 6px; background: var(--paper); font-size: 0.88rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
-.dw-hf__schritt { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--paper); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; color: var(--accent-ink); white-space: nowrap; }
+.dw-hf-richtung { display: inline-block; padding: 2px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.88rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.dw-hf__schritt { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; color: var(--accent-ink); white-space: nowrap; }
 .dw-hf__schritt--ziel { font-size: 0.86rem; }
-.dw-hf__warum { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--paper); }
+.dw-hf__warum { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--grund, var(--paper)); }
 .dw-hf__warum-text { position: relative; z-index: 1; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; color: var(--accent-ink); }
 .dw-hf__steg--wahl { stroke-width: 3.5; }
 .dw-hf-chip--ziel .icon { color: var(--white); }
@@ -198,21 +198,21 @@
 .dw-ideebild__idee { display: inline-flex; align-items: center; justify-content: center; gap: 6px; max-width: 12em; padding: 6px 12px; border-radius: 16px; border: 1px solid rgb(0 143 138 / 38%); background: #e8f3f0; box-shadow: 0 2px 8px rgb(0 107 104 / 8%); font-size: 0.82rem; font-weight: 650; line-height: 1.25; color: var(--accent-ink); text-align: center; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-ideebild__idee .icon { flex: none; color: var(--accent-mid); }
 /* Talk 4122: Gruppen-Label (Ideen / Wünsche / Probleme) sitzt auf der Linie, Papiergrund deckt sie ab */
-.dw-ideebild__gruppe { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; background: var(--paper); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; color: var(--accent-ink); white-space: nowrap; }
+.dw-ideebild__gruppe { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; background: var(--grund, var(--paper)); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; color: var(--accent-ink); white-space: nowrap; }
 /* Lage des Labels auf einer eigenen Hülle, damit die Spuren (auf/weg) am Label selbst den Versatz nicht überschreiben */
 .dw-ideebild__lage { display: block; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-ideebild__gruppe .icon { flex: none; color: var(--accent-mid); }
-.dw-ideebild__knoten { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent-mid); color: var(--accent-ink); }
+.dw-ideebild__knoten { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--grund, var(--paper)); border: 2.5px solid var(--accent-mid); color: var(--accent-ink); }
 .dw-ideebild__knoten .icon { position: relative; z-index: 1; filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
-.dw-ideebild__start { display: block; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--paper); }   /* Talk 4179: Start der Linie */
+.dw-ideebild__start { display: block; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund, var(--paper)); }   /* Talk 4179: Start der Linie */
 .dw-ideebild__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
 .dw-verstehen { container-type: inline-size; }
 .dw-verstehen__begriff { transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-verstehen .dw-verstehen__begriff { white-space: nowrap; max-width: none; }   /* Talk 4140/4158: Begriffe mit Symbol */
 .dw-verstehen__sprosse { stroke: rgb(0 143 138 / 45%); stroke-width: 2; }
-.dw-verstehen__dna { display: inline-block; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.dw-verstehen__dna { display: inline-block; padding: 2px 8px; border-radius: 6px; background: var(--grund, var(--paper)); font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
 /* Verstehen (Talk 4042): Kreis so groß wie der Ideen-Knoten, Lupe statt Wort; die Äste zeichnet ein eigenes kleines SVG */
-.dw-verstehen__kreis { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); color: var(--accent-ink); }
+.dw-verstehen__kreis { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--grund, var(--paper)); color: var(--accent-ink); }
 .dw-verstehen__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 2; }
 .dw-verstehen__ast { stroke-width: 2.5px; vector-effect: non-scaling-stroke; }
 .dw-verstehen__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
@@ -225,13 +225,13 @@
 
 /* ── Entscheiden (Talk 3938/3939): Wege abwägen (Nutzen/Aufwand), Reihenfolge, Wahl türkis mit Haken ── */
 .dw-pos--spalte { transform: translate(-50%, 0); }   /* Spaltenkopf hängt am Ende des Astes */
-.dw-wahl { display: grid; justify-items: center; gap: 4px; width: 7.6rem; padding: 6px 4px 8px; border-radius: 12px; background: var(--paper); text-align: center; }
+.dw-wahl { display: grid; justify-items: center; gap: 4px; width: 7.6rem; padding: 6px 4px 8px; border-radius: 12px; background: var(--grund, var(--paper)); text-align: center; }
 .dw-wahl__rang { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--paper-2); border: 1px solid var(--line); color: #5d584e; font-size: 0.75rem; font-weight: 700; transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease; }
 .dw-wahl__name { font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--accent-ink); line-height: 1.2; }
 .dw-wahl__zeile { display: grid; justify-items: center; gap: 2px; width: 100%; font-size: 0.72rem; color: #6f6a60; }
 .dw-wahl__bahn { display: block; width: 78%; height: 6px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
 .dw-wahl__wert { display: block; height: 100%; width: var(--w); border-radius: 3px; background: #b3aa99; transform-origin: left; transition: background-color 0.5s ease; }
-.dw-wahl__haken { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-mid); color: var(--white); box-shadow: 0 0 0 4px var(--paper); }
+.dw-wahl__haken { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-mid); color: var(--white); box-shadow: 0 0 0 4px var(--grund, var(--paper)); }
 .dw-wahl__zuerst { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent-ink); white-space: nowrap; }
 .dw-wahlbild.ist-zu .dw-wahl--gewaehlt, .dw:not(.dw--live) .dw-wahl--gewaehlt { box-shadow: 0 0 0 2px var(--accent-mid); }
 .dw-wahlbild.ist-zu .dw-wahl--gewaehlt .dw-wahl__rang, .dw:not(.dw--live) .dw-wahl--gewaehlt .dw-wahl__rang { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--white); }
@@ -268,7 +268,7 @@
 /* ── Kapitel: Marke auf der Linie, Titel, Kernbotschaft ── */
 .dw-kapitel { position: relative; }
 .dw-kapitelkopf { display: grid; justify-items: start; gap: 18px; padding-block: clamp(64px, 9vw, 128px) clamp(8px, 2vw, 24px); }
-.dw-kapitel__marke { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--paper); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+.dw-kapitel__marke { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--grund, var(--paper)); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
 .dw-kapitel__punkt { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex: none; }
 .dw-kapitel__text { padding-left: calc(var(--rand-x) + 12px); }
 .dw-kapitel__text h2 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.03em; margin: 0; }
@@ -283,7 +283,7 @@
 
 /* ── Hinterfragen: Phasen und Botschaft ── */
 .dw-botschaft { margin-top: 1.2em; padding-left: 16px; border-left: 3px solid var(--accent); color: var(--ink) !important; font-weight: 600; }
-.dw-phase { display: inline-flex; align-items: center; gap: 7px; padding: 2px 8px 2px 2px; border-radius: 999px; background: var(--paper); font-size: 0.82rem; font-weight: 650; color: var(--accent-ink); white-space: nowrap; }
+.dw-phase { display: inline-flex; align-items: center; gap: 7px; padding: 2px 8px 2px 2px; border-radius: 999px; background: var(--grund, var(--paper)); font-size: 0.82rem; font-weight: 650; color: var(--accent-ink); white-space: nowrap; }
 .dw-phase__nr { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-ink); color: var(--white); font-size: 0.75rem; font-weight: 700; flex: none; }
 .dw-phase--ziel { font-size: 0.9rem; }
 .dw-phasen { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; }
@@ -301,7 +301,7 @@
 
 /* Produkte: jede als eigene Karte, Website Service hervorgehoben */
 .dw-produkt { background: var(--white); }
-.dw-produkte__folgt { position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; width: fit-content; margin: 28px 0 0 calc(var(--rand-x) + 16px); padding: 6px 14px; border: 1px dashed rgb(0 143 138 / 45%); border-radius: 999px; background: var(--paper); font-size: 0.9rem; font-weight: 600; color: var(--accent-ink); }
+.dw-produkte__folgt { position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; width: fit-content; margin: 28px 0 0 calc(var(--rand-x) + 16px); padding: 6px 14px; border: 1px dashed rgb(0 143 138 / 45%); border-radius: 999px; background: var(--grund, var(--paper)); font-size: 0.9rem; font-weight: 600; color: var(--accent-ink); }
 .dw-produkte__folgt .icon { color: var(--accent-mid); }
 .dw-andock .k h4, .dw-produkt h4 { margin: 0 0 6px; font-family: var(--font-head); font-size: 1.12rem; font-weight: 650; line-height: 1.3; }
 .dw-produkt__name { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink) !important; margin-bottom: 6px !important; }
@@ -315,7 +315,7 @@
 .dw-haken .icon { color: var(--accent-mid); flex: none; }
 
 /* ── Verlässlichkeit: eigener dunkler Kontrastbereich (liegt unter der Linie) ── */
-.dw-dunkel { position: relative; color: var(--paper); padding-bottom: clamp(24px, 4vw, 56px); --weg: var(--accent-light); }
+.dw-dunkel { position: relative; color: var(--grund, var(--paper)); padding-bottom: clamp(24px, 4vw, 56px); --weg: var(--accent-light); }
 .dw-dunkel::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw); background: var(--dark); z-index: -1; }
 .dw-dunkel .dw-kapitel__marke, .dw-dunkel .dw-prinzip__wort { background: var(--dark); border-color: var(--accent-light); color: var(--accent-light); }
 .dw-dunkel .dw-kapitel__punkt, .dw-dunkel .dw-prinzip__punkt { background: var(--accent-light); }
@@ -362,13 +362,13 @@
 .dw-profil__liste dd { margin: 4px 0 0 26px; color: var(--ink); line-height: 1.55; }
 .dw-profil__hinweis { font-size: 0.88rem; color: #6f6a60 !important; }
 .dw-schritte { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
-.dw-schritte li { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 0.9rem; font-weight: 600; color: #5d584e; }
+.dw-schritte li { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--grund, var(--paper)); font-size: 0.9rem; font-weight: 600; color: #5d584e; }
 .dw-abschluss__titel { margin: 0 0 0.6em; font-size: clamp(2.3rem, 5.4vw, 3.9rem); line-height: 1.06; letter-spacing: -0.035em; }   /* Talk 4102: wie die Hero-H1 */
 
 /* ── Drei Prinzipien: direkt auf der Linie ── */
 .dw-prinzipien__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 4vw, 44px); }
 .dw-prinzip { display: grid; gap: 8px; justify-items: start; }
-.dw-prinzip__wort { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--paper); font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.dw-prinzip__wort { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 10px; margin-left: -2px; border: 2px solid var(--accent); border-radius: 999px; background: var(--grund, var(--paper)); font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
 .dw-prinzip__punkt { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex: none; }
 .dw-prinzip__text { padding-left: calc(var(--rand-x) + 12px); color: var(--ink-soft); line-height: 1.6; }
 
@@ -427,9 +427,9 @@
   .dw-kapitel__marke { margin: 0; }
   .dw-kapitel__punkt { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
   .dw-kapitel__marke { position: relative; padding: 8px 20px; }
-  .dw-kapitel__text { padding: 8px 24px 12px; background: var(--paper); }
+  .dw-kapitel__text { padding: 8px 24px 12px; background: var(--grund, var(--paper)); }
   .dw-dunkel .dw-kapitel__text, .dw-dunkel .dw-mitteltitel { background: var(--dark); }
-  .dw-mitteltitel { text-align: center; padding: 6px 18px; margin-inline: auto; width: fit-content; background: var(--paper); }
+  .dw-mitteltitel { text-align: center; padding: 6px 18px; margin-inline: auto; width: fit-content; background: var(--grund, var(--paper)); }
 
   /* Andocken: Linie in der Mitte, Karten abwechselnd links und rechts */
   .dw-saeule { left: calc(50% - 3px); }
@@ -484,11 +484,7 @@
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */
 html.js .dw .reveal { transform: none; }
 
-/* ───────── Hero-Prozessbild (Jamil, Talk 4202: „besser darstellen, Hochwertigkeit vermitteln“) ─────────
- * Desktop: ruhige weiße Karte mit feinem Schatten; eine gerade Linie (Verlauf + Lichthof) verbindet sechs Knoten.
- * Impuls und Verbessern sind Anker (größer; Impuls gefüllt, Verbessern mit wandernden Pfeilen), dazwischen vier
- * gleiche Knoten mit eigenem Symbol. Beim Laden läuft einmal ein Lichtpunkt die Linie entlang, die Knoten leuchten
- * nacheinander auf. Handy: dieselbe Logik waagerecht und kompakt. Reduzierte Bewegung / ohne JS: statisch, fertig. */
+/* ───────── Knoten mit Symbol (aus dem Hero vom 01.11., Talk 4202) – genutzt von „Denkweise kompakt“ auf /ueber-uns/ ───────── */
 .dw-pk { position: relative; z-index: 1; flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
   background: var(--white); border: 1.5px solid rgb(0 143 138 / 55%); color: var(--accent-ink);
   box-shadow: 0 0 0 3px var(--white), 0 2px 6px rgb(0 79 76 / 12%); }
@@ -496,65 +492,57 @@ html.js .dw .reveal { transform: none; }
   background: radial-gradient(120% 120% at 30% 25%, #19b3ad 0%, var(--accent-mid) 45%, var(--accent-ink) 100%);
   box-shadow: 0 0 0 4px var(--white), 0 0 0 5px rgb(0 143 138 / 22%), 0 10px 26px -6px rgb(0 107 104 / 55%); }
 .dw-pk--anker .icon { filter: drop-shadow(0 0 6px rgb(255 255 255 / 45%)); }
-/* Verbessern: heller Anker mit Ring, die Pfeile wandern (Talk 4141, kein Symbol innen) */
 .dw-pk--ziel { background: radial-gradient(circle at 50% 40%, var(--white) 0%, #eef8f6 100%); }
 .dw-pk--ziel .dw-ziel { width: 100%; height: 100%; border: 2.5px solid var(--accent-mid); background: transparent; }
 .dw-pk--ziel .dw-ziel__pfeil { stroke-width: 5; }
 
-/* Desktop-Karte */
-.dw-pl { position: relative; justify-self: end; width: min(100%, 440px); padding: 30px 30px 30px 28px; border-radius: 24px;
-  background: linear-gradient(180deg, var(--white) 0%, #fbfaf7 100%); border: 1px solid rgb(221 214 201 / 80%);
-  box-shadow: 0 1px 2px rgb(0 79 76 / 6%), 0 30px 60px -28px rgb(0 79 76 / 30%), 0 12px 24px -16px rgb(0 79 76 / 14%); }
-.dw-pl::before { content: ''; position: absolute; inset: 0 24px auto; height: 3px; border-radius: 0 0 3px 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.7; }
-.dw-pl__liste { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.dw-pl__link { display: flex; align-items: center; gap: 18px; padding: 4px 8px 4px 0; border-radius: 14px; text-decoration: none; color: inherit; }
-.dw-pl__schritt:not(.dw-pl__schritt--anker) .dw-pl__link { padding-left: 10px; gap: 28px; }   /* 40er-Knoten mittig unter den 60er-Ankern */
-.dw-pl__link:hover .dw-pl__wort { color: var(--accent-ink); }
-.dw-pl__link:hover .dw-pk:not(.dw-pk--anker) { border-color: var(--accent-mid); }
-.dw-pl__text { display: grid; gap: 2px; min-width: 0; }
-.dw-pl__wort { font-family: var(--font-head); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; color: var(--ink); transition: color 0.2s ease; }
-.dw-pl__schritt--anker .dw-pl__wort { font-size: 1.22rem; color: var(--accent-ink); }
-.dw-pl__kurz { font-size: 0.9rem; line-height: 1.4; color: var(--ink-soft); }
-/* Linie: Mittelpunkt der Knoten (Karte 28 px + Anker 30 px), vom ersten bis zum letzten Anker */
-.dw-pl__schiene { position: absolute; left: 57px; top: 64px; bottom: 64px; width: 2px; border-radius: 2px;
-  background: linear-gradient(180deg, var(--accent-mid) 0%, var(--accent) 50%, var(--accent-ink) 100%); }
-.dw-pl__schiene::before { content: ''; position: absolute; inset: 0 -5px; border-radius: 6px; background: rgb(0 166 161 / 10%); }
-/* Lichtpunkt (beim Laden einmal, dann aus) */
-.dw-pl__licht { position: absolute; left: 50%; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--white);
-  box-shadow: 0 0 0 2px var(--accent), 0 0 12px 4px rgb(0 166 161 / 55%); opacity: 0; }
-@keyframes dw-licht-v { 0% { top: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-@keyframes dw-licht-h { 0% { left: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
-@keyframes dw-knoten-an { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
-@keyframes dw-knoten-ring { 0% { outline: 0 solid rgb(0 166 161 / 0%); outline-offset: 0; } 40% { outline: 6px solid rgb(0 166 161 / 22%); outline-offset: 2px; } 100% { outline: 0 solid rgb(0 166 161 / 0%); outline-offset: 10px; } }
+/* ───────── Hero-Bild „Passform“ (Jamil, Talk 4209) ─────────
+ * Ruhiges Gefüge aus ungleichen dunkeltürkisen Flächen mit einer eigenen Lücke; zwei Standardformen passen nicht, das
+ * türkise Maßstück gleitet hinein. Läuft einmal, wenn .pf--los gesetzt ist (Sichtkontakt); ohne JS bzw. bei reduzierter
+ * Bewegung steht das fertige Bild. Nur transform/opacity. */
+.pf { position: relative; display: grid; place-items: center; }
+.pf__bild { width: min(100%, 470px); height: auto; overflow: visible; }
+.pf__feld { filter: drop-shadow(0 40px 48px rgb(0 79 76 / 24%)) drop-shadow(0 8px 14px rgb(0 79 76 / 14%)); }
+.pf__kante { fill: none; stroke: rgb(255 255 255 / 7%); stroke-width: 1; }
+.pf__teil { filter: drop-shadow(0 16px 24px rgb(0 143 138 / 42%)); transform-box: fill-box; transform-origin: center; }
+.pf__luecke { fill: none; stroke: var(--accent-mid); stroke-opacity: 0.55; stroke-width: 1.5; stroke-dasharray: 4 5; opacity: 0; }
+.pf__probe { fill: none; stroke: var(--accent-light); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.pf__puls { fill: none; stroke: var(--accent-light); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
 @media (prefers-reduced-motion: no-preference) {
-  html.js .dw-pl__licht { animation: dw-licht-v 2.6s cubic-bezier(0.45, 0, 0.25, 1) 0.5s both; }
-  html.js .dw-pl .dw-pk, html.js .dw-pq .dw-pk { animation: dw-knoten-an 0.7s ease calc(0.5s + var(--i) * 0.47s) both, dw-knoten-ring 0.9s ease calc(0.5s + var(--i) * 0.47s) both; }
-  html.js .dw-pq__schiene .dw-pl__licht { animation: dw-licht-h 2.4s cubic-bezier(0.45, 0, 0.25, 1) 0.4s both; }
+  html.js .pf .pf__flaeche, html.js .pf .pf__teil, html.js .pf .pf__luecke, html.js .pf .pf__probe, html.js .pf .pf__puls { animation-play-state: paused; }
+  html.js .pf.pf--los * { animation-play-state: running; }
+  html.js .pf__flaeche { animation: pf-auf 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d) both; }
+  html.js .pf__luecke { animation: pf-luecke 2.4s ease 0.3s both; }
+  html.js .pf__probe--1 { animation: pf-probe 0.8s ease 0.45s both; }
+  html.js .pf__probe--2 { animation: pf-probe 0.8s ease 1s both; }
+  html.js .pf__teil { animation: pf-rein 0.85s cubic-bezier(0.16, 0.84, 0.24, 1) 1.55s both; }
+  html.js .pf__puls { animation: pf-puls 0.9s ease 2.3s both; }
 }
-
-/* Handy: waagerecht, kompakt */
-.dw-pq { display: none; position: relative; width: 100%; max-width: 440px; margin: 6px 0 24px; }
-.dw-pq__liste { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.dw-pq__schritt { display: grid; grid-template-rows: 18px 48px 18px; justify-items: center; align-items: center; }
-.dw-pq__schritt .dw-pk { grid-row: 2; width: 30px; height: 30px; box-shadow: 0 0 0 2px var(--paper), 0 2px 5px rgb(0 79 76 / 12%); }
-.dw-pq__schritt .dw-pk--anker { width: 44px; height: 44px; box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px rgb(0 143 138 / 22%), 0 6px 16px -4px rgb(0 107 104 / 50%); }
-.dw-pq__wort { grid-row: 3; font-family: var(--font-head); font-size: 11px; font-weight: 650; color: var(--accent-ink); white-space: nowrap; }
-.dw-pq__schritt--oben .dw-pq__wort { grid-row: 1; }
-.dw-pq__schritt--anker .dw-pq__wort { font-weight: 750; color: var(--ink); }
-.dw-pq__schiene { position: absolute; left: calc(100% / 12); right: calc(100% / 12); top: 41px; height: 2px; margin-top: -1px; border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent-mid), var(--accent), var(--accent-ink)); }
-.dw-pq__schiene::before { content: ''; position: absolute; inset: -4px 0; border-radius: 6px; background: rgb(0 166 161 / 10%); }
-.dw-pq__schiene .dw-pl__licht { left: 0; top: 50%; }
-
+@keyframes pf-auf { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pf-luecke { 0% { opacity: 0; } 15%, 75% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes pf-probe { 0% { opacity: 0; transform: scale(1.3); } 35% { opacity: 0.9; transform: scale(1.04); } 50% { transform: scale(1.04) translateX(-5px); } 65% { opacity: 0.9; transform: scale(1.04) translateX(5px); } 100% { opacity: 0; transform: scale(1.18); } }
+@keyframes pf-rein { from { opacity: 0; transform: scale(1.3); } 55% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes pf-puls { 0% { opacity: 0; transform: scale(1); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(1.4); } }
 @media (max-width: 959px) {
-  .dw-hero__text { min-width: 0; }
-  .dw-pl { display: none; }
-  .dw-pq { display: block; }
+  .dw-raster--hero { gap: 0; }
+  .pf { margin-top: 30px; justify-items: center; }
+  .pf__bild { width: min(70%, 260px); }
 }
 @media (min-width: 960px) {
   .dw-raster--hero { align-items: center; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .dw-pl__licht { display: none; }
-  .dw-pk { animation: none !important; }
-}
+
+/* ───────── Startseite: Abschnitte im Farbwechsel (Jamil, Talk 4210: „jeder Abschnitt abwechselnd eine andere
+ * Hintergrundfarbe“). Die Fläche liegt als ::before UNTER der Scroll-Linie (z-index −1 im isolierten .dw); --grund
+ * färbt alle Elemente mit, die die Linie abdecken (Begriffe, Knoten, Startpunkte). Kontrast Linie #008f8a auf
+ * #e9f3f1 ≈ 3,6 : 1 (Grafik ≥ 3), Text #006b68 ≈ 5,5 : 1, #545454 ≈ 7 : 1. ───────── */
+.dw-farben { --f-papier: var(--paper); --f-weiss: var(--white); --f-tuerkis: #e9f3f1; }
+.dw-farben .dw-abschnitt { --grund: var(--f-papier); }
+.dw-farben .dw-abschnitt::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--grund); box-shadow: inset 0 1px 0 rgb(0 79 76 / 7%); }
+.dw-farben .dw-hero::before { box-shadow: none; }
+.dw-farben #denkweise, .dw-farben #hinterfragen, .dw-farben #umsetzen, .dw-farben #prinzipien .dw-abschnitt { --grund: var(--f-weiss); }
+.dw-farben #verstehen, .dw-farben #entscheiden, .dw-farben #verbessern, .dw-farben #kontakt-start { --grund: var(--f-tuerkis); }
+.dw-farben #produkte { --grund: var(--f-papier); }
+.dw-farben #produkte, .dw-farben #prinzipien .dw-abschnitt, .dw-farben #kontakt-start { padding-block: clamp(56px, 8vw, 104px); }
+.dw-farben #prinzipien { padding-bottom: 0; }
+.dw-farben .dw-produkt--individuell, .dw-farben .dw-produkt { background: var(--white); }

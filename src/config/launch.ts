@@ -1,7 +1,7 @@
 // Launch-Checkliste: alles, was vor dem offiziellen Start noch erledigt werden muss.
 // Firmendaten werden automatisch geprüft, der Rest wird hier von Hand abgehakt (done: true).
 import { company, isMissing, SHOW_HINTS } from './site';
-import { sichtbareReferenzen, PARTNER } from './unterseiten';
+import { sichtbareReferenzen } from './unterseiten';
 
 export type Todo = {
   title: string;
@@ -37,8 +37,7 @@ const manual: Todo[] = [
   // 01.11.2026: Produkte sind nur noch Website Service, Individuelle Software (auf Anfrage) und „Weitere Produkte folgen.“ (Talk 4077)
   { title: 'Eigener Produktname für den Website Service', detail: 'Bis ein Name feststeht, zeigt die Seite die Kategorie „Website Service“.', where: 'src/config/hauptseite.ts → PRODUKTE.name', done: false, priority: 'wichtig' },
   { title: 'Ein Preis für den Website Service', detail: 'Startseite und /produkte/: 79,99 € / Monat (Talk 4176). /angebot/, FAQ, AGB, llms.txt und JSON-LD: zwei Varianten 79 € / 139 €. Entscheidung Jamil/Can, dann PAKETE in site.ts anpassen.', where: 'src/config/site.ts → PAKETE, src/config/denkweise.ts → DW_UMSETZEN.karte.preis', done: false, priority: 'pflicht' },
-  { title: 'Partner und Partner-Text', detail: 'Auf /partner/ steht ein markierter Platzhalter-Text und ein Netz mit leeren Plätzen. Partner nur mit deren Zustimmung eintragen.', where: 'src/config/unterseiten.ts → PARTNER, PARTNERSEITE', done: PARTNER.length > 0, priority: 'wichtig' },
-  { title: 'Bewerbungen: Ansprechperson und Datenschutzhinweis', detail: '/karriere/ lädt zu Initiativbewerbungen per E-Mail ein. Datenschutzerklärung um Bewerberdaten ergänzen (rechtliche Prüfung), Ansprechperson und Arbeitsort klären.', where: 'src/pages/datenschutz.astro, src/config/unterseiten.ts → KARRIERESEITE', done: false, priority: 'wichtig' },
+  { title: 'Bewerbungen: Ansprechperson und Datenschutzhinweis', detail: '/karriere/ lädt zu Initiativbewerbungen per E-Mail ein. Datenschutzerklärung um Bewerberdaten ergänzen (rechtliche Prüfung), Ansprechperson und gewünschte Unterlagen klären (Arbeitsort: komplett remote, Jamil Talk 4208).', where: 'src/pages/datenschutz.astro, src/config/unterseiten.ts → KARRIERESEITE', done: false, priority: 'wichtig' },
   { title: 'Eigene Produktseiten / Websites', detail: 'Ohne Adresse steht auf der Karte „Eigene Produktseite folgt.“. Mit Adresse erscheint der Knopf „Produkt kennenlernen“.', where: 'src/config/hauptseite.ts → PRODUKTE.url', done: false, priority: 'wichtig' },
   { title: 'Echte Kundenbeispiele (später)', detail: 'Abschnitt „Einblicke“ auf Jamils Wunsch entfernt (Talk 3651). Kann mit echten, schriftlich freigegebenen Kundenfällen zurückkommen.', where: 'Git-Historie 2aa2b21 → src/pages/index.astro', done: false, priority: 'später' },
   { title: 'Menschen hinter Waybuild', detail: 'Echte Teamfotos (keine Stockfotos), Namen, Aufgaben und je eine kurze persönliche Aussage.', where: 'src/components/FooterKontakt.astro → fkontakt__menschen + src/assets/bilder/', done: false, priority: 'wichtig' },

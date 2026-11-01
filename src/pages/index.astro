@@ -21,12 +21,12 @@ import DwHinterfragen from '../components/dw/DwHinterfragen.astro';
 import DwEntscheiden from '../components/dw/DwEntscheiden.astro';
 import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
 import DwVerbessern from '../components/dw/DwVerbessern.astro';
-import ZielRing from '../components/dw/ZielRing.astro';
+import HeroPassform from '../components/dw/HeroPassform.astro';
 import { href } from '../lib/paths';
 import { BESCHREIBUNG } from '../config/hauptseite';
 import {
   DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN,
-  DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE, DW_PRODUKTBEREICH, DW_PROZESS,
+  DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE, DW_PRODUKTBEREICH,
 } from '../config/denkweise';
 import '../styles/denkweise.css';
 
@@ -39,7 +39,7 @@ const [K1, K2, K3] = DW_KAPITEL;
   description={BESCHREIBUNG}
   hideFooterKontakt
 >
-  <div class="dw" data-denkweise>
+  <div class="dw dw-farben" data-denkweise>
     <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
 
     <!-- HERO -->
@@ -49,48 +49,13 @@ const [K1, K2, K3] = DW_KAPITEL;
           <p class="eyebrow eyebrow--weg dw-hero__eyebrow">{DW_HERO.eyebrow}</p>
           <h1 id="dw-h1">{DW_HERO.titelVor}<span class="accent">{DW_HERO.titelAkzent}</span></h1>
           <p class="dw-hero__lead">{DW_HERO.lead}</p>
-          {/* Talk 4202: am Handy kompakt und waagerecht – gerade Linie, sechs Knoten mit Symbol, Begriffe abwechselnd
-              darüber/darunter; Lichtpunkt läuft beim Laden einmal entlang (reduzierte Bewegung: statisch) */}
-          <div class="dw-pq" aria-hidden="true">
-            <span class="dw-pq__schiene"><span class="dw-pl__licht"></span></span>
-            <ol class="dw-pq__liste">
-              {DW_PROZESS.map((s, i) => (
-                <li class:list={['dw-pq__schritt', { 'dw-pq__schritt--anker': s.anker, 'dw-pq__schritt--oben': i % 2 === 1 }]} style={`--i:${i}`}>
-                  <span class:list={['dw-pk', { 'dw-pk--anker': s.anker, 'dw-pk--ziel': s.ziel }]}>
-                    {s.ziel ? <ZielRing /> : <Icon name={s.icon} size={s.anker ? 20 : 14} />}
-                  </span>
-                  <span class="dw-pq__wort">{s.wort}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
           <div class="dw-hero__aktionen">
             <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
             <a class="pfeil-link" href={href('/angebot/')}>{DW_HERO.link} <Icon name="arrow" size={16} /></a>
           </div>
         </div>
-        {/* Talk 4202: Hero-Prozessbild hochwertiger – ruhige Karte, gerade Linie mit feinem Verlauf und Lichthof, jeder
-            Schritt ein sauberer Knoten mit eigenem Symbol, Impuls und Verbessern als Anker; beim Laden läuft einmal ein
-            Lichtpunkt die Linie hinab und die Knoten leuchten nacheinander auf (reduzierte Bewegung: statisch).
-            Jeder Schritt springt zu seinem Abschnitt. Vorher: geschwungene Linie mit kleinen Kreisen (Talk 4057–4114). */}
-        <nav class="dw-pl" aria-label="Die Waybuild-Denkweise in sechs Schritten">
-          <span class="dw-pl__schiene" aria-hidden="true"><span class="dw-pl__licht"></span></span>
-          <ol class="dw-pl__liste">
-            {DW_PROZESS.map((s, i) => (
-              <li class:list={['dw-pl__schritt', { 'dw-pl__schritt--anker': s.anker }]} style={`--i:${i}`}>
-                <a class="dw-pl__link" href={`#${s.ziel_id}`}>
-                  <span class:list={['dw-pk', { 'dw-pk--anker': s.anker, 'dw-pk--ziel': s.ziel }]} aria-hidden="true">
-                    {s.ziel ? <ZielRing /> : <Icon name={s.icon} size={s.anker ? 26 : 18} />}
-                  </span>
-                  <span class="dw-pl__text">
-                    <span class="dw-pl__wort">{s.wort}</span>
-                    <span class="dw-pl__kurz">{s.kurz}</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        {/* Talk 4209: Hero-Bild „Passform“ (ersetzt das Prozessbild aus Talk 4202) */}
+        <HeroPassform />
       </div>
     </section>
 

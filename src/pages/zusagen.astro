@@ -7,7 +7,9 @@ import SectionHead from '../components/SectionHead.astro';
 import Weg from '../components/Weg.astro';
 import Icon from '../components/Icon.astro';
 import { SHOW_HINTS } from '../config/site';
-import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, WERTE, VERTRAUEN } from '../config/hauptseite';
+import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, TICKET, PROZESSE, VERTRAUEN } from '../config/hauptseite';
+import { DW_PRINZIPIEN } from '../config/denkweise';
+import '../styles/denkweise.css';
 const PLATZHALTER = '[Wert einsetzen]';
 const teile = (t: string) => t.split(PLATZHALTER);
 // Zusagen mit offenem Wert nur in der Vorschau mit Hinweisen zeigen – nie live
@@ -16,7 +18,7 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
 
 <BaseLayout
   title="Unsere Zusagen: Reaktionszeit und Prozess"
-  description="Unsere Zusagen für alle Produkte: feste Zeiten, ein klarer Prozess für jede Anfrage und die Werte, nach denen Waybuild arbeitet."
+  description="Unsere Zusagen für alle Produkte: feste Zeiten, ein klarer Prozess für jede Anfrage und die drei Prinzipien, nach denen Waybuild arbeitet."
   breadcrumb={[{ name: 'Unsere Zusagen', path: '/zusagen/' }]}
 >
   <PageHeader eyebrow="Unsere Zusagen" title="Was Sie von uns" accent="erwarten können." lead="Für alle unsere Produkte: feste Zeiten, ein klarer Prozess, einfache Worte." />
@@ -64,19 +66,24 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
     </div>
   </section>
 
-  <section class="section etappe" id="werte" aria-labelledby="werte-h">
+  <!-- 01.11.2026 (Jamil, Talk 4208): statt „Sechs Werte“ die drei Prinzipien der Startseite – gleiche Texte, gleiche Karten -->
+  <section class="section etappe zusagen-prinzipien" id="prinzipien" aria-labelledby="prinzipien-h">
+    <span id="werte" class="dw-alt-anker"></span>
     <div class="wrap">
-      <SectionHead eyebrow="Wofür wir stehen" pre="Sechs Werte. " accent="Jeden Tag." text="Was diese Werte für Sie als Kunde ganz konkret bedeuten." id="werte-h" />
-      <ul class="werte">
-        {WERTE.map((w) => (
-          <li class="wert reveal">
-            <span class="liste__icon" aria-hidden="true"><Icon name={w.icon} size={24} /></span>
-            <h3>{w.title}</h3>
-            <p class="wert__lead">{w.lead}</p>
-            <p class="wert__text">{w.text}</p>
-          </li>
+      <h2 class="dw-prinzipien__titel" id="prinzipien-h">{DW_PRINZIPIEN.titel}</h2>
+      <div class="dw-prinzipien__raster">
+        {DW_PRINZIPIEN.liste.map((p, i) => (
+          <article class="dw-prinzip-karte" aria-labelledby={`zp-${i}`}>
+            <span class="dw-prinzip-karte__icon"><Icon name={p.icon} size={24} /></span>
+            <h3 id={`zp-${i}`}>{p.wort}</h3>
+            <p class="dw-prinzip-karte__kern">{p.kern}</p>
+            {p.text.map((t) => <p>{t}</p>)}
+            {p.einleitung && <p class="dw-prinzip-karte__einleitung">{p.einleitung}</p>}
+            <ul class="dw-prinzip-karte__liste">{p.punkte.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}</ul>
+            <p class="dw-prinzip-karte__schluss">{p.schluss}</p>
+          </article>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
@@ -97,6 +104,7 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
 
 <style>
   .section h3 { font-size: 1.1rem; margin: 0 0 4px; }
+  .zusagen-prinzipien .dw-prinzip-karte h3 { font-size: 1.3rem; }
   .sla { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
   @media (min-width: 760px) { .sla { grid-template-columns: 1fr 1fr; gap: 24px; } }
   .sla__item { background: rgb(255 255 255 / 6%); border: 1px solid var(--dark-line); border-radius: 20px; padding: clamp(22px, 3vw, 30px); display: grid; gap: 8px; justify-items: start; }
@@ -119,13 +127,6 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   .liste p, .vertrauen p { margin: 0; color: var(--ink-soft); line-height: 1.65; }
   .liste__icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgb(0 166 161 / 13%); color: var(--accent-ink); }
 
-  .werte { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
-  @media (min-width: 720px) { .werte { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1000px) { .werte { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
-  .wert { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: clamp(22px, 3vw, 28px); }
-  .wert .liste__icon { margin-bottom: 14px; }
-  .wert__lead { margin: 0 0 10px; font-weight: 600; line-height: 1.45; color: var(--accent-ink); }
-  .wert__text { margin: 0; font-size: 0.97rem; line-height: 1.7; color: var(--ink-soft); }
 
   @media (min-width: 640px) { .vertrauen { grid-template-columns: repeat(2, 1fr); gap: 24px 32px; } }
   @media (min-width: 1000px) { .vertrauen { grid-template-columns: repeat(3, 1fr); } }
