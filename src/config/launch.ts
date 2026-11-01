@@ -141,7 +141,7 @@ const manual: Todo[] = [
   },
   {
     title: 'Erste Referenzprojekte',
-    detail: 'Bauwelt, Destar, Kerim Tanrikulu und ilmmeup sind vorbereitet, aber unsichtbar. Erst mit schriftlicher Freigabe freigegeben: true setzen und Branche/Text ergänzen. Keine erfundenen Referenzen oder Bewertungen!',
+    detail: 'Vier Einträge sind in src/config/unterseiten.ts vorbereitet, aber unsichtbar und ohne Namen. Erst mit schriftlicher Freigabe Namen eintragen, freigegeben: true setzen und Branche/Text ergänzen. Keine erfundenen Referenzen oder Bewertungen!',
     where: 'src/config/unterseiten.ts → REFERENZEN',
     done: sichtbareReferenzen().length > 0,
     priority: 'später',
