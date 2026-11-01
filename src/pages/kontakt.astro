@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WegTrenner from '../components/WegTrenner.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { company, HOURS } from '../config/site';
 import Val from '../components/Val.astro';
@@ -32,7 +31,6 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
   />
 
   <section class="section section--sand etappe">
-    <WegTrenner variante={2} />
     <div class="wrap contact">
       <form class="form card" id="contact-form" data-endpoint={endpoint} data-key={formKey} data-mailto={company.email} data-thanks={href('/danke/')} data-website-slugs={websiteSlugs.join(',')} novalidate>
         <label>Worum geht es?

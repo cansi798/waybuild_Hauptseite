@@ -275,29 +275,8 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 html.zug-js .halt:not(.halt--da)::after, html.zug-js .halt:not(.halt--da)::before { opacity: 0; transform: scale(0.3); }
 html.zug-js .halt::after, html.zug-js .halt::before { transition: opacity 300ms ease, transform 300ms ease; }
 
-/* ───────── Unterseiten: die Linie als ruhiges Element (gerades Wegstück zwischen den Abschnitten) ───────── */
+/* ───────── Unterseiten: Abschnitte (Talk 4173: Wegstück-Trenner zwischen den Abschnitten entfernt) ───────── */
 .etappe { position: relative; }
-.etappe.section { padding-top: clamp(80px, 9vw, 128px); }
-.trenner { position: absolute; left: 50%; transform: translateX(-50%); width: min(100% - 32px, var(--wrap)); top: clamp(32px, 4vw, 52px); height: 16px; pointer-events: none; }
-.trenner__linie { position: absolute; left: 8px; right: 8px; top: 50%; height: 3px; margin-top: -1.5px; background: var(--accent); transform-origin: left; border-radius: 2px; }
-.section--dark .trenner__linie { background: var(--accent-light); }
-.trenner__punkt { position: absolute; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--accent); background: var(--paper); box-sizing: border-box; }
-.trenner__punkt--a { left: 0; }
-.trenner__punkt--b { right: 0; background: var(--accent); }
-.section--dark .trenner__punkt { border-color: var(--accent-light); background: var(--dark); }
-.section--dark .trenner__punkt--b { background: var(--accent-light); }
-.section--sand .trenner__punkt--a { background: var(--paper-2); }
-.section--legal .trenner__punkt--a { background: var(--white); }
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .trenner { view-timeline: --trenner; }
-    .trenner__linie { animation: trenner-zeichnen linear both; }
-    .trenner__punkt--b { animation: halt-auf linear both; }
-    div.trenner span.trenner__linie { animation-timeline: --trenner; animation-range: entry 0% cover 40%; }
-    div.trenner span.trenner__punkt--b { animation-timeline: --trenner; animation-range: cover 38% cover 45%; }
-  }
-}
-@keyframes trenner-zeichnen { from { transform: scaleX(0); } to { transform: none; } }
 
 /* Kästchen leuchten dezent türkis auf, sobald die Linie sie erreicht (Jamil, Talk 3645/3646) –
  * gleiche Scroll-Logik wie die Punkte, rückwärts wieder neutral; ohne Unterstützung / reduzierte Bewegung: neutral. */

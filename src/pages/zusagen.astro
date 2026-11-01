@@ -2,7 +2,6 @@
 // /zusagen/ im Leitbild „Der Weg“ (27.10.2026). Inhalte unverändert aus config/hauptseite.ts,
 // „schriftlich“ entfernt (nicht belegt). Platzhalter-Werte erscheinen nur, solange SHOW_HINTS aktiv ist.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WegTrenner from '../components/WegTrenner.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
 import Weg from '../components/Weg.astro';
@@ -23,7 +22,6 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   <PageHeader eyebrow="Unsere Zusagen" title="Was Sie von uns" accent="erwarten können." lead="Für alle unsere Produkte: feste Zeiten, ein klarer Prozess, einfache Worte." />
 
   <section class="section section--dark etappe" id="zusagen" aria-labelledby="zusagen-h">
-    <WegTrenner variante={2} />
     <div class="wrap">
       <SectionHead eyebrow="Service-Zusagen" pre="Feste Zusagen. " accent="Klare Zeiten." text="Feste Zeiten, für jeden Kunden gleich." id="zusagen-h" />
       <ul class="sla">
@@ -46,7 +44,6 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   </section>
 
   <section class="section etappe" id="ticketsystem" aria-labelledby="ticket-h">
-    <WegTrenner variante={1} />
     <div class="wrap">
       <SectionHead eyebrow="So läuft eine Anfrage" pre="Eine Nachricht. " accent="Ein fester Prozess." text="Sie müssen nichts ausfüllen. Den Rest erledigen wir." id="ticket-h" />
       <Weg art="gerade" stationen={TICKET.map((t) => ({ titel: t.title, text: t.text, icon: t.icon }))} zeichnen nummern />
@@ -54,7 +51,6 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   </section>
 
   <section class="section section--sand etappe" id="prozesse" aria-labelledby="prozesse-h">
-    <WegTrenner variante={2} />
     <div class="wrap prozesse">
       <SectionHead eyebrow="Prozesse & Transparenz" pre="Struktur statt " accent="Zufall." text="Jedes Anliegen läuft nach einem festen Prozess, und den verbessern wir laufend." id="prozesse-h" />
       <ul class="liste">
@@ -69,7 +65,6 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   </section>
 
   <section class="section etappe" id="werte" aria-labelledby="werte-h">
-    <WegTrenner variante={1} />
     <div class="wrap">
       <SectionHead eyebrow="Wofür wir stehen" pre="Sechs Werte. " accent="Jeden Tag." text="Was diese Werte für Sie als Kunde ganz konkret bedeuten." id="werte-h" />
       <ul class="werte">
@@ -86,7 +81,6 @@ const slas = SLA_KERN.filter((z) => SHOW_HINTS || !z.wert.includes(PLATZHALTER))
   </section>
 
   <section class="section section--sand etappe" id="vertrauen" aria-labelledby="vertrauen-h">
-    <WegTrenner variante={2} />
     <div class="wrap">
       <SectionHead eyebrow="Darauf können Sie sich verlassen" pre="Gute Gründe für " accent="Vertrauen." id="vertrauen-h" />
       <ul class="vertrauen">
