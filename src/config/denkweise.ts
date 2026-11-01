@@ -55,15 +55,20 @@ export const DW_VERSTEHEN = {
   // Talk 4088: neue Texte (Überschrift und Kernsatz stehen jetzt nur noch hier, der Teil-Kopf darüber ist entfernt)
   titel: 'Gute Lösungen beginnen mit Verständnis.',
   unterzeile: 'Wir verstehen, bevor wir umsetzen.',
-  // Talk 4140: ein Satz statt Einleitung plus vier Stichpunkten
-  einleitung: 'Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir Ihr Unternehmen und Ihre Arbeitsweisen verstehen.',
+  // Talk 4158: neuer Fließtext (Einleitung, fünf Aspekte, DNA hervorgehoben, Grundlage der Empfehlungen)
+  einleitung: 'Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir Ihr Unternehmen verstehen.',
+  aspekte: 'Dazu betrachten wir Menschen, Arbeitsweisen, Ziele, Kommunikation und digitale Werkzeuge.',
   dna: ['Aus diesen Erkenntnissen entsteht ein klares Bild Ihres Unternehmens.', 'Wir nennen es Ihre Unternehmens-DNA.'],
-  dnaText: 'Sie hilft dabei, Entscheidungen nachvollziehbar zu treffen und digitale Lösungen zu entwickeln, die wirklich zu Ihrem Unternehmen passen.',
+  dnaText: 'Sie bildet die Grundlage für unsere Empfehlungen und hilft dabei, Lösungen zu entwickeln, die wirklich zu Ihrem Unternehmen passen.',
   /** Szene: diese Begriffe fließen in die Lupe, daraus entsteht die Unternehmens-DNA (Doppelstrang). Lage in
-   *  viewBox-Einheiten der Bildfläche 440 × 440, Lupe bei 220/112. Talk 4140: passend zum Satz nur noch zwei Begriffe. */
+   *  viewBox-Einheiten der Bildfläche 440 × 440, Lupe bei 220/112. Talk 4158: die fünf Aspekte aus dem Text
+   *  (links drei, rechts zwei, abseits der einlaufenden Linie), fließen in dieser Reihenfolge ein. „\n“ = Umbruch nur am Handy. */
   begriffe: [
-    { text: 'Ihr Unternehmen', icon: 'gebaeude', x: 104, y: 50 },
-    { text: 'Ihre Arbeitsweisen', icon: 'ablauf', x: 336, y: 50 },
+    { text: 'Menschen', icon: 'users', x: 92, y: 40 },
+    { text: 'Arbeitsweisen', icon: 'ablauf', x: 348, y: 40 },
+    { text: 'Ziele', icon: 'target', x: 352, y: 126 },
+    { text: 'Kommunikation', icon: 'chat', x: 88, y: 126 },
+    { text: 'Digitale\nWerkzeuge', icon: 'tools', x: 92, y: 210 },
   ] as { text: string; icon: IconName; x: number; y: number }[],
   dnaLabel: 'Ihre Unternehmens-DNA',
   mitte: 'Verständnis',

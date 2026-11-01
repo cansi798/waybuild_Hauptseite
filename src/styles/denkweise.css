@@ -228,7 +228,7 @@
 .dw-ideebild__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
 .dw-verstehen { container-type: inline-size; }
 .dw-verstehen__begriff { transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
-.dw-verstehen .dw-verstehen__begriff { white-space: nowrap; max-width: none; }   /* Talk 4140: zwei Begriffe mit Symbol, einzeilig */
+.dw-verstehen .dw-verstehen__begriff { white-space: nowrap; max-width: none; }   /* Talk 4140/4158: Begriffe mit Symbol */
 .dw-verstehen__sprosse { stroke: rgb(0 143 138 / 45%); stroke-width: 2; }
 .dw-verstehen__dna { display: inline-block; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
 /* Verstehen (Talk 4042): Kreis so groß wie der Ideen-Knoten, Lupe statt Wort; die Äste zeichnet ein eigenes kleines SVG */
@@ -429,6 +429,7 @@
   .dw-dialog__wer { width: 28px; height: 28px; font-size: 0.85rem; }
   .dw-dialog__ergebnis li { font-size: 0.92rem; }
   .dw-hf-chip { font-size: 0.74rem; padding: 4px 9px; white-space: normal; max-width: 10.5em; }
+  .dw-verstehen .dw-verstehen__begriff { white-space: pre-line; max-width: none; }   /* Talk 4158: Umbruch nur, wo im Text „\n“ steht */
   .dw-hf-chip--start { font-size: 0.8rem; }
   .dw-hf-chip--bleibt { padding: 3px 8px; }
   .dw-hf-notiz, .dw-hf-richtung { font-size: 0.78rem; }
