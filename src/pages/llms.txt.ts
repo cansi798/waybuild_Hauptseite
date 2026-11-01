@@ -35,7 +35,7 @@ export const GET: APIRoute = ({ site }) => {
     'Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.',
     `Kernsatz: ${DW_VERSTEHEN.unterzeile}`,
     `1. Impuls: ${DW_IDEE.titel} ${DW_IDEE.schluss}`,
-    `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.unterzeile} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.punkte.join(', ')}. ${DW_VERSTEHEN.dna.join(' ')} ${DW_VERSTEHEN.dnaText}`,
+    `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.unterzeile} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.dna.join(' ')} ${DW_VERSTEHEN.dnaText}`,
     `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,
     `4. Entscheiden: ${DW_ENTSCHEIDEN.titel} ${DW_ENTSCHEIDEN.zeilen.join(' ')} ${DW_ENTSCHEIDEN.ziel.join(' ')}`,
     `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')} ${DW_UMSETZEN.bruecke}`,

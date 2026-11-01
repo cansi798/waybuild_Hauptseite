@@ -55,18 +55,16 @@ export const DW_VERSTEHEN = {
   // Talk 4088: neue Texte (Überschrift und Kernsatz stehen jetzt nur noch hier, der Teil-Kopf darüber ist entfernt)
   titel: 'Gute Lösungen beginnen mit Verständnis.',
   unterzeile: 'Wir verstehen, bevor wir umsetzen.',
-  einleitung: 'Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir verstehen:',
-  punkte: ['wie Menschen heute arbeiten', 'welche digitalen Werkzeuge sie nutzen', 'wo digitale Reibung entsteht', 'welche Ziele verfolgt werden'],
+  // Talk 4140: ein Satz statt Einleitung plus vier Stichpunkten
+  einleitung: 'Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir Ihr Unternehmen und Ihre Arbeitsweisen verstehen.',
   dna: ['Aus diesen Erkenntnissen entsteht ein klares Bild Ihres Unternehmens.', 'Wir nennen es Ihre Unternehmens-DNA.'],
   dnaText: 'Sie hilft dabei, Entscheidungen nachvollziehbar zu treffen und digitale Lösungen zu entwickeln, die wirklich zu Ihrem Unternehmen passen.',
   /** Szene: diese Begriffe fließen in die Lupe, daraus entsteht die Unternehmens-DNA (Doppelstrang). Lage in
-   *  viewBox-Einheiten der Bildfläche 440 × 440, Lupe bei 220/112. */
+   *  viewBox-Einheiten der Bildfläche 440 × 440, Lupe bei 220/112. Talk 4140: passend zum Satz nur noch zwei Begriffe. */
   begriffe: [
-    { text: 'Menschen', x: 96, y: 52 },
-    { text: 'Werkzeuge', x: 344, y: 52 },
-    { text: 'Reibung', x: 84, y: 158 },
-    { text: 'Ziele', x: 356, y: 158 },
-  ],
+    { text: 'Ihr Unternehmen', icon: 'gebaeude', x: 104, y: 50 },
+    { text: 'Ihre Arbeitsweisen', icon: 'ablauf', x: 336, y: 50 },
+  ] as { text: string; icon: IconName; x: number; y: number }[],
   dnaLabel: 'Ihre Unternehmens-DNA',
   mitte: 'Verständnis',
 };

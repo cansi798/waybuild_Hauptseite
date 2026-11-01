@@ -1,6 +1,6 @@
 ---
 // Szene „Verstehen“ (Talk 4042/4088): Die Linie läuft in den kleinen Kreis mit der Lupe (teilt sich wie alle Kreise).
-// Menschen, Werkzeuge, Reibung und Ziele fließen nacheinander in die Lupe (keine Verbindungslinien). Danach läuft die
+// „Ihr Unternehmen“ und „Ihre Arbeitsweisen“ (Talk 4140, vorher vier Begriffe) fließen nacheinander in die Lupe (keine Verbindungslinien). Danach läuft die
 // Linie weiter und teilt sich in einen Doppelstrang: die Unternehmens-DNA (Sprossen erscheinen nacheinander), unten
 // treffen sich die Stränge wieder und die Linie läuft weiter. Ohne JS / reduzierte Bewegung: fertiges Bild mit DNA.
 // Der Kreis ist ein HTML-Element (52 px) mit eigenem SVG für die Teilung; die Begriffe ruhen per --ox/--oy (cqw).
@@ -42,7 +42,7 @@ const b = DW_VERSTEHEN.begriffe.map((x, k) => ({
   </svg>
   {b.map((x) => (
     <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(CY, H)}`}>
-      <span class="dw-hf-chip dw-verstehen__begriff" style={`--ox:${x.ox};--oy:${x.oy}`} data-an={x.an}>{x.text}</span>
+      <span class="dw-hf-chip dw-verstehen__begriff" style={`--ox:${x.ox};--oy:${x.oy}`} data-an={x.an}><Icon name={x.icon} size={15} />{x.text}</span>
     </span>
   ))}
   <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(CY, H)}`}>

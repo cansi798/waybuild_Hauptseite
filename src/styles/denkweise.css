@@ -226,6 +226,7 @@
 .dw-ideebild__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
 .dw-verstehen { container-type: inline-size; }
 .dw-verstehen__begriff { transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
+.dw-verstehen .dw-verstehen__begriff { white-space: nowrap; max-width: none; }   /* Talk 4140: zwei Begriffe mit Symbol, einzeilig */
 .dw-verstehen__sprosse { stroke: rgb(0 143 138 / 45%); stroke-width: 2; }
 .dw-verstehen__dna { display: inline-block; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
 /* Verstehen (Talk 4042): Kreis so groß wie der Ideen-Knoten, Lupe statt Wort; die Äste zeichnet ein eigenes kleines SVG */
