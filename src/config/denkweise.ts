@@ -88,7 +88,7 @@ export const DW_HINTERFRAGEN = {
     { wer: 'waybuild', text: 'Dann setzen wir genau dort an.' },
   ] as { wer: 'kunde' | 'waybuild'; text: string }[],
   ergebnis: ['Klare Positionierung', 'Bessere Inhalte', 'Einfacher Anfrageprozess'],
-  nichtUnbedingt: 'Nicht unbedingt eine komplett neue Website',
+  nachsatz: ['Manchmal reicht eine Anpassung.', 'Manchmal entsteht etwas komplett Neues.'], // Talk 4135
 };
 
 export const DW_ENTSCHEIDEN = {

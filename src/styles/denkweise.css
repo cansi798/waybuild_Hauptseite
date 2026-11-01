@@ -145,7 +145,8 @@
 .dw-dialog__ergebnis ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .dw-dialog__ergebnis li { display: flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--accent-ink); }
 .dw-dialog__ergebnis .icon { flex: none; color: var(--accent-mid); }
-.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 10px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-size: 0.86rem; color: #8a8478; text-align: center; }
+.dw-dialog__nicht { position: relative; z-index: 1; width: fit-content; margin: 10px auto 0; padding: 2px 8px; border-radius: 6px; background: var(--paper); font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); text-align: center; }
+.dw-dialog__nicht span { display: block; }
 
 /* ── Unsere Prinzipien (Talk 4087): drei gleichwertige Karten im dunklen Bereich ── */
 .dw-alt-anker { display: block; position: relative; top: -80px; height: 0; }

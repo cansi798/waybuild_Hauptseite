@@ -1,8 +1,8 @@
 ---
 // Szene „Hinterfragen“ (Jamil, Talk 4106): ein kurzer Dialog in Sprechblasen, der beim Scrollen Schritt für Schritt
 // erscheint – links der Kunde, rechts waybuild (türkises W), an der Linie in der Mitte. Am Ende eine türkise
-// Ergebnis-Karte mit den drei Wegen (die bei „Entscheiden“ abgewogen werden), darunter dezent durchgestrichen
-// „Nicht unbedingt eine komplett neue Website“. Danach läuft die Linie weiter. Ohne JS / reduzierte Bewegung:
+// Ergebnis-Karte mit den drei Wegen (die bei „Entscheiden“ abgewogen werden), darunter der Nachsatz
+// „Manchmal reicht eine Anpassung. Manchmal entsteht etwas komplett Neues.“ Danach läuft die Linie weiter. Ohne JS / reduzierte Bewegung:
 // kompletter Dialog sichtbar.
 import Icon from '../Icon.astro';
 import { DW_HINTERFRAGEN } from '../../config/denkweise';
@@ -23,6 +23,6 @@ const f = (n: number) => n.toFixed(2);
   <div class="dw-dialog__ergebnis" data-an="auf:0.64-0.76">
     <ul>{T.ergebnis.map((e) => <li><Icon name="check" size={18} /> {e}</li>)}</ul>
   </div>
-  <p class="dw-dialog__nicht" data-an="auf:0.74-0.84"><s>{T.nichtUnbedingt}</s></p>
+  <p class="dw-dialog__nicht" data-an="auf:0.74-0.84">{T.nachsatz.map((z) => <span>{z}</span>)}</p>
   <span class="dw-anker" style="left:50%;top:100%" data-weg="aus"></span>
 </div>
