@@ -237,7 +237,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
         </div>
       </div>
 
-      <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben -->
+      <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben; seit Talk 4176 ohne Einblenden (sofort sichtbar) -->
       <!-- Ab hier ohne Linie (Talk 4083): die Scroll-Linie endet am Verbessern-Kreis -->
       <div class="dw-abschnitt dw-abschnitt--eng dw-ohne-linie" id="produkte" aria-labelledby="dw-produkte-h">
         <div class="wrap">
@@ -245,7 +245,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
           <div class="dw-andock dw-andock--raster" data-szene>
             <ul class="dw-andock__liste">
               <li class="dw-andock__item dw-andock__item--l">
-                <article class="k k--akzent dw-produkt dw-produkt--hervor" aria-labelledby="dw-p-web" data-an="links:auto">
+                <article class="k k--akzent dw-produkt dw-produkt--hervor" aria-labelledby="dw-p-web">
                   <span class="k__icon"><Icon name="layout" size={22} /></span>
                   <div class="k__inhalt">
                     <p class="dw-produkt__name">{DW_PRODUKTBEREICH.hauptprodukt}</p>
@@ -260,7 +260,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
               </li>
               {DW_PRODUKTE.map((p, i) => (
                 <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
-                  <article class="k dw-produkt" aria-labelledby={`dw-p-${p.id}`} data-an={`${i % 2 ? 'links' : 'rechts'}:auto`}>
+                  <article class="k dw-produkt" aria-labelledby={`dw-p-${p.id}`}>
                     <span class="k__icon"><Icon name={p.icon} size={22} /></span>
                     <div class="k__inhalt">
                       <h4 id={`dw-p-${p.id}`}>{p.name}</h4>
@@ -272,7 +272,7 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
                 </li>
               ))}
               <li class:list={['dw-andock__item', DW_PRODUKTE.length % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
-                <article class="k dw-produkt dw-produkt--individuell" aria-labelledby="dw-p-individuell" data-an={`${DW_PRODUKTE.length % 2 ? 'links' : 'rechts'}:auto`}>
+                <article class="k dw-produkt dw-produkt--individuell" aria-labelledby="dw-p-individuell">
                   <span class="k__icon"><Icon name={DW_PRODUKTBEREICH.individuell.icon} size={22} /></span>
                   <div class="k__inhalt">
                     <p class="dw-produkt__name">{DW_PRODUKTBEREICH.individuell.kenn}</p>
@@ -291,8 +291,8 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 
     <!-- ═══ KAPITEL 3: Prinzipien (Talk 4087) und Kontakt · ohne Linie (Talk 4083) ═══ -->
     <section class="dw-kapitel dw-ohne-linie" id={K3.id} aria-label={K3.titel}>
-      <!-- Unsere drei Prinzipien (Talk 4087, ersetzt „Verlässlichkeit“): dunkler Kontrastbereich, ohne Linie -->
-      <div class="dw-dunkel" id="prinzipien" data-linie-hell>
+      <!-- Unsere drei Prinzipien (Talk 4087, ersetzt „Verlässlichkeit“): seit Talk 4177 auf normalem Seitengrund, die Karten bleiben türkis; ohne Linie -->
+      <div class="dw-prinzipien" id="prinzipien">
         <span id="verlaesslichkeit" class="dw-alt-anker"></span>
         <div class="dw-abschnitt">
           <div class="wrap">
