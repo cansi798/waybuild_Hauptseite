@@ -38,6 +38,9 @@
 .dw-zitat { margin: 0 0 1em; padding: 4px 0 4px 18px; border-left: 3px solid var(--accent); font-family: var(--font-head); font-size: 1.15rem; font-weight: 600; color: var(--ink); }
 .dw-liste { margin: 0 0 1em; padding-left: 1.2em; color: var(--ink-soft); line-height: 1.8; }
 .dw-wp { display: block; height: 0; }
+/* Talk 4179: Startpunkt der Scroll-Linie am Handy (Mitte = Wegpunkt links am Text, 28 px vor der Textkante) */
+.dw-linienstart { position: relative; display: block; height: 0; }
+.dw-linienstart::before { content: ''; position: absolute; left: -35px; top: -7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--paper); z-index: 1; }
 .dw-anker { position: absolute; width: 0; height: 0; }
 
 /* ── Hero ── */
@@ -227,6 +230,7 @@
 .dw-ideebild__gruppe .icon { flex: none; color: var(--accent-mid); }
 .dw-ideebild__knoten { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent-mid); color: var(--accent-ink); }
 .dw-ideebild__knoten .icon { position: relative; z-index: 1; filter: drop-shadow(0 0 3px rgb(0 166 161 / 45%)); }
+.dw-ideebild__start { display: block; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--paper); }   /* Talk 4179: Start der Linie */
 .dw-ideebild__fuell { position: absolute; inset: 0; border-radius: 50%; background: #d9eeea; }
 .dw-verstehen { container-type: inline-size; }
 .dw-verstehen__begriff { transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }

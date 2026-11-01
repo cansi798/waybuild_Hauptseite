@@ -128,21 +128,16 @@ const qpc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 1 · Teil-Kopf wieder eingefügt (Talk 4108); die Linie entsteht aus der Überschrift ═══ -->
+    <!-- ═══ KAPITEL 1 · Teil-Kopf entfernt (Talk 4179, wie schon Talk 4088): Überschrift und Kernsatz stehen bei „Verstehen“;
+         die Scroll-Linie beginnt beim Impuls (Desktop oben an der Szene mit Startpunkt, Handy links an der Kennzeile) ═══ -->
     <section class="dw-kapitel" id={K1.id} aria-labelledby="k1-h">
-      <div class="wrap dw-kapitelkopf">
-        <div class="dw-kapitel__text" data-szene data-szene-id="k1">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <h2 id="k1-h">{K1.titel}</h2>
-          <p class="dw-kern">{K1.kern}</p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-wp" data-weg data-weg-nur="d"></span>
-        </div>
-      </div>
+      <h2 class="sr-only" id="k1-h">Unsere Denkweise: vom Impuls zur passenden Lösung</h2>
       <!-- Impuls (erster Schritt, bis Talk 4132 „Idee“) -->
       <div class="dw-abschnitt" id="denkweise">
         <div class="wrap dw-raster dw-raster--spiegel">
           <div class="dw-text reveal">
+            {/* Talk 4179: am Handy beginnt die Scroll-Linie hier, links an der Kennzeile (Startpunkt) */}
+            <span class="dw-linienstart dw-nur-m" aria-hidden="true"></span>
             <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
             <span class="dw-kenn"><Icon name="impuls" size={18} /> Impuls</span>
             <h3 class="dw-idee-titel" aria-label={DW_IDEE.titel}>{DW_IDEE.zeilen.map((z) => <span>{z}</span>)}</h3>

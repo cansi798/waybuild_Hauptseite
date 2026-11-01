@@ -32,6 +32,8 @@ const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
   </svg>
   <span class="dw-anker" style="left:50%;top:0%" data-weg></span>
+  {/* Talk 4179: hier beginnt die Scroll-Linie am Desktop – kleiner Startpunkt (am Handy läuft sie von der Kennzeile her durch) */}
+  <span class="dw-pos dw-nur-d" style="left:50%;top:0%"><span class="dw-ideebild__start"></span></span>
   <span class="dw-anker" style={`left:50%;top:${pc(MY, H)}`} data-weg></span>
   <span class="dw-anker" style="left:50%;top:100%" data-weg></span>
   {/* Talk 4128: obere Gruppen zuletzt im DOM, damit einfließende Karten VOR den noch wartenden unteren Karten laufen */}
