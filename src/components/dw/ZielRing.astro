@@ -1,0 +1,9 @@
+---
+// Verbessern-Anker im Hero (Talk 4141/4202): vier Pfeile wandern langsam im Uhrzeigersinn auf dem Ring (nur im Bild,
+// gesteuert über .dw-ziel / ist-sichtbar in denkweise.ts); reduzierte Bewegung: Pfeile stehen still.
+---
+<span class="dw-ziel dw-ziel--ring">
+  <svg class="dw-ziel__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <g class="dw-ziel__dreh">{[45, 135, 225, 315].map((g) => <g transform={`rotate(${g} 50 50)`}><path class="dw-ziel__pfeil" d="M 45 -4.5 L 52.5 2 L 45 8.5" /></g>)}</g>
+  </svg>
+</span>

@@ -242,3 +242,15 @@ export const DW_CHECK = {
   ohneStaerke: 'Sie sehen genau hin, wo es hakt. Das ist ein guter Ausgangspunkt.',
   cta: 'Über Ihr Profil sprechen',
 };
+
+/** Hero-Prozessbild (Jamil, Talk 4202: „besser darstellen, Hochwertigkeit vermitteln“): sechs Schritte als saubere
+ *  Knoten auf einer geraden Linie, Impuls und Verbessern als Anker. Die Kurzzeilen sind wörtlich die Kernsätze der
+ *  jeweiligen Abschnitte weiter unten (keine neuen Aussagen). */
+export const DW_PROZESS: { wort: string; icon: IconName; kurz: string; anker?: boolean; ziel?: boolean; ziel_id: string }[] = [
+  { wort: 'Impuls', icon: 'impuls', kurz: DW_IDEE.zeilen.join(' '), anker: true, ziel_id: 'denkweise' },
+  { wort: 'Verstehen', icon: 'search', kurz: DW_VERSTEHEN.titel, ziel_id: 'verstehen' },
+  { wort: 'Hinterfragen', icon: 'frage', kurz: DW_HINTERFRAGEN.titel, ziel_id: 'hinterfragen' },
+  { wort: 'Entscheiden', icon: 'target', kurz: DW_ENTSCHEIDEN.titel, ziel_id: 'entscheiden' },
+  { wort: 'Umsetzen', icon: 'rocket', kurz: DW_UMSETZEN.titel, ziel_id: 'umsetzen' },
+  { wort: 'Verbessern', icon: 'refresh', kurz: DW_VERBESSERN.titel, anker: true, ziel: true, ziel_id: 'verbessern' },
+];

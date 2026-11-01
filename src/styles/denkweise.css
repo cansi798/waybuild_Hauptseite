@@ -49,24 +49,10 @@
 .dw-hero__eyebrow { margin: 0 0 14px; }
 .dw-hero__aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
 .dw-produkt--individuell { background: var(--white); }
-.dw-start { position: relative; display: grid; justify-items: center; padding-block: 8px 0; }
-.dw-start__linie { position: absolute; top: 0; left: 50%; overflow: visible; pointer-events: none; }
-.dw-start__linie .dw-strich { stroke: var(--accent-mid); stroke-width: 3; }
 /* Talk 4079: waagerechte Hero-Grafik nur auf dem Handy */
-.dw-quer { display: none; position: relative; width: 100%; max-width: 440px; margin: 4px 0 22px; }
-.dw-quer > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.dw-quer__linie { fill: none; stroke: var(--accent-mid); stroke-width: 2.5; stroke-linecap: round; }
-.dw-quer__punkt { fill: var(--paper); stroke: var(--accent-mid); stroke-width: 2.5; }
-.dw-quer__wort { font-family: var(--font-head); font-size: 12.5px; font-weight: 650; fill: var(--accent-ink); }
-.dw-quer__wort--gross { font-size: 13.5px; font-weight: 700; }
-.dw-quer .dw-idee__kreis, .dw-quer .dw-ziel { width: 46px; height: 46px; border-width: 2.5px; }
-.dw-quer .dw-ziel { width: 41px; height: 41px; }
-.dw-quer .dw-idee__kreis .icon, .dw-quer .dw-ziel .icon { width: 22px; height: 22px; }
-.dw-quer .dw-ziel__licht { stroke: url(#dw-ziel-grad-m); }
 .dw-idee { position: relative; display: block; }
 /* Hero-Prozess (Talk 3922): ganz in Türkis; Talk 4063: ~85 % der vorigen Größe. --hs skaliert den Versatz.
  * Maße gelten auch für das feste Linien-SVG in index.astro (heroLinien) – dort mitziehen! */
-.dw-start { --hs: 0.98; }
 .dw-idee__kreis { position: relative; display: grid; place-items: center; width: 63px; height: 63px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
 /* Talk 3930/3938: der äußere Kreis glimmt ständig sanft (nur Lichthof außen, kein Licht auf dem Symbol; ~3,6 s).
  * Läuft nur mit JS und solange sichtbar (ist-sichtbar, gesetzt in denkweise.ts); sonst bzw. bei reduzierter Bewegung statisch leicht leuchtend. */
@@ -86,10 +72,7 @@
 /* Talk 3933: Ziel „Verbessern“ im Hero – gleiche Größe wie die Idee, Pfeile im Uhrzeigersinn auf dem Rand, ein
  * Lichtschimmer läuft im Uhrzeigersinn den Rand entlang (Drehung = nur transform), dazu dasselbe Glimmen. */
 .dw-ziel { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent-mid); color: var(--accent-ink); }
-.dw-reise__ziel { margin-top: 5px; }
 /* Einblenden (transform) auf der Hülle: sonst wird der Kreis selbst Stapelkontext und der Lichthof (z-index −1) färbt sein Inneres */
-.dw-ziel-huelle { display: block; }
-.dw-reise__ziel .dw-idee__wort { white-space: nowrap; }
 .dw-ziel__ring { position: absolute; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; z-index: 1; pointer-events: none; }
 .dw-ziel__pfeil { fill: none; stroke: var(--accent-mid); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;; transform-box: fill-box; transform-origin: center; }
 /* Talk 4141: kein Symbol innen; die Pfeilgruppe dreht sich gleichmäßig langsam im Uhrzeigersinn um die Kreismitte
@@ -98,17 +81,8 @@
 .dw--live .dw-ziel__dreh { animation: dw-kreis-dreh 12s linear infinite paused; }
 .dw--live .dw-ziel.ist-sichtbar .dw-ziel__dreh { animation-play-state: running; }
 @keyframes dw-pfeil-puls { 0%, 13%, 100% { transform: none; } 4% { transform: translateX(calc(var(--dw-r, 1) * 3px)) scale(1.3); } }
-.dw-ziel__schimmer { transform-origin: 50px 50px; transform: rotate(200deg); }
 /* Talk 4031: Lichtschimmer genau so breit wie der Rand (3 px), heller Türkiston, damit er auf dem Rand sichtbar bleibt */
-.dw-ziel__licht { fill: none; stroke: url(#dw-ziel-grad); stroke-width: 3px; vector-effect: non-scaling-stroke; stroke-linecap: butt; }
-.dw--live .dw-ziel__schimmer { animation: dw-schimmer 3.6s linear infinite paused; }
-.dw--live .dw-ziel.ist-sichtbar .dw-ziel__schimmer { animation-play-state: running; }
 @keyframes dw-schimmer { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.dw-idee__wort { position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%); font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; color: var(--accent-ink); }
-.dw-reise { list-style: none; margin: 0; padding: 29px 0 0; display: grid; gap: 36px; justify-items: center; }
-.dw-reise li { position: relative; display: flex; align-items: center; transform: translateX(calc(var(--dx, 0) * var(--hs) * 1px)); }
-.dw-reise .dw-punkt { width: 13px; height: 13px; border-width: 2.5px; }
-.dw-reise .dw-wort { position: absolute; left: 22px; white-space: nowrap; font-family: var(--font-head); font-size: 0.92rem; font-weight: 650; color: var(--accent-ink); }
 .dw-punkt { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--weg); transition: border-color 1.2s ease; }
 .dw-wort { font-size: 0.86rem; font-weight: 600; color: #6a6459; letter-spacing: 0.01em; background: var(--paper); padding: 1px 6px; border-radius: 6px; }
 .dw-wort--akzent { color: var(--accent-ink); }
@@ -408,20 +382,16 @@
 /* ── Handy: Texte rechts der Linie ── */
 @media (max-width: 959px) {
   /* Talk 4079: Hero kompakter, waagerechte Grafik statt der senkrechten */
-  .dw-start { display: none; }
-  .dw-quer { display: block; }
   .dw-hero { padding-block: 26px 40px; }
   .dw-hero h1 { font-size: clamp(1.75rem, 7.6vw, 2.2rem); line-height: 1.1; max-width: none; margin-bottom: 16px; }
   .dw-abschluss__titel { font-size: clamp(1.75rem, 7.6vw, 2.2rem); line-height: 1.1; }
   .dw-hero__eyebrow { margin-bottom: 12px; }
   .dw-hero__lead { font-size: 1rem; line-height: 1.6; margin-bottom: 18px; }
-  .dw-quer { margin: 8px 0 26px; }
   .dw-hero .btn--lg { padding-block: 13px; }
   .dw-hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.06em; }
   .dw-text, .dw-frage-wrap { padding-left: calc(var(--rand-x) + 12px); }
   .dw-raster { gap: 76px; }
   .dw-hero__text { padding-left: 0; }
-  .dw-start { margin-top: 8px; }
   .dw-bild { max-width: 420px; }
   .dw-chip { font-size: 0.74rem; padding: 3px 9px; }
   .dw-bereich__name { font-size: 0.86rem; }
@@ -489,14 +459,9 @@
   .dw-abschluss .dw-bild--klein { align-self: center; }
 
   /* Hero-Prozess am Desktop noch größer */
-  .dw-start { --hs: 1.45; }
   .dw-idee__kreis { width: 82px; height: 82px; }
   .dw-ziel { width: 72px; height: 72px; }   /* Talk 4114: etwas kleiner (heroLinien in index.astro mitgezogen) */
   .dw-idee__kreis .icon, .dw-ziel .icon { width: 34px; height: 34px; }
-  .dw-idee__wort { font-size: 1.36rem; left: calc(100% + 15px); }
-  .dw-reise { padding-top: 37px; gap: 49px; }
-  .dw-reise .dw-punkt { width: 15px; height: 15px; }
-  .dw-reise .dw-wort { left: 29px; font-size: 1.12rem; }
 }
 
 /* Talk 4079/4090: nur sehr kleine Höhen (z. B. iPhone SE, sichtbar ≈ 550 px): Hero straffer, damit alles im ersten Bildschirm steht */
@@ -505,7 +470,6 @@
   .dw-hero h1 { font-size: 1.6rem; margin-bottom: 10px; }
   .dw-hero__eyebrow { margin-bottom: 8px; }
   .dw-hero__lead { font-size: 0.92rem; line-height: 1.48; margin-bottom: 6px; }
-  .dw-quer { margin-bottom: 10px; }
   .dw-hero__aktionen { gap: 8px 20px; }
   .dw-hero .btn--lg { padding-block: 11px; }
 }
@@ -519,3 +483,78 @@
 
 /* Texte blenden nur ein (ohne Verschieben), damit die Wegpunkte daneben exakt gemessen werden */
 html.js .dw .reveal { transform: none; }
+
+/* ───────── Hero-Prozessbild (Jamil, Talk 4202: „besser darstellen, Hochwertigkeit vermitteln“) ─────────
+ * Desktop: ruhige weiße Karte mit feinem Schatten; eine gerade Linie (Verlauf + Lichthof) verbindet sechs Knoten.
+ * Impuls und Verbessern sind Anker (größer; Impuls gefüllt, Verbessern mit wandernden Pfeilen), dazwischen vier
+ * gleiche Knoten mit eigenem Symbol. Beim Laden läuft einmal ein Lichtpunkt die Linie entlang, die Knoten leuchten
+ * nacheinander auf. Handy: dieselbe Logik waagerecht und kompakt. Reduzierte Bewegung / ohne JS: statisch, fertig. */
+.dw-pk { position: relative; z-index: 1; flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--white); border: 1.5px solid rgb(0 143 138 / 55%); color: var(--accent-ink);
+  box-shadow: 0 0 0 3px var(--white), 0 2px 6px rgb(0 79 76 / 12%); }
+.dw-pk--anker { width: 60px; height: 60px; border: 0; color: var(--white);
+  background: radial-gradient(120% 120% at 30% 25%, #19b3ad 0%, var(--accent-mid) 45%, var(--accent-ink) 100%);
+  box-shadow: 0 0 0 4px var(--white), 0 0 0 5px rgb(0 143 138 / 22%), 0 10px 26px -6px rgb(0 107 104 / 55%); }
+.dw-pk--anker .icon { filter: drop-shadow(0 0 6px rgb(255 255 255 / 45%)); }
+/* Verbessern: heller Anker mit Ring, die Pfeile wandern (Talk 4141, kein Symbol innen) */
+.dw-pk--ziel { background: radial-gradient(circle at 50% 40%, var(--white) 0%, #eef8f6 100%); }
+.dw-pk--ziel .dw-ziel { width: 100%; height: 100%; border: 2.5px solid var(--accent-mid); background: transparent; }
+.dw-pk--ziel .dw-ziel__pfeil { stroke-width: 5; }
+
+/* Desktop-Karte */
+.dw-pl { position: relative; justify-self: end; width: min(100%, 440px); padding: 30px 30px 30px 28px; border-radius: 24px;
+  background: linear-gradient(180deg, var(--white) 0%, #fbfaf7 100%); border: 1px solid rgb(221 214 201 / 80%);
+  box-shadow: 0 1px 2px rgb(0 79 76 / 6%), 0 30px 60px -28px rgb(0 79 76 / 30%), 0 12px 24px -16px rgb(0 79 76 / 14%); }
+.dw-pl::before { content: ''; position: absolute; inset: 0 24px auto; height: 3px; border-radius: 0 0 3px 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.7; }
+.dw-pl__liste { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.dw-pl__link { display: flex; align-items: center; gap: 18px; padding: 4px 8px 4px 0; border-radius: 14px; text-decoration: none; color: inherit; }
+.dw-pl__schritt:not(.dw-pl__schritt--anker) .dw-pl__link { padding-left: 10px; gap: 28px; }   /* 40er-Knoten mittig unter den 60er-Ankern */
+.dw-pl__link:hover .dw-pl__wort { color: var(--accent-ink); }
+.dw-pl__link:hover .dw-pk:not(.dw-pk--anker) { border-color: var(--accent-mid); }
+.dw-pl__text { display: grid; gap: 2px; min-width: 0; }
+.dw-pl__wort { font-family: var(--font-head); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; color: var(--ink); transition: color 0.2s ease; }
+.dw-pl__schritt--anker .dw-pl__wort { font-size: 1.22rem; color: var(--accent-ink); }
+.dw-pl__kurz { font-size: 0.9rem; line-height: 1.4; color: var(--ink-soft); }
+/* Linie: Mittelpunkt der Knoten (Karte 28 px + Anker 30 px), vom ersten bis zum letzten Anker */
+.dw-pl__schiene { position: absolute; left: 57px; top: 64px; bottom: 64px; width: 2px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--accent-mid) 0%, var(--accent) 50%, var(--accent-ink) 100%); }
+.dw-pl__schiene::before { content: ''; position: absolute; inset: 0 -5px; border-radius: 6px; background: rgb(0 166 161 / 10%); }
+/* Lichtpunkt (beim Laden einmal, dann aus) */
+.dw-pl__licht { position: absolute; left: 50%; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--white);
+  box-shadow: 0 0 0 2px var(--accent), 0 0 12px 4px rgb(0 166 161 / 55%); opacity: 0; }
+@keyframes dw-licht-v { 0% { top: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+@keyframes dw-licht-h { 0% { left: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes dw-knoten-an { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+@keyframes dw-knoten-ring { 0% { outline: 0 solid rgb(0 166 161 / 0%); outline-offset: 0; } 40% { outline: 6px solid rgb(0 166 161 / 22%); outline-offset: 2px; } 100% { outline: 0 solid rgb(0 166 161 / 0%); outline-offset: 10px; } }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .dw-pl__licht { animation: dw-licht-v 2.6s cubic-bezier(0.45, 0, 0.25, 1) 0.5s both; }
+  html.js .dw-pl .dw-pk, html.js .dw-pq .dw-pk { animation: dw-knoten-an 0.7s ease calc(0.5s + var(--i) * 0.47s) both, dw-knoten-ring 0.9s ease calc(0.5s + var(--i) * 0.47s) both; }
+  html.js .dw-pq__schiene .dw-pl__licht { animation: dw-licht-h 2.4s cubic-bezier(0.45, 0, 0.25, 1) 0.4s both; }
+}
+
+/* Handy: waagerecht, kompakt */
+.dw-pq { display: none; position: relative; width: 100%; max-width: 440px; margin: 6px 0 24px; }
+.dw-pq__liste { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.dw-pq__schritt { display: grid; grid-template-rows: 18px 48px 18px; justify-items: center; align-items: center; }
+.dw-pq__schritt .dw-pk { grid-row: 2; width: 30px; height: 30px; box-shadow: 0 0 0 2px var(--paper), 0 2px 5px rgb(0 79 76 / 12%); }
+.dw-pq__schritt .dw-pk--anker { width: 44px; height: 44px; box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px rgb(0 143 138 / 22%), 0 6px 16px -4px rgb(0 107 104 / 50%); }
+.dw-pq__wort { grid-row: 3; font-family: var(--font-head); font-size: 11px; font-weight: 650; color: var(--accent-ink); white-space: nowrap; }
+.dw-pq__schritt--oben .dw-pq__wort { grid-row: 1; }
+.dw-pq__schritt--anker .dw-pq__wort { font-weight: 750; color: var(--ink); }
+.dw-pq__schiene { position: absolute; left: calc(100% / 12); right: calc(100% / 12); top: 41px; height: 2px; margin-top: -1px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent-mid), var(--accent), var(--accent-ink)); }
+.dw-pq__schiene::before { content: ''; position: absolute; inset: -4px 0; border-radius: 6px; background: rgb(0 166 161 / 10%); }
+.dw-pq__schiene .dw-pl__licht { left: 0; top: 50%; }
+
+@media (max-width: 959px) {
+  .dw-hero__text { min-width: 0; }
+  .dw-pl { display: none; }
+  .dw-pq { display: block; }
+}
+@media (min-width: 960px) {
+  .dw-raster--hero { align-items: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dw-pl__licht { display: none; }
+  .dw-pk { animation: none !important; }
+}
