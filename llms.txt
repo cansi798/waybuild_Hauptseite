@@ -4,7 +4,7 @@
 
 Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
-Waybuild ist die Dachmarke. Zusagen, Werte und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
+Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
 
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
@@ -58,11 +58,11 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 
 ## Häufige Fragen zu Waybuild
 - Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist der Website Service. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.
-- Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Werte und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
+- Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Prinzipien und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
 - Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
 - Welche Rolle spielt KI? Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.
-- Bietet Waybuild auch Software, Cloud und IT an? Neben dem Website Service setzen wir einzelne Projekte wie individuelle Software, Nextcloud oder IT-Betreuung auf Anfrage um. Weitere Produkte folgen.
+- Bietet Waybuild neben Websites noch etwas an? Unser Hauptprodukt ist der Website Service. Passt kein fertiges Produkt, entwickeln wir auf Anfrage individuelle Software. Weitere Produkte folgen.
 - Sind die Preise netto? Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Unsere Produkte richten sich ausschließlich an Unternehmen und Selbstständige (B2B).
 
 ## Häufige Fragen zum Website Service
@@ -82,7 +82,7 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - [Referenzen](https://cansi798.github.io/waybuild_Hauptseite/referenzen/): Projekte, nur mit Freigabe der Kunden
 - [Partner](https://cansi798.github.io/waybuild_Hauptseite/partner/): Partnerschaften und Partner werden
 - [Karriere](https://cansi798.github.io/waybuild_Hauptseite/karriere/): aktuell keine offenen Stellen, Initiativbewerbung per E-Mail
-- [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Prozess einer Anfrage, Werte
+- [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Prozess einer Anfrage, Prinzipien
 - [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
 - [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
 - [Impressum](https://cansi798.github.io/waybuild_Hauptseite/impressum/)
