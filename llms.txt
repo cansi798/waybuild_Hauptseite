@@ -17,7 +17,7 @@ Waybuild ist die Dachmarke. Jedes Produkt hat einen eigenen Namen und eine eigen
 ## Die Waybuild-Denkweise
 Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
 Kernsatz: Wir verstehen, bevor wir umsetzen.
-1. Idee: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
+1. Impuls: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
 2. Verstehen: Gute Lösungen beginnen mit Verständnis. Wir verstehen, bevor wir umsetzen. Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir verstehen: wie Menschen heute arbeiten, welche digitalen Werkzeuge sie nutzen, wo digitale Reibung entsteht, welche Ziele verfolgt werden. Aus diesen Erkenntnissen entsteht ein klares Bild Ihres Unternehmens. Wir nennen es Ihre Unternehmens-DNA. Sie hilft dabei, Entscheidungen nachvollziehbar zu treffen und digitale Lösungen zu entwickeln, die wirklich zu Ihrem Unternehmen passen.
 3. Hinterfragen: Erst das Warum, dann das Wie. Nicht jede Website muss neu gebaut werden. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
 4. Entscheiden: Wir empfehlen, bevor wir umsetzen. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
