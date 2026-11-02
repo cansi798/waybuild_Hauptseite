@@ -9,7 +9,15 @@
 // - Szenen [data-szene]: Fortschritt 0…1, solange die Spitze durch ihre Fläche läuft. Elemente darin tragen
 //   [data-an="art:a-b[:min] …"] mit art = zeichnen | linear | auf | aus | blende | wachsen | erscheinen | links |
 //   rechts | breit | hoch | fliessen | einfaedeln | weg (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
-//   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene).
+//   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene) oder "sicht[+d]" (sobald das
+//   Element unten ins Bild kommt, bei ~92 % der Fensterhöhe; d verzögert im Szenen-Fortschritt). Zusätzlich daempfen
+//   (wie aus, aber bei reduzierter Bewegung nicht) – z. B. Pills, die ihren Inhalt abgeben und gedämpft stehen bleiben.
+// - Lese-Szenen (Jamil, Talk 4324–4326: „länger sichtbar, damit man Zeit hat zu lesen“):
+//   [data-bereich="von bis"] erweitert den Fortschritt über 0…1 hinaus (z. B. "-0.7 1.25": Elemente stehen schon, wenn
+//   die Szene unten ins Bild kommt, und fließen erst ein, wenn der Knoten etwa in der Bildmitte steht).
+//   [data-tempo="v"] begrenzt, wie schnell der Fortschritt laufen darf (v pro Sekunde, echte Zeit): schnelles Scrollen
+//   oder ein Sprung über einen Link springt nicht ans Ende, die Szene spielt sich in Ruhe ab. Spuren "linear" (Linien,
+//   die an die Hauptlinie anschließen) folgen weiter direkt dem Scrollen. Außerhalb des Bildes wird nicht gespielt.
 // - Kreis-Szenen mit [data-zu="p"]: ab Fortschritt p bekommt die Szene die Klasse ist-zu (Kreis geschlossen), solange
 //   sie im Bild ist zusätzlich ist-sichtbar (nur dann läuft der Dauer-Fluss per CSS).
 //
@@ -17,9 +25,9 @@
 // lesen, Nachschlagetabelle statt getPointAtLength, nur sichtbare Szenen, nur transform/opacity/dashoffset schreiben
 // und nur, wenn sich der Wert ändert. Reduzierte Bewegung: alles fertig gezeichnet, keine Animation.
 
-type Spur = { art: string; a: number; b: number; min: number; auto: boolean };
+type Spur = { art: string; a: number; b: number; min: number; auto: boolean; sicht: number };
 type Item = { el: HTMLElement | SVGElement; spuren: Spur[]; alt: Record<string, string> };
-type Szene = { el: HTMLElement; top: number; h: number; items: Item[]; p: number; ende: boolean; zu: number };
+type Szene = { el: HTMLElement; top: number; h: number; items: Item[]; p: number; r: number; neu: boolean; ende: boolean; zu: number; von: number; bis: number; tempo: number };
 
 const root = document.querySelector<HTMLElement>('[data-denkweise]');
 if (root) {
@@ -41,15 +49,20 @@ if (root) {
 
   const parse = (s: string): Spur[] => s.trim().split(/\s+/).map((tok) => {
     const [art, bereich = 'auto', min = '0'] = tok.split(':');
-    if (bereich === 'auto') return { art, a: 0, b: 1, min: +min, auto: true };
-    const [a, b] = bereich.split('-').map(Number);
-    return { art, a, b, min: +min, auto: false };
+    if (bereich === 'auto') return { art, a: 0, b: 1, min: +min, auto: true, sicht: -1 };
+    if (bereich.startsWith('sicht')) return { art, a: 0, b: 1, min: +min, auto: false, sicht: +(bereich.split('+')[1] || 0) };
+    const m = bereich.match(/^(-?[\d.]+)-(-?[\d.]+)$/);
+    return { art, a: m ? +m[1] : 0, b: m ? +m[2] : 1, min: +min, auto: false, sicht: -1 };
   });
 
-  const szenen: Szene[] = Array.from(root.querySelectorAll<HTMLElement>('[data-szene]')).map((el) => ({
-    el, top: 0, h: 1, p: -1, ende: el.hasAttribute('data-szene-ende'), zu: el.dataset.zu ? +el.dataset.zu : -1,
-    items: Array.from(el.querySelectorAll<HTMLElement>('[data-an]')).map((it) => ({ el: it, spuren: parse(it.dataset.an || ''), alt: {} })),
-  }));
+  const szenen: Szene[] = Array.from(root.querySelectorAll<HTMLElement>('[data-szene]')).map((el) => {
+    const [von = 0, bis = 1] = (el.dataset.bereich || '').trim().split(/\s+/).filter(Boolean).map(Number);
+    return {
+      el, top: 0, h: 1, p: NaN, r: NaN, neu: true, ende: el.hasAttribute('data-szene-ende'), zu: el.dataset.zu ? +el.dataset.zu : -1,
+      von, bis, tempo: el.dataset.tempo ? +el.dataset.tempo : 0,
+      items: Array.from(el.querySelectorAll<HTMLElement>('[data-an]')).map((it) => ({ el: it, spuren: parse(it.dataset.an || ''), alt: {} })),
+    };
+  });
 
   // Elemente außerhalb einer Szene können über [data-an-ref] an eine Szene mit [data-szene-id] gekoppelt werden
   root.querySelectorAll<HTMLElement>('[data-an-ref]').forEach((it) => {
@@ -58,11 +71,15 @@ if (root) {
   });
 
   let L = 1, N = 1, maxY = new Float32Array(1), offset = '', introVon = 0, introBis = 0, introStart = 0, introAktiv = false, introWert = 0, rootTop = 0;
+  // Fensterhöhe nur beim Messen bzw. bei geänderter Breite übernehmen: iOS Safari meldet beim Scrollen neue Höhen
+  // (Adressleiste), sonst würde die Linie dabei springen
+  let vh = window.innerHeight, vw = window.innerWidth;
   const SCHRITT = 6;
 
   const messen = () => {
     const rr = root.getBoundingClientRect();
     rootTop = rr.top + window.scrollY;
+    vh = window.innerHeight; vw = window.innerWidth;
     const w = root.clientWidth, h = root.scrollHeight;
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
     svg.setAttribute('width', String(w)); svg.setAttribute('height', String(h));
@@ -122,11 +139,18 @@ if (root) {
     offset = '';
     szenen.forEach((s) => {
       const r = s.el.getBoundingClientRect();
-      s.top = r.top - rr.top; s.h = Math.max(1, r.height); s.p = -1;
+      s.top = r.top - rr.top; s.h = Math.max(1, r.height); s.neu = true;
       s.items.forEach((it) => it.spuren.forEach((sp) => {
-        if (!sp.auto) return;
+        if (!sp.auto && sp.sicht < 0) return;
+        // Lage in Ruhe (ohne die Verschiebung, die gerade gesetzt ist): Mitte des Elements relativ zur Szene
         const ir = (it.el as Element).getBoundingClientRect();
-        const yr = clamp((ir.top + ir.height / 2 - r.top) / s.h);
+        const ym = ir.top + ir.height / 2 - r.top;
+        if (sp.sicht >= 0) {
+          // Element-Mitte bei 92 % der Fensterhöhe (Szenenoberkante im Bild bei 0.62·vh − p·0.85·h)
+          sp.a = Math.max(s.von, (ym - 0.30 * vh) / (s.h * 0.85)) + sp.sicht; sp.b = sp.a + 0.08;
+          return;
+        }
+        const yr = clamp(ym / s.h);
         sp.a = clamp(yr - 0.12); sp.b = clamp(yr + 0.02, sp.a + 0.04);
       }));
     });
@@ -159,16 +183,20 @@ if (root) {
     (it.el as HTMLElement).style.setProperty(prop, wert);
   };
 
-  const anwenden = (s: Szene, p: number) => {
+  // Strichmuster der Szenen-Linien: "1 2" mit Versatz bis 1.05 (CSS), damit ein noch nicht gezeichneter Strich keinen
+  // runden Punkt an seinem Anfang zeigt (Jamil, Screenshot 4326: Punkt unter dem Erkenntnis-Knoten)
+  const VOR = 1.05;
+  const anwenden = (s: Szene, p: number, roh: number) => {
     for (const it of s.items) {
       let op = 1, tf = '', dash = -1, opNutzt = false;
       for (const sp of it.spuren) {
         const t = glatt(clamp((p - sp.a) / Math.max(0.001, sp.b - sp.a)));
         switch (sp.art) {
-          case 'zeichnen': dash = 1 - t; break;
-          case 'linear': dash = 1 - clamp((p - sp.a) / Math.max(0.001, sp.b - sp.a)); break;
+          case 'zeichnen': dash = (1 - t) * VOR; break;
+          case 'linear': dash = (1 - clamp((roh - sp.a) / Math.max(0.001, sp.b - sp.a))) * VOR; break;
           case 'auf': op *= t; opNutzt = true; tf += ` translate3d(0, ${((1 - t) * 10).toFixed(1)}px, 0)`; break;
           case 'aus': op *= 1 - (1 - sp.min) * t; opNutzt = true; break;
+          case 'daempfen': if (!reduce) { op *= 1 - (1 - sp.min) * t; opNutzt = true; } break;
           case 'blende': op *= t; opNutzt = true; break;
           // ausblenden, nur mit Bewegung (bei reduzierter Bewegung bleibt das Element stehen), z. B. Gruppen-Label der Idee
           case 'weg': if (!reduce) { op *= 1 - t; opNutzt = true; } break;
@@ -206,10 +234,13 @@ if (root) {
     if (s.zu >= 0) s.el.classList.toggle('ist-zu', p >= s.zu);
   };
 
-  let laeuft = false, fertig = false;
+  let laeuft = false, fertig = false, letzt = 0, holtAuf = false;
   const zeichnen = (jetzt = performance.now()) => {
     laeuft = false;
-    const sy = window.scrollY, vh = window.innerHeight;
+    const sy = window.scrollY;
+    // echte Zeit seit dem letzten Bild (max. 0,25 s, sonst Zeitlupe auf langsamen Geräten); nach einer Pause ein Bild
+    const dt = holtAuf ? clamp((jetzt - letzt) / 1000, 0, 0.25) : 1 / 60;
+    letzt = jetzt; holtAuf = false;
     let spitze = reduce ? 1e9 : sy + vh * 0.62 - rootTop;
     // Einmaliges Zeichnen im Hero beim Laden; danach bleibt der Hero-Abschnitt gezeichnet (kein Zurückziehen)
     if (introAktiv) {
@@ -230,13 +261,28 @@ if (root) {
     let ende = false;
     for (const s of szenen) {
       // Szenen sind fertig, wenn die Spitze 85 % ihrer Höhe erreicht: so steht das Ergebnis noch gut sichtbar im Bild
-      const p = clamp((spitze - s.top) / (s.h * 0.85));
+      const roh = clamp((spitze - s.top) / (s.h * 0.85), s.von, s.bis);
+      let p = roh;
+      if (s.tempo > 0 && !reduce) {
+        // Lese-Szenen: Fortschritt läuft dem Scrollen höchstens mit s.tempo pro Sekunde hinterher. Ganz außerhalb des
+        // Bildes wird nicht gespielt (sofort auf Stand). Erstes Bild: im Bild von vorn beginnen (kein Sprung ans Ende).
+        const oben = s.top + rootTop - sy;
+        const draussen = oben > vh * 1.5 || oben + s.h < -vh * 0.5;
+        const alt = Number.isNaN(s.p) ? (draussen ? roh : s.von) : s.p;
+        if (draussen) p = roh;
+        else {
+          const max = s.tempo * dt;
+          p = alt + clamp(roh - alt, -max, max);
+          if (p !== roh) holtAuf = true;
+        }
+      }
       if (s.ende && p >= 0.88) ende = true;
       // Szenen vor oder hinter der Spitze haben p = 0 bzw. 1 und werden nach dem ersten Mal nicht mehr angefasst
-      if (p === s.p) continue;
-      s.p = p;
-      anwenden(s, p);
+      if (p === s.p && roh === s.r && !s.neu) continue;
+      s.p = p; s.r = roh; s.neu = false;
+      anwenden(s, p, roh);
     }
+    if (holtAuf) anfordern();
     if (ende !== fertig) { fertig = ende; root.classList.toggle('dw--fertig', ende); }
   };
   const anfordern = () => { if (!laeuft) { laeuft = true; requestAnimationFrame(zeichnen); } };
@@ -256,7 +302,8 @@ if (root) {
   let rz = 0;
   const spaeter = () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(neu); };
   if ('ResizeObserver' in window) new ResizeObserver(spaeter).observe(root);
-  else (window as Window).addEventListener('resize', spaeter);
+  // Fenstergröße: nur eine geänderte Breite zählt (iOS meldet beim Scrollen neue Höhen, Kerim-Regel)
+  window.addEventListener('resize', () => { if (window.innerWidth !== vw) spaeter(); });
   document.fonts?.ready.then(spaeter);
   // Kopfzeile schrumpft (72 → 62 px) und verschiebt alles darunter: nach der Übergangszeit neu messen
   let kz = 0;

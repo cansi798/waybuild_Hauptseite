@@ -12,23 +12,27 @@ const W = 440, H = 420, MX = 220, MY = 336;
 const f = (n: number) => n.toFixed(3);
 const ox = (x: number) => f(((x - MX) / W) * 100);
 const oy = (y: number) => f(((y - MY) / W) * 100);
-// Talk 4037: erst gut lesbar stehen lassen, dann (wenn die Linie den Knoten erreicht) einfließen – Talk 4122 gruppenweise
+// Talk 4037: erst gut lesbar stehen lassen, dann (wenn die Linie den Knoten erreicht) einfließen – Talk 4122 gruppenweise.
+// Talk 4324 („länger sichtbar, damit man Zeit hat zu lesen“): Karten und Labels stehen schon, sobald sie unten ins Bild
+// kommen (sicht), und fließen erst, wenn der Knoten etwa in der Bildmitte steht (Szenen-Fortschritt bis 1.25, Tempo
+// begrenzt). Es fließt eine Kopie (.dw-geist); die Karte selbst bleibt gedämpft lesbar stehen, die Labels bleiben ganz.
 const gruppen = DW_IDEE.gruppen.map((g, gi) => {
-  const fl = 0.7 + gi * 0.085;   // Talk 4128: alle Gruppen über dem Knoten, die Linie erreicht ihn später
+  const fl = 0.8 + gi * 0.1;
   return {
     ...g,
-    // Labels blenden gemeinsam aus, kurz bevor die erste Gruppe einfließt (sonst kreuzen die Karten mobil ein Label)
-    an: `auf:${f(0.02 + gi * 0.09)}-${f(0.1 + gi * 0.09)} weg:0.640-0.690`,
+    an: 'auf:sicht',
     karten: g.karten.map((k, j) => ({
       ...k,
-      an: `auf:${f(0.04 + gi * 0.09 + j * 0.03)}-${f(0.13 + gi * 0.09 + j * 0.03)} einfaedeln:${f(fl + j * 0.02)}-${f(fl + 0.1 + j * 0.02)}`,
+      an: `auf:sicht+${f(j * 0.03)} daempfen:${f(fl + j * 0.03)}-${f(fl + 0.08 + j * 0.03)}:0.6`,
+      // Kopie wird erst sichtbar, wenn sie losfließt (bis dahin liegt sie verdeckt unter der Karte)
+      geist: `blende:${f(fl + j * 0.03)}-${f(fl + 0.01 + j * 0.03)} einfaedeln:${f(fl + j * 0.03)}-${f(fl + 0.14 + j * 0.03)}`,
     })),
   };
 });
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
 ---
-<div class="dw-bild dw-ideebild" data-szene style={`aspect-ratio: ${W} / ${H}`}>
+<div class="dw-bild dw-ideebild" data-szene data-bereich="-0.7 1.3" data-tempo="0.7" style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
   </svg>
   <span class="dw-anker" style="left:50%;top:0%" data-weg></span>
@@ -36,10 +40,15 @@ const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
   <span class="dw-pos dw-nur-d" style="left:50%;top:0%"><span class="dw-ideebild__start"></span></span>
   <span class="dw-anker" style={`left:50%;top:${pc(MY, H)}`} data-weg></span>
   <span class="dw-anker" style="left:50%;top:100%" data-weg></span>
-  {/* Talk 4128: obere Gruppen zuletzt im DOM, damit einfließende Karten VOR den noch wartenden unteren Karten laufen */}
-  {[...gruppen].reverse().map((g) => g.karten.map((k) => (
+  {/* Kopien, die in den Knoten fließen: zuerst im DOM, also unter den stehenden Karten und Labels (Talk 4324) */}
+  {gruppen.map((g) => g.karten.map((k) => (
+    <span class="dw-pos" style={knoten} aria-hidden="true">
+      <span class="dw-ideebild__idee dw-geist" style={`--ox:${ox(k.x)};--oy:${oy(k.y)}`} data-an={k.geist}><Icon name={g.icon} size={14} />{k.text}</span>
+    </span>
+  )))}
+  {gruppen.map((g) => g.karten.map((k) => (
     <span class="dw-pos" style={knoten}>
-      <span class="dw-ideebild__idee" style={`--ox:${ox(k.x)};--oy:${oy(k.y)}`} data-an={k.an}><Icon name={g.icon} size={14} />{k.text}</span>
+      <span class="dw-ideebild__lage" style={`--ox:${ox(k.x)};--oy:${oy(k.y)}`}><span class="dw-ideebild__idee dw-steht" data-an={k.an}><Icon name={g.icon} size={14} />{k.text}</span></span>
     </span>
   )))}
   {/* Labels nach den Karten: einfließende Karten laufen unter dem Label durch (Talk 4122, mobil) */}
@@ -50,9 +59,13 @@ const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
   ))}
   {/* Talk 4037: größerer Knoten (wie der Impuls-Kreis im Hero), Symbol seit Talk 4132 der Impuls-Blitz; füllt sich, wenn alle Ideen drin sind */}
   <span class="dw-pos" style={knoten}>
-    <span class="dw-ideebild__knoten" data-an="erscheinen:0.3-0.4">
-      <span class="dw-ideebild__fuell" data-an="blende:0.92-0.99"></span>
+    <span class="dw-ideebild__knoten" data-an="erscheinen:sicht">
+      <span class="dw-ideebild__fuell" data-an="blende:1.12-1.22"></span>
       <Icon name="impuls" size={22} />
     </span>
+  </span>
+  {/* Talk 4326: Symbole beschriften – der Knoten ist der Impuls, zu dem die Anliegen zusammenfließen */}
+  <span class="dw-pos dw-pos--links" style={`left:calc(${pc(MX, W)} - 40px);top:${pc(MY, H)}`}>
+    <span class="dw-knotenwort" data-an="auf:1.14-1.24">Impuls</span>
   </span>
 </div>

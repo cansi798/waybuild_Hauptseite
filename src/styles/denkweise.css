@@ -18,7 +18,7 @@
 .dw-s--fein { stroke: var(--weg-fein); stroke-width: 2; }
 .dw-s--stark { stroke-width: 3.5; }
 .dw-s--akzent { stroke: var(--accent-mid); }
-.dw--live .dw-s[data-an] { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.dw--live .dw-s[data-an] { stroke-dasharray: 1 2; stroke-dashoffset: 1.05; }   /* Versatz > 1: kein runder Punkt am Anfang ungezeichneter Striche */
 .dw-knoten { fill: var(--grund, var(--paper)); stroke: var(--weg); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; transition: stroke 1.2s ease; }
 .dw-knoten--akzent { stroke: var(--accent); fill: var(--accent); }
 .dw-fuell { fill: rgb(0 166 161 / 9%); transform-box: fill-box; transform-origin: center; }
@@ -107,7 +107,7 @@
 .dw-icon--folgt { border-style: dashed; border-color: rgb(0 143 138 / 45%); color: var(--accent-mid); background: var(--grund, var(--paper)); }
 .dw-bereich--folgt .dw-bereich__name { font-weight: 600; color: var(--accent-ink); opacity: 0.85; }
 .dw-s--folgt { stroke-dasharray: 4 6; }
-.dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 1; }
+.dw--live .dw-s--folgt[data-an] { stroke-dasharray: 1 2; }
 .dw-nur-d { display: none; }
 
 /* ── Hinterfragen als Dialog (Talk 4106): Sprechblasen links (Kunde) / rechts (waybuild), Linie in der Mitte ── */
@@ -164,7 +164,7 @@
 .dw-umsetzen__baustein { fill: #e8f3f0; stroke: rgb(0 143 138 / 35%); stroke-width: 1.2; }
 .dw-umsetzen__baustein--akzent { fill: rgb(0 143 138 / 18%); }
 .dw-umsetzen__baustein--knopf { fill: var(--accent-mid); stroke: none; }
-.dw-umsetzen__erkenntnis { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgb(0 143 138 / 40%); background: #e8f3f0; color: var(--accent-ink); transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
+.dw-umsetzen__erkenntnis, .dw-umsetzen__symbol { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgb(0 143 138 / 40%); background: #e8f3f0; color: var(--accent-ink); transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
 .dw-umsetzen__knoten { position: relative; display: block; width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund, var(--paper)); }
 .dw-umsetzen__fuell { position: absolute; inset: 3px; border-radius: 50%; background: var(--accent-mid); }
 .dw-umsetzen__notiz { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
@@ -546,3 +546,19 @@ html.js .dw .reveal { transform: none; }
 .dw-farben #produkte, .dw-farben #prinzipien .dw-abschnitt, .dw-farben #kontakt-start { padding-block: clamp(56px, 8vw, 104px); }
 .dw-farben #prinzipien { padding-bottom: 0; }
 .dw-farben .dw-produkt--individuell, .dw-farben .dw-produkt { background: var(--white); }
+
+/* Lese-Szenen (Jamil, Talk 4324–4326): Pills geben ihren Inhalt ab und bleiben gedämpft lesbar stehen. Was in den Knoten
+ * fließt, ist eine Kopie (.dw-geist, aria-hidden), die unter den Pills liegt. Ohne JS / reduzierte Bewegung: keine Kopien. */
+.dw:not(.dw--live) .dw-geist { display: none; }
+.dw-steht { transform: none; }   /* stehende Pill: die Ruhelage trägt der Wrapper (.dw-ideebild__lage), Bewegung nur über auf */
+/* Umsetzen: Erkenntnisse mit Beschriftung (Talk 4326 „Symbole beschreiben, damit jeder versteht“) */
+.dw-umsetzen__liste { list-style: none; margin: 0; padding: 0; }
+.dw-umsetzen__liste > li { margin: 0; }
+.dw-umsetzen__eintrag { display: inline-flex; align-items: center; gap: 8px; }
+.dw-umsetzen__symbol { transform: none; flex: none; }
+.dw-umsetzen__wort { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.82rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; line-height: 1.3; }
+/* Knoten-Beschriftung (Impuls, Verständnis) im Stil von „Erkenntnisse“ */
+.dw-knotenwort { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+@media (max-width: 959px) {
+  .dw-umsetzen__wort, .dw-knotenwort, .dw-umsetzen__notiz { font-size: 0.76rem; }
+}

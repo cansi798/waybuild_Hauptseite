@@ -10,16 +10,16 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 // 01.11.2026 (Jamil, Talk 4192): neue Unterseiten Über uns, Referenzen, Partner, Karriere unter „Unternehmen“;
 // „Produkte“ führt auf die neue Produktübersicht /produkte/; „Umsetzen“ springt direkt zum Abschnitt Umsetzen
 // (vorher /#kapitel-2 = Abschnitt „Entscheiden“).
+// 02.11.2026 (Jamil, Talk 4331/4332): Sprunglinks „Verstehen“ und „Umsetzen“ aus der Navigation entfernt (die Abschnitte
+// bleiben auf der Startseite); „Referenzen“ ist kein Unterpunkt von „Unternehmen“ mehr, sondern ein eigener Hauptpunkt.
 export const NAV: NavItem[] = [
-  { label: 'Verstehen', path: '/#verstehen' },
-  { label: 'Umsetzen', path: '/#umsetzen' },
   { label: 'Produkte', path: '/produkte/' },
+  { label: 'Referenzen', path: '/referenzen/' },
   { label: 'Prinzipien', path: '/#prinzipien' },   // Talk 4087 (vorher „Verlässlichkeit“)
   {
     label: 'Unternehmen',
     children: [
       { label: 'Über uns', path: '/ueber-uns/', icon: 'gebaeude', desc: 'Wer wir sind und wie wir denken' },
-      { label: 'Referenzen', path: '/referenzen/', icon: 'stern', desc: 'Projekte mit Freigabe unserer Kunden' },
       { label: 'Partner', path: '/partner/', icon: 'users', desc: 'Zusammenarbeit mit Partnern' },
       { label: 'Karriere', path: '/karriere/', icon: 'rocket', desc: 'Arbeiten bei Waybuild' },
     ],
