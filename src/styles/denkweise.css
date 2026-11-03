@@ -547,8 +547,9 @@ html.js .dw .reveal { transform: none; }
 .dw-farben #prinzipien { padding-bottom: 0; }
 .dw-farben .dw-produkt--individuell, .dw-farben .dw-produkt { background: var(--white); }
 
-/* Lese-Szenen (Jamil, Talk 4324–4326): Pills geben ihren Inhalt ab und bleiben gedämpft lesbar stehen. Was in den Knoten
- * fließt, ist eine Kopie (.dw-geist, aria-hidden), die unter den Pills liegt. Ohne JS / reduzierte Bewegung: keine Kopien. */
+/* Lese-Szenen (Jamil, Talk 4324–4326, 4465): Pills stehen lange und fließen dann in den Knoten und verschwinden. Was
+ * fließt, ist eine Kopie (.dw-geist, aria-hidden) unter der Pill; die Pill blendet im selben Moment rasch aus.
+ * Ohne JS / reduzierte Bewegung: keine Kopien, alle Pills stehen. */
 .dw:not(.dw--live) .dw-geist { display: none; }
 .dw-steht { transform: none; }   /* stehende Pill: die Ruhelage trägt der Wrapper (.dw-ideebild__lage), Bewegung nur über auf */
 /* Umsetzen: Erkenntnisse mit Beschriftung (Talk 4326 „Symbole beschreiben, damit jeder versteht“) */
@@ -557,8 +558,6 @@ html.js .dw .reveal { transform: none; }
 .dw-umsetzen__eintrag { display: inline-flex; align-items: center; gap: 8px; }
 .dw-umsetzen__symbol { transform: none; flex: none; }
 .dw-umsetzen__wort { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.82rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; line-height: 1.3; }
-/* Knoten-Beschriftung (Impuls, Verständnis) im Stil von „Erkenntnisse“ */
-.dw-knotenwort { display: inline-block; padding: 1px 6px; border-radius: 6px; background: var(--grund, var(--paper)); font-size: 0.8rem; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
 @media (max-width: 959px) {
-  .dw-umsetzen__wort, .dw-knotenwort, .dw-umsetzen__notiz { font-size: 0.76rem; }
+  .dw-umsetzen__wort, .dw-umsetzen__notiz { font-size: 0.76rem; }
 }

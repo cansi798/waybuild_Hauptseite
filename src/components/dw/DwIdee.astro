@@ -15,15 +15,17 @@ const oy = (y: number) => f(((y - MY) / W) * 100);
 // Talk 4037: erst gut lesbar stehen lassen, dann (wenn die Linie den Knoten erreicht) einfließen – Talk 4122 gruppenweise.
 // Talk 4324 („länger sichtbar, damit man Zeit hat zu lesen“): Karten und Labels stehen schon, sobald sie unten ins Bild
 // kommen (sicht), und fließen erst, wenn der Knoten etwa in der Bildmitte steht (Szenen-Fortschritt bis 1.25, Tempo
-// begrenzt). Es fließt eine Kopie (.dw-geist); die Karte selbst bleibt gedämpft lesbar stehen, die Labels bleiben ganz.
+// begrenzt). Technisch fließt eine Kopie (.dw-geist), die Karte selbst blendet im selben Moment rasch aus – so wirkt es,
+// als fließe die Karte hinein und verschwinde (Jamil, Talk 4465: „rein und dann wieder verschwinden, so wie es vorher war“).
+// Das Gruppen-Label verschwindet mit seiner Gruppe.
 const gruppen = DW_IDEE.gruppen.map((g, gi) => {
   const fl = 0.8 + gi * 0.1;
   return {
     ...g,
-    an: 'auf:sicht',
+    an: `auf:sicht weg:${f(fl)}-${f(fl + 0.08)}`,
     karten: g.karten.map((k, j) => ({
       ...k,
-      an: `auf:sicht+${f(j * 0.03)} daempfen:${f(fl + j * 0.03)}-${f(fl + 0.08 + j * 0.03)}:0.6`,
+      an: `auf:sicht+${f(j * 0.03)} daempfen:${f(fl + j * 0.03)}-${f(fl + 0.03 + j * 0.03)}:0`,
       // Kopie wird erst sichtbar, wenn sie losfließt (bis dahin liegt sie verdeckt unter der Karte)
       geist: `blende:${f(fl + j * 0.03)}-${f(fl + 0.01 + j * 0.03)} einfaedeln:${f(fl + j * 0.03)}-${f(fl + 0.14 + j * 0.03)}`,
     })),
@@ -63,9 +65,5 @@ const knoten = `left:${pc(MX, W)};top:${pc(MY, H)}`;
       <span class="dw-ideebild__fuell" data-an="blende:1.12-1.22"></span>
       <Icon name="impuls" size={22} />
     </span>
-  </span>
-  {/* Talk 4326: Symbole beschriften – der Knoten ist der Impuls, zu dem die Anliegen zusammenfließen */}
-  <span class="dw-pos dw-pos--links" style={`left:calc(${pc(MX, W)} - 40px);top:${pc(MY, H)}`}>
-    <span class="dw-knotenwort" data-an="auf:1.14-1.24">Impuls</span>
   </span>
 </div>

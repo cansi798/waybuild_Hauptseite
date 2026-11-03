@@ -26,26 +26,26 @@ const sprossen = Array.from({ length: SPROSSEN }, (_, k) => {
 const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 const TEIL = 0.24, ZU = 0.34;
-// Talk 4325 („länger sichtbar“): Begriffe stehen, sobald sie unten ins Bild kommen, und fließen erst ab 0.5 nacheinander
-// in die Lupe (Kopie .dw-geist, der Begriff bleibt gedämpft lesbar stehen). Danach entsteht die DNA (bis 1.25).
-const FL = 0.5, FS = 0.07;
+// Talk 4325 („länger sichtbar“): Begriffe stehen, sobald sie unten ins Bild kommen, und fließen erst ab 0.6 nacheinander
+// in die Lupe (Kopie .dw-geist; der Begriff selbst blendet dabei rasch aus, Talk 4465). Danach entsteht die DNA (bis 1.4).
+const FL = 0.6, FS = 0.07;
 const b = DW_VERSTEHEN.begriffe.map((x, k) => ({
   ...x, k,
   ox: f(((x.x - CX) / W) * 100), oy: f(((x.y - CY) / W) * 100),
-  an: `auf:sicht daempfen:${f(FL + k * FS)}-${f(FL + 0.07 + k * FS)}:0.6`,
+  an: `auf:sicht daempfen:${f(FL + k * FS)}-${f(FL + 0.03 + k * FS)}:0`,
   geist: `blende:${f(FL + k * FS)}-${f(FL + 0.01 + k * FS)} fliessen:${f(FL + k * FS)}-${f(FL + 0.13 + k * FS)}`,
 }));
-const VOLL = FL + 4 * FS + 0.13;   // alle Begriffe in der Lupe (0.91)
+const VOLL = FL + 4 * FS + 0.13;   // alle Begriffe in der Lupe (1.01)
 ---
-<div class="dw-bild dw-verstehen" data-szene data-bereich="-0.7 1.25" data-tempo="0.7" style={`aspect-ratio: ${W} / ${H}`}>
+<div class="dw-bild dw-verstehen" data-szene data-bereich="-0.7 1.4" data-tempo="0.7" style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
     {/* Stamm und DNA erst, wenn alle Begriffe in der Lupe sind (ruhiger Ablauf, nicht mehr an die Spitze gekoppelt);
-         der Auslauf unten endet, wenn die Hauptlinie unter der Szene weiterläuft (Fortschritt ≈ 1.18) */}
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${CY} L ${CX} ${D0}`} data-an={`zeichnen:${f(VOLL)}-${f(VOLL + 0.05)}`} />
-    <path class="dw-s" pathLength="1" d={strang(1)} data-an={`zeichnen:${f(VOLL + 0.05)}-${f(VOLL + 0.22)}`} />
-    <path class="dw-s" pathLength="1" d={strang(-1)} data-an={`zeichnen:${f(VOLL + 0.05)}-${f(VOLL + 0.22)}`} />
-    {sprossen.map((s, i) => <path class="dw-s dw-s--fein dw-verstehen__sprosse" pathLength="1" d={`M ${s.x1.toFixed(1)} ${s.y.toFixed(1)} L ${s.x2.toFixed(1)} ${s.y.toFixed(1)}`} data-an={`zeichnen:${f(VOLL + 0.07 + i * 0.018)}-${f(VOLL + 0.1 + i * 0.018)}`} />)}
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${D1} L ${CX} ${H}`} data-an={`zeichnen:${f(VOLL + 0.22)}-${f(VOLL + 0.3)}`} />
+         der Auslauf unten endet, wenn die Hauptlinie unter der Szene weiterläuft (Fortschritt ≈ 1.18; hier etwas später, Talk 4465) */}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${CY} L ${CX} ${D0}`} data-an={`zeichnen:${f(VOLL)}-${f(VOLL + 0.04)}`} />
+    <path class="dw-s" pathLength="1" d={strang(1)} data-an={`zeichnen:${f(VOLL + 0.04)}-${f(VOLL + 0.15)}`} />
+    <path class="dw-s" pathLength="1" d={strang(-1)} data-an={`zeichnen:${f(VOLL + 0.04)}-${f(VOLL + 0.15)}`} />
+    {sprossen.map((s, i) => <path class="dw-s dw-s--fein dw-verstehen__sprosse" pathLength="1" d={`M ${s.x1.toFixed(1)} ${s.y.toFixed(1)} L ${s.x2.toFixed(1)} ${s.y.toFixed(1)}`} data-an={`zeichnen:${f(VOLL + 0.05 + i * 0.012)}-${f(VOLL + 0.08 + i * 0.012)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${D1} L ${CX} ${H}`} data-an={`zeichnen:${f(VOLL + 0.15)}-${f(VOLL + 0.2)}`} />
   </svg>
   {/* Kopien, die in die Lupe fließen: zuerst im DOM, also unter den stehenden Begriffen (Talk 4325) */}
   {b.map((x) => (
@@ -73,10 +73,6 @@ const VOLL = FL + 4 * FS + 0.13;   // alle Begriffe in der Lupe (0.91)
   {/* „aus“ steht nach dem Kreis-Anker „ein“: Wegpunkte zählen in Dokument-Reihenfolge */}
   <span class="dw-anker" style={`left:${pc(CX, W)};top:100%`} data-weg="aus"></span>
   <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(D1 + 26, H)}`}>
-    <span class="dw-verstehen__dna" data-an={`auf:${f(VOLL + 0.2)}-${f(VOLL + 0.28)}`}>{DW_VERSTEHEN.dnaLabel}</span>
-  </span>
-  {/* Talk 4326: Symbol beschriften – rechts neben dem Stamm unter der Lupe, zwischen „Ziele“ und der DNA */}
-  <span class="dw-pos dw-pos--rechts" style={`left:calc(${pc(CX, W)} + 14px);top:${pc(CY + 52, H)}`}>
-    <span class="dw-knotenwort" data-an={`auf:${f(VOLL - 0.04)}-${f(VOLL + 0.04)}`}>{DW_VERSTEHEN.mitte}</span>
+    <span class="dw-verstehen__dna" data-an={`auf:${f(VOLL + 0.14)}-${f(VOLL + 0.22)}`}>{DW_VERSTEHEN.dnaLabel}</span>
   </span>
 </div>

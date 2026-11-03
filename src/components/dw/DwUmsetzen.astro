@@ -5,8 +5,8 @@
 // „Lösung“: Bausteine schieben sich zu einem fertigen Ganzen zusammen (kein Produktname). Ohne JS / reduzierte
 // Bewegung: fertiges Bild.
 // Talk 4326 („länger sichtbar“ + „Symbole beschreiben, damit jeder versteht“): Die drei Erkenntnisse stehen jetzt
-// beschriftet untereinander rechts vom Knoten (Analyse, Ideen, Ziele), schon wenn sie unten ins Bild kommen. Ab 0.45
-// fließt je eine Kopie des Symbols in den Knoten, das beschriftete Symbol bleibt gedämpft stehen. Lösung danach (bis 1.25).
+// beschriftet untereinander rechts vom Knoten (Analyse, Ideen, Ziele), schon wenn sie unten ins Bild kommen. Ab 0.6
+// fließt je eine Kopie des Symbols in den Knoten; Symbol und Wort blenden dabei aus (Talk 4465: verschwinden wie vorher). Lösung danach (bis 1.4).
 import Icon from '../Icon.astro';
 const W = 440, H = 460, CX = 220, KY = 124;
 // Lösung: Rahmen mit vier Bausteinen (2 × 2); tiefer als vorher, damit die beschrifteten Erkenntnisse darüber Platz haben
@@ -15,7 +15,7 @@ const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 // Bedeutung aus der Geschichte der Seite: Lupe = was wir beim Verstehen genau angesehen haben, Glühbirne = Ideen
 // (wie bei Impuls), Zielscheibe = Ziele (wie bei Verstehen)
-const SX = 300, ABST = 50, FL = 0.45, FS2 = 0.1;
+const SX = 300, ABST = 50, FL = 0.6, FS2 = 0.1;
 const erkenntnisse = [
   { icon: 'search', wort: 'Analyse' },
   { icon: 'idee', wort: 'Ideen' },
@@ -24,11 +24,12 @@ const erkenntnisse = [
   const y = KY + (k - 1) * ABST;
   return {
     ...e, k, y, ox: f(((SX - CX) / W) * 100), oy: f(((y - KY) / W) * 100),
-    an: `auf:sicht daempfen:${f(FL + k * FS2)}-${f(FL + 0.07 + k * FS2)}:0.6`,
+    an: `auf:sicht daempfen:${f(FL + k * FS2)}-${f(FL + 0.03 + k * FS2)}:0`,
+    wortAn: `auf:sicht daempfen:${f(FL + k * FS2)}-${f(FL + 0.08 + k * FS2)}:0`,
     geist: `blende:${f(FL + k * FS2)}-${f(FL + 0.01 + k * FS2)} fliessen:${f(FL + k * FS2)}-${f(FL + 0.13 + k * FS2)}`,
   };
 });
-const VOLL = FL + 2 * FS2 + 0.13;   // alle Kopien im Knoten (0.78)
+const VOLL = FL + 2 * FS2 + 0.13;   // alle Kopien im Knoten (0.93)
 const bausteine = [
   { x: FX + PAD, y: FY + PAD, von: 'links' },
   { x: FX + PAD + BS + GAP, y: FY + PAD, von: 'rechts' },
@@ -37,13 +38,13 @@ const bausteine = [
 ].map((b, k) => ({ ...b, k }));
 const rahmen = `M ${CX} ${FY} H ${FX + FS - 14} A 14 14 0 0 1 ${FX + FS} ${FY + 14} V ${FY + FS - 14} A 14 14 0 0 1 ${FX + FS - 14} ${FY + FS} H ${FX + 14} A 14 14 0 0 1 ${FX} ${FY + FS - 14} V ${FY + 14} A 14 14 0 0 1 ${FX + 14} ${FY} Z`;
 ---
-<div class="dw-bild dw-umsetzen" data-szene data-bereich="-0.7 1.25" data-tempo="0.7" style={`aspect-ratio: ${W} / ${H}`}>
+<div class="dw-bild dw-umsetzen" data-szene data-bereich="-0.7 1.4" data-tempo="0.7" style={`aspect-ratio: ${W} / ${H}`}>
   <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${KY} L ${CX} ${FY}`} data-an={`zeichnen:${f(VOLL + 0.04)}-${f(VOLL + 0.1)}`} />
-    <rect class="dw-umsetzen__flaeche" x={FX} y={FY} width={FS} height={FS} rx="14" data-an={`blende:${f(VOLL + 0.08)}-${f(VOLL + 0.14)}`} />
-    <path class="dw-s" pathLength="1" d={rahmen} data-an={`zeichnen:${f(VOLL + 0.08)}-${f(VOLL + 0.2)}`} />
-    {bausteine.map((b) => <rect class:list={['dw-umsetzen__baustein', { 'dw-umsetzen__baustein--knopf': b.akzent }]} x={b.x} y={b.y} width={BS} height={BS} rx="8" data-an={`${b.von}:${f(VOLL + 0.14 + b.k * 0.04)}-${f(VOLL + 0.22 + b.k * 0.04)}`} />)}
-    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY + FS} L ${CX} ${H}`} data-an={`zeichnen:${f(VOLL + 0.32)}-${f(VOLL + 0.42)}`} />
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${KY} L ${CX} ${FY}`} data-an={`zeichnen:${f(VOLL + 0.02)}-${f(VOLL + 0.06)}`} />
+    <rect class="dw-umsetzen__flaeche" x={FX} y={FY} width={FS} height={FS} rx="14" data-an={`blende:${f(VOLL + 0.05)}-${f(VOLL + 0.1)}`} />
+    <path class="dw-s" pathLength="1" d={rahmen} data-an={`zeichnen:${f(VOLL + 0.05)}-${f(VOLL + 0.14)}`} />
+    {bausteine.map((b) => <rect class:list={['dw-umsetzen__baustein', { 'dw-umsetzen__baustein--knopf': b.akzent }]} x={b.x} y={b.y} width={BS} height={BS} rx="8" data-an={`${b.von}:${f(VOLL + 0.09 + b.k * 0.03)}-${f(VOLL + 0.15 + b.k * 0.03)}`} />)}
+    <path class="dw-s" pathLength="1" d={`M ${CX} ${FY + FS} L ${CX} ${H}`} data-an={`zeichnen:${f(VOLL + 0.2)}-${f(VOLL + 0.26)}`} />
   </svg>
 
   {/* Kopien der Symbole, die in den Knoten fließen: zuerst im DOM, also unter den stehenden Einträgen */}
@@ -56,7 +57,7 @@ const rahmen = `M ${CX} ${FY} H ${FX + FS - 14} A 14 14 0 0 1 ${FX + FS} ${FY + 
   <ul class="dw-umsetzen__liste" aria-label="Erkenntnisse">
     {erkenntnisse.map((e) => (
       <li class="dw-pos dw-pos--rechts" style={`left:calc(${pc(SX, W)} - 17px);top:${pc(e.y, H)}`}>
-        <span class="dw-umsetzen__eintrag" data-an={e.an}><span class="dw-umsetzen__symbol" aria-hidden="true"><Icon name={e.icon as any} size={16} /></span><span class="dw-umsetzen__wort">{e.wort}</span></span>
+        <span class="dw-umsetzen__eintrag"><span class="dw-umsetzen__symbol" aria-hidden="true" data-an={e.an}><Icon name={e.icon as any} size={16} /></span><span class="dw-umsetzen__wort" data-an={e.wortAn}>{e.wort}</span></span>
       </li>
     ))}
   </ul>
@@ -78,6 +79,6 @@ const rahmen = `M ${CX} ${FY} H ${FX + FS - 14} A 14 14 0 0 1 ${FX + FS} ${FY + 
     <span class="dw-umsetzen__notiz" data-an="auf:0.2-0.3">Erkenntnisse</span>
   </span>
   <span class="dw-pos" style={`left:${pc(CX, W)};top:${pc(FY + FS + 30, H)}`}>
-    <span class="dw-umsetzen__ergebnis" data-an={`auf:${f(VOLL + 0.3)}-${f(VOLL + 0.38)}`}><Icon name="check" size={18} /> Lösung</span>
+    <span class="dw-umsetzen__ergebnis" data-an={`auf:${f(VOLL + 0.18)}-${f(VOLL + 0.25)}`}><Icon name="check" size={18} /> Lösung</span>
   </span>
 </div>

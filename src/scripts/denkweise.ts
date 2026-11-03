@@ -11,7 +11,7 @@
 //   rechts | breit | hoch | fliessen | einfaedeln | weg (Wegpunkte selbst nie verschieben, sonst stimmt die Messung nicht),
 //   a-b = Bereich im Szenen-Fortschritt oder "auto" (nach Lage des Elements in der Szene) oder "sicht[+d]" (sobald das
 //   Element unten ins Bild kommt, bei ~92 % der Fensterhöhe; d verzögert im Szenen-Fortschritt). Zusätzlich daempfen
-//   (wie aus, aber bei reduzierter Bewegung nicht) – z. B. Pills, die ihren Inhalt abgeben und gedämpft stehen bleiben.
+//   (wie aus, aber bei reduzierter Bewegung nicht) – z. B. Pills, die beim Einfließen an ihre Kopie (.dw-geist) übergeben und ausblenden.
 // - Lese-Szenen (Jamil, Talk 4324–4326: „länger sichtbar, damit man Zeit hat zu lesen“):
 //   [data-bereich="von bis"] erweitert den Fortschritt über 0…1 hinaus (z. B. "-0.7 1.25": Elemente stehen schon, wenn
 //   die Szene unten ins Bild kommt, und fließen erst ein, wenn der Knoten etwa in der Bildmitte steht).
