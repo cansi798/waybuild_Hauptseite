@@ -68,7 +68,7 @@ const wort = K.benefits.liste.map((x) => x.b);
         <h2 id="warum-h">{K.benefits.titel}</h2>
         <p>{K.benefits.text}</p>
       </div>
-      <div class="kr-akro" data-szene data-bereich="0 1.6">
+      <div class="kr-akro" data-szene data-bereich="0 1.2">
         <ol class="kr-akro__liste">
           {K.benefits.liste.map((x, i) => (
             <li class="kr-akro__zeile">
@@ -81,13 +81,13 @@ const wort = K.benefits.liste.map((x) => x.b);
             </li>
           ))}
         </ol>
-        <div class="kr-wort" role="img" aria-label={K.benefits.wortLabel}>
-          <span class="kr-wort__steg" aria-hidden="true" data-an="hoch:sicht"></span>
-          <span class="kr-wort__buchstaben" aria-hidden="true">
-            {wort.map((b, i) => <span class="kr-wort__b" data-an={`auf:sicht+${(0.04 + i * 0.035).toFixed(3)}`}>{b}</span>)}
-          </span>
-          <span class="kr-wort__linie" aria-hidden="true" data-an="breit:sicht+0.33"></span>
-        </div>
+      </div>
+      <div class="kr-wort" role="img" aria-label={K.benefits.wortLabel} data-szene data-bereich="-2 1" data-tempo="1.4">
+        <span class="kr-wort__steg" aria-hidden="true" data-an="hoch:-2--1.75"></span>
+        <span class="kr-wort__buchstaben" aria-hidden="true">
+          {wort.map((b, i) => <span class="kr-wort__b" data-an={`auf:${(-1.9 + i * 0.1).toFixed(2)}-${(-1.6 + i * 0.1).toFixed(2)}`}>{b}</span>)}
+        </span>
+        <span class="kr-wort__linie" aria-hidden="true" data-an="breit:-1.1--0.75"></span>
       </div>
     </div>
   </section>

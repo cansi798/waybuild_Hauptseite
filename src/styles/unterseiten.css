@@ -224,7 +224,8 @@
 .kr-akro__text h3 { margin: 0 0 4px; font-size: clamp(1.15rem, 2.2vw, 1.35rem); line-height: 1.25; }
 .kr-akro__init { color: var(--accent-ink); }
 .kr-akro__text p { margin: 0; color: var(--ink-soft); line-height: 1.65; }
-.kr-wort { position: relative; padding-top: 0; }
+.kr-wort { position: relative; max-width: 640px; }
+@media (min-width: 960px) { .kr-wort { grid-column: 2; } }
 .kr-wort__steg { display: block; width: 2.5px; height: 36px; margin-top: -2px; margin-left: 28.75px; border-radius: 2px; background: var(--accent-mid); transform-origin: top; }
 .kr-wort__buchstaben { display: flex; gap: 0.04em; margin-top: 10px; font-family: var(--font-head); font-weight: 800; font-size: clamp(2.3rem, 11vw, 4.6rem); line-height: 1; letter-spacing: 0.02em; color: var(--accent-ink); }
 .kr-wort__b { display: inline-block; }
@@ -233,7 +234,7 @@
 @media (min-width: 960px) {
   .kr-stellen { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
   .kr-stelle--offen { grid-column: 1 / -1; }
-  .kr-warum__raster { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+  .kr-warum__raster { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 0 56px; align-items: start; }
   .kr-akro__zeile { grid-template-columns: 68px minmax(0, 1fr); gap: 0 24px; padding-bottom: 34px; }
   .kr-akro__knoten { width: 68px; height: 68px; font-size: 2.1rem; }
   .kr-akro__steg { left: 32.75px; top: 68px; }
