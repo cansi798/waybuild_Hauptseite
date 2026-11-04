@@ -4,9 +4,11 @@
 
 Waybuild entwickelt durchdachte Lösungen und übernimmt Verantwortung dafür, dass Projekte und Zusammenarbeit für Kunden möglichst einfach, verständlich und verlässlich bleiben.
 
-Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
+Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland, Österreich und der Schweiz (DACH, B2B), remote und persönlich. Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
 Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher USt. Nur B2B.
+
+Sprachen: Deutsch (Hauptsprache) und Englisch (https://cansi798.github.io/waybuild_Hauptseite/en/). Impressum, Datenschutz und AGB nur auf Deutsch.
 
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
@@ -105,6 +107,7 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Prozess einer Anfrage, Prinzipien
 - [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
 - [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
+- [English: Home](https://cansi798.github.io/waybuild_Hauptseite/en/), [Products](https://cansi798.github.io/waybuild_Hauptseite/en/products/), [About us](https://cansi798.github.io/waybuild_Hauptseite/en/about/), [Careers](https://cansi798.github.io/waybuild_Hauptseite/en/careers/), [Contact](https://cansi798.github.io/waybuild_Hauptseite/en/contact/)
 - [Impressum](https://cansi798.github.io/waybuild_Hauptseite/impressum/)
 - [Datenschutz](https://cansi798.github.io/waybuild_Hauptseite/datenschutz/)
 - [AGB](https://cansi798.github.io/waybuild_Hauptseite/agb/)
