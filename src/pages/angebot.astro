@@ -9,14 +9,14 @@ import Icon from '../components/Icon.astro';
 import { href, absolute } from '../lib/paths';
 import Faq from '../components/Faq.astro';
 import Hint from '../components/Hint.astro';
-import { WAAS, PAKETE, MODELL, INKLUSIVE, OFFER, steps, faqsWebsite, formatEuro, netto, BRUTTO_HINWEIS } from '../config/site';
+import { WAAS, PAKETE, MODELL, INKLUSIVE, OFFER, steps, faqsWebsite, formatEuro, brutto, PREIS_HINWEIS } from '../config/site';
 import { WEBSITE_PRODUKT as P, produktName } from '../config/hauptseite';
 const NAME = produktName(P);
 ---
 
 <BaseLayout
   title={`${NAME}: Website im Abo mit Betreuung`}
-  description={`${NAME} von Waybuild: drei Pakete ${PAKETE.map((p) => `${p.name} ${formatEuro(p.preis)}`).join(', ')} im Monat inkl. MwSt., ohne Einrichtungskosten.`}
+  description={`${NAME} von Waybuild: drei Pakete ${PAKETE.map((p) => `${p.name} ${formatEuro(p.preis)}`).join(', ')} im Monat netto, ohne Einrichtungskosten.`}
   breadcrumb={[{ name: NAME, path: '/angebot/' }]}
   schema={[
     {
@@ -31,11 +31,11 @@ const NAME = produktName(P);
       offers: PAKETE.map((p) => ({
         '@type': 'Offer',
         name: p.name,
-        description: `${p.kurz}. ${[...p.extras, ...p.features].join(', ')}. Keine Einrichtungskosten, keine Seitenbegrenzung, ${WAAS.laufzeit}. Preis inkl. 19 % MwSt. (${netto(p.preis).toFixed(2).replace('.', ',')} € netto).`,
+        description: `${p.kurz}. ${[...p.extras, ...p.features].join(', ')}. Keine Einrichtungskosten, keine Seitenbegrenzung, ${WAAS.laufzeit}. Preis netto zzgl. 19 % MwSt. (${brutto(p.preis).toFixed(2).replace('.', ',')} € inkl. MwSt.).`,
         price: p.preis,
         priceCurrency: 'EUR',
         eligibleCustomerType: 'http://purl.org/goodrelations/v1#Business',
-        priceSpecification: { '@type': 'UnitPriceSpecification', price: p.preis, priceCurrency: 'EUR', unitText: 'Monat', valueAddedTaxIncluded: true },
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: p.preis, priceCurrency: 'EUR', unitText: 'Monat', valueAddedTaxIncluded: false },
       })),
     },
     {
@@ -62,7 +62,7 @@ const NAME = produktName(P);
             {p.empfohlen && <span class="paket__tag">Empfohlen</span>}
             <h3>{p.name}</h3>
             <p class="paket__kurz">{p.kurz}</p>
-            <p class="paket__preis"><strong>{formatEuro(p.preis)}</strong> <span>pro Monat inkl. MwSt.<br />{formatEuro(netto(p.preis))} netto</span></p>
+            <p class="paket__preis"><strong>{formatEuro(p.preis)}</strong> <span>netto / Monat zzgl. 19 % MwSt.<br />{formatEuro(brutto(p.preis))} inkl. MwSt.</span></p>
             <p class="paket__fuer">{p.fuer}</p>
             <ul class="paket__extras" aria-label="Extras">{p.extras.map((e) => <li><Icon name="doc" size={15} />{e}</li>)}</ul>
             <ul class="paket__liste">
@@ -75,7 +75,7 @@ const NAME = produktName(P);
       <ul class="modell" aria-label="Rahmenbedingungen">
         {MODELL.map((m) => <li><Icon name="check" size={16} />{m}</li>)}
       </ul>
-      <p class="paket__hinweis">{WAAS.laufzeit}. {BRUTTO_HINWEIS} Impressum und Datenschutzerklärung binden wir nach aktuellem Stand ein; das ersetzt keine Rechtsberatung.</p>
+      <p class="paket__hinweis">{WAAS.laufzeit}. {PREIS_HINWEIS} Impressum und Datenschutzerklärung binden wir nach aktuellem Stand ein; das ersetzt keine Rechtsberatung.</p>
     </div>
   </section>
 

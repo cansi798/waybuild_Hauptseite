@@ -40,7 +40,7 @@ export const VAT_RATE = 0.19;
 /* ─────────────────────────────────────────────────────────────────────────────
  * DAS ANGEBOT „Website as a Service“ in drei Paketen (Can, Talk qh87y3sj 4499–4510, 04.11.2026):
  * Fundament 79,99 € · Wegweiser 149,99 € · Wahrzeichen 299,99 € im Monat.
- * Preise sind BRUTTO inkl. 19 % USt (Endpreis), der Nettopreis wird klein darunter gezeigt.
+ * Preise sind NETTO zzgl. 19 % USt (B2B, Can Talk 4526), der Bruttopreis steht klein darunter.
  * Preise NIE fest in Texte schreiben – immer aus PAKETE.
  * GLEICHE DATEN wie waybuild_website/src/config/site.ts → PAKETE (zwei Repos, bei Änderungen beide anpassen!).
  * Laufzeit: 24 Monate Mindestlaufzeit, danach monatlich kündbar (Can, Talk 4511, 04.11.2026; AGB § 5).
@@ -61,7 +61,7 @@ export type Paket = {
   name: string;
   /** Kurz-Nutzen unter dem Namen */
   kurz: string;
-  /** Monatspreis BRUTTO inkl. 19 % USt */
+  /** Monatspreis NETTO zzgl. 19 % USt */
   preis: number;
   /** Für wen – ein Satz aus Kundensicht */
   fuer: string;
@@ -139,8 +139,8 @@ export const IN_ALLEN = [
 ];
 
 export const VAT_FAKTOR = 1 + VAT_RATE;
-/** Nettopreis zu einem Bruttopreis (auf Cent gerundet). */
-export const netto = (brutto: number) => Math.round((brutto / VAT_FAKTOR) * 100) / 100;
+/** Bruttopreis zu einem Nettopreis (kaufmännisch auf Cent gerundet). */
+export const brutto = (netto: number) => Math.round(netto * VAT_FAKTOR * 100) / 100;
 
 /** Gesamtkosten über die Mindestlaufzeit (0 € Einrichtung). */
 export const gesamtLaufzeit = (p: Paket) => Math.round(p.preis * WAAS.laufzeitMonate * 100) / 100;
@@ -153,10 +153,10 @@ export const formatEuro = (n: number) =>
 
 /** Preis-Zeilen für alle Seiten (aus PAKETE). */
 export const preisKurz = () => `ab ${formatEuro(preisAb())} / Monat`;
-export const preisLang = () => `ab ${formatEuro(preisAb())} im Monat, inkl. MwSt.`;
-export const preiseAlle = () => PAKETE.map((p) => `${p.name}: ${formatEuro(p.preis)} / Monat`).join(' · ') + ' (inkl. MwSt.)';
+export const preisLang = () => `ab ${formatEuro(preisAb())} im Monat, zzgl. MwSt.`;
+export const preiseAlle = () => PAKETE.map((p) => `${p.name}: ${formatEuro(p.preis)} / Monat`).join(' · ') + ' (netto, zzgl. MwSt.)';
 /** Hinweis unter den Paketpreisen. */
-export const BRUTTO_HINWEIS = 'Preise der Website-Pakete inkl. 19 % USt., der Nettopreis steht jeweils darunter. Unser Angebot richtet sich ausschließlich an Unternehmen, Selbstständige und Institutionen.';
+export const PREIS_HINWEIS = 'Alle Preise netto zzgl. gesetzlicher MwSt.; das Angebot richtet sich an Unternehmen und Selbstständige.';
 
 /** Das Angebot in einem Satz. */
 export const OFFER = 'Website, Hosting, Domain, SSL, Wartung, Backups und Betreuung zu einem festen Monatspreis.';
@@ -189,7 +189,7 @@ export const INKLUSIVE: { icon: IconName; title: string }[] = [
 export const MODELL = [
   'Keine Einrichtungskosten',
   'Keine Seitenbegrenzung',
-  'Fester Monatspreis inkl. MwSt.',
+  'Fester Monatspreis, netto zzgl. MwSt.',
   `${WAAS.laufzeitMonate} Monate Mindestlaufzeit`,
   'Keine versteckten Kosten',
 ];
@@ -235,8 +235,8 @@ export const faqsAllgemein = [
     a: 'Unser Hauptprodukt ist der Website Service. Passt kein fertiges Produkt, entwickeln wir auf Anfrage individuelle Software. Weitere Produkte folgen.',
   },
   {
-    q: 'Sind die Preise netto oder brutto?',
-    a: 'Die Preise der Website-Pakete enthalten die Umsatzsteuer von 19 %. Den Nettopreis nennen wir jeweils mit, zum Beispiel 79,99 € im Monat, das sind 67,22 € netto. Andere Leistungen bieten wir netto zzgl. Umsatzsteuer an. Unsere Produkte richten sich ausschließlich an Unternehmen und Selbstständige (B2B).',
+    q: 'Sind die Preise netto?',
+    a: 'Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Zum Beispiel kostet Fundament 79,99 € netto im Monat, das sind 95,19 € inkl. MwSt. Unser Angebot richtet sich ausschließlich an Unternehmen und Selbstständige (B2B).',
   },
 ];
 
@@ -244,7 +244,7 @@ export const faqsAllgemein = [
 export const faqsWebsite = [
   {
     q: 'Was kostet eine Website bei Waybuild?',
-    a: `Es gibt drei Pakete: ${PAKETE.map((p) => `${p.name} für ${formatEuro(p.preis)} im Monat (${formatEuro(netto(p.preis))} netto)`).join(', ')}. Alle Preise inkl. MwSt., ohne Einrichtungskosten und ohne Seitenbegrenzung.`,
+    a: `Es gibt drei Pakete: ${PAKETE.map((p) => `${p.name} für ${formatEuro(p.preis)} netto im Monat (${formatEuro(brutto(p.preis))} inkl. MwSt.)`).join(', ')}. Alle Preise netto zzgl. gesetzlicher MwSt., ohne Einrichtungskosten und ohne Seitenbegrenzung.`,
   },
   {
     q: 'Was ist der Unterschied zwischen den drei Paketen?',
