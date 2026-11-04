@@ -14,8 +14,8 @@ export const company = {
   legalName: 'Waybuild UG (haftungsbeschränkt)',
   slogan: 'Wir machen Veränderungen einfach.',
   email: 'kontakt@waybuild.de', // Postfach muss noch eingerichtet werden (siehe Checkliste)
-  street: 'Kuno-Liesenberg-Kehre 32a',
-  zip: '22844',
+  street: 'Rathausallee 76',
+  zip: '22846',
   city: 'Norderstedt',
   country: 'DE',
   managingDirector: 'Can Siebert',
