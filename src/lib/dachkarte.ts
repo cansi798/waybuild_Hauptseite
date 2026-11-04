@@ -57,6 +57,6 @@ export function dachKarte() {
     boegen,
     rStadt: R_STADT,
     // Ländernamen außerhalb der Umrisse (Nordsee, unter Österreich, unter der Schweiz) – kreuzen so keine Linien
-    landLabel: { DE: [KARTE.x + 8, P(0, 54.25)[1]] as [number, number], AT: P(15.1, 46.2), CH: P(8.3, 45.5) },
+    landLabel: { DE: [KARTE.x + 8, P(0, 53.92)[1]] as [number, number], AT: P(15.1, 46.2), CH: P(8.3, 45.5) },
   };
 }
