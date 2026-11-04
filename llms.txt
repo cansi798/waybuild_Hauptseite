@@ -10,6 +10,13 @@ Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Pr
 
 Sprachen: Deutsch (Hauptsprache) und Englisch (https://cansi798.github.io/waybuild_Hauptseite/en/). Impressum, Datenschutz und AGB nur auf Deutsch.
 
+## Einsatzgebiet
+- Sitz: Norderstedt bei Hamburg (einziger Standort, keine Niederlassungen).
+- Einsatzgebiet: ganz Deutschland, Österreich und die Schweiz (DACH). Wir arbeiten remote und, wenn es passt, persönlich vor Ort.
+- Deutschland, zum Beispiel: Hamburg, Berlin, München, Köln, Frankfurt, Stuttgart, Düsseldorf, Leipzig, Hannover, Bremen, Nürnberg, Dresden.
+- Österreich, zum Beispiel: Wien, Graz, Linz, Salzburg, Innsbruck.
+- Schweiz, zum Beispiel: Zürich, Basel, Bern, Genf, Luzern.
+
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
 - Sie erreichen immer einen Menschen. Kein Callcenter, keine Warteschleife.
