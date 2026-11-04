@@ -4,7 +4,7 @@
 
 Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
-Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).
+Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Preise der Website-Pakete inkl. 19 % USt. (Nettopreis jeweils genannt), andere Leistungen netto zzgl. USt. Nur B2B.
 
 ## Für alle Produkte: Service-Zusagen
 - Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
@@ -47,10 +47,13 @@ Kernsatz: Wir verstehen, bevor wir umsetzen.
 
 ## Website Service (Hauptprodukt)
 Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
-- Enthalten: Professionelle Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups, Laufende Betreuung, KI-gestützte Erstellung, Sprachgesteuerte Änderungen.
-- Geschäftsmodell: Keine Einrichtungskosten, Fester Monatspreis, netto zzgl. MwSt., 24 Monate Laufzeit, Website, Code und Domain gehören Ihnen, Keine versteckten Kosten, Kein künstlicher Lock-in.
-- Website: 79 € pro Monat, netto, Professionell und komplett betreut. Professionelle Website nach persönlicher Beratung, Hosting, Domainverwaltung und SSL, Wartung, Updates und Backups, Laufende Betreuung und Änderungen per Sprache oder Text.
-- Intelligente Website: 139 € pro Monat, netto, Optimiert sich selbst und passt sich an. Alles aus „Website“, Wertet Besucher, Suchbegriffe und Anfragen laufend aus, Passt Inhalte und Aufbau selbstständig an, Hebt erfolgreiche Leistungen und Referenzen hervor, Optimiert den Weg vom Besucher zur Anfrage.
+- Enthalten: Professionelle Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups, Laufende Betreuung, KI-gestützte Erstellung, Sprachgesteuerte Änderungen, 20 E-Mail-Postfächer, SEO und KI-Suche, Keine Seitenbegrenzung.
+- Geschäftsmodell: Keine Einrichtungskosten, Keine Seitenbegrenzung, Fester Monatspreis inkl. MwSt., 24 Monate Mindestlaufzeit, Keine versteckten Kosten.
+- In allen Paketen: Keine Seitenbegrenzung, 0 € Einrichtung, 20 E-Mail-Postfächer, E-Mail-Signatur nach DIN 5008, SEO und KI-Suche optimiert, leicht erklärt, Impressum und Datenschutzerklärung nach aktuellem Stand, Hosting in Deutschland, DSGVO-orientiert, SSL, Domain, Updates und Backups, Änderungen per Nachricht, im fairen Rahmen, 24 Monate Mindestlaufzeit.
+- Paket Fundament: 79,99 € pro Monat inkl. MwSt. (67,22 € netto). Professionell online, ohne Startkosten. E-Mail-Signatur nach DIN 5008, Website ohne Seitenbegrenzung nach persönlichem Erstgespräch, Texte schreiben wir mit Ihnen, KI-gestützt und von uns geprüft, SEO und für KI-Suche optimiert, in leichter Sprache erklärt, 20 E-Mail-Postfächer, Impressum und Datenschutzerklärung nach aktuellem Stand, Hosting in Deutschland, DSGVO-orientiert eingerichtet, Änderungen per Sprachnachricht oder Text, im fairen Rahmen.
+- Paket Wegweiser: 149,99 € pro Monat inkl. MwSt. (126,04 € netto). Zeigt neuen Kunden den Weg zu Ihnen. E-Mail-Signatur nach DIN 5008, Briefvorlage nach DIN 5008, Alles aus „Fundament“, Google-Unternehmensprofil erstellt und eingerichtet (einmalig), E-Mail-Postfächer strukturiert eingerichtet, mit Unterordnern und Regeln für den Alltag, Lokale Seiten für Ihre Orte und Leistungen, Monatsbericht: Besucher, Anfragen, Suchbegriffe, Wir verbessern laufend den Weg vom Besucher zur Anfrage.
+- Paket Wahrzeichen: 299,99 € pro Monat inkl. MwSt. (252,09 € netto). Website, Logo und Geschäftspapiere aus einer Hand. Logo-Design, CI-Geschäftsbriefe nach DIN 5008, E-Mail-Signatur nach DIN 5008, Alles aus „Wegweiser“, Ständige Optimierung in Absprache mit Ihnen, Logo-Design: 3 Entwürfe, 2 Korrekturrunden, Dateien für Web und Druck, CI-Geschäftsbriefe nach DIN 5008: Briefbogen, Angebot, Rechnung, Kurzer CI-Leitfaden: Farben, Schriften, Logo-Einsatz, Quartalsgespräch zur Weiterentwicklung.
+- Laufzeit: 24 Monate Mindestlaufzeit, danach monatlich kündbar (mit einem Monat Frist zum Monatsende).
 - Schritt 1, Erstgespräch: Wir lernen Ihr Unternehmen kennen und hören zu, was sich verändern soll.
 - Schritt 2, Verstehen & Planen: Wen möchten Sie erreichen? Was soll Ihre Website leisten? Wie wird aus einem Besucher eine Anfrage? Das klären wir gemeinsam.
 - Schritt 3, Umsetzen: Wir gestalten und bauen Ihre Website. Mit KI-gestützten Werkzeugen geht das schnell. Sie prüfen, wir feilen, bis alles passt.
@@ -63,16 +66,19 @@ Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
 - Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
 - Welche Rolle spielt KI? Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.
 - Bietet Waybuild neben Websites noch etwas an? Unser Hauptprodukt ist der Website Service. Passt kein fertiges Produkt, entwickeln wir auf Anfrage individuelle Software. Weitere Produkte folgen.
-- Sind die Preise netto? Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Unsere Produkte richten sich ausschließlich an Unternehmen und Selbstständige (B2B).
+- Sind die Preise netto oder brutto? Die Preise der Website-Pakete enthalten die Umsatzsteuer von 19 %. Den Nettopreis nennen wir jeweils mit, zum Beispiel 79,99 € im Monat, das sind 67,22 € netto. Andere Leistungen bieten wir netto zzgl. Umsatzsteuer an. Unsere Produkte richten sich ausschließlich an Unternehmen und Selbstständige (B2B).
 
 ## Häufige Fragen zum Website Service
-- Was kostet eine Website bei Waybuild? Website: 79 € im Monat. Intelligente Website: 139 € im Monat. Alle Preise netto zzgl. MwSt., ohne Einrichtungskosten und ohne versteckte Kosten.
-- Was ist der Unterschied zwischen 79 € und 139 €? Die Website für 79 € ist Ihr professioneller Auftritt, den wir pflegen und betreuen. Die intelligente Website für 139 € macht zusätzlich mit: Sie wertet aus, woher Anfragen kommen und was Besucher interessiert, und passt Inhalte und Aufbau laufend daran an.
-- Was ist beim Website Service enthalten? Persönliche Beratung, KI-gestützte Erstellung, Hosting, Domainverwaltung, SSL, Wartung, Backups und laufende Betreuung. Sie zahlen einen festen Monatspreis und keine Einrichtungskosten.
-- Wie lange läuft der Vertrag? Die Laufzeit beträgt 24 Monate. Wir möchten langfristig zusammenarbeiten, ohne Sie künstlich an uns zu binden.
+- Was kostet eine Website bei Waybuild? Es gibt drei Pakete: Fundament für 79,99 € im Monat (67,22 € netto), Wegweiser für 149,99 € im Monat (126,04 € netto), Wahrzeichen für 299,99 € im Monat (252,09 € netto). Alle Preise inkl. MwSt., ohne Einrichtungskosten und ohne Seitenbegrenzung.
+- Was ist der Unterschied zwischen den drei Paketen? Fundament bringt Sie professionell online, mit 20 E-Mail-Postfächern und einer E-Mail-Signatur nach DIN 5008. Wegweiser erstellt zusätzlich Ihr Google-Unternehmensprofil, richtet Ihre Postfächer mit Ordnern und Regeln ein und verbessert laufend den Weg zur Anfrage. Wahrzeichen enthält außerdem Logo-Design, Geschäftsbriefe nach DIN 5008 und eine ständige Optimierung in Absprache mit Ihnen.
+- Was ist beim Website Service enthalten? Persönliche Beratung, KI-gestützte Erstellung ohne Seitenbegrenzung, Hosting in Deutschland, Domainverwaltung, SSL, Wartung, Backups, 20 E-Mail-Postfächer, eine E-Mail-Signatur nach DIN 5008 und laufende Betreuung. Ihre Website ist für Google und KI-Suchen optimiert, und wir erklären in leichter Sprache, was wir dafür tun. Sie zahlen einen festen Monatspreis und keine Einrichtungskosten.
+- Wie lange läuft der Vertrag? Die Mindestlaufzeit beträgt 24 Monate. Danach läuft das Abo monatlich weiter und ist mit einem Monat Frist zum Monatsende kündbar. Die Kündigung genügt in Textform, zum Beispiel per E-Mail.
+- Was passiert nach 24 Monaten? Nichts Überraschendes: Ihre Website läuft weiter wie bisher, zum gleichen Monatspreis und mit derselben Betreuung. Ab dann können Sie jeden Monat kündigen, mit einem Monat Frist zum Monatsende.
+- Gibt es Einrichtungskosten? Nein. In allen drei Paketen zahlen Sie keine Einrichtungsgebühr, nur den festen Monatspreis. Viele Anbieter verlangen vorab mehrere hundert Euro, bei uns fällt das weg.
+- Wie viele Seiten bekommt meine Website? So viele, wie Ihr Unternehmen braucht. Es gibt in keinem Paket eine Seitenbegrenzung.
+- Kann ich später in ein größeres Paket wechseln? Ja, ein Wechsel in ein größeres Paket ist möglich. Sagen Sie uns einfach Bescheid, die Einzelheiten besprechen wir mit Ihnen.
 - Wie schnell ist meine Website online? Spätestens 14 Tage, nachdem Ihre Inhalte (Texte, Bilder, Logo) vorliegen. Auf Wunsch erarbeiten wir die Inhalte gemeinsam mit Ihnen.
-- Wem gehören Website, Code und Domain? Ihnen. Die Domain läuft auf Ihren Namen, Website und Code gehören Ihrem Unternehmen.
-- Kann ich meine bestehende Domain mitnehmen? Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall. Sie bleibt auf Ihren Namen registriert.
+- Kann ich meine bestehende Domain mitnehmen? Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall.
 
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
