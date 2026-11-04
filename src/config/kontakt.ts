@@ -28,7 +28,7 @@ export const KONTAKT_DE = {
   },
   meta: {
     title: 'Kontakt und kostenloses Erstgespräch',
-    description: 'Kontakt zu Waybuild: persönlicher Ansprechpartner, erste Rückmeldung innerhalb einer Stunde während der Servicezeiten. Für Unternehmen in der DACH-Region.',
+    description: 'Kontakt zu Waybuild: persönlicher Ansprechpartner, erste Rückmeldung innerhalb einer Stunde während der Servicezeiten. Deutschlandweit, Österreich und Schweiz.',
     crumb: 'Kontakt',
   },
 };

@@ -6,6 +6,7 @@ import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, PRODUKTE, produktName } from '../config/hauptseite';
 import { HS_HERO, HS_WARUM, HS_FUER_WEN, HS_HALTUNG, HS_ZUSAMMENARBEIT, HS_ENTSCHEIDUNGEN, HS_LOESUNGEN, HS_VERLASSEN, HS_MARKE } from '../config/startseite';
 import { absolute } from '../lib/paths';
+import { LAENDER, STAEDTE } from '../config/einsatzgebiet';
 
 const PLATZHALTER = '[Wert einsetzen]';
 
@@ -29,6 +30,12 @@ export const GET: APIRoute = ({ site }) => {
     'Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher USt. Nur B2B.',
     '',
     `Sprachen: Deutsch (Hauptsprache) und Englisch (${url('/en/')}). Impressum, Datenschutz und AGB nur auf Deutsch.`,
+    '',
+    // Einsatzgebiet (Can, Talk k8oxzjva 04.11.2026 19:08) – ehrlich: ein Sitz, Städte = Einsatzgebiet, keine Niederlassungen
+    '## Einsatzgebiet',
+    `- Sitz: ${company.city} bei Hamburg (einziger Standort, keine Niederlassungen).`,
+    '- Einsatzgebiet: ganz Deutschland, Österreich und die Schweiz (DACH). Wir arbeiten remote und, wenn es passt, persönlich vor Ort.',
+    ...(['DE', 'AT', 'CH'] as const).map((l) => `- ${LAENDER[l].de}, zum Beispiel: ${STAEDTE.filter((st) => st.land === l).map((st) => st.de).join(', ')}.`),
     '',
     '## Für alle Produkte: Service-Zusagen',
     // Zeilen mit Platzhalter bewusst weglassen – nur zugesagte Werte ausgeben.

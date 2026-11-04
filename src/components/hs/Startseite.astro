@@ -11,6 +11,7 @@ import HsErgebnis from './HsErgebnis.astro';
 import { href } from '../../lib/paths';
 import { lp, type Lang } from '../../i18n/lang';
 import { DACH } from '../../i18n/ui';
+import DachKarte from '../DachKarte.astro';
 import type { HsTexte } from '../../config/startseite';
 
 interface Props { S: HsTexte; lang: Lang }
@@ -231,4 +232,7 @@ const zweige = HS_LOESUNGEN.produkte.map((p, i) => {
         </div>
       </div>
     </section>
+
+    <!-- 11 · EINSATZGEBIET DACH (Can, Talk k8oxzjva 04.11.2026 19:08): Karte zur DACH-Zeile, über dem Footer; Jamils Texte unverändert -->
+    <DachKarte lang={lang} />
   </div>

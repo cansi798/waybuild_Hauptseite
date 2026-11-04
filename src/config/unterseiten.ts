@@ -80,7 +80,7 @@ export const UEBER_UNS = {
   aktionen: { cta: 'Kostenloses Erstgespräch', produkte: 'Unsere Produkte' },
   meta: {
     title: 'Über uns: Waybuild aus Norderstedt',
-    description: 'Waybuild aus Norderstedt entwickelt digitale Lösungen für Unternehmen in Deutschland, Österreich und der Schweiz. Wer wir sind, wie wir denken.',
+    description: 'Waybuild aus Norderstedt bei Hamburg entwickelt digitale Lösungen für Unternehmen deutschlandweit, in Österreich und der Schweiz. Wer wir sind, wie wir denken.',
     crumb: 'Über uns', pageName: 'Über uns',
   },
 };

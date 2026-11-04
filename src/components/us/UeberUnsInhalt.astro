@@ -5,6 +5,7 @@ import Hint from '../Hint.astro';
 import UsKopf from './UsKopf.astro';
 import UsAndock from './UsAndock.astro';
 import UsProzess from './UsProzess.astro';
+import DachKarte from '../DachKarte.astro';
 import { href } from '../../lib/paths';
 import { lp, type Lang } from '../../i18n/lang';
 import { SHOW_HINTS } from '../../config/site';
@@ -124,4 +125,6 @@ const { U, lang } = Astro.props;
         <Hint block label="Echte Teamfotos (keine Stockfotos) und die Rolle von Jamil Iqbal" where="src/config/unterseiten.ts → UEBER_UNS.team" />
       </div>
     </section>
+    <!-- Einsatzgebiet DACH (Can, Talk k8oxzjva 04.11.2026) -->
+    <DachKarte lang={lang} />
   </div>

@@ -1,0 +1,144 @@
+---
+// DACH-Karte „Einsatzgebiet“ (Can, Talk k8oxzjva, Sprachnachricht 04.11.2026 19:08: „Landkarte wie bei Funkelfilm …
+// Österreich, Schweiz, Deutschland … dass man uns überall findet“). Idee von Funkelfilm (Einsatzgebiet.astro) übernommen,
+// aber im Waybuild-Stil: klare Umrisse statt Handzeichnung, helle Flächen, türkise Waybuild-Linie, ruhig (Jamil mag es schlicht).
+// Ablauf beim Hineinscrollen (eine CSS-Uhr, nur opacity/transform/stroke-dashoffset): Länder blenden ein → Sitz Norderstedt
+// → Linien ziehen sich nacheinander zu den Städten (nahe zuerst) → jeder Punkt leuchtet auf, wenn seine Linie ankommt.
+// Ohne JS und bei reduzierter Bewegung: sofort fertige Karte.
+// Ehrliche Beschriftung (UWG): ein Sitz, Städte = Einsatzgebiet, keine Standorte/Niederlassungen. Texte: config/einsatzgebiet.ts.
+import Icon from './Icon.astro';
+import { dachKarte, KARTE } from '../lib/dachkarte';
+import { DACH_KARTE, LAENDER, SITZ, STAEDTE, stadtName } from '../config/einsatzgebiet';
+import type { Lang } from '../i18n/lang';
+interface Props { lang: Lang; grund?: string }
+const { lang, grund = 'var(--white)' } = Astro.props;
+const T = DACH_KARTE[lang];
+const k = dachKarte();
+const id = `dk-${lang}`;
+// Zeitplan (Sekunden): Linie nr startet bei START + nr * TAKT und braucht DAUER; der Punkt leuchtet bei Ankunft
+const START = 0.75, TAKT = 0.11, DAUER = 0.75;
+const ab = (nr: number) => +(START + nr * TAKT).toFixed(2);
+const an = (nr: number) => +(ab(nr) + DAUER - 0.08).toFixed(2);
+const lage = { r: ['0.65em', '0.36em', 'start'], l: ['-0.65em', '0.36em', 'end'], o: ['0', '-0.75em', 'middle'], u: ['0', '1.25em', 'middle'] } as const;
+const alleStaedte = STAEDTE.map((s) => stadtName(s, lang)).join(', ');
+---
+<section class="dk" id="einsatzgebiet" aria-labelledby={`${id}-h`} style={`--dk-grund: ${grund}`}>
+  <div class="wrap dk-raster">
+    <div class="dk-text">
+      <span class="dk-kenn"><Icon name="globe" size={18} /> {T.kenn}</span>
+      <h2 id={`${id}-h`}>{T.titel}</h2>
+      <p>{T.text}</p>
+      <ul class="dk-legende" aria-label={T.legendeAria}>
+        <li><span class="dk-zeichen dk-zeichen--sitz" aria-hidden="true"></span> {T.sitz}</li>
+        <li><span class="dk-zeichen dk-zeichen--gebiet" aria-hidden="true"></span> {T.gebiet}</li>
+      </ul>
+    </div>
+    <div class="dk-karte" data-dk>
+      <svg viewBox={`${KARTE.x} ${KARTE.y} ${KARTE.breite} ${KARTE.hoehe}`} width={KARTE.breite} height={KARTE.hoehe} role="img" aria-labelledby={`${id}-t ${id}-d`}>
+        <title id={`${id}-t`}>{T.kartenTitel}</title>
+        <desc id={`${id}-d`}>{T.kartenText(alleStaedte)}</desc>
+        <g class="dk-laender">
+          <path class="dk-land" d={k.laender.DE} />
+          <path class="dk-land" d={k.laender.AT} />
+          <path class="dk-land" d={k.laender.CH} />
+          <path class="dk-land dk-land--li" d={k.laender.LI} />
+          {(['DE', 'AT', 'CH'] as const).map((l) => (
+            <text class="dk-landname" x={k.landLabel[l][0]} y={k.landLabel[l][1]} text-anchor={l === 'DE' ? 'start' : 'middle'}>{LAENDER[l][lang]}</text>
+          ))}
+        </g>
+        <g class="dk-boegen">
+          {k.boegen.map((b) => <path class="dk-bogen" d={b.d} pathLength="1" style={`--v:${ab(b.nr)}s`} />)}
+        </g>
+        {k.staedte.map((s) => (
+          <g class:list={['dk-ort', { 'dk-ort--neben': !s.haupt }]} style={`--v:${an(s.nr)}s`}>
+            <circle class="dk-glimm" cx={s.x} cy={s.y} r="10" />
+            <circle class="dk-punkt" cx={s.x} cy={s.y} r={k.rStadt} />
+            <text x={s.x} y={s.y} dx={lage[s.seite][0]} dy={lage[s.seite][1]} text-anchor={lage[s.seite][2]}>{stadtName(s, lang)}</text>
+          </g>
+        ))}
+        <g class="dk-sitz">
+          <circle class="dk-sitz__ring" cx={k.sitz.x} cy={k.sitz.y} r={k.sitz.r + 5} />
+          <circle class="dk-sitz__kern" cx={k.sitz.x} cy={k.sitz.y} r={k.sitz.r} />
+          <text class="dk-sitz__name" x={k.sitz.x} y={k.sitz.y - 27} text-anchor="middle">{SITZ[lang]}</text>
+          <text class="dk-sitz__nahe" x={k.sitz.x} y={k.sitz.y - 14} text-anchor="middle">{lang === 'en' ? SITZ.naheEn : SITZ.naheDe}</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Startet einmal, sobald die Karte gut im Bild ist (Klasse .an → CSS-Übergänge)
+  const karten = document.querySelectorAll<HTMLElement>('[data-dk]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((eintraege) => {
+      for (const e of eintraege) if (e.isIntersecting) { e.target.classList.add('an'); io.unobserve(e.target); }
+    }, { threshold: 0.35 });
+    karten.forEach((k) => io.observe(k));
+  } else karten.forEach((k) => k.classList.add('an'));
+</script>
+
+<style>
+  .dk { position: relative; padding-block: clamp(56px, 8vw, 104px); background: var(--dk-grund); box-shadow: inset 0 1px 0 rgb(0 79 76 / 7%); }
+  .dk-raster { display: grid; gap: clamp(24px, 4vw, 40px); align-items: center; }
+  .dk-text { max-width: 34rem; }
+  .dk-kenn { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; font: 600 0.82rem/1.2 var(--font-head); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+  .dk-kenn :global(.icon) { color: var(--accent-mid); }
+  .dk-text h2 { margin: 0 0 16px; font-size: clamp(1.6rem, 3.4vw, 2.3rem); line-height: 1.18; letter-spacing: -0.02em; text-wrap: balance; }
+  .dk-text p { margin: 0; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; }
+  .dk-legende { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 22px 0 0; padding: 0; list-style: none; color: var(--ink-soft); font-size: 0.95rem; }
+  .dk-legende li { display: inline-flex; align-items: center; gap: 8px; }
+  .dk-zeichen { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+  .dk-zeichen--sitz { background: var(--accent-mid); box-shadow: 0 0 0 3px rgb(0 143 138 / 22%); }
+  .dk-zeichen--gebiet { border: 2px solid var(--accent-mid); background: var(--white); }
+  .dk-karte { width: 100%; max-width: 30rem; margin-inline: auto; }
+  .dk-karte svg { display: block; width: 100%; height: auto; }
+  @media (min-width: 56rem) {
+    .dk-raster { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 80px); }
+    .dk-karte { max-width: 33rem; margin-inline: auto 0; }
+  }
+
+  /* Karte: helle Flächen, feine Grenzen, türkise Linien */
+  .dk-land { fill: #eaf4f2; stroke: #a9cdc9; stroke-width: 1.1; stroke-linejoin: round; }
+  .dk-land--li { fill: #f3f7f6; }
+  .dk-landname { font: 600 11.5px/1 var(--font-head); letter-spacing: 0.22em; text-transform: uppercase; fill: #6f9d99; }
+  .dk-bogen { fill: none; stroke: var(--accent-mid); stroke-width: 1.5; stroke-linecap: round; opacity: 0.8; }
+  .dk-punkt { fill: var(--white); stroke: var(--accent-mid); stroke-width: 2; }
+  .dk-glimm { fill: var(--accent); opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .dk-ort text { font: 500 13px/1 var(--font-body); fill: var(--ink); paint-order: stroke; stroke: #eaf4f2; stroke-width: 4px; stroke-linejoin: round; }
+  .dk-sitz__kern { fill: var(--accent-mid); }
+  .dk-sitz__ring { fill: none; stroke: var(--accent-mid); stroke-width: 1.5; opacity: 0.45; transform-box: fill-box; transform-origin: center; }
+  .dk-sitz text { paint-order: stroke; stroke: #eaf4f2; stroke-width: 5px; stroke-linejoin: round; }
+  .dk-sitz__name { font: 700 15px/1 var(--font-head); fill: var(--accent-ink); }
+  .dk-sitz__nahe { font: 500 11.5px/1 var(--font-body); fill: var(--ink-soft); }
+  /* Handy: nur die großen Städte beschriftet, größer (Punkte bleiben alle) */
+  @media (max-width: 40rem) {
+    .dk-ort--neben text { display: none; }
+    .dk-ort text { font-size: 18px; stroke-width: 5px; }
+    .dk-landname { font-size: 14px; letter-spacing: 0.16em; }
+    .dk-sitz__name { font-size: 19px; }
+    .dk-sitz__nahe { font-size: 15px; }
+    .dk-sitz__name { transform: translateY(-6px); }
+  }
+
+  /* Animation (nur mit JS; Startzustand erst dann verstecken) */
+  :global(.js) .dk-laender, :global(.js) .dk-sitz { opacity: 0; }
+  :global(.js) .dk-bogen { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+  :global(.js) .dk-ort { opacity: 0; }
+  :global(.js) .dk-punkt { transform: scale(0.3); transform-box: fill-box; transform-origin: center; }
+  :global(.js) .an .dk-laender { opacity: 1; transition: opacity 0.7s ease; }
+  :global(.js) .an .dk-sitz { opacity: 1; transition: opacity 0.45s ease 0.35s; }
+  :global(.js) .an .dk-sitz__ring { animation: dk-puls 1.6s ease-out 0.5s 3; }
+  :global(.js) .an .dk-bogen { stroke-dashoffset: 0; transition: stroke-dashoffset 0.75s cubic-bezier(0.45, 0, 0.25, 1) var(--v); }
+  :global(.js) .an .dk-ort { opacity: 1; transition: opacity 0.3s ease var(--v); }
+  :global(.js) .an .dk-punkt { transform: none; transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) var(--v); }
+  :global(.js) .an .dk-glimm { animation: dk-glimm 1s ease-out var(--v) 1 both; }
+  @keyframes dk-glimm { 0% { opacity: 0.5; transform: scale(0.4); } 100% { opacity: 0; transform: scale(1.5); } }
+  @keyframes dk-puls { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 0; transform: scale(2.2); } }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .dk-laender, :global(.js) .dk-sitz, :global(.js) .dk-ort { opacity: 1; transition: none !important; }
+    :global(.js) .dk-bogen { stroke-dasharray: none; stroke-dashoffset: 0; transition: none !important; }
+    :global(.js) .dk-punkt { transform: none; transition: none !important; }
+    :global(.js) .dk-glimm, :global(.js) .dk-sitz__ring { animation: none !important; }
+  }
+</style>

@@ -7,7 +7,7 @@ import type { HsTexte, Frage } from './startseite';
 import type { KarriereTexte } from './unterseiten';
 
 export const BESCHREIBUNG_EN = 'We take responsibility. You stay focused. Waybuild develops solutions and keeps collaboration simple, clear and reliable.';
-export const META_START_EN = 'We take responsibility. You stay focused. Waybuild builds digital solutions for businesses in Germany, Austria and Switzerland.';
+export const META_START_EN = 'We take responsibility. You stay focused. Waybuild builds digital solutions for businesses across Germany, Austria and Switzerland.';
 export const HOURS_EN = 'Monday to Friday, 9 am to 6 pm (CET)';
 
 /* ─────────────── Startseite ─────────────── */
@@ -303,7 +303,7 @@ export const UEBER_UNS_EN = {
   aktionen: { cta: 'Free initial consultation', produkte: 'Our products' },
   meta: {
     title: 'About us: Waybuild from Norderstedt, Germany',
-    description: 'Waybuild from Norderstedt builds digital solutions for businesses in Germany, Austria and Switzerland. Who we are, how we think, what we stand for.',
+    description: 'Waybuild from Norderstedt near Hamburg builds digital solutions for businesses across Germany, Austria and Switzerland. Who we are and how we think.',
     crumb: 'About us', pageName: 'About us',
   },
 };
@@ -434,7 +434,7 @@ export const KONTAKT_EN = {
   },
   meta: {
     title: 'Contact and free initial consultation',
-    description: 'Contact Waybuild: one dedicated contact person, a first response within one hour during service hours. For businesses in Germany, Austria and Switzerland.',
+    description: 'Contact Waybuild: one dedicated contact person, a first response within one hour during service hours. Across Germany, Austria and Switzerland.',
     crumb: 'Contact',
   },
 };

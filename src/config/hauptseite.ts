@@ -160,7 +160,7 @@ export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO')
 // Talk 4544 (04.11.2026): neue Botschaft der Startseite – Hero-Headline + Kern der Subheadline
 export const BESCHREIBUNG = 'Wir übernehmen Verantwortung. Sie behalten den Fokus. Waybuild entwickelt Lösungen und sorgt für einfache, verständliche und verlässliche Zusammenarbeit.';
 /** Meta-Description der Startseite mit DACH-Fokus (Can, Talk 4551) – ergänzt die Botschaft um das Einsatzgebiet */
-export const META_START = 'Wir übernehmen Verantwortung. Sie behalten den Fokus. Waybuild entwickelt digitale Lösungen für Unternehmen in Deutschland, Österreich und der Schweiz.';
+export const META_START = 'Wir übernehmen Verantwortung. Sie behalten den Fokus. Waybuild entwickelt digitale Lösungen für Unternehmen deutschlandweit, in Österreich und der Schweiz.';
 
 // Talk 4024/4025 (31.10.2026): Kundenverwaltung Handwerk und die Bereiche Software/Cloud/Workplace/Process Service
 // werden derzeit nicht gezeigt (entfernt; frühere Einträge in der Git-Historie).

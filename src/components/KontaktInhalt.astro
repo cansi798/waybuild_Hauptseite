@@ -3,6 +3,7 @@
 import PageHeader from './PageHeader.astro';
 import { company, HOURS } from '../config/site';
 import Icon from './Icon.astro';
+import DachKarte from './DachKarte.astro';
 import type { KontaktTexte } from '../config/kontakt';
 import type { Lang } from '../i18n/lang';
 import { HOURS_EN } from '../config/en';
@@ -78,6 +79,9 @@ const endpoint = formKey ? 'https://api.web3forms.com/submit' : '';
       </div>
     </div>
   </section>
+
+  <!-- Einsatzgebiet DACH (Can, Talk k8oxzjva 04.11.2026) -->
+  <DachKarte lang={lang} />
 
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
