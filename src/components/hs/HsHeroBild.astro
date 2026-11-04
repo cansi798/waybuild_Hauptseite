@@ -36,21 +36,21 @@ const SX = 300, STATIONEN = [150, 214, 278];
 ---
 <figure class="hn" data-hero-netz>
   <div class="hn__buehne" role="img" aria-label={`Ein unübersichtliches Netz aus ${T.netz.join(', ')} wird von der Waybuild-Linie entwirrt. Am Ende stehen ${T.ergebnis.join(', ')}.`}>
-    <svg class="hn__svg" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
-      <g class="hn-geflecht">
-        {kanten.map((k, i) => <path class:list={['hn-kante', { 'hn-m': k.m }]} d={k.d} style={`--d:${(i * 0.03).toFixed(2)}s`} />)}
-        {sackgassen.map((s, i) => (
-          <g class="hn-sack hn-m" style={`--d:${(i * 0.14).toFixed(2)}s`}>
-            <path d={s.d} /><circle cx={s.e[0]} cy={s.e[1]} r="3.2" />
-          </g>
-        ))}
-        {knoten.map(([x, y]) => <circle class="hn-knoten" cx={x} cy={y} r="4.5" />)}
-      </g>
+    {/* Drei Schichten: Was als Ganzes ein- oder ausblendet, ist ein eigenes äußeres SVG (Deckkraft auf dem Compositor statt
+         Neuzeichnen vieler Einzelpfade); nur Linie und Bündel zeichnen sich per stroke-dashoffset. */}
+    <svg class="hn__svg hn-schicht hn-schicht--geflecht" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+      {kanten.map((k) => <path class:list={['hn-kante', { 'hn-m': k.m }]} d={k.d} />)}
+      {knoten.map(([x, y]) => <circle class="hn-knoten" cx={x} cy={y} r="4.5" />)}
+    </svg>
+    <svg class="hn__svg hn-schicht hn-schicht--sack hn-m" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+      {sackgassen.map((s) => <g class="hn-sack"><path d={s.d} /><circle cx={s.e[0]} cy={s.e[1]} r="3.2" /></g>)}
+    </svg>
+    <svg class="hn__svg hn-schicht hn-schicht--linie" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
       {buendel.map((d, i) => <path class="hn-buendel" pathLength="1" d={d} style={`--d:${(i * 0.12).toFixed(2)}s`} />)}
       <path class="hn-linie" pathLength="1" d={LINIE} />
       <circle class="hn-start" cx="10" cy="268" r="5" />
-      {STATIONEN.map((y, i) => <circle class="hn-station" cx={SX} cy={y} r="7.5" style={`--d:${(i * 0.22).toFixed(2)}s`} />)}
     </svg>
+    {STATIONEN.map((y, i) => <span class="hn-station" style={`${at(SX, y)};--d:${(i * 0.22).toFixed(2)}s`} aria-hidden="true"></span>)}
     {begriffe.map((b) => <span class:list={['hn-begriff', { 'hn-begriff--entscheid': b.entscheid }]} style={at(b.x, b.y)} aria-hidden="true">{b.text}</span>)}
     {STATIONEN.map((y, i) => <span class="hn-wort" style={`${at(SX + 18, y)};--d:${(i * 0.22).toFixed(2)}s`} aria-hidden="true">{T.ergebnis[i]}</span>)}
   </div>
