@@ -1,6 +1,8 @@
 # Waybuild UG (haftungsbeschränkt)
 
-> Digitale Lösungen, die zu Ihrem Unternehmen passen. Wir entwickeln keine Lösungen von der Stange. Wir verstehen Ihr Unternehmen, empfehlen den sinnvollsten Weg und setzen passende digitale Lösungen um.
+> Wir übernehmen Verantwortung. Sie behalten den Fokus. Anspruchsvolle Lösungen. Überraschend einfach umgesetzt.
+
+Waybuild entwickelt durchdachte Lösungen und übernimmt Verantwortung dafür, dass Projekte und Zusammenarbeit für Kunden möglichst einfach, verständlich und verlässlich bleiben.
 
 Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
 
@@ -14,33 +16,45 @@ Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Pr
 - Keine Überraschungen auf der Rechnung. Extras nur nach schriftlicher Absprache.
 - Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr (ohne gesetzliche Feiertage).
 
-## Die Waybuild-Denkweise
-Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.
-Kernsatz: Wir verstehen, bevor wir umsetzen.
-1. Impuls: Jede Veränderung beginnt mit einer Idee. Genau dort beginnen die meisten Veränderungen.
-2. Verstehen: Gute Lösungen beginnen mit Verständnis. Wir verstehen, bevor wir umsetzen. Bevor wir Empfehlungen geben oder digitale Lösungen entwickeln, möchten wir Ihr Unternehmen verstehen. Dazu betrachten wir Menschen, Arbeitsweisen, Ziele, Kommunikation und digitale Werkzeuge. Aus diesen Erkenntnissen entsteht ein klares Bild Ihres Unternehmens. Wir nennen es Ihre Unternehmens-DNA. Sie bildet die Grundlage für unsere Empfehlungen und hilft dabei, Lösungen zu entwickeln, die wirklich zu Ihrem Unternehmen passen.
-3. Hinterfragen: Erst das Warum, dann das Wie. Nicht jede Website muss neu gebaut werden. Nicht jedes Problem braucht neue Software. Manchmal liegt die eigentliche Verbesserung ganz woanders. Deshalb hinterfragen wir bestehende Ideen, Annahmen und Prozesse.
-4. Entscheiden: Wir empfehlen, bevor wir umsetzen. Nach dem Hinterfragen bleiben meist mehrere sinnvolle Wege. Wir legen sie nebeneinander und fragen: Was bringt es? Wie viel Aufwand steckt darin? Was ist jetzt am wichtigsten? So entsteht eine klare Reihenfolge. Sie entscheiden, und alle wissen, warum.
-5. Umsetzen: Aus Erkenntnissen entstehen Lösungen. Je nach Unternehmen entstehen unterschiedliche Lösungen. Entscheidend ist, dass sie zum Ziel passt. Positionierung, Inhalte und Anfrageprozess landen bei den meisten Unternehmen auf der Website. Deshalb fangen wir oft dort an, und vieles andere baut später darauf auf.
-6. Verbessern: Gute Veränderungen entwickeln sich weiter. Feedback sammeln, auswerten, planen, verbessern. Und dann wieder von vorn. (Kreislauf: Feedback → Analysieren → Planen → Verbessern)
+## Warum es Waybuild gibt: Gute Lösungen sollten Unternehmen entlasten.
+Viele Unternehmen investieren Zeit, Geld und Energie in neue Lösungen. Trotzdem entstehen häufig dieselben Probleme: zu viele Abstimmungen, unnötige Komplexität, unklare Empfehlungen, fehlende Verantwortung, Lösungen, die nicht wirklich zum Unternehmen passen. Das Problem liegt oft nicht in der Technik. Es entsteht, wenn niemand das große Ganze betrachtet. Deshalb entwickelt Waybuild Lösungen mit einem klaren Ziel: Unternehmen voranbringen und gleichzeitig entlasten.
 
-## Fertige Produkte und individuelle Lösungen
-- Fertige Produkte mit festem Umfang: siehe „Produkte“ unten (Hauptprodukt: Website Service).
-- Individuelle Software (auf anfrage): Passt kein fertiges Produkt? Dann entwickeln wir die Lösung für Ihr Unternehmen, zum Beispiel eigene Software.
-- Weitere Produkte folgen.
+## Für wen: Für Unternehmen, die mehr erwarten.
+Manche Unternehmen suchen einen Anbieter. Andere suchen einen Partner. Waybuild richtet sich an Unternehmen, die Wert auf Qualität, klare Empfehlungen und verlässliche Zusammenarbeit legen. An Unternehmen, die nicht einfach nur etwas umgesetzt haben möchten. Sondern eine Lösung, die wirklich zu ihnen passt.
+Typische Erwartungen: Jemand denkt mit, Jemand übernimmt Verantwortung, Empfehlungen sind nachvollziehbar, Kommunikation funktioniert unkompliziert, Ergebnisse stehen über Funktionen.
 
-## Unsere Prinzipien
-- Klarheit: Sie wissen jederzeit, woran Sie sind. Digitale Lösungen müssen kein Rätsel sein. Wir erklären verständlich, zeigen nachvollziehbare Optionen und sprechen Klartext statt Fachsprache. So wissen Sie jederzeit: was gerade passiert, warum etwas empfohlen wird, welche Möglichkeiten es gibt, was der nächste Schritt ist. Sie müssen kein IT-Experte sein, um Entscheidungen treffen zu können.
-- Einfachheit: Die Zusammenarbeit soll einfach sein. Probleme melden, Änderungen anstoßen oder neue Ideen umsetzen sollte kein Projekt für sich sein. Deshalb legen wir Wert darauf, dass jede Interaktion mit uns möglichst unkompliziert bleibt. Eine Nachricht genügt., Ein Screenshot reicht oft aus., Änderungen müssen nicht durch viele Freigaben gehen., Neue Ideen können schnell besprochen werden.. Sie sollen sich auf Ihr Unternehmen konzentrieren können, nicht auf IT-Prozesse.
-- Verlässlichkeit: Sie können sich darauf verlassen. Digitale Lösungen funktionieren nur dann langfristig, wenn Verantwortlichkeiten, Kommunikation und Prozesse klar geregelt sind. Deshalb sorgen wir für: feste Ansprechpartner, nachvollziehbare Zuständigkeiten, verlässliche Rückmeldungen, dokumentierte Prozesse. Damit nichts verloren geht und Sie wissen, dass sich jemand kümmert.
+## Wofür Waybuild steht: Unser Anspruch ist größer als ein einzelnes Produkt.
+- Verantwortung: Wir setzen nicht einfach Anforderungen um. Wir denken mit, hinterfragen und empfehlen den sinnvollsten Weg.
+- Qualität: Wir entwickeln Lösungen, die langfristig funktionieren und nicht nur kurzfristig beeindrucken.
+- Einfachheit: Wir halten Entscheidungen, Kommunikation und Zusammenarbeit so unkompliziert wie möglich.
+- Verlässlichkeit: Wir bleiben erreichbar und begleiten unsere Kunden auch über die Umsetzung hinaus.
+Eine Haltung. Viele Lösungen.
 
-## Das dürfen Sie von uns erwarten
-- Sie erhalten eine Antwort: Während der Servicezeiten innerhalb einer Stunde eine erste Rückmeldung. Spätestens am nächsten Werktag wissen Sie, wer sich kümmert und was der nächste Schritt ist.
-- Sie haben einen festen Ansprechpartner: Sie müssen Ihre Situation nicht bei jeder Anfrage neu erklären.
-- Nichts geht verloren: Jedes Anliegen wird dokumentiert und verfolgt, bis es abgeschlossen ist.
-- Probleme bleiben nicht liegen: Wenn etwas feststeckt oder eine Antwort ausbleibt, wird das Thema automatisch weitergegeben.
-- Sie wissen jederzeit, woran Sie sind: Keine Überraschungen. Keine Funkstille.
-- Echter Mehrwert: Was wir umsetzen, soll Zeit sparen, Prozesse erleichtern oder ein konkretes Problem lösen.
+## Zusammenarbeit: Gute Zusammenarbeit sollte einfach sein.
+Digitale Projekte müssen nicht kompliziert sein. Wir gestalten Zusammenarbeit so, dass Entscheidungen leichter werden, Kommunikation funktioniert und Fortschritt sichtbar bleibt. Was Kunden erleben: schnelle Rückmeldungen, feste Ansprechpartner, pragmatische Kommunikation, verständliche Empfehlungen, nachvollziehbare Entscheidungen, wenig organisatorischen Aufwand, langfristige Betreuung. Nicht jeder Kunde benötigt denselben Weg. Aber jeder Kunde verdient dieselbe Aufmerksamkeit.
+
+## Wie wir Entscheidungen treffen: Verstehen. Empfehlen. Umsetzen.
+Jede Herausforderung beginnt mit denselben Fragen: Was möchten Sie erreichen? Was funktioniert bereits gut? Was steht im Weg? Welche Lösung ergibt wirklich Sinn? Erst danach empfehlen wir den nächsten Schritt.
+1. Verstehen: Wir lernen Ziele, Anforderungen und Zusammenhänge kennen.
+2. Empfehlen: Wir entwickeln den sinnvollsten Lösungsweg.
+3. Umsetzen: Wir liefern hochwertige Ergebnisse und begleiten langfristig.
+
+## Unsere Lösungen: Unsere Lösungen folgen denselben Prinzipien.
+Ganz gleich, welches Produkt oder welcher Service genutzt wird: Die Grundlage bleibt dieselbe. Verantwortung, Qualität, Einfachheit, Verlässlichkeit.
+- Website Service: Moderne Unternehmenswebsites mit Fokus auf Verständlichkeit, Vertrauen und Nutzerfreundlichkeit. (https://cansi798.github.io/waybuild_Hauptseite/angebot/)
+- Individuelle Software: Digitale Werkzeuge, die sich an Menschen und Arbeitsweisen anpassen. Nicht umgekehrt. (https://cansi798.github.io/waybuild_Hauptseite/produkte/#individuell)
+- Weitere Lösungen: Neue Lösungen entstehen kontinuierlich auf derselben Grundlage. (https://cansi798.github.io/waybuild_Hauptseite/produkte/)
+Viele Lösungen. Eine Philosophie.
+
+## Das dürfen Sie von Waybuild erwarten.
+- feste Ansprechpartner
+- schnelle Rückmeldungen
+- klare Kommunikation
+- nachvollziehbare Empfehlungen
+- langfristige Betreuung
+- möglichst wenig organisatorischen Aufwand
+- Lösungen statt zusätzlicher Komplexität
+Gute Lösungen entstehen nicht durch mehr Abstimmungen. Sie entstehen durch Verständnis, Verantwortung und konsequente Umsetzung.
 
 ## Produkte
 - Website Service, verfügbar: Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten. Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt. Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
