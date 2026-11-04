@@ -1,0 +1,116 @@
+---
+// Karriereseite (DE /karriere/, EN /en/careers/): Daueranzeigen „Wir suchen immer“, Benefits als Akrostichon
+// W-A-Y-B-U-I-L-D und Bewerbung per E-Mail (Can, Talk k8oxzjva, 04.11.2026). Nur die Texte kommen je Sprache aus
+// der Config; Aufbau und Bewegung sind gleich.
+//
+// WAYBUILD-Szene: Die Buchstaben-Knoten erscheinen beim Scrollen nacheinander entlang der türkisen Linie, die Linie
+// wächst Stück für Stück zum nächsten Buchstaben; am Ende setzen sich die acht Buchstaben zum Wort WAYBUILD zusammen.
+// Engine: denkweise.ts (nur transform/opacity, scrollgekoppelt; reduzierte Bewegung bzw. ohne JS: fertiges Bild).
+import Icon from '../Icon.astro';
+import Hint from '../Hint.astro';
+import UsKopf from './UsKopf.astro';
+import { company } from '../../config/site';
+import type { KarriereTexte } from '../../config/unterseiten';
+
+interface Props { K: KarriereTexte }
+const { K } = Astro.props;
+const mail = (betreff: string) => `mailto:${company.email}?subject=${encodeURIComponent(betreff)}`;
+const wort = K.benefits.liste.map((x) => x.b);
+---
+<div class="dw us kr" data-denkweise>
+  <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
+
+  <UsKopf {...K.kopf}>
+    <div class="us-kopf__aktionen">
+      <a class="btn btn--primary btn--lg" href="#stellen"><Icon name="search" size={18} /> {K.ctaStellen}</a>
+      <a class="pfeil-link" href="#warum-waybuild">{K.ctaWarum} <Icon name="arrow" size={16} /></a>
+    </div>
+  </UsKopf>
+
+  <section class="dw-abschnitt dw-abschnitt--eng" id="stellen" aria-labelledby="stellen-h">
+    <div class="wrap">
+      <div class="us-kopfzeile">
+        <span class="dw-kenn"><Icon name="doc" size={18} /> {K.stellen.kenn}</span>
+        <h2 id="stellen-h">{K.stellen.titel}</h2>
+        <p>{K.stellen.text}</p>
+      </div>
+      <ul class="kr-stellen">
+        {K.anzeigen.map((a) => (
+          <li class:list={['kr-stelle', { 'kr-stelle--offen': a.offen }]} id={a.id}>
+            <div class="kr-stelle__kopf">
+              <span class="us-pkarte__icon"><Icon name={a.icon} size={22} /></span>
+              <span class="us-pkarte__kenn">{a.kenn}</span>
+            </div>
+            <h3>{a.titel}</h3>
+            <p class="kr-stelle__text">{a.text}</p>
+            {a.punkte.length > 0 && (
+              <>
+                <p class="kr-stelle__liste">{a.listeTitel}</p>
+                <ul class="dw-haken">
+                  {a.punkte.map((pt) => <li><Icon name="check" size={16} /> {pt}</li>)}
+                </ul>
+              </>
+            )}
+            <p class="kr-stelle__form"><Icon name="clock" size={16} /> <span><strong>{K.stellen.arbeitsformLabel}:</strong> {a.arbeitsform}</span></p>
+            <div class="kr-stelle__aktion">
+              <a class="btn btn--primary" href={mail(a.betreff)}><Icon name="mail" size={18} /> {K.stellen.button}<span class="sr-only"> {K.stellen.buttonSr} {a.titel}</span></a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="dw-abschnitt kr-warum" id="warum-waybuild" aria-labelledby="warum-h">
+    <div class="wrap kr-warum__raster">
+      <div class="us-kopfzeile kr-warum__kopf">
+        <span class="dw-kenn"><Icon name="stern" size={18} /> {K.benefits.kenn}</span>
+        <h2 id="warum-h">{K.benefits.titel}</h2>
+        <p>{K.benefits.text}</p>
+      </div>
+      <div class="kr-akro" data-szene data-bereich="0 1.6">
+        <ol class="kr-akro__liste">
+          {K.benefits.liste.map((x, i) => (
+            <li class="kr-akro__zeile">
+              <span class="kr-akro__knoten" aria-hidden="true" data-an={i === 0 ? 'erscheinen:0-0.08' : 'erscheinen:auto'}>{x.b}</span>
+              <span class="kr-akro__steg" aria-hidden="true" data-an="hoch:auto"></span>
+              <div class="kr-akro__text" data-an={i === 0 ? 'rechts:0.02-0.1' : 'rechts:auto'}>
+                <h3><span class="kr-akro__init">{x.wort}</span>{x.rest}</h3>
+                <p>{x.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div class="kr-wort" role="img" aria-label={K.benefits.wortLabel}>
+          <span class="kr-wort__steg" aria-hidden="true" data-an="hoch:sicht"></span>
+          <span class="kr-wort__buchstaben" aria-hidden="true">
+            {wort.map((b, i) => <span class="kr-wort__b" data-an={`auf:sicht+${(0.04 + i * 0.035).toFixed(3)}`}>{b}</span>)}
+          </span>
+          <span class="kr-wort__linie" aria-hidden="true" data-an="breit:sicht+0.33"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dw-abschnitt dw-ohne-linie" id="bewerben" aria-labelledby="bewerben-h">
+    <div class="wrap">
+      <div class="us-cta">
+        <div>
+          <span class="dw-kenn"><Icon name="mail" size={18} /> {K.bewerben.kenn}</span>
+          <h2 id="bewerben-h">{K.bewerben.titel}</h2>
+          <p>{K.bewerben.text}</p>
+          <p class="kr-hinweis"><Icon name="doc" size={18} /> {K.bewerben.hinweis}</p>
+        </div>
+        <div class="us-cta__aktionen">
+          <a class="btn btn--primary btn--lg" href={mail(K.bewerben.betreff)}><Icon name="mail" size={18} /> {K.bewerben.cta}<span class="sr-only"> {K.bewerben.an} {company.email}</span></a>
+          <span class="us-cta__adresse">{company.email}</span>
+        </div>
+      </div>
+      <Hint block label="Postfach kontakt@waybuild.de einrichten (Bewerbungen landen dort) und Ansprechperson für Bewerbungen" where="src/config/site.ts → company.email, src/config/unterseiten.ts → KARRIERESEITE" />
+    </div>
+  </section>
+</div>
+
+<script>
+  import '../../scripts/denkweise';
+</script>

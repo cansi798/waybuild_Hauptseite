@@ -88,7 +88,7 @@ export const GET: APIRoute = ({ site }) => {
     `- [Über uns](${url('/ueber-uns/')}): wer wir sind, Mission, Denkweise, Prinzipien`,
     `- [Referenzen](${url('/referenzen/')}): Projekte, nur mit Freigabe der Kunden`,
     `- [Partner](${url('/partner/')}): Partnerschaften und Partner werden`,
-    `- [Karriere](${url('/karriere/')}): aktuell keine offenen Stellen, Initiativbewerbung per E-Mail`,
+    `- [Karriere](${url('/karriere/')}): wir suchen immer IT-Freelancer, IT-Fachkräfte (Festanstellung), Büro und Verwaltung, Dozenten für die waybuild Akademie; Initiativbewerbung; remote; Bewerbung per E-Mail`,
     `- [Unsere Zusagen](${url('/zusagen/')}): Service-Zusagen, Prozess einer Anfrage, Prinzipien`,
     `- [Häufige Fragen](${url('/faq/')})`,
     `- [Kontakt](${url('/kontakt/')}): kostenloses Erstgespräch`,

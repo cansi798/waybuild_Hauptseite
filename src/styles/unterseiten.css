@@ -192,3 +192,56 @@
 .us-punkte--flach li { padding: 0; border: 0; background: none; }
 .us-punkte h4 { margin: 0 0 4px; font-family: var(--font-head); font-size: 1.02rem; }
 .us-person__rolle--fehlt { display: inline-block; padding: 1px 8px; border-radius: 6px; background: #fff4c2; border: 1px dashed #d4a300; color: #5c4400 !important; font-size: 0.85rem; font-weight: 600; }
+
+/* ── Karriere: Daueranzeigen + WAYBUILD-Benefits (Can, Talk k8oxzjva, 04.11.2026) ── */
+.kr-stellen { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.kr-stelle { position: relative; display: flex; flex-direction: column; gap: 6px; padding: clamp(22px, 2.6vw, 30px); border-radius: 22px; background: var(--white); border: 1px solid rgb(221 214 201 / 85%);
+  box-shadow: 0 1px 2px rgb(0 79 76 / 6%), 0 22px 44px -28px rgb(0 79 76 / 26%); min-width: 0; }
+.kr-stelle--offen { background: var(--paper); border: 1.5px dashed rgb(0 143 138 / 45%); box-shadow: none; }
+.kr-stelle__kopf { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+.kr-stelle h3 { margin: 0; font-size: clamp(1.15rem, 2vw, 1.3rem); line-height: 1.3; overflow-wrap: break-word; hyphens: auto; }
+.kr-stelle__text { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+.kr-stelle__liste { margin: 12px 0 0; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+.kr-stelle .dw-haken { margin: 6px 0 4px; }
+.kr-stelle .dw-haken li { align-items: flex-start; line-height: 1.45; }
+.kr-stelle .dw-haken .icon { margin-top: 3px; }
+.kr-stelle__form { display: flex; gap: 8px; align-items: flex-start; margin: 8px 0 0; padding-top: 12px; border-top: 1px solid var(--paper-2); font-size: 0.94rem; color: var(--ink); line-height: 1.5; }
+.kr-stelle__form .icon { flex: none; margin-top: 3px; color: var(--accent-mid); }
+.kr-stelle__aktion { margin-top: auto; padding-top: 16px; }
+.kr-hinweis { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px !important; padding: 12px 14px; border-radius: 12px; background: rgb(0 166 161 / 8%); color: var(--ink) !important; font-weight: 550; }
+.kr-hinweis .icon { flex: none; margin-top: 4px; color: var(--accent-mid); }
+
+/* WAYBUILD: Knoten mit Buchstaben auf der Linie, Linie wächst von Buchstabe zu Buchstabe, am Ende das Wort */
+.kr-akro { position: relative; max-width: 640px; }
+.kr-akro__liste { list-style: none; margin: 0; padding: 0; }
+.kr-akro__zeile { position: relative; display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 0 20px; padding-bottom: 30px; }
+.kr-akro__knoten { position: relative; z-index: 1; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; color: var(--white);
+  font-family: var(--font-head); font-weight: 800; font-size: 1.85rem; line-height: 1;
+  background: radial-gradient(120% 120% at 30% 25%, #19b3ad 0%, var(--accent-mid) 45%, var(--accent-ink) 100%);
+  box-shadow: 0 0 0 5px var(--grund, var(--paper)), 0 0 0 6px rgb(0 143 138 / 20%), 0 12px 26px -8px rgb(0 107 104 / 50%); }
+.kr-akro__steg { position: absolute; left: 28.75px; top: 60px; bottom: 0; width: 2.5px; border-radius: 2px; background: var(--accent-mid); transform-origin: top; }
+.kr-akro__text { padding-top: 6px; min-width: 0; }
+.kr-akro__text h3 { margin: 0 0 4px; font-size: clamp(1.15rem, 2.2vw, 1.35rem); line-height: 1.25; }
+.kr-akro__init { color: var(--accent-ink); }
+.kr-akro__text p { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+.kr-wort { position: relative; padding-top: 0; }
+.kr-wort__steg { display: block; width: 2.5px; height: 36px; margin-top: -2px; margin-left: 28.75px; border-radius: 2px; background: var(--accent-mid); transform-origin: top; }
+.kr-wort__buchstaben { display: flex; gap: 0.04em; margin-top: 10px; font-family: var(--font-head); font-weight: 800; font-size: clamp(2.3rem, 11vw, 4.6rem); line-height: 1; letter-spacing: 0.02em; color: var(--accent-ink); }
+.kr-wort__b { display: inline-block; }
+.kr-wort__linie { display: block; width: min(100%, 8.6ch); height: 3px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg, var(--accent-mid), #5fe0da); transform-origin: left;
+  font-size: clamp(2.3rem, 11vw, 4.6rem); }
+@media (min-width: 960px) {
+  .kr-stellen { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .kr-stelle--offen { grid-column: 1 / -1; }
+  .kr-warum__raster { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+  .kr-akro__zeile { grid-template-columns: 68px minmax(0, 1fr); gap: 0 24px; padding-bottom: 34px; }
+  .kr-akro__knoten { width: 68px; height: 68px; font-size: 2.1rem; }
+  .kr-akro__steg { left: 32.75px; top: 68px; }
+  .kr-wort__steg { margin-left: 32.75px; }
+}
+@media (max-width: 479px) {
+  .kr-akro__zeile { grid-template-columns: 52px minmax(0, 1fr); gap: 0 16px; padding-bottom: 26px; }
+  .kr-akro__knoten { width: 52px; height: 52px; font-size: 1.6rem; }
+  .kr-akro__steg { left: 24.75px; top: 52px; }
+  .kr-wort__steg { margin-left: 24.75px; }
+}

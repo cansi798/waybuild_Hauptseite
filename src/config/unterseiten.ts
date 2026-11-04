@@ -169,40 +169,130 @@ export const PARTNERSEITE = {
 };
 
 /* ─────────────── Karriere ─────────────── */
-/** Offene Stellen – leer lassen, solange niemand gesucht wird. Keine erfundenen Stellen. */
+// 04.11.2026 (Can, Talk k8oxzjva, zwei Sprachnachrichten 17:57): feste Daueranzeigen („Wir suchen immer“) für
+// IT-Freelancer, IT-Festanstellung, Büro, Dozenten (waybuild Akademie) und Initiativ; Benefits als Akrostichon
+// W-A-Y-B-U-I-L-D. Ehrlich bleiben: keine Gehaltszahlen, keine erfundenen Benefits. Karriereseite in Du (Du-Kultur).
+// Bewerbung per mailto an company.email mit Betreff je Stelle. Kein Formular.
+
+export type Daueranzeige = {
+  id: string;
+  titel: string;
+  kenn: string;          // Arbeitsform kurz (Kennzeile oben)
+  text: string;
+  listeTitel: string;    // „Aufgaben“, „Profil“, „Bereiche“ …
+  punkte: string[];
+  arbeitsform: string;
+  betreff: string;
+  icon: IconName;
+  offen?: boolean;       // Initiativbewerbung: gestrichelte Karte
+};
+
+export type KarriereTexte = {
+  kopf: { eyebrow: string; titelVor: string; titelAkzent: string; lead: string };
+  ctaStellen: string;
+  ctaWarum: string;
+  stellen: { kenn: string; titel: string; text: string; arbeitsformLabel: string; button: string; buttonSr: string };
+  anzeigen: Daueranzeige[];
+  benefits: { kenn: string; titel: string; text: string; wortLabel: string; liste: { b: string; wort: string; rest: string; text: string }[] };
+  bewerben: { kenn: string; titel: string; text: string; hinweis: string; betreff: string; cta: string; an: string };
+  meta: { title: string; description: string; crumb: string };
+};
+
+/** Frühere Einzelstellen-Liste (leer); die Daueranzeigen stehen in KARRIERESEITE.anzeigen. */
 export const STELLEN: { titel: string; art: string; ort: string; text: string }[] = [];
 
-export const KARRIERESEITE = {
+export const KARRIERESEITE: KarriereTexte = {
   kopf: {
     eyebrow: 'Karriere',
     titelVor: 'Arbeiten bei ',
     titelAkzent: 'Waybuild.',
-    lead: 'Gerade haben wir keine offenen Stellen. Initiativbewerbungen lesen wir trotzdem gern. Wir arbeiten komplett remote.',
+    lead: 'Wir suchen immer gute Leute: in der IT, im Büro und für unsere Akademie. Wir arbeiten komplett remote und duzen uns. Bewirb dich einfach per E-Mail.',
   },
+  ctaStellen: 'Stellen ansehen',
+  ctaWarum: 'Warum Waybuild?',
   stellen: {
-    kenn: 'Offene Stellen',
-    leer: 'Aktuell keine offenen Stellen.',
-    leerText: 'Sobald wir jemanden suchen, steht die Stelle hier.',
+    kenn: 'Wir suchen immer',
+    titel: 'Diese Stellen sind dauerhaft offen.',
+    text: 'Du musst auf keine Ausschreibung warten. Such dir aus, was zu dir passt, und schreib uns.',
+    arbeitsformLabel: 'Arbeitsform',
+    button: 'Jetzt bewerben',
+    buttonSr: 'als',
   },
-  arbeit: {
-    kenn: 'So arbeiten wir',
-    titel: 'Was die Arbeit bei uns prägt.',
-    // aus Denkweise, Prinzipien und FAQ („Welche Rolle spielt KI?“)
-    punkte: [
-      { icon: 'search' as IconName, titel: 'Erst verstehen, dann umsetzen', text: 'Wir fragen nach dem Warum, bevor wir etwas bauen.' },
-      { icon: 'chat' as IconName, titel: 'Klartext', text: 'Wir erklären verständlich und sprechen Klartext statt Fachsprache.' },
-      { icon: 'arrow' as IconName, titel: 'Einfache Wege', text: 'Eine Nachricht genügt. Änderungen müssen nicht durch viele Freigaben gehen.' },
-      { icon: 'shield' as IconName, titel: 'Verlässlichkeit', text: 'Feste Zuständigkeiten und dokumentierte Prozesse, damit nichts verloren geht.' },
-      { icon: 'spark' as IconName, titel: 'Moderne Werkzeuge', text: 'Bei der Umsetzung helfen uns KI-gestützte Werkzeuge.' },
-      // Jamil, Talk 4208
-      { icon: 'globe' as IconName, titel: 'Komplett remote', text: 'Wir arbeiten ortsunabhängig. Abstimmung läuft digital.' },
+  anzeigen: [
+    {
+      id: 'it-freelancer', icon: 'code', kenn: 'Freiberuflich · remote',
+      titel: 'IT-Freelancer (m/w/d) – alle Bereiche',
+      text: 'Du bist selbstständig in der IT unterwegs? Wir arbeiten gern langfristig mit Freelancern zusammen.',
+      listeTitel: 'Bereiche',
+      punkte: ['Webentwicklung und Software', 'IT-Administration, Cloud und Nextcloud', 'Support für unsere Kunden', 'Design, UX und Inhalte'],
+      arbeitsform: 'Freiberuflich, projektbezogen, remote',
+      betreff: 'Bewerbung: IT-Freelancer',
+    },
+    {
+      id: 'it-festanstellung', icon: 'server', kenn: 'Festanstellung · remote',
+      titel: 'IT-Fachkraft in Festanstellung (m/w/d)',
+      text: 'Du willst fest in einem kleinen Team arbeiten und Lösungen von Anfang bis Ende mitgestalten.',
+      listeTitel: 'Profil',
+      punkte: ['Ausbildung, Studium oder vergleichbare Erfahrung in der IT', 'Erfahrung in Entwicklung, Administration oder Support', 'Du erklärst Technik verständlich', 'Du arbeitest gern selbstständig'],
+      arbeitsform: 'Festanstellung, Umfang nach Absprache, remote',
+      betreff: 'Bewerbung: IT-Festanstellung',
+    },
+    {
+      id: 'buero', icon: 'folder', kenn: 'Anstellung · remote',
+      titel: 'Büro und Verwaltung (m/w/d)',
+      text: 'Du sorgst dafür, dass im Hintergrund alles läuft: Organisation, Kommunikation und Zahlen.',
+      listeTitel: 'Aufgaben',
+      punkte: ['Organisation und Terminabstimmung', 'Kommunikation mit Kunden und Partnern', 'Angebote, Rechnungen und Ablage vorbereiten', 'Arbeiten mit digitalen Werkzeugen statt Papier'],
+      arbeitsform: 'Anstellung, Umfang nach Absprache, remote',
+      betreff: 'Bewerbung: Büro und Verwaltung',
+    },
+    {
+      id: 'dozenten', icon: 'book', kenn: 'Freiberuflich · waybuild Akademie',
+      titel: 'Dozentinnen und Dozenten (m/w/d)',
+      text: 'Du gibst dein Wissen gern weiter? Für die waybuild Akademie suchen wir laufend Lehrkräfte.',
+      listeTitel: 'Einsätze',
+      punkte: ['Aus- und Weiterbildung, Umschulung und Seminare', 'Kaufmännische Themen', 'IT-Themen', 'Fachwissen und Freude am Unterrichten'],
+      arbeitsform: 'Freiberuflich, Einsätze nach Absprache',
+      betreff: 'Bewerbung: Dozent/in',
+    },
+    {
+      id: 'initiativ', icon: 'spark', kenn: 'Alles offen', offen: true,
+      titel: 'Initiativbewerbung',
+      text: 'Du passt in keine dieser Rollen, willst aber bei uns mitarbeiten? Erzähl uns, was du gut kannst und was du bei Waybuild machen möchtest.',
+      listeTitel: '',
+      punkte: [],
+      arbeitsform: 'Nach Absprache',
+      betreff: 'Initiativbewerbung',
+    },
+  ],
+  benefits: {
+    kenn: 'Warum Waybuild?',
+    titel: 'Acht Buchstaben. Acht Gründe.',
+    text: 'Unser Name verrät schon, was dich bei uns erwartet.',
+    wortLabel: 'W, A, Y, B, U, I, L, D ergibt Waybuild',
+    liste: [
+      { b: 'W', wort: 'W', rest: 'o du willst', text: 'Wir arbeiten komplett remote. Du arbeitest dort, wo du gut arbeiten kannst.' },
+      { b: 'A', wort: 'A', rest: 'ugenhöhe', text: 'Bei uns duzen sich alle. Kurze Wege zur Geschäftsführung, offenes Feedback in beide Richtungen.' },
+      { b: 'Y', wort: 'Y', rest: 'our Ideas', text: 'Deine Ideen zählen. Wenn du einen besseren Weg siehst, probieren wir ihn aus.' },
+      { b: 'B', wort: 'B', rest: 'eweglich', text: 'Flexible Arbeitszeiten nach Absprache. Ergebnisse zählen, nicht die Stechuhr.' },
+      { b: 'U', wort: 'U', rest: 'nkompliziert', text: 'Wenig Bürokratie. Eine Nachricht genügt, Entscheidungen fallen schnell.' },
+      { b: 'I', wort: 'I', rest: 'nnovativ', text: 'Moderne Werkzeuge und KI gehören bei uns zum Alltag.' },
+      { b: 'L', wort: 'L', rest: 'ernen', text: 'Mit der waybuild Akademie haben wir Weiterbildung im eigenen Haus.' },
+      { b: 'D', wort: 'D', rest: 'abei von Anfang an', text: 'Wir sind ein junges Start-up. Du baust mit auf und siehst, was deine Arbeit bewirkt.' },
     ],
   },
   bewerben: {
-    kenn: 'Initiativ bewerben',
-    titel: 'Sie möchten bei uns mitarbeiten?',
-    text: 'Schreiben Sie uns, wer Sie sind, was Sie gut können und was Sie bei Waybuild machen möchten.',
-    betreff: 'Initiativbewerbung',
+    kenn: 'So bewirbst du dich',
+    titel: 'Eine E-Mail genügt.',
+    text: 'Schreib uns kurz, wer du bist und welche Stelle dich interessiert.',
+    hinweis: 'Lebenslauf und Zeugnisse als PDF genügen. Kein Anschreiben nötig.',
+    betreff: 'Bewerbung',
     cta: 'Bewerbung per E-Mail',
+    an: 'an',
+  },
+  meta: {
+    title: 'Karriere: Jobs bei Waybuild, remote',
+    description: 'Jobs bei Waybuild: Wir suchen immer IT-Freelancer, IT-Fachkräfte, Büro- und Verwaltungskräfte sowie Dozenten. Remote, Du-Kultur, Bewerbung per E-Mail.',
+    crumb: 'Karriere',
   },
 };

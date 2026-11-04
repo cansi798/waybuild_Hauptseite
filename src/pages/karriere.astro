@@ -1,97 +1,15 @@
 ---
-// /karriere/ (Jamil, Talk 4192): keine erfundenen Stellen. Solange STELLEN leer ist: „Aktuell keine offenen Stellen“,
-// Initiativbewerbung per E-Mail (Adresse aus site.ts). „So arbeiten wir“ aus Denkweise, Prinzipien und FAQ; die Punkte
-// docken beim Scrollen an eine Linie an (scrollgekoppelt, reduzierte Bewegung: fertiges Bild).
+// /karriere/ – Daueranzeigen, WAYBUILD-Benefits, Bewerbung per E-Mail (Can, Talk k8oxzjva, 04.11.2026).
+// Inhalt: src/config/unterseiten.ts → KARRIERESEITE, Aufbau: src/components/us/KarriereInhalt.astro.
+// Kein JobPosting-JSON-LD: die Seite listet mehrere Dauer- bzw. Initiativ-Anzeigen auf einer Übersicht; Google
+// verlangt eine konkrete, offene Stelle je Detailseite.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
-import Hint from '../components/Hint.astro';
-import UsKopf from '../components/us/UsKopf.astro';
-import { href } from '../lib/paths';
-import { company } from '../config/site';
-import { KARRIERESEITE as K, STELLEN } from '../config/unterseiten';
+import KarriereInhalt from '../components/us/KarriereInhalt.astro';
+import { KARRIERESEITE as K } from '../config/unterseiten';
 import '../styles/denkweise.css';
 import '../styles/unterseiten.css';
-
-const mailto = `mailto:${company.email}?subject=${encodeURIComponent(K.bewerben.betreff)}`;
 ---
 
-<BaseLayout
-  title="Karriere: Arbeiten bei Waybuild"
-  description="Karriere bei Waybuild: Aktuell keine offenen Stellen, Initiativbewerbungen sind willkommen. So arbeiten wir und so erreichen Sie uns."
-  breadcrumb={[{ name: 'Karriere', path: '/karriere/' }]}
->
-  <div class="dw us" data-denkweise>
-    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
-
-    <UsKopf {...K.kopf}>
-      <div class="us-kopf__aktionen">
-        <a class="btn btn--primary btn--lg" href={mailto}><Icon name="mail" size={18} /> {K.bewerben.cta}</a>
-        <a class="pfeil-link" href={href('/ueber-uns/')}>Mehr über uns <Icon name="arrow" size={16} /></a>
-      </div>
-    </UsKopf>
-
-    <section class="dw-abschnitt dw-abschnitt--eng" id="stellen" aria-labelledby="stellen-h">
-      <div class="wrap">
-        <div class="us-kopfzeile us-kopfzeile--eng">
-          <span class="dw-kenn"><Icon name="doc" size={18} /> {K.stellen.kenn}</span>
-          <h2 class="sr-only" id="stellen-h">{K.stellen.kenn}</h2>
-        </div>
-        {STELLEN.length ? (
-          <ul class="us-stellen">
-            {STELLEN.map((s) => (
-              <li class="us-status"><span class="us-status__icon"><Icon name="doc" size={22} /></span><div><h3>{s.titel}</h3><p>{s.art} · {s.ort}</p><p>{s.text}</p></div></li>
-            ))}
-          </ul>
-        ) : (
-          <div class="us-status">
-            <span class="us-status__icon"><Icon name="search" size={22} /></span>
-            <div><h3>{K.stellen.leer}</h3><p>{K.stellen.leerText}</p></div>
-          </div>
-        )}
-      </div>
-    </section>
-
-    <section class="dw-abschnitt" id="so-arbeiten-wir" aria-labelledby="arbeit-h">
-      <div class="wrap">
-        <div class="us-kopfzeile">
-          <span class="dw-kenn"><Icon name="compass" size={18} /> {K.arbeit.kenn}</span>
-          <h2 id="arbeit-h">{K.arbeit.titel}</h2>
-        </div>
-        <div class="us-leiter-feld" data-szene>
-          <ul class="us-leiter">
-            {K.arbeit.punkte.map((x) => (
-              <li>
-                <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
-                <span class="us-leiter__punkt" aria-hidden="true" data-an="erscheinen:auto"></span>
-                <span class="us-punkte__icon"><Icon name={x.icon} size={22} /></span>
-                <div><h3>{x.titel}</h3><p>{x.text}</p></div>
-              </li>
-            ))}
-          </ul>
-          <span class="us-saeule us-leiter__saeule" aria-hidden="true" data-an="hoch:0-0.9"></span>
-        </div>
-      </div>
-    </section>
-
-    <section class="dw-abschnitt dw-ohne-linie" id="bewerben" aria-labelledby="bewerben-h">
-      <div class="wrap">
-        <div class="us-cta">
-          <div>
-            <span class="dw-kenn"><Icon name="mail" size={18} /> {K.bewerben.kenn}</span>
-            <h2 id="bewerben-h">{K.bewerben.titel}</h2>
-            <p>{K.bewerben.text}</p>
-          </div>
-          <div class="us-cta__aktionen">
-            <a class="btn btn--primary btn--lg" href={mailto}><Icon name="mail" size={18} /> {K.bewerben.cta}<span class="sr-only"> an {company.email}</span></a>
-            <span class="us-cta__adresse">{company.email}</span>
-          </div>
-        </div>
-        <Hint block label="Ansprechperson, gewünschte Unterlagen und ein Datenschutzhinweis für Bewerbungen (Arbeitsort: komplett remote, steht schon drin)" where="src/config/unterseiten.ts → KARRIERESEITE, src/pages/datenschutz.astro" />
-      </div>
-    </section>
-  </div>
+<BaseLayout title={K.meta.title} description={K.meta.description} breadcrumb={[{ name: K.meta.crumb, path: '/karriere/' }]}>
+  <KarriereInhalt K={K} />
 </BaseLayout>
-
-<script>
-  import '../scripts/denkweise';
-</script>
