@@ -180,3 +180,14 @@ export const HS_MARKE = {
   statement: 'Anspruchsvolle Lösungen. Überraschend einfach umgesetzt.',
   kurz: 'Waybuild entwickelt durchdachte Lösungen und übernimmt Verantwortung dafür, dass Projekte und Zusammenarbeit für Kunden möglichst einfach, verständlich und verlässlich bleiben.',
 };
+
+/** Alle Startseiten-Texte als Bündel (für die englische Fassung src/config/en.ts mit gleicher Form) */
+export const HS_DE = {
+  HERO: HS_HERO, WARUM: HS_WARUM, FUER_WEN: HS_FUER_WEN, HALTUNG: HS_HALTUNG, ZUSAMMENARBEIT: HS_ZUSAMMENARBEIT,
+  ENTSCHEIDUNGEN: HS_ENTSCHEIDUNGEN, LOESUNGEN: HS_LOESUNGEN, ERGEBNISSE: HS_ERGEBNISSE, VERLASSEN: HS_VERLASSEN, ABSCHLUSS: HS_ABSCHLUSS,
+  frageAria: 'Frage und Antwort',
+  grundlageAria: 'Unsere Grundlage',
+  ablaufAria: 'Ablauf eines Projekts',
+  heroBildAria: (netz: string[], ergebnis: string[]) => `Ein unübersichtliches Netz aus ${netz.join(', ')} wird von der Waybuild-Linie entwirrt. Am Ende stehen ${ergebnis.join(', ')}.`,
+};
+export type HsTexte = typeof HS_DE;

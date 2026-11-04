@@ -1,0 +1,127 @@
+---
+// Über uns (DE /ueber-uns/, EN /en/about/) – Aufbau aus src/pages/ueber-uns.astro (Jamil, Talk 4192), Texte je Sprache.
+import Icon from '../Icon.astro';
+import Hint from '../Hint.astro';
+import UsKopf from './UsKopf.astro';
+import UsAndock from './UsAndock.astro';
+import UsProzess from './UsProzess.astro';
+import { href } from '../../lib/paths';
+import { lp, type Lang } from '../../i18n/lang';
+import { SHOW_HINTS } from '../../config/site';
+import type { UeberUnsTexte } from '../../config/unterseiten';
+interface Props { U: UeberUnsTexte; lang: Lang }
+const { U, lang } = Astro.props;
+---
+  <div class="dw us" data-denkweise>
+    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
+
+    <UsKopf {...U.kopf}>
+      <div class="us-kopf__aktionen">
+        <a class="btn btn--primary btn--lg" href={href(lp('/kontakt/', lang))}>{U.aktionen.cta} <Icon name="arrow" size={18} /></a>
+        <a class="pfeil-link" href={href(lp('/produkte/', lang))}>{U.aktionen.produkte} <Icon name="arrow" size={16} /></a>
+      </div>
+    </UsKopf>
+
+    <!-- Wer wir sind: Steckbrief dockt an die Linie an -->
+    <section class="dw-abschnitt" id="wer-wir-sind" aria-labelledby="wer-h">
+      <div class="wrap dw-raster">
+        <div class="dw-text reveal">
+          <span class="dw-linienstart dw-nur-m" aria-hidden="true"></span>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="gebaeude" size={18} /> {U.wer.kenn}</span>
+          <h2 id="wer-h">{U.wer.titel}</h2>
+          {U.wer.text.map((t) => <p>{t}</p>)}
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+        </div>
+        <UsAndock icon="pin" start>
+          <p class="us-karte__kenn">{U.steckbrief}</p>
+          <dl class="us-fakten">
+            {U.fakten.map((f) => (
+              <div class="us-fakten__zeile" data-an="auf:auto">
+                <dt><Icon name={f.icon} size={16} /> {f.label}</dt>
+                <dd>{f.wert}</dd>
+              </div>
+            ))}
+          </dl>
+        </UsAndock>
+      </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="dw-abschnitt" id="mission" aria-labelledby="mission-h">
+      <div class="wrap dw-raster dw-raster--spiegel">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="target" size={18} /> {U.mission.kenn}</span>
+          <h2 id="mission-h">{U.mission.titel}</h2>
+          {U.mission.text.map((t) => <p>{t}</p>)}
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+        </div>
+        <UsAndock icon="search">
+          <p class="us-kernsatz">{lang === 'en' ? `“${U.mission.kernsatz}”` : `„${U.mission.kernsatz}“`}</p>
+          <ul class="dw-haken us-haltung">
+            {U.mission.haltung.map((h) => <li data-an="auf:auto"><Icon name="check" size={16} /> {h}</li>)}
+          </ul>
+        </UsAndock>
+      </div>
+    </section>
+
+    <!-- Denkweise kompakt: Linie endet im Verbessern-Kreis -->
+    <section class="dw-abschnitt" id="denkweise" aria-labelledby="denkweise-h">
+      <div class="wrap dw-raster">
+        <div class="dw-text reveal">
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <span class="dw-kenn"><Icon name="compass" size={18} /> {U.denkweise.kenn}</span>
+          <h2 id="denkweise-h">{U.denkweise.titel}</h2>
+          {U.denkweise.text.map((t) => <p>{t}</p>)}
+          <p><a class="pfeil-link" href={href(lp('/#denkweise', lang))}>{U.denkweise.link} <Icon name="arrow" size={16} /></a></p>
+          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+        </div>
+        <UsProzess schritte={U.prozess} aria={U.prozessAria} lang={lang} />
+      </div>
+    </section>
+
+    <!-- Prinzipien (ohne Linie, wie auf der Startseite) -->
+    <section class="dw-abschnitt dw-ohne-linie" id="prinzipien" aria-labelledby="prinzipien-h">
+      <div class="wrap">
+        <h2 class="dw-prinzipien__titel" id="prinzipien-h">{U.prinzipien.titel}</h2>
+        <div class="dw-prinzipien__raster">
+          {U.prinzipien.liste.map((p, i) => (
+            <article class="dw-prinzip-karte" aria-labelledby={`pr-${i}`}>
+              <span class="dw-prinzip-karte__icon"><Icon name={p.icon} size={24} /></span>
+              <h3 id={`pr-${i}`}>{p.wort}</h3>
+              <p class="dw-prinzip-karte__kern">{p.kern}</p>
+              {p.text.map((t) => <p>{t}</p>)}
+              <p class="dw-prinzip-karte__schluss">{p.schluss}</p>
+            </article>
+          ))}
+        </div>
+        <p class="us-mitte"><a class="pfeil-link" href={href(lp('/#prinzipien', lang))}>{U.prinzipienLink} <Icon name="arrow" size={16} /></a></p>
+      </div>
+    </section>
+
+    <!-- Menschen -->
+    <section class="dw-abschnitt dw-ohne-linie" id="team" aria-labelledby="team-h">
+      <div class="wrap">
+        <div class="us-kopfzeile">
+          <span class="dw-kenn"><Icon name="users" size={18} /> {U.team.kenn}</span>
+          <h2 id="team-h">{U.team.titel}</h2>
+          <p>{U.team.text}</p>
+        </div>
+        <ul class="us-team">
+          {U.team.personen.map((p) => (
+            <li class="us-person">
+              <div class="us-person__foto us-platzhalter" role="img" aria-label={U.team.fotoFolgt(p.name)}>
+                <Icon name="user" size={40} /><span class="us-platzhalter__marke">{U.team.fotoMarke}</span>
+              </div>
+              <h3>{p.name}</h3>
+              {p.rolleFehlt
+                ? (SHOW_HINTS ? <p><span class="us-person__rolle--fehlt">{U.team.platzhalter}: {p.rolle}</span></p> : null)
+                : <p>{p.rolle}</p>}
+            </li>
+          ))}
+        </ul>
+        <Hint block label="Echte Teamfotos (keine Stockfotos) und die Rolle von Jamil Iqbal" where="src/config/unterseiten.ts → UEBER_UNS.team" />
+      </div>
+    </section>
+  </div>

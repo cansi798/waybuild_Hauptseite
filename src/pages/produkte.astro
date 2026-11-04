@@ -1,117 +1,34 @@
 ---
+
 // /produkte/ (Jamil, Talk 4192): Website Service (Hauptprodukt, Preis wie auf der Startseite), Individuelle Software
 // (auf Anfrage), „Weitere Produkte folgen.“. Animation: Die Linie startet über den Karten und verzweigt sich zu den drei
 // Produkten (Desktop), am Handy läuft sie links an den Karten entlang; erreichte Karten bekommen einen türkisen Rand.
 // Die Karten selbst sind sofort sichtbar (wie auf der Startseite, Talk 4176).
+// Aufbau seit 04.11.2026 in src/components/us/ProdukteInhalt.astro (gemeinsam mit /en/products/).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
-import UsKopf from '../components/us/UsKopf.astro';
-import { href, absolute } from '../lib/paths';
+import ProdukteInhalt from '../components/us/ProdukteInhalt.astro';
+import { absolute } from '../lib/paths';
 import { PRODUKTSEITE as P } from '../config/unterseiten';
 import '../styles/denkweise.css';
 import '../styles/unterseiten.css';
-
-const W = P.website, I = P.individuell, F = P.folgt;
-// Verzweigung (viewBox 1160 × 110 = volle Inhaltsbreite): Stamm in der Mitte, Äste zu den Spaltenmitten (3 Spalten,
-// 24 px Abstand), weiche S-Kurven mit senkrechten Tangenten
-const SP = (1160 - 48) / 3;
-const XS = [SP / 2, 580, 1160 - SP / 2];
-const ast = (x: number) => (x === 580 ? 'M 580 30 L 580 110' : `M 580 30 C 580 74, ${x.toFixed(1)} 66, ${x.toFixed(1)} 110`);
-const preisTeile = W.preis.split(' / ');
+const W = P.website, I = P.individuell;
 ---
 
 <BaseLayout
-  title="Produkte: Website Service, individuelle Software"
-  description="Die Produkte von Waybuild: der Website Service als Hauptprodukt, individuelle Software auf Anfrage. Weitere Produkte folgen."
-  breadcrumb={[{ name: 'Produkte', path: '/produkte/' }]}
+  title={P.meta.title}
+  description={P.meta.description}
+  breadcrumb={[{ name: P.meta.crumb, path: '/produkte/' }]}
   schema={[{
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Produkte von Waybuild',
+    name: P.meta.listName,
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: W.name, url: absolute(W.pfad, Astro.site) },
       { '@type': 'ListItem', position: 2, name: I.name, url: absolute('/produkte/#individuell', Astro.site) },
     ],
   }]}
 >
-  <div class="dw us" data-denkweise>
-    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
-
-    <UsKopf {...P.kopf}>
-      <div class="us-kopf__aktionen">
-        <a class="btn btn--primary btn--lg" href={href('/angebot/')}>Website Service ansehen <Icon name="arrow" size={18} /></a>
-        <a class="pfeil-link" href={href('/kontakt/')}>Kostenloses Erstgespräch <Icon name="arrow" size={16} /></a>
-      </div>
-    </UsKopf>
-
-    <section class="dw-abschnitt" id="produkte" aria-labelledby="produkte-h">
-      <div class="wrap">
-        <h2 class="sr-only" id="produkte-h">{P.titel}</h2>
-        <div class="us-produkte" data-szene>
-          <div class="us-zweig" aria-hidden="true">
-            <span class="us-startpunkt" style="left:calc(50% - 7px);top:-7px"></span>
-            <svg viewBox="0 0 1160 110" focusable="false">
-              <path class="dw-s" pathLength="1" d="M 580 0 L 580 30" data-an="linear:0.02-0.1" />
-              {XS.map((x) => <path class="dw-s" pathLength="1" d={ast(x)} data-an="zeichnen:0.1-0.32" />)}
-            </svg>
-          </div>
-          <div class="us-produkte__feld">
-          <span class="us-saeule" aria-hidden="true" data-an="hoch:0-0.85"></span>
-          <span class="us-startpunkt us-startpunkt-m" aria-hidden="true"></span>
-          <ul class="us-produkte__raster">
-            <li class="us-produkte__item" id={W.id}>
-              <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
-              <article class="us-pkarte us-pkarte--haupt" aria-labelledby="p-web">
-                <span class="us-pkarte__glanz" aria-hidden="true" data-an="blende:auto"></span>
-                <div class="us-pkarte__kopf"><span class="us-pkarte__icon"><Icon name={W.icon} size={24} /></span><span class="us-pkarte__kenn">{W.kenn}</span></div>
-                <h3 id="p-web">{W.name}</h3>
-                <p class="us-pkarte__nutzen">{W.nutzen}</p>
-                <p>{W.text}</p>
-                <ul class="dw-haken">{W.punkte.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}</ul>
-                <p class="us-pkarte__preis">{preisTeile[0]} <small>/ {preisTeile[1] ?? 'Monat'}</small></p>
-                <p class="us-pkarte__aktion"><a class="btn btn--primary" href={href(W.pfad)}>{W.cta}<span class="sr-only"> zum {W.name}</span> <Icon name="arrow" size={18} /></a></p>
-              </article>
-            </li>
-            <li class="us-produkte__item" id={I.id}>
-              <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
-              <article class="us-pkarte" aria-labelledby="p-ind">
-                <span class="us-pkarte__glanz" aria-hidden="true" data-an="blende:auto"></span>
-                <div class="us-pkarte__kopf"><span class="us-pkarte__icon"><Icon name={I.icon} size={24} /></span><span class="us-pkarte__kenn">{I.kenn}</span></div>
-                <h3 id="p-ind">{I.name}</h3>
-                <p>{I.text}</p>
-                <p class="us-pkarte__aktion"><a class="pfeil-link" href={href(I.pfad)}>{I.cta}<span class="sr-only">: {I.name}</span> <Icon name="arrow" size={16} /></a></p>
-              </article>
-            </li>
-            <li class="us-produkte__item">
-              <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
-              <article class="us-pkarte us-pkarte--folgt" aria-labelledby="p-folgt">
-                <span class="us-pkarte__glanz" aria-hidden="true" data-an="blende:auto"></span>
-                <div class="us-pkarte__kopf"><span class="us-pkarte__icon"><Icon name={F.icon} size={24} /></span></div>
-                <h3 id="p-folgt">{F.name}</h3>
-                <p>{F.text}</p>
-              </article>
-            </li>
-          </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="dw-abschnitt dw-ohne-linie" id="fuer-alle" aria-labelledby="alle-h">
-      <div class="wrap">
-        <div class="us-kopfzeile">
-          <span class="dw-kenn"><Icon name="shield" size={18} /> {P.fuerAlle.kenn}</span>
-          <h2 id="alle-h">{P.fuerAlle.titel}</h2>
-        </div>
-        <ul class="us-punkte us-punkte--vier">
-          {P.fuerAlle.punkte.map((x) => (
-            <li><span class="us-punkte__icon"><Icon name={x.icon} size={22} /></span><div><h3>{x.titel}</h3><p>{x.text}</p></div></li>
-          ))}
-        </ul>
-        <p class="us-mitte"><a class="pfeil-link" href={href('/zusagen/')}>{P.fuerAlle.link} <Icon name="arrow" size={16} /></a></p>
-      </div>
-    </section>
-  </div>
+  <ProdukteInhalt P={P} lang="de" />
 </BaseLayout>
 
 <script>

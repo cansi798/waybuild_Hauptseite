@@ -1,0 +1,31 @@
+---
+// /en/products/ – Produktübersicht auf Englisch, ohne Paketnamen (Jamil, Talk 4554/4555).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProdukteInhalt from '../../components/us/ProdukteInhalt.astro';
+import { absolute } from '../../lib/paths';
+import { PRODUKTSEITE_EN as P } from '../../config/en';
+import '../../styles/denkweise.css';
+import '../../styles/unterseiten.css';
+const W = P.website, I = P.individuell;
+---
+
+<BaseLayout
+  title={P.meta.title}
+  description={P.meta.description}
+  breadcrumb={[{ name: P.meta.crumb, path: '/en/products/' }]}
+  schema={[{
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: P.meta.listName,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: W.name, url: absolute('/en/products/#website-service', Astro.site) },
+      { '@type': 'ListItem', position: 2, name: I.name, url: absolute('/en/products/#individuell', Astro.site) },
+    ],
+  }]}
+>
+  <ProdukteInhalt P={P} lang="en" />
+</BaseLayout>
+
+<script>
+  import '../../scripts/denkweise';
+</script>

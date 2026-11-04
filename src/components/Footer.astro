@@ -6,11 +6,15 @@ import Logo from './Logo.astro';
 import { IS_PREVIEW } from '../lib/env';
 import { SHOW_HINTS } from '../config/site';
 import FooterKontakt from './FooterKontakt.astro';
-import { HS_MARKE } from '../config/startseite';
+import { langVon } from '../i18n/lang';
+import { UI } from '../i18n/ui';
 
 const year = new Date().getFullYear();
 interface Props { kontakt?: boolean; rueckgrat?: boolean }
 const { kontakt = true, rueckgrat = false } = Astro.props;
+const lang = langVon(Astro.url.pathname);
+const t = UI[lang];
+const F = t.footer;
 ---
 
 <footer class="footer section--dark">
@@ -19,51 +23,94 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
     <div>
       <Logo />
       {/* Footer-Markenstatement (Jamil, Talk 4544) */}
-      <p class="footer__claim">{HS_MARKE.statement}</p>
-      <p class="footer__kurz">{HS_MARKE.kurz}</p>
+      <p class="footer__claim">{t.marke.statement}</p>
+      <p class="footer__kurz">{t.marke.kurz}</p>
       <p class="footer__adr">{company.legalName}<br />{company.street}, {company.zip} {company.city}<br /><a href={`mailto:${company.email}`}>{company.email}</a></p>
+      {/* DACH (Can, Talk 4551) */}
+      <p class="footer__dach">{F.dach}</p>
     </div>
-    <nav aria-label="Produkte">
-      <h2 class="footer__h">Produkte</h2>
-      <ul>
-        <li><a href={href('/produkte/')}>Alle Produkte</a></li>
-        {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/produkte/')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
-        <li><a href={href('/produkte/#individuell')}>Individuelle Software</a></li>
-        {/* Kommende Produkte als Satz statt interner Kategorien (Talk 3636) */}
-        <li><span class="footer__soon">Weitere Produkte folgen.</span></li>
-      </ul>
-    </nav>
-    <nav aria-label="Unternehmen">
-      <h2 class="footer__h">Unternehmen</h2>
-      <ul>
-        <li><a href={href('/ueber-uns/')}>Über uns</a></li>
-        <li><a href={href('/referenzen/')}>Referenzen</a></li>
-        <li><a href={href('/partner/')}>Partner</a></li>
-        <li><a href={href('/karriere/')}>Karriere <span class="footer__jobs">Wir suchen</span></a></li>
-        <li><a href={href('/kontakt/')}>Kontakt</a></li>
-      </ul>
-    </nav>
-    <nav aria-label="So arbeiten wir">
-      <h2 class="footer__h">So arbeiten wir</h2>
-      <ul>
-        <li><a href={href('/#denkweise')}>Wie wir entscheiden</a></li>
-        <li><a href={href('/#prinzipien')}>Wofür wir stehen</a></li>
-        <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
-        <li><a href={href('/zusagen/#ticketsystem')}>So läuft eine Anfrage</a></li>
-        <li><a href={href('/faq/')}>Häufige Fragen</a></li>
-      </ul>
-    </nav>
-    <nav aria-label="Rechtliches">
-      <h2 class="footer__h">Rechtliches</h2>
-      <ul>
-        <li><a href={href('/impressum/')}>Impressum</a></li>
-        <li><a href={href('/datenschutz/')}>Datenschutz</a></li>
-        <li><a href={href('/agb/')}>AGB</a></li>
-      </ul>
-    </nav>
+    {lang === 'de' ? (
+      <>
+        <nav aria-label="Produkte">
+          <h2 class="footer__h">Produkte</h2>
+          <ul>
+            <li><a href={href('/produkte/')}>Alle Produkte</a></li>
+            {PRODUKTE.filter((p) => p.aktiv).map((p) => <li><a href={p.url || href(p.pfad ?? '/produkte/')} {...(p.url ? { target: '_blank', rel: 'noopener' } : {})}>{produktName(p)}</a></li>)}
+            <li><a href={href('/produkte/#individuell')}>Individuelle Software</a></li>
+            {/* Kommende Produkte als Satz statt interner Kategorien (Talk 3636) */}
+            <li><span class="footer__soon">Weitere Produkte folgen.</span></li>
+          </ul>
+        </nav>
+        <nav aria-label="Unternehmen">
+          <h2 class="footer__h">Unternehmen</h2>
+          <ul>
+            <li><a href={href('/ueber-uns/')}>Über uns</a></li>
+            <li><a href={href('/referenzen/')}>Referenzen</a></li>
+            <li><a href={href('/partner/')}>Partner</a></li>
+            <li><a href={href('/karriere/')}>Karriere <span class="footer__jobs">Wir suchen</span></a></li>
+            <li><a href={href('/kontakt/')}>Kontakt</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="So arbeiten wir">
+          <h2 class="footer__h">So arbeiten wir</h2>
+          <ul>
+            <li><a href={href('/#denkweise')}>Wie wir entscheiden</a></li>
+            <li><a href={href('/#prinzipien')}>Wofür wir stehen</a></li>
+            <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
+            <li><a href={href('/zusagen/#ticketsystem')}>So läuft eine Anfrage</a></li>
+            <li><a href={href('/faq/')}>Häufige Fragen</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Rechtliches">
+          <h2 class="footer__h">Rechtliches</h2>
+          <ul>
+            <li><a href={href('/impressum/')}>Impressum</a></li>
+            <li><a href={href('/datenschutz/')}>Datenschutz</a></li>
+            <li><a href={href('/agb/')}>AGB</a></li>
+          </ul>
+        </nav>
+      </>
+    ) : (
+      <>
+        <nav aria-label="Products">
+          <h2 class="footer__h">Products</h2>
+          <ul>
+            <li><a href={href('/en/products/')}>All products</a></li>
+            <li><a href={href('/en/products/#website-service')}>Website Service</a></li>
+            <li><a href={href('/en/products/#individuell')}>Custom software</a></li>
+            <li><span class="footer__soon">More products coming soon.</span></li>
+          </ul>
+        </nav>
+        <nav aria-label="Company">
+          <h2 class="footer__h">Company</h2>
+          <ul>
+            <li><a href={href('/en/about/')}>About us</a></li>
+            <li><a href={href('/en/careers/')}>Careers <span class="footer__jobs">We're hiring</span></a></li>
+            <li><a href={href('/en/contact/')}>Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="How we work">
+          <h2 class="footer__h">How we work</h2>
+          <ul>
+            <li><a href={href('/en/#denkweise')}>How we decide</a></li>
+            <li><a href={href('/en/#prinzipien')}>What we stand for</a></li>
+            <li><a href={href('/en/#erwartungen')}>What you can expect</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Legal (in German)">
+          <h2 class="footer__h">{F.recht}</h2>
+          <ul>
+            <li><a href={href('/impressum/')} hreflang="de">Impressum <small>(legal notice)</small></a></li>
+            <li><a href={href('/datenschutz/')} hreflang="de">Datenschutz <small>(privacy)</small></a></li>
+            <li><a href={href('/agb/')} hreflang="de">AGB <small>(terms)</small></a></li>
+          </ul>
+        </nav>
+      </>
+    )}
   </div>
   <div class="wrap footer__bottom">
     <small>© {year} {company.legalName}</small>
+    {lang === 'en' && <small> · <a href={href('/impressum/')} hreflang="de">{F.rechtHinweis}</a></small>}
     {IS_PREVIEW && SHOW_HINTS && <small> · <a href={href('/checkliste/')}>Launch-Checkliste (nur Vorschau)</a></small>}
   </div>
 </footer>
@@ -78,6 +125,9 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
   .footer__kurz { color: var(--dark-lead); font-size: 0.95rem; line-height: 1.65; margin: 0 0 14px; max-width: 40ch; }
   .footer__adr { color: var(--dark-soft); font-size: 0.92rem; line-height: 1.6; margin: 0; }
   .footer__adr a { color: var(--dark-lead); }
+  .footer__dach { margin: 10px 0 0; color: var(--dark-soft); font-size: 0.92rem; line-height: 1.6; max-width: 40ch; }
+  .footer small small, .footer li small { color: var(--dark-soft); font-size: 0.8em; }
+  .footer__bottom a { color: var(--dark-lead); }
   .footer__h { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-soft); margin-bottom: 12px; }
   .footer ul { list-style: none; margin: 0; padding: 0; }
   .footer li a, .footer__soon { display: inline-block; padding: 6px 0; text-decoration: none; }

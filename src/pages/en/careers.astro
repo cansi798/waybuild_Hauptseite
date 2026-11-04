@@ -1,0 +1,12 @@
+---
+// /en/careers/ – Karriere auf Englisch (gleicher Aufbau wie /karriere/, WAYBUILD-Akrostichon mit englischen Wörtern).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import KarriereInhalt from '../../components/us/KarriereInhalt.astro';
+import { KARRIERESEITE_EN as K } from '../../config/en';
+import '../../styles/denkweise.css';
+import '../../styles/unterseiten.css';
+---
+
+<BaseLayout title={K.meta.title} description={K.meta.description} breadcrumb={[{ name: K.meta.crumb, path: '/en/careers/' }]}>
+  <KarriereInhalt K={K} />
+</BaseLayout>

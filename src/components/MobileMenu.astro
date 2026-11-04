@@ -4,12 +4,17 @@ import { href } from '../lib/paths';
 import { company, HOURS } from '../config/site';
 import { NAV } from '../config/nav';
 import Icon from './Icon.astro';
+import { langVon } from '../i18n/lang';
+import { UI, NAV_EN } from '../i18n/ui';
+const lang = langVon(Astro.url.pathname);
+const t = UI[lang];
+const nav = lang === 'en' ? NAV_EN : NAV;
 ---
 
 <div class="mm" id="mobileMenu">
-  <nav aria-label="Mobile Navigation">
+  <nav aria-label={t.mobilnav}>
     <ul class="mm__list">
-      {NAV.map((item) =>
+      {nav.map((item) =>
         item.children ? (
           <li>
             <details class="mm__group">
@@ -32,11 +37,11 @@ import Icon from './Icon.astro';
   </nav>
 
   <div class="mm__footer">
-    <a class="btn btn--primary btn--lg mm__cta" href={href('/kontakt/')}>Kostenloses Erstgespräch</a>
+    <a class="btn btn--primary btn--lg mm__cta" href={href(t.kontakt)}>{t.abschluss.cta}</a>
     <div class="mm__contact">
       <a class="btn btn--ghost" href={`mailto:${company.email}`}><Icon name="mail" size={20} /> {company.email}</a>
     </div>
-    <p class="mm__hours">{HOURS} · Antwort spätestens am nächsten Werktag</p>
+    <p class="mm__hours">{t.hours} · {t.antwortZeile}</p>
   </div>
 </div>
 

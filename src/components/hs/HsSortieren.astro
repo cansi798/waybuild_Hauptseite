@@ -4,7 +4,9 @@
 // offene Themen, nächste Schritte, Entscheidungen und erledigte Aufgaben. Scrollgekoppelt (denkweise.ts, Spur „fliessen“:
 // Ruhelage = Versatz --ox/--oy in cqw, wird auf den Knoten gezogen). Ohne JS / reduzierte Bewegung: beides steht.
 import Icon from '../Icon.astro';
-import { HS_ZUSAMMENARBEIT as T } from '../../config/startseite';
+import { HS_ZUSAMMENARBEIT } from '../../config/startseite';
+interface Props { T?: typeof HS_ZUSAMMENARBEIT; aria?: string }
+const { T = HS_ZUSAMMENARBEIT, aria } = Astro.props;
 const W = 440, H = 500, MX = 220, MY = 196, SX = 56;
 const f = (n: number) => n.toFixed(3);
 const ox = (x: number) => f(((x - MX) / W) * 100);

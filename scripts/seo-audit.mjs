@@ -44,7 +44,21 @@ for (const file of files.sort()) {
   levels.forEach((l, i) => { if (i && l > levels[i - 1] + 1) report(file, `Überschriften-Sprung h${levels[i - 1]} → h${l}`); });
 
   if (!/<link rel="canonical" href="https:\/\/[^"]+\/"/.test(html)) report(file, 'Canonical fehlt oder ohne abschließenden Slash');
-  if (!/<html lang="de"/.test(html)) report(file, 'lang="de" fehlt');
+  const sollLang = page.startsWith('/en/') ? 'en' : 'de';
+  if (!new RegExp(`<html lang="${sollLang}"`).test(html)) report(file, `lang="${sollLang}" fehlt`);
+  // hreflang: jede Alternative muss existieren und auf diese Seite zurückverweisen (de, en, x-default)
+  const alts = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => ({ lang: m[1], href: m[2] }));
+  if (alts.length) {
+    if (!['de', 'en', 'x-default'].every((l) => alts.some((a) => a.lang === l))) report(file, 'hreflang unvollständig (de/en/x-default)');
+    const selbst = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+    if (!alts.some((a) => a.href === selbst)) report(file, 'hreflang enthält die Seite selbst nicht');
+    for (const a of alts) {
+      const rel = new URL(a.href).pathname.slice(BASE.length) || '/';
+      const ziel = join(DIST, rel, 'index.html');
+      if (!existsSync(ziel)) { report(file, `hreflang-Ziel fehlt: ${a.href}`); continue; }
+      if (!readFileSync(ziel, 'utf8').includes(`hreflang="${a.lang === 'x-default' ? 'x-default' : a.lang}" href="${a.href}"`) || !readFileSync(ziel, 'utf8').includes(`href="${selbst}"`)) report(file, `hreflang nicht gegenseitig: ${a.href}`);
+    }
+  }
   if (!/property="og:image"/.test(html)) report(file, 'og:image fehlt');
 
   for (const img of html.match(/<img\b[^>]*>/g) ?? []) if (!/\balt=/.test(img)) report(file, `Bild ohne alt: ${img.slice(0, 60)}`);

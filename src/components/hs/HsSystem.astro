@@ -4,7 +4,9 @@
 // System: Erreicht sie einen Bereich, wird er hell mit türkisem Rand. Scrollgekoppelt (src/scripts/denkweise.ts).
 // Ohne JS / reduzierte Bewegung: alles verbunden.
 import Icon from '../Icon.astro';
-import { HS_WARUM as T } from '../../config/startseite';
+import { HS_WARUM } from '../../config/startseite';
+interface Props { T?: typeof HS_WARUM; aria?: string }
+const { T = HS_WARUM, aria } = Astro.props;
 const W = 440, H = 300;
 const X = [120, 320], Y = [40, 150, 260];
 // Reihenfolge entlang der Linie (Schlangenlinie): oben links → oben rechts → Mitte rechts → Mitte links → unten links → unten rechts

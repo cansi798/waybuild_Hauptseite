@@ -1,0 +1,234 @@
+---
+// Startseite (DE /, EN /en/) – Aufbau aus src/pages/index.astro (Jamil, Talk k8oxzjva #4544), Texte je Sprache als Bündel
+// (DE: src/config/startseite.ts → HS_DE wörtlich nach Briefing, EN: src/config/en.ts → HS_EN). Animationen unverändert.
+import Icon from '../Icon.astro';
+import HsFrage from './HsFrage.astro';
+import HsHeroBild from './HsHeroBild.astro';
+import HsSystem from './HsSystem.astro';
+import HsSortieren from './HsSortieren.astro';
+import HsStationen from './HsStationen.astro';
+import HsErgebnis from './HsErgebnis.astro';
+import { href } from '../../lib/paths';
+import { lp, type Lang } from '../../i18n/lang';
+import { DACH } from '../../i18n/ui';
+import type { HsTexte } from '../../config/startseite';
+
+interface Props { S: HsTexte; lang: Lang }
+const { S, lang } = Astro.props;
+const HS_HALTUNG = S.HALTUNG, HS_LOESUNGEN = S.LOESUNGEN;
+const f = (n: number) => n.toFixed(3);
+// Wofür wir stehen: vier Karten nacheinander, die Linie verbindet sie
+const nH = HS_HALTUNG.grundsaetze.length;
+const haltung = HS_HALTUNG.grundsaetze.map((g, i) => {
+  const a = 0.04 + i * 0.17, n = 0.04 + (i + 1) * 0.17;
+  return { ...g, karte: `auf:${f(a)}-${f(a + 0.1)}`, stiel: `hoch:${f(a - 0.03)}-${f(a + 0.03)}`, stielM: `breit:${f(a - 0.03)}-${f(a + 0.03)}`,
+    seg: i < nH - 1 ? `breit:${f(a + 0.04)}-${f(n - 0.02)}` : '', segM: i < nH - 1 ? `hoch:${f(a + 0.04)}-${f(n - 0.02)}` : '' };
+});
+// Lösungen: eine Linie, drei Produktzweige, alle Äste führen zurück zur Hauptlinie
+const ZX = [200, 600, 1000];
+const zweige = HS_LOESUNGEN.produkte.map((p, i) => {
+  const a = 0.12 + i * 0.12, z = 0.56 + i * 0.07;
+  return { ...p, x: ZX[i], hin: `zeichnen:${f(a)}-${f(a + 0.12)}`, zurueck: `zeichnen:${f(z)}-${f(z + 0.1)}`, karte: `auf:${f(a + 0.08)}-${f(a + 0.18)}`,
+    stielM: `breit:${f(a + 0.04)}-${f(a + 0.1)}`, segM: i < 2 ? `hoch:${f(a + 0.1)}-${f(a + 0.2)}` : '' };
+});
+---
+  <div class="dw hs" data-denkweise>
+    {/* Die Engine erwartet die (hier ungenutzte) seitenweite Linie; alle Linien liegen in den Szenen selbst */}
+    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
+
+    <!-- 1 · HERO -->
+    <section class="hs-abschnitt hs-hero" id="start" aria-labelledby="hs-h1">
+      <div class="wrap hs-hero__raster">
+        <div class="hs-hero__text">
+          <h1 id="hs-h1">{S.HERO.titel[0]} <span class="hs-hero__zeile">{S.HERO.titel[1]}<span class="accent">{S.HERO.titelAkzent}</span></span></h1>
+          <p class="hs-hero__sub">{S.HERO.sub.map((z) => <span>{z}</span>)}</p>
+          <p class="hs-hero__sub2">{S.HERO.sub2}</p>
+          <div class="hs-aktionen">
+            <a class="btn btn--primary btn--lg" href={href(lp('/produkte/', lang))}>{S.HERO.ctaPrimaer} <Icon name="arrow" size={18} /></a>
+            <a class="btn btn--ghost btn--lg" href="#warum">{S.HERO.ctaSekundaer}</a>
+          </div>
+        </div>
+        <HsHeroBild T={S.HERO} aria={S.heroBildAria(S.HERO.netz, S.HERO.ergebnis)} />
+      </div>
+    </section>
+
+    <!-- 2 · WARUM ES WAYBUILD GIBT -->
+    <section class="hs-abschnitt" id="warum" aria-labelledby="hs-warum-h">
+      <div class="wrap">
+        <div class="hs-raster">
+          <div class="hs-text reveal">
+            <h2 id="hs-warum-h">{S.WARUM.titel}</h2>
+            <p class="hs-zeilen">{S.WARUM.einleitung.map((z) => <span>{z}</span>)}</p>
+            <ul class="hs-punkte">{S.WARUM.probleme.map((p) => <li>{p}</li>)}</ul>
+            <p class="hs-zeilen">{S.WARUM.ursache.map((z) => <span>{z}</span>)}</p>
+            <p class="hs-ziel"><span>{S.WARUM.ziel}</span> <strong>{S.WARUM.zielSatz}</strong></p>
+          </div>
+          <HsSystem T={S.WARUM} />
+        </div>
+        <HsFrage f={S.WARUM.frage} aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 3 · FÜR WEN WAYBUILD GEMACHT IST -->
+    <section class="hs-abschnitt" id="fuer-wen" aria-labelledby="hs-fuerwen-h">
+      <div class="wrap">
+        <div class="hs-raster">
+          <div class="hs-text reveal">
+            <h2 id="hs-fuerwen-h">{S.FUER_WEN.titel}</h2>
+            <p class="hs-zeilen hs-zeilen--betont">{S.FUER_WEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p>{S.FUER_WEN.text}</p>
+            <p class="hs-zeilen">{S.FUER_WEN.nachsatz.map((z) => <span>{z}</span>)}</p>
+          </div>
+          <div class="hs-karte hs-erwartungen reveal">
+            <h3>{S.FUER_WEN.erwartungenTitel}</h3>
+            <ul class="hs-haken">{S.FUER_WEN.erwartungen.map((e) => <li><Icon name="check" size={16} /> {e}</li>)}</ul>
+          </div>
+        </div>
+        <HsFrage f={S.FUER_WEN.frage} aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 4 · WOFÜR WAYBUILD STEHT -->
+    <section class="hs-abschnitt" id="prinzipien" aria-labelledby="hs-haltung-h">
+      <span id="verlaesslichkeit" class="hs-alt-anker"></span>
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-haltung-h">{S.HALTUNG.titel}</h2>
+          <p class="hs-zeilen">{S.HALTUNG.zeilen.map((z) => <span>{z}</span>)}</p>
+          <p class="hs-zeilen--betont">{S.HALTUNG.bleibt}</p>
+        </div>
+        <div class="hs-haltung" data-szene>
+          <ul class="hs-haltung__liste">
+            {haltung.map((g) => (
+              <li class="hs-haltung__item">
+                <span class="hs-stiel hs-nur-d" data-an={g.stiel} aria-hidden="true"></span>
+                <span class="hs-stiel hs-stiel--m hs-nur-m" data-an={g.stielM} aria-hidden="true"></span>
+                {g.seg && <span class="hs-seg hs-nur-d" data-an={g.seg} aria-hidden="true"></span>}
+                {g.segM && <span class="hs-seg hs-seg--m hs-nur-m" data-an={g.segM} aria-hidden="true"></span>}
+                <article class="hs-karte hs-grundsatz" data-an={g.karte}>
+                  <span class="hs-symbol"><Icon name={g.icon} size={22} /></span>
+                  <h3>{g.wort}</h3>
+                  {g.text.map((t) => <p>{t}</p>)}
+                </article>
+              </li>
+            ))}
+          </ul>
+          <p class="hs-ende" data-an="auf:0.74-0.86">{S.HALTUNG.ende}</p>
+        </div>
+        <HsFrage f={S.HALTUNG.frage} mitte aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 5 · SO SOLL SICH ZUSAMMENARBEIT ANFÜHLEN -->
+    <section class="hs-abschnitt" id="zusammenarbeit" aria-labelledby="hs-zus-h">
+      <div class="wrap">
+        <div class="hs-raster hs-raster--spiegel">
+          <div class="hs-text reveal">
+            <h2 id="hs-zus-h">{S.ZUSAMMENARBEIT.titel}</h2>
+            {S.ZUSAMMENARBEIT.text.map((t) => <p>{t}</p>)}
+            <h3 class="hs-unter">{S.ZUSAMMENARBEIT.erlebenTitel}</h3>
+            <ul class="hs-haken hs-haken--zwei">{S.ZUSAMMENARBEIT.erleben.map((e) => <li><Icon name="check" size={16} /> {e}</li>)}</ul>
+            <p class="hs-zeilen hs-zeilen--betont">{S.ZUSAMMENARBEIT.zusatz.map((z) => <span>{z}</span>)}</p>
+          </div>
+          <HsSortieren T={S.ZUSAMMENARBEIT} />
+        </div>
+        <HsFrage f={S.ZUSAMMENARBEIT.frage} aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 6 · WIE WIR ENTSCHEIDUNGEN TREFFEN (bewusst vor den Produkten) -->
+    <section class="hs-abschnitt" id="denkweise" aria-labelledby="hs-ent-h">
+      {/* frühere Sprungziele der Denkweise-Seite (z. B. von /ueber-uns/) landen hier */}
+      {['impuls', 'verstehen', 'hinterfragen', 'entscheiden', 'umsetzen', 'verbessern'].map((id) => <span id={id} class="hs-alt-anker"></span>)}
+      <div class="wrap">
+        <div class="hs-raster">
+          <div class="hs-text reveal">
+            <h2 id="hs-ent-h">{S.ENTSCHEIDUNGEN.titel}</h2>
+            <p>{S.ENTSCHEIDUNGEN.einleitung}</p>
+            <ul class="hs-fragen">{S.ENTSCHEIDUNGEN.fragen.map((q) => <li><Icon name="frage" size={16} /> {q}</li>)}</ul>
+            <p class="hs-zeilen--betont">{S.ENTSCHEIDUNGEN.danach}</p>
+          </div>
+          <HsStationen T={S.ENTSCHEIDUNGEN} />
+        </div>
+        <HsFrage f={S.ENTSCHEIDUNGEN.frage} aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 7 · UNSERE LÖSUNGEN -->
+    <section class="hs-abschnitt" id="loesungen" aria-labelledby="hs-loe-h">
+      <span id="produkte" class="hs-alt-anker"></span>
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-loe-h">{S.LOESUNGEN.titel}</h2>
+          <p class="hs-zeilen">{S.LOESUNGEN.text.map((z) => <span>{z}</span>)}</p>
+          <ul class="hs-chips" aria-label={S.grundlageAria}>{S.LOESUNGEN.prinzipien.map((p) => <li>{p}</li>)}</ul>
+        </div>
+        <div class="hs-zweige" data-szene>
+          <svg class="hs-zweige__band hs-nur-d" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="dw-s" pathLength="1" d="M0 14 L1200 14" data-an="linear:0.02-0.5" />
+            {zweige.map((z) => (
+              <>
+                <path class="dw-s" pathLength="1" d={`M${z.x - 90} 14 C${z.x - 50} 14 ${z.x} 40 ${z.x} 88`} data-an={z.hin} />
+                <path class="dw-s" pathLength="1" d={`M${z.x} 88 C${z.x} 40 ${z.x + 50} 14 ${z.x + 90} 14`} data-an={z.zurueck} />
+              </>
+            ))}
+          </svg>
+          <ul class="hs-zweige__liste">
+            {zweige.map((z, i) => (
+              <li class="hs-zweige__item">
+                <span class="hs-stiel hs-stiel--m hs-nur-m" data-an={z.stielM} aria-hidden="true"></span>
+                {z.segM && <span class="hs-seg hs-seg--m hs-nur-m" data-an={z.segM} aria-hidden="true"></span>}
+                <article class:list={['hs-karte hs-produkt', { 'hs-produkt--haupt': i === 0 }]} data-an={z.karte} aria-labelledby={`hs-p-${i}`}>
+                  <span class="hs-symbol"><Icon name={z.icon} size={22} /></span>
+                  <h3 id={`hs-p-${i}`}>{z.name}</h3>
+                  <p class="hs-zeilen">{z.text.map((t) => <span>{t}</span>)}</p>
+                  <a class="pfeil-link" href={href(lp(z.pfad, lang))}>{z.link} <Icon name="arrow" size={16} /><span class="sr-only">: {z.name}</span></a>
+                </article>
+              </li>
+            ))}
+          </ul>
+          <p class="hs-ende" data-an="auf:0.8-0.92">{S.LOESUNGEN.ende}</p>
+        </div>
+        <HsFrage f={S.LOESUNGEN.frage} mitte aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 8 · PROJEKTE UND ERGEBNISSE (noch ohne freigegebene Referenzen: nur der Ablauf) -->
+    <section class="hs-abschnitt" id="ergebnisse" aria-labelledby="hs-erg-h">
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-erg-h">{S.ERGEBNISSE.titel}</h2>
+          <p class="hs-zeilen hs-zeilen--betont">{S.ERGEBNISSE.zeilen.map((z) => <span>{z}</span>)}</p>
+        </div>
+        <HsErgebnis T={S.ERGEBNISSE} aria={S.ablaufAria} />
+        <HsFrage f={S.ERGEBNISSE.frage} mitte aria={S.frageAria} />
+      </div>
+    </section>
+
+    <!-- 9 · DARAUF KÖNNEN SIE SICH VERLASSEN -->
+    <section class="hs-abschnitt" id="erwartungen" aria-labelledby="hs-ver-h">
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-ver-h">{S.VERLASSEN.titel}</h2>
+        </div>
+        <ul class="hs-zusagen reveal">{S.VERLASSEN.erwartungen.map((e) => <li><Icon name="check" size={18} /> {e}</li>)}</ul>
+        <p class="hs-zusatz reveal">{S.VERLASSEN.zusatz.map((z) => <span>{z}</span>)}</p>
+      </div>
+    </section>
+
+    <!-- 10 · ABSCHLUSS -->
+    <section class="hs-abschnitt hs-abschluss" id="kontakt-start" aria-labelledby="hs-abschluss-h">
+      <div class="wrap">
+        <div class="hs-abschluss__innen reveal">
+          <h2 id="hs-abschluss-h">{S.ABSCHLUSS.titelVor}<span class="accent">{S.ABSCHLUSS.titelAkzent}</span></h2>
+          <p class="hs-zeilen">{S.ABSCHLUSS.text.map((z) => <span>{z}</span>)}</p>
+          <div class="hs-aktionen hs-aktionen--mitte">
+            <a class="btn btn--primary btn--lg" href={href(lp('/produkte/', lang))}>{S.ABSCHLUSS.ctaPrimaer} <Icon name="arrow" size={18} /></a>
+            <a class="btn btn--ghost btn--lg" href={href(lp('/kontakt/', lang))}>{S.ABSCHLUSS.ctaSekundaer}</a>
+          </div>
+          {/* DACH (Can, Talk 4551): ergänzt, Jamils Text bleibt unverändert */}
+          <p class="hs-dach"><Icon name="globe" size={16} /> {DACH[lang]}</p>
+        </div>
+      </div>
+    </section>
+  </div>

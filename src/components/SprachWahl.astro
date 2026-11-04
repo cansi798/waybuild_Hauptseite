@@ -1,0 +1,30 @@
+---
+// Sprachumschalter „DE | EN“ in der Kopfzeile (Can, Talk k8oxzjva #4551). Führt zur Fassung derselben Seite in der
+// anderen Sprache; gibt es keine (z. B. Impressum), zur jeweiligen Startseite. Keine automatische Umleitung nach
+// Browsersprache – die Wahl wird nur gemerkt (localStorage „wb-lang“, siehe BaseLayout).
+import { href } from '../lib/paths';
+import { langVon, fassungen } from '../i18n/lang';
+import { UI } from '../i18n/ui';
+const lang = langVon(Astro.url.pathname);
+const f = fassungen(Astro.url.pathname);
+const ziel = { de: f.de && !/^\/404/.test(f.de) ? f.de : '/', en: f.en ?? '/en/' };
+---
+<nav class="sprache" aria-label={UI[lang].sprache}>
+  <a href={href(ziel.de)} hreflang="de" lang="de" data-sprache="de" aria-current={lang === 'de' ? 'true' : undefined}><span class="sr-only">Deutsch </span><span aria-hidden="true">DE</span></a>
+  <span class="sprache__trenner" aria-hidden="true">|</span>
+  <a href={href(ziel.en)} hreflang="en" lang="en" data-sprache="en" aria-current={lang === 'en' ? 'true' : undefined}><span class="sr-only">English </span><span aria-hidden="true">EN</span></a>
+</nav>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.sprache a[data-sprache]').forEach((a) => a.addEventListener('click', () => {
+    try { localStorage.setItem('wb-lang', a.dataset.sprache!); } catch { /* ohne Speicher: nur umschalten */ }
+  }));
+</script>
+
+<style>
+  .sprache { display: inline-flex; align-items: center; gap: 2px; font-size: 0.85rem; font-weight: 650; letter-spacing: 0.04em; }
+  .sprache a { display: inline-grid; place-items: center; min-width: 34px; min-height: 40px; padding: 0 4px; border-radius: 8px; color: var(--ink-soft); text-decoration: none; }
+  .sprache a:hover { color: var(--accent-ink); background: var(--paper-2); }
+  .sprache a[aria-current] { color: var(--accent-ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .sprache__trenner { color: var(--line); }
+</style>

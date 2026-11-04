@@ -3,7 +3,9 @@
 // Empfehlen, Umsetzen. Die aktive Phase wird jeweils hervorgehoben (ruhig, dezent, selbstbewusst), die vorige tritt
 // zurück. Scrollgekoppelt (denkweise.ts). Ohne JS / reduzierte Bewegung: Linie fertig, „Umsetzen“ hervorgehoben.
 import Icon from '../Icon.astro';
-import { HS_ENTSCHEIDUNGEN as T } from '../../config/startseite';
+import { HS_ENTSCHEIDUNGEN } from '../../config/startseite';
+interface Props { T?: typeof HS_ENTSCHEIDUNGEN; aria?: string }
+const { T = HS_ENTSCHEIDUNGEN, aria } = Astro.props;
 const f = (n: number) => n.toFixed(3);
 const n = T.stationen.length;
 const st = T.stationen.map((s, i) => {

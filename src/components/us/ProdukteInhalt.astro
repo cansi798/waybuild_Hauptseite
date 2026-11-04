@@ -1,0 +1,98 @@
+---
+// Produktübersicht (DE /produkte/, EN /en/products/) – Aufbau aus src/pages/produkte.astro (Jamil, Talk 4192), Texte je
+// Sprache (DE: PRODUKTSEITE, EN: PRODUKTSEITE_EN ohne Paketnamen). Animation unverändert (denkweise.ts).
+import Icon from '../Icon.astro';
+import UsKopf from './UsKopf.astro';
+import { href } from '../../lib/paths';
+import { lp, type Lang } from '../../i18n/lang';
+import type { ProduktTexte } from '../../config/unterseiten';
+interface Props { P: ProduktTexte; lang: Lang }
+const { P, lang } = Astro.props;
+const W = P.website, I = P.individuell, F = P.folgt;
+// Verzweigung (viewBox 1160 × 110 = volle Inhaltsbreite): Stamm in der Mitte, Äste zu den Spaltenmitten (3 Spalten,
+// 24 px Abstand), weiche S-Kurven mit senkrechten Tangenten
+const SP = (1160 - 48) / 3;
+const XS = [SP / 2, 580, 1160 - SP / 2];
+const ast = (x: number) => (x === 580 ? 'M 580 30 L 580 110' : `M 580 30 C 580 74, ${x.toFixed(1)} 66, ${x.toFixed(1)} 110`);
+const preisTeile = W.preis.split(' / ');
+---
+  <div class="dw us" data-denkweise>
+    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
+
+    <UsKopf {...P.kopf}>
+      <div class="us-kopf__aktionen">
+        <a class="btn btn--primary btn--lg" href={href(lp(P.labels.ctaKopfPfad, lang))}>{P.labels.ctaKopf} <Icon name="arrow" size={18} /></a>
+        <a class="pfeil-link" href={href(lp('/kontakt/', lang))}>{P.labels.ctaKontakt} <Icon name="arrow" size={16} /></a>
+      </div>
+    </UsKopf>
+
+    <section class="dw-abschnitt" id="produkte" aria-labelledby="produkte-h">
+      <div class="wrap">
+        <h2 class="sr-only" id="produkte-h">{P.titel}</h2>
+        <div class="us-produkte" data-szene>
+          <div class="us-zweig" aria-hidden="true">
+            <span class="us-startpunkt" style="left:calc(50% - 7px);top:-7px"></span>
+            <svg viewBox="0 0 1160 110" focusable="false">
+              <path class="dw-s" pathLength="1" d="M 580 0 L 580 30" data-an="linear:0.02-0.1" />
+              {XS.map((x) => <path class="dw-s" pathLength="1" d={ast(x)} data-an="zeichnen:0.1-0.32" />)}
+            </svg>
+          </div>
+          <div class="us-produkte__feld">
+          <span class="us-saeule" aria-hidden="true" data-an="hoch:0-0.85"></span>
+          <span class="us-startpunkt us-startpunkt-m" aria-hidden="true"></span>
+          <ul class="us-produkte__raster">
+            <li class="us-produkte__item" id={W.id}>
+              <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
+              <article class="us-pkarte us-pkarte--haupt" aria-labelledby="p-web">
+                <span class="us-pkarte__glanz" aria-hidden="true" data-an="blende:auto"></span>
+                <div class="us-pkarte__kopf"><span class="us-pkarte__icon"><Icon name={W.icon} size={24} /></span><span class="us-pkarte__kenn">{W.kenn}</span></div>
+                <h3 id="p-web">{W.name}</h3>
+                <p class="us-pkarte__nutzen">{W.nutzen}</p>
+                <p>{W.text}</p>
+                <ul class="dw-haken">{W.punkte.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}</ul>
+                <p class="us-pkarte__preis">{preisTeile[0]} <small>/ {preisTeile[1]}</small></p>
+                <p class="us-pkarte__aktion"><a class="btn btn--primary" href={href(lp(W.pfad, lang))}>{W.cta}<span class="sr-only"> {P.labels.srZum} {W.name}</span> <Icon name="arrow" size={18} /></a></p>
+              </article>
+            </li>
+            <li class="us-produkte__item" id={I.id}>
+              <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
+              <article class="us-pkarte" aria-labelledby="p-ind">
+                <span class="us-pkarte__glanz" aria-hidden="true" data-an="blende:auto"></span>
+                <div class="us-pkarte__kopf"><span class="us-pkarte__icon"><Icon name={I.icon} size={24} /></span><span class="us-pkarte__kenn">{I.kenn}</span></div>
+                <h3 id="p-ind">{I.name}</h3>
+                <p>{I.text}</p>
+                <p class="us-pkarte__aktion"><a class="pfeil-link" href={href(lp(I.pfad, lang))}>{I.cta}<span class="sr-only">: {I.name}</span> <Icon name="arrow" size={16} /></a></p>
+              </article>
+            </li>
+            <li class="us-produkte__item">
+              <span class="us-steg" aria-hidden="true" data-an="breit:auto"></span>
+              <article class="us-pkarte us-pkarte--folgt" aria-labelledby="p-folgt">
+                <span class="us-pkarte__glanz" aria-hidden="true" data-an="blende:auto"></span>
+                <div class="us-pkarte__kopf"><span class="us-pkarte__icon"><Icon name={F.icon} size={24} /></span></div>
+                <h3 id="p-folgt">{F.name}</h3>
+                <p>{F.text}</p>
+              </article>
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dw-abschnitt dw-ohne-linie" id="fuer-alle" aria-labelledby="alle-h">
+      <div class="wrap">
+        <div class="us-kopfzeile">
+          <span class="dw-kenn"><Icon name="shield" size={18} /> {P.fuerAlle.kenn}</span>
+          <h2 id="alle-h">{P.fuerAlle.titel}</h2>
+        </div>
+        <ul class="us-punkte us-punkte--vier">
+          {P.fuerAlle.punkte.map((x) => (
+            <li><span class="us-punkte__icon"><Icon name={x.icon} size={22} /></span><div><h3>{x.titel}</h3><p>{x.text}</p></div></li>
+          ))}
+        </ul>
+        <p class="us-mitte"><a class="pfeil-link" href={href('/zusagen/')} hreflang={lang === 'en' ? 'de' : undefined}>{P.fuerAlle.link} <Icon name="arrow" size={16} /></a></p>
+        {/* DACH (Can, Talk 4551) */}
+        <p class="us-notiz"><Icon name="globe" size={18} /> {P.labels.dach}</p>
+      </div>
+    </section>
+  </div>

@@ -3,7 +3,7 @@
 // Partner, Personen, Stellen oder Zahlen. Was fehlt, ist als Platzhalter markiert (Hint, nur solange SHOW_HINTS = true).
 import type { IconName } from './site';
 import { company, HOURS } from './site';
-import { DW_HERO, DW_PRINZIPIEN, DW_PRODUKTBEREICH, DW_UMSETZEN } from './denkweise';
+import { DW_HERO, DW_PRINZIPIEN, DW_PRODUKTBEREICH, DW_UMSETZEN, DW_PROZESS } from './denkweise';
 import { PRODUKTE, HALTUNG } from './hauptseite';
 
 /* ─────────────── Über uns ─────────────── */
@@ -20,7 +20,7 @@ export const UEBER_UNS = {
     titel: 'Ein junges Unternehmen aus Norderstedt.',
     text: [
       // „klein, jung“: hauptseite.ts → STANDARDS (Jamil, Talk 2960); B2B: AGB § 1, FAQ
-      `Waybuild ist eine UG (haftungsbeschränkt) mit Sitz in ${company.city}. Wir arbeiten ausschließlich für Unternehmen und Selbstständige.`,
+      `Waybuild ist eine UG (haftungsbeschränkt) mit Sitz in ${company.city}. Wir arbeiten ausschließlich für Unternehmen und Selbstständige, deutschlandweit und in Österreich und der Schweiz.`,
       'Unser Hauptprodukt ist der Website Service. Passt kein fertiges Produkt, entwickeln wir individuelle Software. Weitere Produkte folgen.',
     ],
   },
@@ -31,8 +31,11 @@ export const UEBER_UNS = {
     { icon: 'doc' as IconName, label: 'Handelsregister', wert: `${company.registerCourt}, ${company.registerNumber}` },
     { icon: 'user' as IconName, label: 'Geschäftsführung', wert: company.managingDirector },
     { icon: 'users' as IconName, label: 'Für wen', wert: 'Unternehmen und Selbstständige (B2B)' },
+    // DACH (Can, Talk 4551)
+    { icon: 'globe' as IconName, label: 'Einsatzgebiet', wert: 'Deutschland, Österreich, Schweiz (DACH), remote und persönlich' },
     { icon: 'clock' as IconName, label: 'Servicezeiten', wert: HOURS },
   ],
+  steckbrief: 'Steckbrief',
   mission: {
     kenn: 'Wofür wir arbeiten',
     titel: DW_HERO.titel,
@@ -54,7 +57,10 @@ export const UEBER_UNS = {
     ],
     link: 'Die Denkweise ausführlich',
   },
-  prinzipien: DW_PRINZIPIEN,
+  prozess: DW_PROZESS,
+  prozessAria: 'Die Waybuild-Denkweise in sechs Schritten',
+  prinzipien: DW_PRINZIPIEN as { titel: string; liste: { wort: string; icon: IconName; kern: string; text: string[]; schluss: string }[] },
+  prinzipienLink: 'Unsere Prinzipien auf der Startseite',
   team: {
     titel: 'Die Menschen hinter Waybuild',
     // wörtlich aus Jamils Design-Briefing (Talk 3636, „Menschen hinter Waybuild“)
@@ -66,8 +72,19 @@ export const UEBER_UNS = {
       { name: company.managingDirector, rolle: 'Geschäftsführer', rolleFehlt: false, foto: '' },
       { name: 'Jamil Iqbal', rolle: 'Rolle folgt', rolleFehlt: true, foto: '' },
     ],
+    kenn: 'Team',
+    fotoFolgt: (name: string) => `Foto von ${name} folgt`,
+    fotoMarke: 'Foto folgt',
+    platzhalter: 'Platzhalter',
+  },
+  aktionen: { cta: 'Kostenloses Erstgespräch', produkte: 'Unsere Produkte' },
+  meta: {
+    title: 'Über uns: Waybuild aus Norderstedt',
+    description: 'Waybuild aus Norderstedt entwickelt digitale Lösungen für Unternehmen in Deutschland, Österreich und der Schweiz. Wer wir sind, wie wir denken.',
+    crumb: 'Über uns', pageName: 'Über uns',
   },
 };
+export type UeberUnsTexte = typeof UEBER_UNS;
 
 /* ─────────────── Produkte ─────────────── */
 const K = DW_UMSETZEN.karte;
@@ -105,7 +122,14 @@ export const PRODUKTSEITE = {
     ],
     link: 'Unsere Zusagen im Detail',
   },
+  labels: { ctaKopf: 'Website Service ansehen', ctaKopfPfad: '/angebot/', ctaKontakt: 'Kostenloses Erstgespräch', srZum: 'zum', dach: 'Für Unternehmen in Deutschland, Österreich und der Schweiz, remote und persönlich.' },
+  meta: {
+    title: 'Produkte: Website Service, individuelle Software',
+    description: 'Die Produkte von Waybuild: der Website Service als Hauptprodukt, individuelle Software auf Anfrage. Für Unternehmen in Deutschland, Österreich und der Schweiz.',
+    crumb: 'Produkte', listName: 'Produkte von Waybuild',
+  },
 };
+export type ProduktTexte = typeof PRODUKTSEITE;
 
 /* ─────────────── Referenzen ─────────────── */
 export type Referenz = {

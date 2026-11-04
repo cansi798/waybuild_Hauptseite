@@ -4,7 +4,9 @@
 // Kundennamen, Stimmen oder Kennzahlen – es gibt noch keine freigegebenen Referenzen. Desktop waagerecht, Handy senkrecht.
 // Scrollgekoppelt (denkweise.ts). Ohne JS / reduzierte Bewegung: alle Wege fertig.
 import Icon from '../Icon.astro';
-import { HS_ERGEBNISSE as T } from '../../config/startseite';
+import { HS_ERGEBNISSE } from '../../config/startseite';
+interface Props { T?: typeof HS_ERGEBNISSE; aria?: string }
+const { T = HS_ERGEBNISSE, aria } = Astro.props;
 const f = (n: number) => n.toFixed(3);
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 // Desktop 1000 × 200: Stufen bei x = 100 … 900; Handy 340 × 480: Stufen bei y = 40 … 440
@@ -23,7 +25,7 @@ const M = { W: 340, H: 480, wege: mX.map((xs) => baue(xs.map((x, i) => [x, STUFE
 const zeit = (i: number) => ({ a: 0.04 + i * 0.1, b: 0.5 + i * 0.1 });
 ---
 <div class="hs-ergebnis" data-szene>
-  <ol class="hs-ergebnis__stufen" aria-label="Ablauf eines Projekts">
+  <ol class="hs-ergebnis__stufen" aria-label={aria ?? "Ablauf eines Projekts"}>
     {T.ablauf.map((s, i) => <li class:list={['hs-ergebnis__stufe', { 'hs-ergebnis__stufe--ziel': i === T.ablauf.length - 1 }]} style={`--y:${pc(40 + i * 100, M.H)}`}>{s}</li>)}
   </ol>
   {[{ v: D, k: 'd' }, { v: M, k: 'm' }].map(({ v, k }) => (

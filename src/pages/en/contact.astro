@@ -1,0 +1,10 @@
+---
+// /en/contact/ – Kontakt auf Englisch (gleiches Formular, englische Beschriftungen).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import KontaktInhalt from '../../components/KontaktInhalt.astro';
+import { KONTAKT_EN as K } from '../../config/en';
+---
+
+<BaseLayout title={K.meta.title} description={K.meta.description} breadcrumb={[{ name: K.meta.crumb, path: '/en/contact/' }]} hideMobileCta hideFooterKontakt>
+  <KontaktInhalt K={K} lang="en" />
+</BaseLayout>

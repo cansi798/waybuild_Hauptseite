@@ -6,18 +6,24 @@ import { NAV } from '../config/nav';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import MobileMenu from './MobileMenu.astro';
+import SprachWahl from './SprachWahl.astro';
+import { langVon } from '../i18n/lang';
+import { UI, NAV_EN } from '../i18n/ui';
 
 const current = Astro.url.pathname;
 const isCurrent = (path?: string) => path && current === href(path);
+const lang = langVon(current);
+const t = UI[lang];
+const nav = lang === 'en' ? NAV_EN : NAV;
 ---
 
 <header class="hdr" id="siteHeader">
   <div class="wrap hdr__inner">
-    <a href={href('/')} class="hdr__logo" aria-label="Waybuild, zur Startseite"><Logo /></a>
+    <a href={href(t.home)} class="hdr__logo" aria-label={t.logoAria}><Logo /></a>
 
-    <nav class="hdr__nav" aria-label="Hauptnavigation">
+    <nav class="hdr__nav" aria-label={t.hauptnav}>
       <ul>
-        {NAV.map((item) =>
+        {nav.map((item) =>
           item.children ? (
             <li class:list={['dd', { 'dd--mega': item.children.some((c) => c.group) }]}>
               <button class:list={['hdr__link', 'dd__btn', { 'is-aktiv': item.children.some((c) => isCurrent(c.path)) }]} type="button" aria-expanded="false">
@@ -73,8 +79,9 @@ const isCurrent = (path?: string) => path && current === href(path);
     </nav>
 
     <div class="hdr__actions">
-      <a class="btn btn--primary btn--sm hdr__cta" href={href('/kontakt/')}>Kostenloses Erstgespräch</a>
-      <button class="hdr__iconbtn hdr__burger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">
+      <SprachWahl />
+      <a class="btn btn--primary btn--sm hdr__cta" href={href(t.kontakt)}>{t.cta}</a>
+      <button class="hdr__iconbtn hdr__burger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label={t.menueAuf} data-auf={t.menueAuf} data-zu={t.menueZu}>
         <Icon name="menu" size={26} class="hdr__burger-open" />
         <Icon name="close" size={26} class="hdr__burger-close" />
       </button>
@@ -198,7 +205,7 @@ const isCurrent = (path?: string) => path && current === href(path);
   burger.addEventListener('click', () => {
     const open = menu?.classList.toggle('open') ?? false;
     burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    burger.setAttribute('aria-label', (open ? burger.dataset.zu : burger.dataset.auf) ?? '');
     document.body.style.overflow = open ? 'hidden' : '';
   });
   menu?.addEventListener('click', (e) => {

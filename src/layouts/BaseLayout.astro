@@ -8,6 +8,9 @@ import { company, isMissing } from '../config/site';
 import { PRODUKTE, produktName, BESCHREIBUNG } from '../config/hauptseite';
 import { href, absolute } from '../lib/paths';
 import { IS_PREVIEW } from '../lib/env';
+import { langVon, fassungen } from '../i18n/lang';
+import { UI } from '../i18n/ui';
+import { BESCHREIBUNG_EN } from '../config/en';
 // Schriften für den ersten Bildschirm früh laden (Überschrift = größtes Element, wichtig für LCP)
 import schriftKopf from '@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2?url';
 import schriftText from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
@@ -29,6 +32,16 @@ interface Props {
 
 const { title, description, schema = [], noindex = false, breadcrumb, hideMobileCta = false, hideFooterKontakt = false, rueckgrat = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const lang = langVon(Astro.url.pathname);
+const t = UI[lang];
+// hreflang: nur Seiten, die es in beiden Sprachen gibt (src/i18n/routes.mjs); x-default = Deutsch
+const fass = fassungen(Astro.url.pathname);
+const alternates = fass.de && fass.en ? [
+  { hreflang: 'de', href: absolute(fass.de, Astro.site) },
+  { hreflang: 'en', href: absolute(fass.en, Astro.site) },
+  { hreflang: 'x-default', href: absolute(fass.de, Astro.site) },
+] : [];
+const istDeStart = lang === 'de' && fass.de === '/';
 const siteRoot = absolute('/', Astro.site);
 const ogImage = absolute('/og-image.png', Astro.site);
 const fullTitle = title.includes(company.name) ? title : `${title} | ${company.name}`;
@@ -42,20 +55,26 @@ const organization = {
   '@id': `${siteRoot}#organization`,
   name: company.legalName,
   alternateName: company.name,
-  description: BESCHREIBUNG,
+  description: lang === 'en' ? BESCHREIBUNG_EN : BESCHREIBUNG,
   url: siteRoot,
   logo: absolute('/icon-512.png', Astro.site),
   image: ogImage,
   slogan: company.slogan,
   ...(company.sameAs.length ? { sameAs: company.sameAs } : {}),
-  ...(hasAddress ? { priceRange: '€€', areaServed: { '@type': 'Country', name: 'Deutschland' } } : {}),
+  // DACH (Can, Talk 4551): Deutschland, Österreich, Schweiz
+  areaServed: [
+    { '@type': 'Country', name: 'Deutschland', identifier: 'DE' },
+    { '@type': 'Country', name: 'Österreich', identifier: 'AT' },
+    { '@type': 'Country', name: 'Schweiz', identifier: 'CH' },
+  ],
+  ...(hasAddress ? { priceRange: '€€' } : {}),
   email: company.email,
   // Servicezeiten wie auf der Seite (HOURS / SLA_HINWEIS): Montag bis Freitag, 9 bis 18 Uhr
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer service',
     email: company.email,
-    availableLanguage: 'de',
+    availableLanguage: ['de', 'en'],
     hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' },
   },
   // Dachmarke: nur verfügbare Produkte als Angebot melden (Name = Arbeitsname aus der Config, keine Preise hier)
@@ -84,14 +103,14 @@ const website = {
   '@id': `${siteRoot}#website`,
   url: siteRoot,
   name: company.name,
-  inLanguage: 'de-DE',
+  inLanguage: ['de-DE', 'en'],
   publisher: { '@id': `${siteRoot}#organization` },
 };
 
 const breadcrumbSchema = breadcrumb && {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: [{ name: 'Start', path: '/' }, ...breadcrumb].map((b, i) => ({
+  itemListElement: [{ name: t.start, path: t.home }, ...breadcrumb].map((b, i) => ({
     '@type': 'ListItem',
     position: i + 1,
     name: b.name,
@@ -104,7 +123,7 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <script is:inline>document.documentElement.classList.add('js');</script>
@@ -114,6 +133,11 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     <link rel="preload" href={schriftText} as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {istDeStart && (
+      /* Gemerkte Sprachwahl (nur nach Klick auf „EN“, nie nach Browsersprache): Startseite öffnet dann die englische Fassung */
+      <script is:inline define:vars={{ ziel: href('/en/') }}>try { if (localStorage.getItem('wb-lang') === 'en' && !/[?&]lang=de/.test(location.search)) location.replace(ziel); } catch (e) {}</script>
+    )}
     <meta name="robots" content={IS_PREVIEW ? 'noindex, nofollow' : noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
     <meta name="theme-color" content="#004f4c" />
     <link rel="icon" href={href('/favicon.ico')} sizes="any" />
@@ -123,7 +147,8 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     <link rel="sitemap" href={href('/sitemap-index.xml')} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'de_DE'} />
+    {alternates.length > 0 && <meta property="og:locale:alternate" content={lang === 'en' ? 'de_DE' : 'en_US'} />}
     <meta property="og:site_name" content={company.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -131,14 +156,14 @@ const jsonLd = [organization, website, ...(breadcrumbSchema ? [breadcrumbSchema]
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Waybuild: Wir übernehmen Verantwortung. Sie behalten den Fokus." />
+    <meta property="og:image:alt" content={lang === 'en' ? 'Waybuild: We take responsibility. You stay focused.' : 'Waybuild: Wir übernehmen Verantwortung. Sie behalten den Fokus.'} />
     <meta name="twitter:card" content="summary_large_image" />
 
     {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
   </head>
   <body>
-    <a class="skip-link" href="#main">Zum Inhalt springen</a>
-    {IS_PREVIEW && <div class="preview-bar" role="region" aria-label="Hinweis">Vorschau, noch nicht veröffentlicht</div>}
+    <a class="skip-link" href="#main">{t.skip}</a>
+    {IS_PREVIEW && <div class="preview-bar" role="region" aria-label={t.hinweis}>{t.vorschau}</div>}
     <Header />
     <main id="main">
       {breadcrumb && <Breadcrumbs items={breadcrumb} />}

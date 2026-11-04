@@ -1,15 +1,18 @@
 ---
 // Sichtbarer Brotkrumenpfad – passend zum BreadcrumbList-JSON-LD im Layout.
 import { href } from '../lib/paths';
+import { langVon } from '../i18n/lang';
+import { UI } from '../i18n/ui';
 
 interface Props {
   items: { name: string; path: string }[];
 }
 const { items } = Astro.props;
-const all = [{ name: 'Start', path: '/' }, ...items];
+const t = UI[langVon(Astro.url.pathname)];
+const all = [{ name: t.start, path: t.home }, ...items];
 ---
 
-<nav class="crumbs" aria-label="Brotkrumen">
+<nav class="crumbs" aria-label={t.crumbs}>
   <ol class="wrap">
     {all.map((c, i) => (
       <li>

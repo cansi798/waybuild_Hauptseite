@@ -6,11 +6,14 @@
 import { href } from '../lib/paths';
 import { company } from '../config/site';
 import Icon from './Icon.astro';
+import { langVon } from '../i18n/lang';
+import { UI } from '../i18n/ui';
+const t = UI[langVon(Astro.url.pathname)];
 ---
 
-<nav class="sticky-bar" aria-label="Schnellkontakt" data-leiste>
-  <a class="btn btn--primary btn--sm sticky-bar__btn" href={href('/kontakt/')}>Erstgespräch</a>
-  <a class="sticky-bar__mail" href={`mailto:${company.email}`} aria-label="E-Mail schreiben"><Icon name="mail" size={22} /></a>
+<nav class="sticky-bar" aria-label={t.leiste.aria} data-leiste>
+  <a class="btn btn--primary btn--sm sticky-bar__btn" href={href(t.kontakt)}>{t.leiste.cta}</a>
+  <a class="sticky-bar__mail" href={`mailto:${company.email}`} aria-label={t.leiste.mail}><Icon name="mail" size={22} /></a>
 </nav>
 
 <script>

@@ -6,7 +6,9 @@
 // Das Netzwerk steht beim Laden sofort da (kein Einblenden); die Verwandlung läuft einmal beim ersten Sichtkontakt
 // (≈ 3 s, nur transform/opacity/stroke-dashoffset). Ohne JS bzw. bei reduzierter Bewegung: sofort der Endzustand.
 // Koordinaten im Raster 480 × 380; Begriffe als HTML (Größe in cqw, damit sie mit der Grafik mitwachsen).
-import { HS_HERO as T } from '../../config/startseite';
+import { HS_HERO } from '../../config/startseite';
+interface Props { T?: typeof HS_HERO; aria?: string }
+const { T = HS_HERO, aria } = Astro.props;
 const W = 480, H = 380;
 const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
 const at = (x: number, y: number) => `left:${pc(x, W)};top:${pc(y, H)}`;
@@ -35,7 +37,7 @@ const LINIE = 'M10 268 C40 268 52 236 84 216 S140 168 168 150 S218 102 256 100 L
 const SX = 300, STATIONEN = [150, 214, 278];
 ---
 <figure class="hn" data-hero-netz>
-  <div class="hn__buehne" role="img" aria-label={`Ein unübersichtliches Netz aus ${T.netz.join(', ')} wird von der Waybuild-Linie entwirrt. Am Ende stehen ${T.ergebnis.join(', ')}.`}>
+  <div class="hn__buehne" role="img" aria-label={aria ?? `Ein unübersichtliches Netz aus ${T.netz.join(', ')} wird von der Waybuild-Linie entwirrt. Am Ende stehen ${T.ergebnis.join(', ')}.`}>
     {/* Drei Schichten: Was als Ganzes ein- oder ausblendet, ist ein eigenes äußeres SVG (Deckkraft auf dem Compositor statt
          Neuzeichnen vieler Einzelpfade); nur Linie und Bündel zeichnen sich per stroke-dashoffset. */}
     <svg class="hn__svg hn-schicht hn-schicht--geflecht" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">

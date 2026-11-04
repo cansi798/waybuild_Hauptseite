@@ -5,11 +5,14 @@
 // zur Mitte – und endet im Zielpunkt. Unterseiten: kurzes gerades Wegstück von oben in den Zielpunkt.
 import { href } from '../lib/paths';
 import { company, HOURS } from '../config/site';
-import { FOOTER_KONTAKT as F } from '../config/home';
+import { langVon } from '../i18n/lang';
+import { UI } from '../i18n/ui';
 import Icon from './Icon.astro';
 import Hint from './Hint.astro';
 interface Props { rueckgrat?: boolean }
 const { rueckgrat = false } = Astro.props;
+const t = UI[langVon(Astro.url.pathname)];
+const F = t.abschluss;
 ---
 
 <section class:list={['fkontakt', 'section--dark', { 'fkontakt--rueckgrat': rueckgrat }]} aria-labelledby="fkontakt-titel">
@@ -23,13 +26,13 @@ const { rueckgrat = false } = Astro.props;
     <h2 id="fkontakt-titel">{F.pre}<span class="accent">{F.accent}</span></h2>
     <p class="fkontakt__text">{F.text}</p>
     <div class="fkontakt__actions">
-      <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Kostenloses Erstgespräch <Icon name="arrow" size={18} /></a>
-      <a class="btn btn--ghost btn--lg" href={`mailto:${company.email}`}><Icon name="mail" size={18} /> E-Mail schreiben<span class="sr-only"> an {company.email}</span></a>
+      <a class="btn btn--primary btn--lg" href={href(t.kontakt)}>{F.cta} <Icon name="arrow" size={18} /></a>
+      <a class="btn btn--ghost btn--lg" href={`mailto:${company.email}`}><Icon name="mail" size={18} /> {F.mail}<span class="sr-only"> {F.an} {company.email}</span></a>
     </div>
-    <ul class="fkontakt__hinweise" aria-label="Gut zu wissen">
+    <ul class="fkontakt__hinweise" aria-label={F.gut}>
       {F.hinweise.map((h) => <li><Icon name="check" size={16} /> {h}</li>)}
     </ul>
-    <p class="fkontakt__zeiten">{company.email} · Servicezeiten: {HOURS}</p>
+    <p class="fkontakt__zeiten">{company.email} · {F.zeiten}: {t.hours}</p>
     {rueckgrat && (
       <div class="fkontakt__menschen">
         {/* „Menschen hinter Waybuild“ mit dem Abschluss kombiniert (Jamil, Talk 3653) – Text wörtlich aus Talk 3636 */}

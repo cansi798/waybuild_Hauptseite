@@ -6,19 +6,22 @@ import Icon from '../Icon.astro';
 import ZielRing from '../dw/ZielRing.astro';
 import { DW_PROZESS } from '../../config/denkweise';
 import { href } from '../../lib/paths';
-const n = DW_PROZESS.length;
+import { lp, type Lang } from '../../i18n/lang';
+interface Props { schritte?: typeof DW_PROZESS; aria?: string; lang?: Lang }
+const { schritte = DW_PROZESS, aria = 'Die Waybuild-Denkweise in sechs Schritten', lang = 'de' } = Astro.props;
+const n = schritte.length;
 const f = (x: number) => x.toFixed(3);
 ---
 <div class="us-prozess" data-szene>
   <div class="us-prozess__innen">
   <span class="dw-anker" style="left:30px;top:0" data-weg="ein"></span>
-  <ol class="us-prozess__liste" aria-label="Die Waybuild-Denkweise in sechs Schritten">
-    {DW_PROZESS.map((s, i) => {
+  <ol class="us-prozess__liste" aria-label={aria}>
+    {schritte.map((s, i) => {
       const a = 0.04 + (i / n) * 0.8;
       return (
         <li class:list={['us-prozess__schritt', { 'us-prozess__schritt--anker': s.anker }]}>
           <span class="us-stamm us-prozess__stamm" data-an={`hoch:${f(a - 0.1)}-${f(a)}`}></span>
-          <a class="us-prozess__link" href={href(`/#${s.ziel_id}`)}>
+          <a class="us-prozess__link" href={href(lp(`/#${s.ziel_id}`, lang))}>
             <span class:list={['dw-pk', { 'dw-pk--anker': s.anker, 'dw-pk--ziel': s.ziel }]} data-an={`erscheinen:${f(a - 0.02)}-${f(a + 0.05)}`} aria-hidden="true">
               {s.ziel ? <ZielRing /> : <Icon name={s.icon} size={s.anker ? 24 : 17} />}
             </span>

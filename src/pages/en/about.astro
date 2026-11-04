@@ -1,0 +1,29 @@
+---
+// /en/about/ – Über uns auf Englisch.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UeberUnsInhalt from '../../components/us/UeberUnsInhalt.astro';
+import { absolute } from '../../lib/paths';
+import { UEBER_UNS_EN as U } from '../../config/en';
+import '../../styles/denkweise.css';
+import '../../styles/unterseiten.css';
+---
+
+<BaseLayout
+  title={U.meta.title}
+  description={U.meta.description}
+  breadcrumb={[{ name: U.meta.crumb, path: '/en/about/' }]}
+  schema={[{
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: U.meta.pageName,
+    url: absolute('/en/about/', Astro.site),
+    inLanguage: 'en',
+    about: { '@id': `${absolute('/', Astro.site)}#organization` },
+  }]}
+>
+  <UeberUnsInhalt U={U} lang="en" />
+</BaseLayout>
+
+<script>
+  import '../../scripts/denkweise';
+</script>

@@ -1,0 +1,15 @@
+---
+// Englische Startseite (Can, Talk k8oxzjva #4551): gleicher Aufbau wie /, Texte aus src/config/en.ts → HS_EN.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Startseite from '../../components/hs/Startseite.astro';
+import { HS_EN, META_START_EN } from '../../config/en';
+import '../../styles/startseite.css';
+---
+
+<BaseLayout title="Website Service and digital solutions" description={META_START_EN} hideFooterKontakt>
+  <Startseite S={HS_EN} lang="en" />
+</BaseLayout>
+
+<script>
+  import '../../scripts/denkweise';
+</script>

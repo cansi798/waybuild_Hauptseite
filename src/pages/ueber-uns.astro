@@ -1,145 +1,30 @@
 ---
+
 // /ueber-uns/ (Jamil, Talk 4192): wer Waybuild ist, Mission, Denkweise kompakt, Prinzipien, Menschen.
 // Stil der Startseite: eine Scroll-Linie läuft durch die drei ersten Abschnitte (Steckbrief → Kernsatz → Denkweise)
 // und endet wie auf der Startseite im Verbessern-Kreis; Prinzipien und Team ohne Linie. Nur Fakten aus Impressum/Configs.
+// Aufbau seit 04.11.2026 in src/components/us/UeberUnsInhalt.astro (gemeinsam mit /en/about/).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
-import Hint from '../components/Hint.astro';
-import UsKopf from '../components/us/UsKopf.astro';
-import UsAndock from '../components/us/UsAndock.astro';
-import UsProzess from '../components/us/UsProzess.astro';
-import { href, absolute } from '../lib/paths';
+import UeberUnsInhalt from '../components/us/UeberUnsInhalt.astro';
+import { absolute } from '../lib/paths';
 import { UEBER_UNS as U } from '../config/unterseiten';
-import { SHOW_HINTS } from '../config/site';
 import '../styles/denkweise.css';
 import '../styles/unterseiten.css';
 ---
 
 <BaseLayout
-  title="Über uns: Waybuild aus Norderstedt"
-  description="Waybuild aus Norderstedt entwickelt digitale Lösungen für Unternehmen. Wer wir sind, wofür wir arbeiten, unsere Denkweise und unsere Prinzipien."
-  breadcrumb={[{ name: 'Über uns', path: '/ueber-uns/' }]}
+  title={U.meta.title}
+  description={U.meta.description}
+  breadcrumb={[{ name: U.meta.crumb, path: '/ueber-uns/' }]}
   schema={[{
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
-    name: 'Über uns',
+    name: U.meta.pageName,
     url: absolute('/ueber-uns/', Astro.site),
     about: { '@id': `${absolute('/', Astro.site)}#organization` },
   }]}
 >
-  <div class="dw us" data-denkweise>
-    <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
-
-    <UsKopf {...U.kopf}>
-      <div class="us-kopf__aktionen">
-        <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>Kostenloses Erstgespräch <Icon name="arrow" size={18} /></a>
-        <a class="pfeil-link" href={href('/produkte/')}>Unsere Produkte <Icon name="arrow" size={16} /></a>
-      </div>
-    </UsKopf>
-
-    <!-- Wer wir sind: Steckbrief dockt an die Linie an -->
-    <section class="dw-abschnitt" id="wer-wir-sind" aria-labelledby="wer-h">
-      <div class="wrap dw-raster">
-        <div class="dw-text reveal">
-          <span class="dw-linienstart dw-nur-m" aria-hidden="true"></span>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="gebaeude" size={18} /> {U.wer.kenn}</span>
-          <h2 id="wer-h">{U.wer.titel}</h2>
-          {U.wer.text.map((t) => <p>{t}</p>)}
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-        </div>
-        <UsAndock icon="pin" start>
-          <p class="us-karte__kenn">Steckbrief</p>
-          <dl class="us-fakten">
-            {U.fakten.map((f) => (
-              <div class="us-fakten__zeile" data-an="auf:auto">
-                <dt><Icon name={f.icon} size={16} /> {f.label}</dt>
-                <dd>{f.wert}</dd>
-              </div>
-            ))}
-          </dl>
-        </UsAndock>
-      </div>
-    </section>
-
-    <!-- Mission -->
-    <section class="dw-abschnitt" id="mission" aria-labelledby="mission-h">
-      <div class="wrap dw-raster dw-raster--spiegel">
-        <div class="dw-text reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="target" size={18} /> {U.mission.kenn}</span>
-          <h2 id="mission-h">{U.mission.titel}</h2>
-          {U.mission.text.map((t) => <p>{t}</p>)}
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-        </div>
-        <UsAndock icon="search">
-          <p class="us-kernsatz">„{U.mission.kernsatz}“</p>
-          <ul class="dw-haken us-haltung">
-            {U.mission.haltung.map((h) => <li data-an="auf:auto"><Icon name="check" size={16} /> {h}</li>)}
-          </ul>
-        </UsAndock>
-      </div>
-    </section>
-
-    <!-- Denkweise kompakt: Linie endet im Verbessern-Kreis -->
-    <section class="dw-abschnitt" id="denkweise" aria-labelledby="denkweise-h">
-      <div class="wrap dw-raster">
-        <div class="dw-text reveal">
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          <span class="dw-kenn"><Icon name="compass" size={18} /> {U.denkweise.kenn}</span>
-          <h2 id="denkweise-h">{U.denkweise.titel}</h2>
-          {U.denkweise.text.map((t) => <p>{t}</p>)}
-          <p><a class="pfeil-link" href={href('/#denkweise')}>{U.denkweise.link} <Icon name="arrow" size={16} /></a></p>
-          <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-        </div>
-        <UsProzess />
-      </div>
-    </section>
-
-    <!-- Prinzipien (ohne Linie, wie auf der Startseite) -->
-    <section class="dw-abschnitt dw-ohne-linie" id="prinzipien" aria-labelledby="prinzipien-h">
-      <div class="wrap">
-        <h2 class="dw-prinzipien__titel" id="prinzipien-h">{U.prinzipien.titel}</h2>
-        <div class="dw-prinzipien__raster">
-          {U.prinzipien.liste.map((p, i) => (
-            <article class="dw-prinzip-karte" aria-labelledby={`pr-${i}`}>
-              <span class="dw-prinzip-karte__icon"><Icon name={p.icon} size={24} /></span>
-              <h3 id={`pr-${i}`}>{p.wort}</h3>
-              <p class="dw-prinzip-karte__kern">{p.kern}</p>
-              {p.text.map((t) => <p>{t}</p>)}
-              <p class="dw-prinzip-karte__schluss">{p.schluss}</p>
-            </article>
-          ))}
-        </div>
-        <p class="us-mitte"><a class="pfeil-link" href={href('/#prinzipien')}>Unsere Prinzipien auf der Startseite <Icon name="arrow" size={16} /></a></p>
-      </div>
-    </section>
-
-    <!-- Menschen -->
-    <section class="dw-abschnitt dw-ohne-linie" id="team" aria-labelledby="team-h">
-      <div class="wrap">
-        <div class="us-kopfzeile">
-          <span class="dw-kenn"><Icon name="users" size={18} /> Team</span>
-          <h2 id="team-h">{U.team.titel}</h2>
-          <p>{U.team.text}</p>
-        </div>
-        <ul class="us-team">
-          {U.team.personen.map((p) => (
-            <li class="us-person">
-              <div class="us-person__foto us-platzhalter" role="img" aria-label={`Foto von ${p.name} folgt`}>
-                <Icon name="user" size={40} /><span class="us-platzhalter__marke">Foto folgt</span>
-              </div>
-              <h3>{p.name}</h3>
-              {p.rolleFehlt
-                ? (SHOW_HINTS ? <p><span class="us-person__rolle--fehlt">Platzhalter: {p.rolle}</span></p> : null)
-                : <p>{p.rolle}</p>}
-            </li>
-          ))}
-        </ul>
-        <Hint block label="Echte Teamfotos (keine Stockfotos) und die Rolle von Jamil Iqbal" where="src/config/unterseiten.ts → UEBER_UNS.team" />
-      </div>
-    </section>
-  </div>
+  <UeberUnsInhalt U={U} lang="de" />
 </BaseLayout>
 
 <script>
