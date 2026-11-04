@@ -15,7 +15,8 @@ export type NavItem = { label: string; path?: string; children?: NavChild[] };
 export const NAV: NavItem[] = [
   { label: 'Produkte', path: '/produkte/' },
   { label: 'Referenzen', path: '/referenzen/' },
-  { label: 'Prinzipien', path: '/#prinzipien' },   // Talk 4087 (vorher „Verlässlichkeit“)
+  // Talk 4544: neue Startseite – „Warum Waybuild?“ springt zu Abschnitt 2 (vorher „Prinzipien“, Talk 4087)
+  { label: 'Warum Waybuild', path: '/#warum' },
   {
     label: 'Unternehmen',
     children: [

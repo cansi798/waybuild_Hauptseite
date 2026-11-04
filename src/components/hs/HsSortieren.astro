@@ -1,0 +1,39 @@
+---
+// Szene „Zusammenarbeit“ (Jamil, Talk 4544): Aufgaben, Dokumente, Ideen, Änderungswünsche und Nachrichten bewegen sich
+// zur Waybuild-Linie und fließen in ihren Knoten. Danach führt die Linie geordnet weiter und strukturiert alles in
+// offene Themen, nächste Schritte, Entscheidungen und erledigte Aufgaben. Scrollgekoppelt (denkweise.ts, Spur „fliessen“:
+// Ruhelage = Versatz --ox/--oy in cqw, wird auf den Knoten gezogen). Ohne JS / reduzierte Bewegung: beides steht.
+import Icon from '../Icon.astro';
+import { HS_ZUSAMMENARBEIT as T } from '../../config/startseite';
+const W = 440, H = 500, MX = 220, MY = 196, SX = 56;
+const f = (n: number) => n.toFixed(3);
+const ox = (x: number) => f(((x - MX) / W) * 100);
+const oy = (y: number) => f(((y - MY) / W) * 100);
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+const eingang = [[96, 34], [330, 46], [118, 112], [326, 126], [96, 178]].map(([x, y], i) => ({ ...T.eingang[i], x, y, a: 0.2 + i * 0.045 }));
+const ZEILEN = [290, 350, 410, 470];
+// Unterer Linienteil: Bogen ≈ 180, dann gerade; Zeile erscheint, wenn die Linie ihre Höhe erreicht
+const UA = 0.5, UB = 0.9, ULEN = 180 + (470 - 266);
+const struktur = T.struktur.map((s, i) => ({ ...s, y: ZEILEN[i], p: UA + ((180 + ZEILEN[i] - 266) / ULEN) * (UB - UA) }));
+---
+<div class="dw-bild hs-sortieren" data-szene data-tempo="0.8" style={`aspect-ratio: ${W} / ${H}`} aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} focusable="false">
+    <path class="dw-s" pathLength="1" d={`M${MX} 6 L${MX} ${MY}`} data-an="linear:0-0.3" />
+    <circle class="dw-knoten" cx={MX} cy="6" r="5" />
+    <path class="dw-s" pathLength="1" d={`M${MX} ${MY} C${MX} ${MY + 40} ${SX} ${MY + 30} ${SX} 266 L${SX} 470`} data-an={`linear:${UA}-${UB}`} />
+    {struktur.map((s) => <circle class="dw-knoten" cx={SX} cy={s.y} r="5.5" data-an={`erscheinen:${f(s.p - 0.03)}-${f(s.p)}`} />)}
+  </svg>
+  {eingang.map((e) => (
+    <span class="dw-pos" style={`left:${pc(MX, W)};top:${pc(MY, H)}`}>
+      <span class="hs-pill" style={`--ox:${ox(e.x)};--oy:${oy(e.y)}`} data-an={`fliessen:${f(e.a)}-${f(e.a + 0.14)}`}><Icon name={e.icon} size={14} />{e.text}</span>
+    </span>
+  ))}
+  <span class="dw-pos" style={`left:${pc(MX, W)};top:${pc(MY, H)}`}>
+    <span class="hs-knoten" data-an="erscheinen:0.27-0.32"><span class="hs-knoten__fuell" data-an="blende:0.44-0.5"></span></span>
+  </span>
+  {struktur.map((s) => (
+    <span class="dw-pos dw-pos--rechts" style={`left:${pc(SX + 22, W)};top:${pc(s.y, H)}`}>
+      <span class="hs-zeile" data-an={`rechts:${f(s.p - 0.02)}-${f(s.p + 0.05)}`}><Icon name={s.icon} size={15} />{s.text}</span>
+    </span>
+  ))}
+</div>

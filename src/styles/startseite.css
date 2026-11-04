@@ -1,0 +1,249 @@
+/* Startseite „Komplettes Umdenken“ (Jamil, Talk 4544, 04.11.2026). Ruhig, dezent, selbstbewusst: weiße Karten, eine
+ * Akzentfarbe (Türkis), Abschnitte im Wechsel heller Töne. Die Waybuild-Linie liegt in den Szenen selbst und wird von
+ * src/scripts/denkweise.ts scrollgekoppelt gezeichnet (nur transform / opacity / stroke-dashoffset).
+ * Ohne JS bzw. mit reduzierter Bewegung steht überall der Endzustand (Animationen nur mit .dw--live bzw. .hn--los). */
+
+/* ── Grundlagen der Linien-Engine (aus denkweise.css übernommen, nur was diese Seite braucht) ── */
+.dw { --weg: var(--accent-mid); position: relative; overflow-x: clip; isolation: isolate; }
+.hs .dw-linie { display: none; }   /* seitenweite Linie hier ungenutzt */
+.dw-s { fill: none; stroke: var(--weg); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.dw--live .dw-s[data-an] { stroke-dasharray: 1 2; stroke-dashoffset: 1.05; }   /* Versatz > 1: kein Punkt am Anfang ungezeichneter Striche */
+.dw-knoten { fill: var(--grund, var(--paper)); stroke: var(--weg); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; }
+.dw-bild { position: relative; width: 100%; max-width: 460px; margin-inline: auto; }
+.dw-bild > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.dw-pos { position: absolute; transform: translate(-50%, -50%); z-index: 1; }
+.dw-pos--rechts { transform: translate(0, -50%); }
+
+/* ── Abschnitte im Farbwechsel (hell, kein Grau) ── */
+.hs { --f-papier: var(--paper); --f-weiss: var(--white); --f-tuerkis: #e9f3f1; }
+.hs-abschnitt { position: relative; padding-block: clamp(64px, 9vw, 120px); background: var(--grund); --grund: var(--f-papier); }
+.hs-abschnitt + .hs-abschnitt { box-shadow: inset 0 1px 0 rgb(0 79 76 / 7%); }
+#warum, #zusammenarbeit, #ergebnisse { --grund: var(--f-weiss); }
+#fuer-wen, #denkweise, #erwartungen { --grund: var(--f-tuerkis); }
+.hs-alt-anker { position: absolute; top: 0; left: 0; width: 0; height: 0; }
+
+.hs h2 { font-size: clamp(1.75rem, 3.6vw, 2.6rem); letter-spacing: -0.025em; margin: 0 0 0.6em; }
+.hs-text { max-width: 580px; }
+.hs-text p, .hs-kopf p { color: var(--ink-soft); line-height: 1.75; }
+.hs-zeilen span { display: block; }
+.hs-zeilen--betont, .hs-text .hs-zeilen--betont, .hs-kopf .hs-zeilen--betont { color: var(--ink); font-weight: 600; }
+.hs-raster { display: grid; gap: 48px; align-items: center; }
+.hs-kopf { max-width: 760px; margin: 0 auto clamp(36px, 5vw, 56px); text-align: center; }
+.hs-kopf p:last-child { margin-bottom: 0; }
+.hs-karte { position: relative; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: 0 1px 2px rgb(0 79 76 / 5%), 0 12px 28px -16px rgb(0 79 76 / 18%); }
+.hs-karte h3 { margin: 0 0 8px; font-size: 1.15rem; }
+.hs-karte p { margin: 0 0 8px; color: var(--ink-soft); line-height: 1.65; }
+.hs-symbol { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 14px; border-radius: 12px; background: rgb(0 166 161 / 10%); color: var(--accent-ink); }
+.hs-unter { margin: 1.4em 0 0.7em; font-size: 1.05rem; }
+.hs-haken { list-style: none; margin: 0 0 1.2em; padding: 0; display: grid; gap: 10px; }
+.hs-haken li { display: flex; align-items: flex-start; gap: 10px; color: var(--ink); line-height: 1.5; }
+.hs-haken .icon { flex: none; margin-top: 3px; color: var(--accent-mid); }
+.hs-punkte { list-style: none; margin: 0 0 1.2em; padding: 0; display: grid; gap: 6px; }
+.hs-punkte li { position: relative; padding-left: 20px; color: var(--ink); line-height: 1.55; }
+.hs-punkte li::before { content: ''; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: #b9b0a0; }
+.hs-ziel span { display: block; }
+.hs-ziel strong { display: block; margin-top: 4px; font-family: var(--font-head); font-size: 1.12rem; font-weight: 700; color: var(--accent-ink); line-height: 1.45; }
+.hs-fragen { list-style: none; margin: 0 0 1.2em; padding: 0; display: grid; gap: 8px; }
+.hs-fragen li { display: flex; align-items: flex-start; gap: 10px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+.hs-fragen .icon { flex: none; margin-top: 3px; color: var(--accent-mid); }
+.hs-ende { position: relative; z-index: 1; margin: clamp(32px, 4vw, 48px) 0 0; text-align: center; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.3rem, 2.6vw, 1.8rem); letter-spacing: -0.015em; color: var(--accent-ink); }
+.hs-aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 28px; }
+.hs-aktionen--mitte { justify-content: center; }
+.hs .btn--ghost { color: var(--accent-ink); border-color: rgb(0 143 138 / 55%); background: var(--white); }
+.hs .btn--ghost:hover { border-color: var(--accent-ink); }
+
+/* ── Besucherfrage: leise Randnotiz am Abschnittsende, kein FAQ-Block ── */
+.hs-frage { margin: clamp(40px, 5vw, 64px) 0 0; max-width: 600px; padding: 2px 0 2px 18px; border-left: 2px solid rgb(0 143 138 / 45%); }
+.hs-frage--mitte { margin-inline: auto; }
+.hs-frage__f { margin: 0 0 4px; font-size: 0.95rem; font-style: italic; color: #6f6a60; }
+.hs-frage__f::before { content: '„'; }
+.hs-frage__f::after { content: '“'; }
+.hs-frage__a { margin: 0; font-family: var(--font-head); font-weight: 650; font-size: 1.05rem; line-height: 1.55; color: var(--accent-ink); }
+.hs-frage__a span { display: block; }
+
+/* ── 1 · Hero ── */
+.hs-hero { padding-block: clamp(28px, 5vw, 72px) clamp(48px, 7vw, 96px); }
+.hs-hero__raster { display: grid; gap: 40px; align-items: center; }
+.hs-hero h1 { font-size: clamp(2rem, 4.4vw, 3.45rem); line-height: 1.08; letter-spacing: -0.032em; margin: 0 0 22px; }
+.hs-hero__zeile { display: block; }
+.hs-hero__sub { margin: 0 0 12px; font-size: clamp(1.08rem, 1.7vw, 1.22rem); line-height: 1.7; color: var(--ink); max-width: 46ch; }
+.hs-hero__sub span { display: block; }
+.hs-hero__sub span + span { color: var(--ink-soft); }
+.hs-hero__sub2 { margin: 0; font-size: clamp(1.02rem, 1.5vw, 1.12rem); line-height: 1.7; color: var(--ink-soft); max-width: 48ch; }
+
+/* Hero-Grafik: Netz → Linie → Verantwortung, Klarheit, Fortschritt */
+.hn { margin: 0; }
+.hn__buehne { position: relative; width: 100%; max-width: 520px; margin-inline: auto; aspect-ratio: 480 / 380; container-type: inline-size; }
+.hn__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hn-kante { fill: none; stroke: #c9c0b0; stroke-width: 1.6; opacity: 0.16; }
+.hn-sack path { fill: none; stroke: #c9c0b0; stroke-width: 1.6; }
+.hn-sack circle { fill: var(--grund); stroke: #b3aa99; stroke-width: 1.5; }
+.hn-sack { opacity: 0; }
+.hn-knoten { fill: var(--grund); stroke: #b3aa99; stroke-width: 1.6; opacity: 0.3; }
+.hn-buendel { fill: none; stroke: var(--accent-mid); stroke-width: 1.6; stroke-linecap: round; opacity: 0.5; }
+.hn-linie { fill: none; stroke: var(--accent-mid); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.hn-start { fill: var(--grund); stroke: var(--accent-mid); stroke-width: 2.5; }
+.hn-station { fill: var(--white); stroke: var(--accent-mid); stroke-width: 2.6; transform-box: fill-box; transform-origin: center; }
+.hn-begriff { position: absolute; transform: translate(-50%, -50%) scale(0.94); padding: 0.32em 0.8em; border-radius: 999px; border: 1px solid var(--line); background: var(--white); box-shadow: 0 2px 6px rgb(58 58 58 / 6%); font-size: clamp(10.5px, 2.75cqw, 13.5px); font-weight: 600; line-height: 1.25; color: #5d584e; white-space: nowrap; opacity: 0.5; }
+.hn-begriff--entscheid { opacity: 1; color: var(--accent-ink); }
+.hn-begriff--entscheid::after { content: ''; position: absolute; inset: -1px; border-radius: inherit; border: 1.5px solid var(--accent-mid); box-shadow: 0 0 0 3px rgb(0 166 161 / 12%); }
+.hn-wort { position: absolute; transform: translateY(-50%); font-family: var(--font-head); font-weight: 700; font-size: clamp(13px, 3.7cqw, 18px); line-height: 1.2; color: var(--accent-ink); white-space: nowrap; }
+.hn__darunter { margin-top: 10px; text-align: center; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.05rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; color: var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hn :is(.hn-kante, .hn-sack, .hn-knoten, .hn-buendel, .hn-linie, .hn-station, .hn-begriff, .hn-wort, .hn__darunter),
+  html.js .hn .hn-begriff--entscheid::after { animation-play-state: paused; }
+  html.js .hn.hn--los :is(.hn-kante, .hn-sack, .hn-knoten, .hn-buendel, .hn-linie, .hn-station, .hn-begriff, .hn-wort, .hn__darunter),
+  html.js .hn.hn--los .hn-begriff--entscheid::after { animation-play-state: running; }
+  html.js .hn-linie { stroke-dasharray: 1 2; animation: hn-zeichnen 1.7s cubic-bezier(0.45, 0, 0.25, 1) 0.35s both; }
+  html.js .hn-buendel { stroke-dasharray: 1 2; animation: hn-zeichnen 0.8s ease calc(1.25s + var(--d)) both; }
+  html.js .hn-kante { animation: hn-ruhig 1.3s ease calc(1s + var(--d)) both; }
+  html.js .hn-knoten { animation: hn-ruhig 1.2s ease 1.1s both; }
+  html.js .hn-sack { animation: hn-ruhig 0.6s ease calc(0.8s + var(--d)) both; }
+  html.js .hn-begriff { animation: hn-begriff 1s ease 1.3s both; }
+  html.js .hn-begriff--entscheid { animation-name: hn-begriff-klar; }
+  html.js .hn-begriff--entscheid::after { animation: hn-auf 0.6s ease 1.8s both; }
+  html.js .hn-station { animation: hn-station 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) calc(1.95s + var(--d)) both; }
+  html.js .hn-wort { animation: hn-wort 0.55s ease calc(2.05s + var(--d)) both; }
+  html.js .hn__darunter { animation: hn-darunter 0.6s ease 2.85s both; }
+}
+@keyframes hn-zeichnen { from { stroke-dashoffset: 1.05; } to { stroke-dashoffset: 0; } }
+@keyframes hn-ruhig { from { opacity: 1; } }
+@keyframes hn-begriff { from { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes hn-begriff-klar { from { transform: translate(-50%, -50%) scale(1); } }
+@keyframes hn-auf { from { opacity: 0; } }
+@keyframes hn-station { from { opacity: 0; transform: scale(0.4); } }
+@keyframes hn-wort { from { opacity: 0; transform: translate(-8px, -50%); } }
+@keyframes hn-darunter { from { opacity: 0; transform: translateY(6px); } }
+
+/* ── 2 · Warum: Bereiche werden zu einem System verbunden ── */
+.hs-system { container-type: inline-size; }
+.hs-kachel { position: relative; display: inline-flex; align-items: center; gap: 7px; width: 41cqw; min-height: 46px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--line); background: #f4f2ec; color: #625c51; font-size: clamp(12px, 3.4cqw, 15px); font-weight: 650; line-height: 1.2; }
+.hs-kachel .icon { flex: none; color: #8f8778; }
+.hs-kachel.hs-kachel--an { position: absolute; inset: -1px; width: auto; border: 1.5px solid var(--accent-mid); background: var(--white); color: var(--accent-ink); box-shadow: 0 0 0 3px rgb(0 166 161 / 9%), 0 8px 18px -12px rgb(0 107 104 / 40%); }
+.hs-kachel--an .icon { color: var(--accent-mid); }
+
+/* ── 3 · Für wen ── */
+.hs-erwartungen { max-width: 460px; width: 100%; justify-self: center; }
+.hs-erwartungen .hs-haken { margin: 0; gap: 12px; }
+
+/* ── 4 + 7 · Karten an der Linie (Wofür wir stehen, Lösungen) ── */
+.hs-haltung, .hs-zweige { position: relative; }
+.hs-haltung__liste, .hs-zweige__liste { list-style: none; margin: 0; padding: 0 0 0 36px; display: grid; gap: 22px; }
+.hs-haltung__item, .hs-zweige__item { position: relative; display: flex; }
+.hs-haltung__item > .hs-karte, .hs-zweige__item > .hs-karte { flex: 1; }
+.hs-stiel, .hs-seg { position: absolute; z-index: 0; display: block; border-radius: 2px; background: var(--accent-mid); }
+.hs-karte::before { content: none; }
+.hs-stiel--m { left: -25px; top: 46px; width: 25px; height: 2.5px; margin-top: -1.25px; transform-origin: left; }
+.hs-seg--m { left: -25px; top: 46px; width: 2.5px; height: calc(100% + 22px); margin-left: -1.25px; transform-origin: top; }
+.hs-grundsatz::before, .hs-produkt::before { content: ''; position: absolute; left: -25px; top: 46px; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund); }
+.hs-grundsatz h3, .hs-produkt h3 { font-size: 1.2rem; }
+.hs-chips { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 18px 0 0; padding: 0; }
+.hs-chips li { padding: 6px 14px; border-radius: 999px; border: 1px solid rgb(0 143 138 / 35%); background: var(--white); color: var(--accent-ink); font-size: 0.92rem; font-weight: 650; }
+.hs-produkt { display: flex; flex-direction: column; align-items: flex-start; }
+.hs-produkt .hs-zeilen { margin-bottom: 14px; }
+.hs-produkt .pfeil-link { margin-top: auto; }
+.hs-produkt--haupt { border-color: rgb(0 166 161 / 45%); box-shadow: 0 0 0 4px rgb(0 166 161 / 8%), 0 12px 28px -16px rgb(0 79 76 / 18%); }
+
+/* ── 5 · Zusammenarbeit: Eingänge fließen in die Linie, danach geordnet ── */
+.hs-sortieren { container-type: inline-size; }
+.hs-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); box-shadow: 0 2px 8px rgb(58 58 58 / 7%); font-size: clamp(11.5px, 3.05cqw, 13.5px); font-weight: 650; line-height: 1.25; color: #5d584e; white-space: nowrap; transform: translate(calc(var(--ox) * 1cqw), calc(var(--oy) * 1cqw)); }
+.hs-pill .icon { flex: none; color: #a39b8c; }
+.hs-knoten { position: relative; display: block; width: 30px; height: 30px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund); transform-origin: center; }
+.hs-knoten__fuell { position: absolute; inset: 4px; border-radius: 50%; background: var(--accent-mid); }
+.hs-zeile { display: inline-flex; align-items: center; gap: 8px; min-width: 56cqw; padding: 8px 14px; border-radius: 10px; border: 1px solid rgb(0 143 138 / 30%); background: #eef7f5; font-size: clamp(12px, 3.2cqw, 14.5px); font-weight: 650; line-height: 1.25; color: var(--accent-ink); white-space: nowrap; }
+.hs-zeile .icon { flex: none; color: var(--accent-mid); }
+
+/* ── 6 · Entscheidungen: drei Stationen auf der Linie ── */
+.hs-stationen { position: relative; width: 100%; max-width: 480px; margin-inline: auto; }
+.hs-stationen__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.hs-station { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
+.hs-station__spur, .hs-station__seg { position: absolute; left: 22.75px; top: 24px; width: 2.5px; height: calc(100% + 22px); border-radius: 2px; transform-origin: top; }
+.hs-station__spur { background: rgb(0 143 138 / 18%); }
+.hs-station__seg { background: var(--accent-mid); }
+.hs-station__knoten { position: relative; z-index: 1; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--white); color: var(--accent-ink); }
+.hs-station__knoten .icon { position: relative; z-index: 1; }
+.hs-station__fuell { position: absolute; inset: 3px; border-radius: 50%; background: #cdeae6; }
+.hs-station__karte { position: relative; padding: 16px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+.hs-station__hell { position: absolute; inset: -1px; border-radius: inherit; border: 2px solid var(--accent-mid); box-shadow: 0 0 0 4px rgb(0 166 161 / 10%), 0 12px 28px -14px rgb(0 107 104 / 35%); pointer-events: none; }
+.hs-station__karte h3 { position: relative; margin: 0 0 4px; font-size: 1.15rem; }
+.hs-station__karte p { position: relative; margin: 0; color: var(--ink-soft); line-height: 1.6; }
+
+/* ── 8 · Ergebnisse: mehrere Wege, jeder endet im Ergebnis ── */
+.hs-ergebnis { position: relative; max-width: 1040px; margin-inline: auto; }
+.hs-ergebnis__stufen { list-style: none; margin: 0; padding: 0; }
+.hs-ergebnis__stufe { font-family: var(--font-head); font-size: 0.95rem; font-weight: 650; color: var(--ink); }
+.hs-ergebnis__stufe--ziel { color: var(--accent-ink); font-weight: 750; }
+.hs-ergebnis__bild { position: relative; width: 100%; }
+.hs-ergebnis__bild svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hs-ergebnis__halt { stroke-width: 2; }
+.hs-ergebnis__start { display: block; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid var(--accent-mid); background: var(--grund); }
+.hs-ergebnis__ziel { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-mid); color: var(--white); box-shadow: 0 0 0 4px var(--grund); }
+
+/* ── 9 · Darauf können Sie sich verlassen ── */
+.hs-zusagen { list-style: none; margin: 0 auto; padding: 0; max-width: 980px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.hs-zusagen li { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); box-shadow: 0 1px 2px rgb(0 79 76 / 5%); font-weight: 600; color: var(--ink); line-height: 1.4; }
+.hs-zusagen .icon { flex: none; color: var(--accent-mid); }
+.hs-zusatz { max-width: 680px; margin: clamp(32px, 4vw, 48px) auto 0; text-align: center; font-family: var(--font-head); font-size: clamp(1.08rem, 1.8vw, 1.25rem); font-weight: 650; line-height: 1.55; color: var(--ink); }
+.hs-zusatz span { display: block; }
+.hs-zusatz span + span { color: var(--accent-ink); }
+
+/* ── 10 · Abschluss ── */
+.hs-abschluss__innen { max-width: 820px; margin-inline: auto; text-align: center; }
+.hs-abschluss h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); line-height: 1.1; letter-spacing: -0.03em; }
+.hs-abschluss .hs-zeilen { margin: 0 auto; max-width: 640px; color: var(--ink-soft); line-height: 1.75; }
+
+/* ── Handy / Tablet ── */
+.hs-nur-d { display: none; }
+@media (max-width: 959px) {
+  .hs-hero h1 { font-size: clamp(1.8rem, 7.4vw, 2.4rem); line-height: 1.1; margin-bottom: 16px; }
+  .hs-hero__sub { font-size: 1.04rem; line-height: 1.65; }
+  .hs-hero__sub2 { font-size: 1rem; line-height: 1.65; }
+  .hs-hero .btn--lg { padding-block: 12px; min-height: 50px; }
+  .hs-aktionen { margin-top: 22px; }
+  .hs-hero__raster { gap: 28px; }
+  .hn__buehne { max-width: 440px; }
+  .hs-ergebnis__stufen { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .hs-ergebnis__stufe { position: absolute; left: 0; top: var(--y); transform: translateY(-50%); }
+  .hs-ergebnis__bild { max-width: 440px; margin-inline: auto; }
+  .hs-ergebnis__bild--d { display: none; }
+  .hs-ergebnis { max-width: 440px; }
+}
+@media (max-width: 599px) {
+  .hn-m { display: none; }
+  .hs-zusagen { justify-content: flex-start; }
+  .hs-zusagen li { width: 100%; }
+}
+
+/* ── Desktop ── */
+@media (min-width: 600px) {
+  .hs-haken--zwei { grid-template-columns: 1fr 1fr; column-gap: 24px; }
+}
+@media (min-width: 960px) {
+  .hs-nur-d { display: block; }
+  .hs-nur-m { display: none; }
+  .hs-hero__raster { grid-template-columns: 1.08fr 0.92fr; gap: clamp(32px, 5vw, 72px); }
+  .hs-raster { grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); }
+  .hs-raster--spiegel > :last-child { order: -1; }
+  .hs-raster--spiegel + .hs-frage { margin-left: calc(50% + clamp(20px, 3vw, 48px)); }
+
+  /* Wofür wir stehen: vier Karten nebeneinander, die Linie läuft darüber und dockt mit kurzen Stielen an */
+  .hs-haltung__liste { padding: 34px 0 0; grid-template-columns: repeat(4, 1fr); }
+  .hs-haltung .hs-stiel { left: calc(50% - 1.25px); top: -34px; width: 2.5px; height: 34px; transform-origin: top; }
+  .hs-haltung .hs-seg { left: 50%; top: -34px; width: calc(100% + 22px); height: 2.5px; margin-top: -1.25px; transform-origin: left; }
+  .hs-grundsatz { text-align: center; }
+  .hs-grundsatz .hs-symbol { margin-inline: auto; }
+  .hs-grundsatz::before { left: 50%; top: -34px; }
+
+  /* Lösungen: eine Linie, drei Zweige, die Äste führen zurück */
+  .hs-zweige__band { display: block; width: 100%; height: 90px; overflow: visible; }
+  .hs-zweige__liste { padding: 0; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .hs-produkt::before { left: 50%; top: 0; }
+
+  .hs-ergebnis__stufen { display: grid; grid-template-columns: repeat(5, 1fr); text-align: center; margin-bottom: 4px; }
+  .hs-ergebnis__bild--m { display: none; }
+}
+
+/* Reduzierte Bewegung: keine Übergänge */
+@media (prefers-reduced-motion: reduce) {
+  .hn * { animation: none !important; }
+}

@@ -1,0 +1,50 @@
+---
+// Grafik „Projekte und Ergebnisse“ (Jamil, Talk 4544): Ausgangssituation → Analyse → Empfehlung → Umsetzung → Ergebnis.
+// Mehrere Wege führen durch unterschiedliche Projekte, jeder endet in einem sichtbaren Ergebnis (Haken). Bewusst ohne
+// Kundennamen, Stimmen oder Kennzahlen – es gibt noch keine freigegebenen Referenzen. Desktop waagerecht, Handy senkrecht.
+// Scrollgekoppelt (denkweise.ts). Ohne JS / reduzierte Bewegung: alle Wege fertig.
+import Icon from '../Icon.astro';
+import { HS_ERGEBNISSE as T } from '../../config/startseite';
+const f = (n: number) => n.toFixed(3);
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+// Desktop 1000 × 200: Stufen bei x = 100 … 900; Handy 340 × 480: Stufen bei y = 40 … 440
+// Wege ohne Überschwingen: zwischen zwei Stufen ein weicher Bogen mit waagerechten (bzw. senkrechten) Tangenten
+const weg = (pkt: number[][], senkrecht = false) => pkt.map(([x, y], i) => {
+  if (!i) return `M${x} ${y}`;
+  const [x0, y0] = pkt[i - 1];
+  return senkrecht ? ` C${x0} ${(y0 + y) / 2} ${x} ${(y0 + y) / 2} ${x} ${y}` : ` C${(x0 + x) / 2} ${y0} ${(x0 + x) / 2} ${y} ${x} ${y}`;
+}).join('');
+const STUFE_X = [100, 300, 500, 700, 900], STUFE_Y = [40, 140, 240, 340, 440];
+const dY = [[50, 30, 60, 40, 60], [100, 122, 94, 116, 100], [150, 170, 140, 162, 140]];
+const mX = [[215, 198, 222, 202, 228], [262, 280, 256, 276, 265], [310, 322, 298, 318, 302]];
+const baue = (pkt: number[][], senkrecht: boolean) => ({ d: weg(pkt, senkrecht), p: pkt.slice(1, 4), s: pkt[0], e: pkt[4] });
+const D = { W: 1000, H: 200, wege: dY.map((ys) => baue(ys.map((y, i) => [STUFE_X[i], y]), false)) };
+const M = { W: 340, H: 480, wege: mX.map((xs) => baue(xs.map((x, i) => [x, STUFE_Y[i]]), true)) };
+const zeit = (i: number) => ({ a: 0.04 + i * 0.1, b: 0.5 + i * 0.1 });
+---
+<div class="hs-ergebnis" data-szene>
+  <ol class="hs-ergebnis__stufen" aria-label="Ablauf eines Projekts">
+    {T.ablauf.map((s, i) => <li class:list={['hs-ergebnis__stufe', { 'hs-ergebnis__stufe--ziel': i === T.ablauf.length - 1 }]} style={`--y:${pc(40 + i * 100, M.H)}`}>{s}</li>)}
+  </ol>
+  {[{ v: D, k: 'd' }, { v: M, k: 'm' }].map(({ v, k }) => (
+    <div class:list={['hs-ergebnis__bild', `hs-ergebnis__bild--${k}`]} style={`aspect-ratio: ${v.W} / ${v.H}`} aria-hidden="true">
+      <svg viewBox={`0 0 ${v.W} ${v.H}`} focusable="false">
+        {v.wege.map((w, i) => {
+          const { a, b } = zeit(i);
+          return (
+            <>
+              <path class="dw-s" pathLength="1" d={w.d} data-an={`zeichnen:${f(a)}-${f(b)}`} />
+              {w.p.map(([x, y], j) => <circle class="dw-knoten hs-ergebnis__halt" cx={x} cy={y} r="4.5" data-an={`erscheinen:${f(a + ((j + 1) / 4) * (b - a) - 0.02)}-${f(a + ((j + 1) / 4) * (b - a) + 0.02)}`} />)}
+            </>
+          );
+        })}
+      </svg>
+      {v.wege.map((w) => <span class="dw-pos" style={`left:${pc(w.s[0], v.W)};top:${pc(w.s[1], v.H)}`}><span class="hs-ergebnis__start"></span></span>)}
+      {v.wege.map((w, i) => (
+        <span class="dw-pos" style={`left:${pc(w.e[0], v.W)};top:${pc(w.e[1], v.H)}`}>
+          <span class="hs-ergebnis__ziel" data-an={`erscheinen:${f(zeit(i).b - 0.01)}-${f(zeit(i).b + 0.06)}`}><Icon name="check" size={14} /></span>
+        </span>
+      ))}
+    </div>
+  ))}
+</div>

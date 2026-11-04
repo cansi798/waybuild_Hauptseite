@@ -1,0 +1,11 @@
+---
+// Besucherfrage und Antwort am Ende eines Abschnitts (Jamil, Talk 4544). Bewusst KEIN FAQ-Block:
+// eine ruhige Randnotiz – die Frage klein und leise, die Antwort in der Überschriftenschrift, eine feine türkise Kante.
+import type { Frage } from '../../config/startseite';
+interface Props { f: Frage; mitte?: boolean }
+const { f, mitte = false } = Astro.props;
+---
+<aside class:list={['hs-frage reveal', { 'hs-frage--mitte': mitte }]} aria-label="Frage und Antwort">
+  <p class="hs-frage__f">{f.frage}</p>
+  <p class="hs-frage__a">{f.antwort.map((z) => <span>{z}</span>)}</p>
+</aside>

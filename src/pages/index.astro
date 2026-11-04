@@ -1,253 +1,238 @@
 ---
-// Startseite „Denkweise“ nach Jamils Konzept (Talk 3798/3799) mit Feinschliff (Talk 3818, 30.10.2026).
-// Die Linie zeigt keinen Projektablauf, sondern die Waybuild-Denkweise. Drei Teile statt vieler Einzelabschnitte
-// (intern „Kapitel“, sichtbar ohne Kapitel-Marke – Jamil, Talk 3935: die Linie entsteht aus der Überschrift heraus):
-//   Kapitel 1 · Veränderungen verstehen: Impuls, Verstehen (+ Frage 1), Hinterfragen (+ Frage 2)
-//   Kapitel 2 · Veränderungen umsetzen: Entscheiden (statt Vereinfachen, Talk 3939), Umsetzen, Verbessern (Prozessreihenfolge, Jamil Talk 3922),
-//   Produkte (eigene Karten, Website Service hervorgehoben)
-//   Kapitel 3 · Veränderungen nachhaltig machen: Verlässlichkeit (dunkler Bereich, mit den drei Prinzipien auf der
-//   Linie, danach Frage 3), Ihr Veränderungsprofil, Kontakt mit dem Kreis „Fortschritt“.
-// Hero: die Prozess-Animation (Impuls → … → Verbessern) ist eine eigene, größere türkise Linie und endet bei
-// „Verbessern“; die durchgehende Scroll-Linie beginnt erst unter der ersten Überschrift „Veränderungen verstehen“
-// (Talk 3922/3935).
-// Eine einzige SVG-Linie über die ganze Geschichte (src/scripts/denkweise.ts), Bildszenen in src/components/dw/,
-// Veränderungs-Check (Fragen + Profil) vorerst entfernt (Talk 4045; Komponenten DwFrage/DwProfil bleiben im Repo). Die Unternehmens-DNA kommt seit Talk 4088 bei „Verstehen“ vor.
-// Vorherige Fassung: Git-Tag startseite-v3-anfragereise-20261030; Komponenten in src/components/story/.
+// Startseite „Komplettes Umdenken“ (Jamil, Talk k8oxzjva #4544, 04.11.2026): zehn Abschnitte in seiner Reihenfolge –
+// Hero, Warum es Waybuild gibt, Für wen, Wofür wir stehen, Zusammenarbeit, Entscheidungen (bewusst vor den Produkten),
+// Lösungen, Projekte und Ergebnisse, Darauf können Sie sich verlassen, Abschluss – dazu das Footer-Markenstatement.
+// Texte wörtlich in src/config/startseite.ts. Jeder Abschnitt endet mit einer leisen Besucherfrage (HsFrage).
+// Animationen mit der Waybuild-Linie über die vorhandene Engine (src/scripts/denkweise.ts: Szenen [data-szene], Spuren
+// [data-an], nur transform/opacity/stroke-dashoffset, reduzierte Bewegung = Endzustand); Hero-Verwandlung einmalig per CSS.
+// Vorherige Startseite „Denkweise“: Branch vor-umdenken-20261104 (Komponenten src/components/dw/ bleiben für /ueber-uns/).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import DwIdee from '../components/dw/DwIdee.astro';
-import DwVerstehen from '../components/dw/DwVerstehen.astro';
-import DwHinterfragen from '../components/dw/DwHinterfragen.astro';
-import DwEntscheiden from '../components/dw/DwEntscheiden.astro';
-import DwUmsetzen from '../components/dw/DwUmsetzen.astro';
-import DwVerbessern from '../components/dw/DwVerbessern.astro';
-import HeroPassform from '../components/dw/HeroPassform.astro';
+import HsFrage from '../components/hs/HsFrage.astro';
+import HsHeroBild from '../components/hs/HsHeroBild.astro';
+import HsSystem from '../components/hs/HsSystem.astro';
+import HsSortieren from '../components/hs/HsSortieren.astro';
+import HsStationen from '../components/hs/HsStationen.astro';
+import HsErgebnis from '../components/hs/HsErgebnis.astro';
 import { href } from '../lib/paths';
 import { BESCHREIBUNG } from '../config/hauptseite';
 import {
-  DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN,
-  DW_PRINZIPIEN, DW_ABSCHLUSS, DW_PRODUKTE, DW_PRODUKTBEREICH,
-} from '../config/denkweise';
-import '../styles/denkweise.css';
+  HS_HERO, HS_WARUM, HS_FUER_WEN, HS_HALTUNG, HS_ZUSAMMENARBEIT, HS_ENTSCHEIDUNGEN, HS_LOESUNGEN, HS_ERGEBNISSE,
+  HS_VERLASSEN, HS_ABSCHLUSS,
+} from '../config/startseite';
+import '../styles/startseite.css';
 
-const K = DW_UMSETZEN.karte;
-const [K1, K2, K3] = DW_KAPITEL;
+const f = (n: number) => n.toFixed(3);
+// Wofür wir stehen: vier Karten nacheinander, die Linie verbindet sie
+const nH = HS_HALTUNG.grundsaetze.length;
+const haltung = HS_HALTUNG.grundsaetze.map((g, i) => {
+  const a = 0.04 + i * 0.17, n = 0.04 + (i + 1) * 0.17;
+  return { ...g, karte: `auf:${f(a)}-${f(a + 0.1)}`, stiel: `hoch:${f(a - 0.03)}-${f(a + 0.03)}`, stielM: `breit:${f(a - 0.03)}-${f(a + 0.03)}`,
+    seg: i < nH - 1 ? `breit:${f(a + 0.04)}-${f(n - 0.02)}` : '', segM: i < nH - 1 ? `hoch:${f(a + 0.04)}-${f(n - 0.02)}` : '' };
+});
+// Lösungen: eine Linie, drei Produktzweige, alle Äste führen zurück zur Hauptlinie
+const ZX = [200, 600, 1000];
+const zweige = HS_LOESUNGEN.produkte.map((p, i) => {
+  const a = 0.12 + i * 0.12, z = 0.56 + i * 0.07;
+  return { ...p, x: ZX[i], hin: `zeichnen:${f(a)}-${f(a + 0.12)}`, zurueck: `zeichnen:${f(z)}-${f(z + 0.1)}`, karte: `auf:${f(a + 0.08)}-${f(a + 0.18)}`,
+    stielM: `breit:${f(a + 0.04)}-${f(a + 0.1)}`, segM: i < 2 ? `hoch:${f(a + 0.1)}-${f(a + 0.2)}` : '' };
+});
 ---
 
-<BaseLayout
-  title="Website Service und digitale Produkte"
-  description={BESCHREIBUNG}
-  hideFooterKontakt
->
-  <div class="dw dw-farben" data-denkweise>
+<BaseLayout title="Website Service und digitale Lösungen" description={BESCHREIBUNG} hideFooterKontakt>
+  <div class="dw hs" data-denkweise>
+    {/* Die Engine erwartet die (hier ungenutzte) seitenweite Linie; alle Linien liegen in den Szenen selbst */}
     <svg class="dw-linie" aria-hidden="true" focusable="false"><path class="dw-strich" d="" /></svg>
 
-    <!-- HERO -->
-    <section class="dw-abschnitt dw-hero" aria-labelledby="dw-h1">
-      <div class="wrap dw-raster dw-raster--hero">
-        <div class="dw-hero__text">
-          <p class="eyebrow eyebrow--weg dw-hero__eyebrow">{DW_HERO.eyebrow}</p>
-          <h1 id="dw-h1">{DW_HERO.titelVor}<span class="accent">{DW_HERO.titelAkzent}</span></h1>
-          <p class="dw-hero__lead">{DW_HERO.lead}</p>
-          <div class="dw-hero__aktionen">
-            <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_HERO.cta} <Icon name="arrow" size={18} /></a>
-            <a class="pfeil-link" href={href('/angebot/')}>{DW_HERO.link} <Icon name="arrow" size={16} /></a>
+    <!-- 1 · HERO -->
+    <section class="hs-abschnitt hs-hero" id="start" aria-labelledby="hs-h1">
+      <div class="wrap hs-hero__raster">
+        <div class="hs-hero__text">
+          <h1 id="hs-h1">{HS_HERO.titel[0]} <span class="hs-hero__zeile">{HS_HERO.titel[1]}<span class="accent">{HS_HERO.titelAkzent}</span></span></h1>
+          <p class="hs-hero__sub">{HS_HERO.sub.map((z) => <span>{z}</span>)}</p>
+          <p class="hs-hero__sub2">{HS_HERO.sub2}</p>
+          <div class="hs-aktionen">
+            <a class="btn btn--primary btn--lg" href={href('/produkte/')}>{HS_HERO.ctaPrimaer} <Icon name="arrow" size={18} /></a>
+            <a class="btn btn--ghost btn--lg" href="#warum">{HS_HERO.ctaSekundaer}</a>
           </div>
         </div>
-        {/* Talk 4209: Hero-Bild „Passform“ (ersetzt das Prozessbild aus Talk 4202) */}
-        <HeroPassform />
+        <HsHeroBild />
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 1 · Teil-Kopf entfernt (Talk 4179, wie schon Talk 4088): Überschrift und Kernsatz stehen bei „Verstehen“;
-         die Scroll-Linie beginnt beim Impuls (Desktop oben an der Szene mit Startpunkt, Handy links an der Kennzeile) ═══ -->
-    <section class="dw-kapitel" id={K1.id} aria-labelledby="k1-h">
-      <h2 class="sr-only" id="k1-h">Unsere Denkweise: vom Impuls zur passenden Lösung</h2>
-      <!-- Impuls (erster Schritt, bis Talk 4132 „Idee“) -->
-      <div class="dw-abschnitt" id="denkweise">
-        <div class="wrap dw-raster dw-raster--spiegel">
-          <div class="dw-text reveal">
-            {/* Talk 4179: am Handy beginnt die Scroll-Linie hier, links an der Kennzeile (Startpunkt) */}
-            <span class="dw-linienstart dw-nur-m" aria-hidden="true"></span>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="impuls" size={18} /> Impuls</span>
-            <h3 class="dw-idee-titel" aria-label={DW_IDEE.zeilen.join(' ')}>{DW_IDEE.zeilen.map((z) => <span>{z}</span>)}</h3>
-            <p class="dw-idee-gefuehl">{DW_IDEE.gefuehl}</p>
-            <blockquote class="dw-zitat dw-zitat--gross">„{DW_IDEE.zitat}“</blockquote>
-            <p>{DW_IDEE.schluss}</p>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+    <!-- 2 · WARUM ES WAYBUILD GIBT -->
+    <section class="hs-abschnitt" id="warum" aria-labelledby="hs-warum-h">
+      <div class="wrap">
+        <div class="hs-raster">
+          <div class="hs-text reveal">
+            <h2 id="hs-warum-h">{HS_WARUM.titel}</h2>
+            <p class="hs-zeilen">{HS_WARUM.einleitung.map((z) => <span>{z}</span>)}</p>
+            <ul class="hs-punkte">{HS_WARUM.probleme.map((p) => <li>{p}</li>)}</ul>
+            <p class="hs-zeilen">{HS_WARUM.ursache.map((z) => <span>{z}</span>)}</p>
+            <p class="hs-ziel"><span>{HS_WARUM.ziel}</span> <strong>{HS_WARUM.zielSatz}</strong></p>
           </div>
-          <DwIdee />
+          <HsSystem />
         </div>
-      </div>
-
-      <!-- Verstehen -->
-      <div class="dw-abschnitt" id="verstehen">
-        <div class="wrap dw-raster">
-          <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="search" size={18} /> Verstehen</span>
-            <h3>{DW_VERSTEHEN.titel}</h3>
-            <p class="dw-unterzeile">{DW_VERSTEHEN.unterzeile}</p>
-            <p>{DW_VERSTEHEN.einleitung} {DW_VERSTEHEN.aspekte}</p>
-            <p class="dw-zeilen dw-zeilen--betont">{DW_VERSTEHEN.dna.map((z) => <span>{z}</span>)}</p>
-            <p>{DW_VERSTEHEN.dnaText}</p>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          </div>
-          <DwVerstehen />
-        </div>
-      </div>
-
-      <!-- Hinterfragen -->
-      <div class="dw-abschnitt" id="hinterfragen">
-        <div class="wrap dw-raster dw-raster--spiegel">
-          <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="frage" size={18} /> Hinterfragen</span>
-            <h3>{DW_HINTERFRAGEN.titel}</h3>
-            <p class="dw-zeilen">{DW_HINTERFRAGEN.zeilen.map((z) => <span>{z}</span>)}</p>
-            <p>{DW_HINTERFRAGEN.schluss}</p>
-            <p class="dw-zeilen dw-botschaft">{DW_HINTERFRAGEN.botschaft.map((z) => <span>{z}</span>)}</p>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          </div>
-          <DwHinterfragen />
-        </div>
+        <HsFrage f={HS_WARUM.frage} />
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 2 (Überschrift „Veränderungen umsetzen“ entfernt, Talk 4049) ═══ -->
-    <section class="dw-kapitel" id={K2.id} aria-label={K2.titel}>
-
-      <!-- Entscheiden (Talk 3938/3939, ersetzt „Vereinfachen“) -->
-      <div class="dw-abschnitt" id="entscheiden">
-        <div class="wrap dw-raster">
-          <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="target" size={18} /> Entscheiden</span>
-            <h3>{DW_ENTSCHEIDEN.titel}</h3>
-            <p class="dw-zeilen">{DW_ENTSCHEIDEN.zeilen.map((z) => <span>{z}</span>)}</p>
-            <p class="dw-zeilen dw-zeilen--betont">{DW_ENTSCHEIDEN.ziel.map((z) => <span>{z}</span>)}</p>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+    <!-- 3 · FÜR WEN WAYBUILD GEMACHT IST -->
+    <section class="hs-abschnitt" id="fuer-wen" aria-labelledby="hs-fuerwen-h">
+      <div class="wrap">
+        <div class="hs-raster">
+          <div class="hs-text reveal">
+            <h2 id="hs-fuerwen-h">{HS_FUER_WEN.titel}</h2>
+            <p class="hs-zeilen hs-zeilen--betont">{HS_FUER_WEN.zeilen.map((z) => <span>{z}</span>)}</p>
+            <p>{HS_FUER_WEN.text}</p>
+            <p class="hs-zeilen">{HS_FUER_WEN.nachsatz.map((z) => <span>{z}</span>)}</p>
           </div>
-          <DwEntscheiden />
-        </div>
-      </div>
-
-      <!-- Umsetzen -->
-      <div class="dw-abschnitt" id="umsetzen">
-        <div class="wrap dw-raster dw-raster--spiegel">
-          <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="rocket" size={18} /> Umsetzen</span>
-            <h3>{DW_UMSETZEN.titel}</h3>
-            <p class="dw-zeilen">{DW_UMSETZEN.zeilen.map((z) => <span>{z}</span>)}</p>
-            <p>{DW_UMSETZEN.bruecke}</p>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
+          <div class="hs-karte hs-erwartungen reveal">
+            <h3>{HS_FUER_WEN.erwartungenTitel}</h3>
+            <ul class="hs-haken">{HS_FUER_WEN.erwartungen.map((e) => <li><Icon name="check" size={16} /> {e}</li>)}</ul>
           </div>
-          <DwUmsetzen />
         </div>
+        <HsFrage f={HS_FUER_WEN.frage} />
       </div>
+    </section>
 
-      <!-- Verbessern: direkt nach Umsetzen (Prozessreihenfolge, Jamil Talk 3922) -->
-      <div class="dw-abschnitt" id="verbessern">
-        <div class="wrap dw-raster">
-          <div class="dw-text reveal">
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-            <span class="dw-kenn"><Icon name="chart" size={18} /> Verbessern</span>
-            <h3>{DW_VERBESSERN.titel}</h3>
-            <p class="dw-unterzeile">{DW_VERBESSERN.unterzeile}</p>
-            <p>{DW_VERBESSERN.text}</p>
-            <span class="dw-wp" data-weg data-weg-nur="m" data-weg-x="links"></span>
-          </div>
-          <DwVerbessern />
+    <!-- 4 · WOFÜR WAYBUILD STEHT -->
+    <section class="hs-abschnitt" id="prinzipien" aria-labelledby="hs-haltung-h">
+      <span id="verlaesslichkeit" class="hs-alt-anker"></span>
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-haltung-h">{HS_HALTUNG.titel}</h2>
+          <p class="hs-zeilen">{HS_HALTUNG.zeilen.map((z) => <span>{z}</span>)}</p>
+          <p class="hs-zeilen--betont">{HS_HALTUNG.bleibt}</p>
         </div>
-      </div>
-
-      <!-- Produkte: jede als eigene Karte, an die Linie angedockt; Website Service hervorgehoben; seit Talk 4176 ohne Einblenden (sofort sichtbar) -->
-      <!-- Ab hier ohne Linie (Talk 4083): die Scroll-Linie endet am Verbessern-Kreis -->
-      <div class="dw-abschnitt dw-abschnitt--eng dw-ohne-linie" id="produkte" aria-labelledby="dw-produkte-h">
-        <div class="wrap">
-          <h3 class="dw-mitteltitel" id="dw-produkte-h">{DW_PRODUKTBEREICH.titel}</h3>
-          <div class="dw-andock dw-andock--raster" data-szene>
-            <ul class="dw-andock__liste">
-              <li class="dw-andock__item dw-andock__item--l">
-                <article class="k k--akzent dw-produkt dw-produkt--hervor" aria-labelledby="dw-p-web">
-                  <span class="k__icon"><Icon name="layout" size={22} /></span>
-                  <div class="k__inhalt">
-                    <p class="dw-produkt__name">{DW_PRODUKTBEREICH.hauptprodukt}</p>
-                    <h4 id="dw-p-web">{K.titel}</h4>
-                    <p class="dw-produkt__nutzen">{K.kenn}</p>
-                    <p>{K.text}</p>
-                    <ul class="dw-haken">{K.punkte.map((p) => <li><Icon name="check" size={16} /> {p}</li>)}</ul>
-                    <p class="dw-produkt__preis">{K.preis}</p>
-                    <a class="btn btn--primary" href={href('/angebot/')}>{K.cta} <Icon name="arrow" size={18} /></a>
-                  </div>
+        <div class="hs-haltung" data-szene>
+          <ul class="hs-haltung__liste">
+            {haltung.map((g) => (
+              <li class="hs-haltung__item">
+                <span class="hs-stiel hs-nur-d" data-an={g.stiel} aria-hidden="true"></span>
+                <span class="hs-stiel hs-stiel--m hs-nur-m" data-an={g.stielM} aria-hidden="true"></span>
+                {g.seg && <span class="hs-seg hs-nur-d" data-an={g.seg} aria-hidden="true"></span>}
+                {g.segM && <span class="hs-seg hs-seg--m hs-nur-m" data-an={g.segM} aria-hidden="true"></span>}
+                <article class="hs-karte hs-grundsatz" data-an={g.karte}>
+                  <span class="hs-symbol"><Icon name={g.icon} size={22} /></span>
+                  <h3>{g.wort}</h3>
+                  {g.text.map((t) => <p>{t}</p>)}
                 </article>
               </li>
-              {DW_PRODUKTE.map((p, i) => (
-                <li class:list={['dw-andock__item', i % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
-                  <article class="k dw-produkt" aria-labelledby={`dw-p-${p.id}`}>
-                    <span class="k__icon"><Icon name={p.icon} size={22} /></span>
-                    <div class="k__inhalt">
-                      <h4 id={`dw-p-${p.id}`}>{p.name}</h4>
-                      <p class="dw-produkt__nutzen">{p.nutzen}</p>
-                      <p>{p.text}</p>
-                      <a class="pfeil-link dw-produkt__cta" href={href('/kontakt/')}>Anfragen <Icon name="arrow" size={16} /></a>
-                    </div>
-                  </article>
-                </li>
-              ))}
-              <li class:list={['dw-andock__item', DW_PRODUKTE.length % 2 ? 'dw-andock__item--l' : 'dw-andock__item--r']}>
-                <article class="k dw-produkt dw-produkt--individuell" aria-labelledby="dw-p-individuell">
-                  <span class="k__icon"><Icon name={DW_PRODUKTBEREICH.individuell.icon} size={22} /></span>
-                  <div class="k__inhalt">
-                    <p class="dw-produkt__name">{DW_PRODUKTBEREICH.individuell.kenn}</p>
-                    <h4 id="dw-p-individuell">{DW_PRODUKTBEREICH.individuell.name}</h4>
-                    <p>{DW_PRODUKTBEREICH.individuell.text}</p>
-                    <a class="pfeil-link dw-produkt__cta" href={href('/kontakt/')}>Anfragen <Icon name="arrow" size={16} /></a>
-                  </div>
-                </article>
-              </li>
-            </ul>
-            <p class="dw-produkte__folgt" data-an="auf:auto"><Icon name="spark" size={16} /> {DW_PRODUKTBEREICH.folgt}</p>
-          </div>
+            ))}
+          </ul>
+          <p class="hs-ende" data-an="auf:0.74-0.86">{HS_HALTUNG.ende}</p>
         </div>
+        <HsFrage f={HS_HALTUNG.frage} mitte />
       </div>
     </section>
 
-    <!-- ═══ KAPITEL 3: Prinzipien (Talk 4087) und Kontakt · ohne Linie (Talk 4083) ═══ -->
-    <section class="dw-kapitel dw-ohne-linie" id={K3.id} aria-label={K3.titel}>
-      <!-- Unsere drei Prinzipien (Talk 4087, ersetzt „Verlässlichkeit“): seit Talk 4177 auf normalem Seitengrund, die Karten bleiben türkis; ohne Linie -->
-      <div class="dw-prinzipien" id="prinzipien">
-        <span id="verlaesslichkeit" class="dw-alt-anker"></span>
-        <div class="dw-abschnitt">
-          <div class="wrap">
-            <h2 class="dw-prinzipien__titel" id="dw-prinzipien-h">{DW_PRINZIPIEN.titel}</h2>
-            <div class="dw-prinzipien__raster" data-szene>
-              {DW_PRINZIPIEN.liste.map((p, i) => (
-                <article class="dw-prinzip-karte" aria-labelledby={`dw-pr-${i}`}>
-                  <span class="dw-prinzip-karte__icon"><Icon name={p.icon} size={24} /></span>
-                  <h3 id={`dw-pr-${i}`}>{p.wort}</h3>
-                  <p class="dw-prinzip-karte__kern">{p.kern}</p>
-                  {p.text.map((t) => <p>{t}</p>)}
-                  {p.einleitung && <p class="dw-prinzip-karte__einleitung">{p.einleitung}</p>}
-                  <ul class="dw-prinzip-karte__liste">{p.punkte.map((x) => <li><Icon name="check" size={16} /> {x}</li>)}</ul>
-                  <p class="dw-prinzip-karte__schluss">{p.schluss}</p>
-                </article>
-              ))}
-            </div>
+    <!-- 5 · SO SOLL SICH ZUSAMMENARBEIT ANFÜHLEN -->
+    <section class="hs-abschnitt" id="zusammenarbeit" aria-labelledby="hs-zus-h">
+      <div class="wrap">
+        <div class="hs-raster hs-raster--spiegel">
+          <div class="hs-text reveal">
+            <h2 id="hs-zus-h">{HS_ZUSAMMENARBEIT.titel}</h2>
+            {HS_ZUSAMMENARBEIT.text.map((t) => <p>{t}</p>)}
+            <h3 class="hs-unter">{HS_ZUSAMMENARBEIT.erlebenTitel}</h3>
+            <ul class="hs-haken hs-haken--zwei">{HS_ZUSAMMENARBEIT.erleben.map((e) => <li><Icon name="check" size={16} /> {e}</li>)}</ul>
+            <p class="hs-zeilen hs-zeilen--betont">{HS_ZUSAMMENARBEIT.zusatz.map((z) => <span>{z}</span>)}</p>
           </div>
+          <HsSortieren />
         </div>
+        <HsFrage f={HS_ZUSAMMENARBEIT.frage} />
       </div>
+    </section>
 
-      <!-- Kontakt -->
-      <div class="dw-abschnitt dw-abschluss" id="kontakt-start" aria-labelledby="dw-abschluss-h">
-        <div class="wrap">
-          <div class="dw-text reveal">
-            <h2 id="dw-abschluss-h" class="dw-abschluss__titel">{DW_ABSCHLUSS.titelVor}<span class="accent">{DW_ABSCHLUSS.titelAkzent}</span></h2>
-            <p class="dw-zeilen">{DW_ABSCHLUSS.zeilen.map((z) => <span>{z}</span>)}</p>
-            <p class="dw-einladung">{DW_ABSCHLUSS.einladung}</p>
-            <a class="btn btn--primary btn--lg" href={href('/kontakt/')}>{DW_ABSCHLUSS.cta} <Icon name="arrow" size={18} /></a>
+    <!-- 6 · WIE WIR ENTSCHEIDUNGEN TREFFEN (bewusst vor den Produkten) -->
+    <section class="hs-abschnitt" id="denkweise" aria-labelledby="hs-ent-h">
+      {/* frühere Sprungziele der Denkweise-Seite (z. B. von /ueber-uns/) landen hier */}
+      {['impuls', 'verstehen', 'hinterfragen', 'entscheiden', 'umsetzen', 'verbessern'].map((id) => <span id={id} class="hs-alt-anker"></span>)}
+      <div class="wrap">
+        <div class="hs-raster">
+          <div class="hs-text reveal">
+            <h2 id="hs-ent-h">{HS_ENTSCHEIDUNGEN.titel}</h2>
+            <p>{HS_ENTSCHEIDUNGEN.einleitung}</p>
+            <ul class="hs-fragen">{HS_ENTSCHEIDUNGEN.fragen.map((q) => <li><Icon name="frage" size={16} /> {q}</li>)}</ul>
+            <p class="hs-zeilen--betont">{HS_ENTSCHEIDUNGEN.danach}</p>
+          </div>
+          <HsStationen />
+        </div>
+        <HsFrage f={HS_ENTSCHEIDUNGEN.frage} />
+      </div>
+    </section>
+
+    <!-- 7 · UNSERE LÖSUNGEN -->
+    <section class="hs-abschnitt" id="loesungen" aria-labelledby="hs-loe-h">
+      <span id="produkte" class="hs-alt-anker"></span>
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-loe-h">{HS_LOESUNGEN.titel}</h2>
+          <p class="hs-zeilen">{HS_LOESUNGEN.text.map((z) => <span>{z}</span>)}</p>
+          <ul class="hs-chips" aria-label="Unsere Grundlage">{HS_LOESUNGEN.prinzipien.map((p) => <li>{p}</li>)}</ul>
+        </div>
+        <div class="hs-zweige" data-szene>
+          <svg class="hs-zweige__band hs-nur-d" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="dw-s" pathLength="1" d="M0 14 L1200 14" data-an="linear:0.02-0.5" />
+            {zweige.map((z) => (
+              <>
+                <path class="dw-s" pathLength="1" d={`M${z.x - 90} 14 C${z.x - 50} 14 ${z.x} 40 ${z.x} 88`} data-an={z.hin} />
+                <path class="dw-s" pathLength="1" d={`M${z.x} 88 C${z.x} 40 ${z.x + 50} 14 ${z.x + 90} 14`} data-an={z.zurueck} />
+              </>
+            ))}
+          </svg>
+          <ul class="hs-zweige__liste">
+            {zweige.map((z, i) => (
+              <li class="hs-zweige__item">
+                <span class="hs-stiel hs-stiel--m hs-nur-m" data-an={z.stielM} aria-hidden="true"></span>
+                {z.segM && <span class="hs-seg hs-seg--m hs-nur-m" data-an={z.segM} aria-hidden="true"></span>}
+                <article class:list={['hs-karte hs-produkt', { 'hs-produkt--haupt': i === 0 }]} data-an={z.karte} aria-labelledby={`hs-p-${i}`}>
+                  <span class="hs-symbol"><Icon name={z.icon} size={22} /></span>
+                  <h3 id={`hs-p-${i}`}>{z.name}</h3>
+                  <p class="hs-zeilen">{z.text.map((t) => <span>{t}</span>)}</p>
+                  <a class="pfeil-link" href={href(z.pfad)}>{z.link} <Icon name="arrow" size={16} /><span class="sr-only">: {z.name}</span></a>
+                </article>
+              </li>
+            ))}
+          </ul>
+          <p class="hs-ende" data-an="auf:0.8-0.92">{HS_LOESUNGEN.ende}</p>
+        </div>
+        <HsFrage f={HS_LOESUNGEN.frage} mitte />
+      </div>
+    </section>
+
+    <!-- 8 · PROJEKTE UND ERGEBNISSE (noch ohne freigegebene Referenzen: nur der Ablauf) -->
+    <section class="hs-abschnitt" id="ergebnisse" aria-labelledby="hs-erg-h">
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-erg-h">{HS_ERGEBNISSE.titel}</h2>
+          <p class="hs-zeilen hs-zeilen--betont">{HS_ERGEBNISSE.zeilen.map((z) => <span>{z}</span>)}</p>
+        </div>
+        <HsErgebnis />
+        <HsFrage f={HS_ERGEBNISSE.frage} mitte />
+      </div>
+    </section>
+
+    <!-- 9 · DARAUF KÖNNEN SIE SICH VERLASSEN -->
+    <section class="hs-abschnitt" id="erwartungen" aria-labelledby="hs-ver-h">
+      <div class="wrap">
+        <div class="hs-kopf reveal">
+          <h2 id="hs-ver-h">{HS_VERLASSEN.titel}</h2>
+        </div>
+        <ul class="hs-zusagen reveal">{HS_VERLASSEN.erwartungen.map((e) => <li><Icon name="check" size={18} /> {e}</li>)}</ul>
+        <p class="hs-zusatz reveal">{HS_VERLASSEN.zusatz.map((z) => <span>{z}</span>)}</p>
+      </div>
+    </section>
+
+    <!-- 10 · ABSCHLUSS -->
+    <section class="hs-abschnitt hs-abschluss" id="kontakt-start" aria-labelledby="hs-abschluss-h">
+      <div class="wrap">
+        <div class="hs-abschluss__innen reveal">
+          <h2 id="hs-abschluss-h">{HS_ABSCHLUSS.titelVor}<span class="accent">{HS_ABSCHLUSS.titelAkzent}</span></h2>
+          <p class="hs-zeilen">{HS_ABSCHLUSS.text.map((z) => <span>{z}</span>)}</p>
+          <div class="hs-aktionen hs-aktionen--mitte">
+            <a class="btn btn--primary btn--lg" href={href('/produkte/')}>{HS_ABSCHLUSS.ctaPrimaer} <Icon name="arrow" size={18} /></a>
+            <a class="btn btn--ghost btn--lg" href={href('/kontakt/')}>{HS_ABSCHLUSS.ctaSekundaer}</a>
           </div>
         </div>
       </div>

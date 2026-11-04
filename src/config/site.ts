@@ -12,7 +12,7 @@ export const isMissing = (v?: string | null) => !v || v.trim().startsWith('TODO'
 export const company = {
   name: 'Waybuild',
   legalName: 'Waybuild UG (haftungsbeschränkt)',
-  slogan: 'Wir machen Veränderungen einfach.',
+  slogan: 'Anspruchsvolle Lösungen. Überraschend einfach umgesetzt.', // Footer-Markenstatement (Jamil, Talk 4544)
   email: 'kontakt@waybuild.de', // Postfach muss noch eingerichtet werden (siehe Checkliste)
   street: 'Rathausallee 76',
   zip: '22846',

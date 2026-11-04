@@ -157,7 +157,8 @@ export type Produkt = {
 export const produktName = (p: Produkt) => (p.name && !p.name.startsWith('TODO') ? p.name : p.kategorie);
 
 /** Kurzbeschreibung (Positionierung Vorschlag 9): Meta-Beschreibung der Startseite und JSON-LD der Organisation. */
-export const BESCHREIBUNG = 'Waybuild entwickelt digitale Lösungen für Unternehmen, fertig oder individuell. Oft beginnt es mit der Website. Fester Ansprechpartner, klare Zusagen.';
+// Talk 4544 (04.11.2026): neue Botschaft der Startseite – Hero-Headline + Kern der Subheadline
+export const BESCHREIBUNG = 'Wir übernehmen Verantwortung. Sie behalten den Fokus. Waybuild entwickelt Lösungen und sorgt für einfache, verständliche und verlässliche Zusammenarbeit.';
 
 // Talk 4024/4025 (31.10.2026): Kundenverwaltung Handwerk und die Bereiche Software/Cloud/Workplace/Process Service
 // werden derzeit nicht gezeigt (entfernt; frühere Einträge in der Git-Historie).

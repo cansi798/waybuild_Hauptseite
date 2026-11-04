@@ -3,8 +3,8 @@
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
 import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, IN_ALLEN, formatEuro, brutto, steps } from '../config/site';
-import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
-import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_PRINZIPIEN, DW_PRODUKTBEREICH } from '../config/denkweise';
+import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, PRODUKTE, produktName } from '../config/hauptseite';
+import { HS_HERO, HS_WARUM, HS_FUER_WEN, HS_HALTUNG, HS_ZUSAMMENARBEIT, HS_ENTSCHEIDUNGEN, HS_LOESUNGEN, HS_VERLASSEN, HS_MARKE } from '../config/startseite';
 import { absolute } from '../lib/paths';
 
 const PLATZHALTER = '[Wert einsetzen]';
@@ -19,7 +19,10 @@ export const GET: APIRoute = ({ site }) => {
   const lines = [
     `# ${company.legalName}`,
     '',
-    `> ${DW_HERO.titel} ${DW_HERO.lead}`,
+    // Botschaft der Startseite (Jamil, Talk 4544): Hero-Headline + Markenstatement
+    `> ${HS_HERO.titel.join(' ')}${HS_HERO.titelAkzent} ${HS_MARKE.statement}`,
+    '',
+    `${HS_MARKE.kurz}`,
     '',
     `Kurz gesagt: ${company.name}${adresse.length ? ` aus ${company.city}` : ''} entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
     '',
@@ -31,26 +34,32 @@ export const GET: APIRoute = ({ site }) => {
     ...ZUSAGEN.map((z) => `- ${z.title}. ${z.text}`),
     `- ${SLA_HINWEIS}`,
     '',
-    '## Die Waybuild-Denkweise',
-    'Kein Projektprozess, sondern die Art, wie wir an jede Veränderung herangehen. Produkte sind mögliche Ergebnisse dieses Weges.',
-    `Kernsatz: ${DW_VERSTEHEN.unterzeile}`,
-    `1. Impuls: ${DW_IDEE.titel} ${DW_IDEE.schluss}`,
-    `2. Verstehen: ${DW_VERSTEHEN.titel} ${DW_VERSTEHEN.unterzeile} ${DW_VERSTEHEN.einleitung} ${DW_VERSTEHEN.aspekte} ${DW_VERSTEHEN.dna.join(' ')} ${DW_VERSTEHEN.dnaText}`,
-    `3. Hinterfragen: ${DW_HINTERFRAGEN.titel} ${DW_HINTERFRAGEN.zeilen.join(' ')} ${DW_HINTERFRAGEN.schluss}`,
-    `4. Entscheiden: ${DW_ENTSCHEIDEN.titel} ${DW_ENTSCHEIDEN.zeilen.join(' ')} ${DW_ENTSCHEIDEN.ziel.join(' ')}`,
-    `5. Umsetzen: ${DW_UMSETZEN.titel} ${DW_UMSETZEN.zeilen.join(' ')} ${DW_UMSETZEN.bruecke}`,
-    `6. Verbessern: ${DW_VERBESSERN.titel} ${DW_VERBESSERN.unterzeile} (Kreislauf: ${DW_VERBESSERN.kreis.join(' → ')})`,
+    `## Warum es Waybuild gibt: ${HS_WARUM.titel}`,
+    `${HS_WARUM.einleitung.join(' ')} ${HS_WARUM.probleme.join(', ')}. ${HS_WARUM.ursache.join(' ')} ${HS_WARUM.ziel} ${HS_WARUM.zielSatz}`,
     '',
-    `## ${DW_PRODUKTBEREICH.titel}`,
-    '- Fertige Produkte mit festem Umfang: siehe „Produkte“ unten (Hauptprodukt: Website Service).',
-    `- ${DW_PRODUKTBEREICH.individuell.name} (${DW_PRODUKTBEREICH.individuell.kenn.toLowerCase()}): ${DW_PRODUKTBEREICH.individuell.text}`,
-    `- ${DW_PRODUKTBEREICH.folgt}`,
+    `## Für wen: ${HS_FUER_WEN.titel}`,
+    `${HS_FUER_WEN.zeilen.join(' ')} ${HS_FUER_WEN.text} ${HS_FUER_WEN.nachsatz.join(' ')}`,
+    `${HS_FUER_WEN.erwartungenTitel}: ${HS_FUER_WEN.erwartungen.join(', ')}.`,
     '',
-    `## ${DW_PRINZIPIEN.titel}`,
-    ...DW_PRINZIPIEN.liste.map((p) => `- ${p.wort}: ${p.kern} ${p.text.join(' ')}${p.einleitung ? ` ${p.einleitung}` : ''} ${p.punkte.join(', ')}. ${p.schluss}`),
+    `## Wofür Waybuild steht: ${HS_HALTUNG.titel}`,
+    ...HS_HALTUNG.grundsaetze.map((g) => `- ${g.wort}: ${g.text.join(' ')}`),
+    HS_HALTUNG.ende,
     '',
-    '## Das dürfen Sie von uns erwarten',
-    ...QUALITAETEN.map((q) => `- ${q.titel}: ${q.text}`),
+    `## Zusammenarbeit: ${HS_ZUSAMMENARBEIT.titel}`,
+    `${HS_ZUSAMMENARBEIT.text.join(' ')} ${HS_ZUSAMMENARBEIT.erlebenTitel}: ${HS_ZUSAMMENARBEIT.erleben.join(', ')}. ${HS_ZUSAMMENARBEIT.zusatz.join(' ')}`,
+    '',
+    `## Wie wir Entscheidungen treffen: ${HS_ENTSCHEIDUNGEN.titel}`,
+    `${HS_ENTSCHEIDUNGEN.einleitung} ${HS_ENTSCHEIDUNGEN.fragen.join(' ')} ${HS_ENTSCHEIDUNGEN.danach}`,
+    ...HS_ENTSCHEIDUNGEN.stationen.map((st, i) => `${i + 1}. ${st.wort}: ${st.text}`),
+    '',
+    `## Unsere Lösungen: ${HS_LOESUNGEN.titel}`,
+    `${HS_LOESUNGEN.text.join(' ')} ${HS_LOESUNGEN.prinzipien.join(', ')}.`,
+    ...HS_LOESUNGEN.produkte.map((p) => `- ${p.name}: ${p.text.join(' ')} (${url(p.pfad)})`),
+    HS_LOESUNGEN.ende,
+    '',
+    `## ${HS_VERLASSEN.titel}`,
+    ...HS_VERLASSEN.erwartungen.map((e) => `- ${e}`),
+    HS_VERLASSEN.zusatz.join(' '),
     '',
     '## Produkte',
     ...PRODUKTE.map((p) => p.aktiv

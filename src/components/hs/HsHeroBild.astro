@@ -1,0 +1,70 @@
+---
+// Hero-Animation (Jamil, Talk 4544): Links ein unnötig komplexes Netzwerk aus offenen Aufgaben, Rückfragen,
+// Abstimmungen, Wartezeiten und Entscheidungspunkten. Die Waybuild-Linie läuft hindurch: Wege bündeln sich, Sackgassen
+// verschwinden, der Entscheidungspunkt wird klar, das Geflecht tritt zurück. Rechts erscheinen nacheinander
+// Verantwortung, Klarheit, Fortschritt, darunter „Weniger Aufwand. Mehr Fokus.“
+// Das Netzwerk steht beim Laden sofort da (kein Einblenden); die Verwandlung läuft einmal beim ersten Sichtkontakt
+// (≈ 3 s, nur transform/opacity/stroke-dashoffset). Ohne JS bzw. bei reduzierter Bewegung: sofort der Endzustand.
+// Koordinaten im Raster 480 × 380; Begriffe als HTML (Größe in cqw, damit sie mit der Grafik mitwachsen).
+import { HS_HERO as T } from '../../config/startseite';
+const W = 480, H = 380;
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+const at = (x: number, y: number) => `left:${pc(x, W)};top:${pc(y, H)}`;
+// Begriffe im Netz (Reihenfolge wie im Briefing); der Entscheidungspunkt wird am Ende klar (türkiser Rand)
+const begriffe = [
+  { x: 84, y: 46 }, { x: 206, y: 40 }, { x: 62, y: 132 }, { x: 210, y: 250 }, { x: 104, y: 322 },
+].map((p, i) => ({ ...p, text: T.netz[i], entscheid: i === 4 }));
+const knoten = [[150, 98], [24, 222], [196, 150], [248, 330], [130, 250]];
+// Geflecht: viele sich kreuzende Verbindungen (m = am Handy ausgeblendet, „mobil vereinfacht“)
+const kanten: { d: string; m?: boolean }[] = [
+  { d: 'M84 46 Q130 60 150 98' }, { d: 'M150 98 Q180 60 206 40' }, { d: 'M84 46 Q40 90 62 132' },
+  { d: 'M62 132 Q110 100 150 98' }, { d: 'M150 98 Q180 110 196 150' }, { d: 'M196 150 Q240 200 210 250' },
+  { d: 'M62 132 Q10 170 24 222' }, { d: 'M24 222 Q40 300 104 322' }, { d: 'M130 250 Q100 290 104 322' },
+  { d: 'M130 250 Q170 170 150 98', m: true }, { d: 'M130 250 Q170 270 210 250' }, { d: 'M210 250 Q250 280 248 330' },
+  { d: 'M104 322 Q180 360 248 330' }, { d: 'M206 40 Q230 100 196 150', m: true }, { d: 'M62 132 Q80 210 130 250', m: true },
+  { d: 'M84 46 Q145 10 206 40' },
+];
+// Sackgassen: enden im Nichts (kleiner offener Endpunkt) und verschwinden
+const sackgassen = [
+  { d: 'M206 40 Q250 24 266 16', e: [266, 16] }, { d: 'M24 222 Q6 250 10 290', e: [10, 290] },
+  { d: 'M248 330 Q266 350 280 362', e: [280, 362] }, { d: 'M62 132 Q30 100 8 96', e: [8, 96] },
+];
+// Bündel: einzelne Wege laufen in die Linie ein
+const buendel = ['M84 46 C100 110 140 140 168 150', 'M62 132 C66 170 72 200 84 216', 'M104 322 C100 280 92 240 84 216', 'M206 40 C226 58 240 88 256 100'];
+const LINIE = 'M10 268 C40 268 52 236 84 216 S140 168 168 150 S218 102 256 100 L278 100 Q300 100 300 122 L300 296';
+const SX = 300, STATIONEN = [150, 214, 278];
+---
+<figure class="hn" data-hero-netz>
+  <div class="hn__buehne" role="img" aria-label={`Ein unübersichtliches Netz aus ${T.netz.join(', ')} wird von der Waybuild-Linie entwirrt. Am Ende stehen ${T.ergebnis.join(', ')}.`}>
+    <svg class="hn__svg" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+      <g class="hn-geflecht">
+        {kanten.map((k, i) => <path class:list={['hn-kante', { 'hn-m': k.m }]} d={k.d} style={`--d:${(i * 0.03).toFixed(2)}s`} />)}
+        {sackgassen.map((s, i) => (
+          <g class="hn-sack hn-m" style={`--d:${(i * 0.14).toFixed(2)}s`}>
+            <path d={s.d} /><circle cx={s.e[0]} cy={s.e[1]} r="3.2" />
+          </g>
+        ))}
+        {knoten.map(([x, y]) => <circle class="hn-knoten" cx={x} cy={y} r="4.5" />)}
+      </g>
+      {buendel.map((d, i) => <path class="hn-buendel" pathLength="1" d={d} style={`--d:${(i * 0.12).toFixed(2)}s`} />)}
+      <path class="hn-linie" pathLength="1" d={LINIE} />
+      <circle class="hn-start" cx="10" cy="268" r="5" />
+      {STATIONEN.map((y, i) => <circle class="hn-station" cx={SX} cy={y} r="7.5" style={`--d:${(i * 0.22).toFixed(2)}s`} />)}
+    </svg>
+    {begriffe.map((b) => <span class:list={['hn-begriff', { 'hn-begriff--entscheid': b.entscheid }]} style={at(b.x, b.y)} aria-hidden="true">{b.text}</span>)}
+    {STATIONEN.map((y, i) => <span class="hn-wort" style={`${at(SX + 18, y)};--d:${(i * 0.22).toFixed(2)}s`} aria-hidden="true">{T.ergebnis[i]}</span>)}
+  </div>
+  <figcaption class="hn__darunter">{T.darunter}</figcaption>
+</figure>
+
+<script>
+  // Verwandlung einmal beim ersten Sichtkontakt (am Handy liegt die Grafik unter den Knöpfen)
+  const el = document.querySelector<HTMLElement>('[data-hero-netz]');
+  if (el) {
+    const los = () => el.classList.add('hn--los');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { los(); io.disconnect(); } }, { threshold: 0.4 });
+      io.observe(el);
+    } else los();
+  }
+</script>

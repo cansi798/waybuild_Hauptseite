@@ -1,0 +1,35 @@
+---
+// Szene „Warum es Waybuild gibt“ (Jamil, Talk 4544): Website, Software, IT, Kommunikation, Support und digitale Abläufe
+// stehen zunächst isoliert (gedämpft). Die Waybuild-Linie verbindet sie Schritt für Schritt zu einem zusammenhängenden
+// System: Erreicht sie einen Bereich, wird er hell mit türkisem Rand. Scrollgekoppelt (src/scripts/denkweise.ts).
+// Ohne JS / reduzierte Bewegung: alles verbunden.
+import Icon from '../Icon.astro';
+import { HS_WARUM as T } from '../../config/startseite';
+const W = 440, H = 300;
+const X = [120, 320], Y = [40, 150, 260];
+// Reihenfolge entlang der Linie (Schlangenlinie): oben links → oben rechts → Mitte rechts → Mitte links → unten links → unten rechts
+const lage = [[X[0], Y[0]], [X[1], Y[0]], [X[1], Y[1]], [X[0], Y[1]], [X[0], Y[2]], [X[1], Y[2]]];
+// Die Linie beginnt exakt im ersten Bereich (Website) und endet im letzten (digitale Abläufe)
+const LINIE = `M120 40 L296 40 Q320 40 320 64 L320 126 Q320 150 296 150 L144 150 Q120 150 120 174 L120 236 Q120 260 144 260 L320 260`;
+// Anteil der Linienlänge bis zum jeweiligen Bereich (Stücke ≈ 200 / 110 / 200 / 110 / 200)
+const bis = [0, 200, 310, 510, 620, 820].map((l) => l / 820);
+const A = 0.06, B = 0.8;
+const f = (n: number) => n.toFixed(3);
+const pc = (a: number, c: number) => `${((a / c) * 100).toFixed(2)}%`;
+---
+<div class="dw-bild hs-system" data-szene style={`aspect-ratio: ${W} / ${H}`} aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} focusable="false">
+    <path class="dw-s" pathLength="1" d={LINIE} data-an={`linear:${A}-${B}`} />
+  </svg>
+  {T.bereiche.map((b, i) => {
+    const p = A + bis[i] * (B - A);
+    return (
+      <span class="dw-pos" style={`left:${pc(lage[i][0], W)};top:${pc(lage[i][1], H)}`}>
+        <span class="hs-kachel">
+          <Icon name={b.icon} size={16} />{b.text}
+          <span class="hs-kachel hs-kachel--an" data-an={`blende:${f(Math.max(0, p - 0.04))}-${f(p + 0.01)}`}><Icon name={b.icon} size={16} />{b.text}</span>
+        </span>
+      </span>
+    );
+  })}
+</div>

@@ -6,6 +6,7 @@ import Logo from './Logo.astro';
 import { IS_PREVIEW } from '../lib/env';
 import { SHOW_HINTS } from '../config/site';
 import FooterKontakt from './FooterKontakt.astro';
+import { HS_MARKE } from '../config/startseite';
 
 const year = new Date().getFullYear();
 interface Props { kontakt?: boolean; rueckgrat?: boolean }
@@ -17,7 +18,9 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
   <div class="wrap footer__grid">
     <div>
       <Logo />
-      <p class="footer__claim">Wir machen Veränderungen einfach.</p>
+      {/* Footer-Markenstatement (Jamil, Talk 4544) */}
+      <p class="footer__claim">{HS_MARKE.statement}</p>
+      <p class="footer__kurz">{HS_MARKE.kurz}</p>
       <p class="footer__adr">{company.legalName}<br />{company.street}, {company.zip} {company.city}<br /><a href={`mailto:${company.email}`}>{company.email}</a></p>
     </div>
     <nav aria-label="Produkte">
@@ -43,8 +46,8 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
     <nav aria-label="So arbeiten wir">
       <h2 class="footer__h">So arbeiten wir</h2>
       <ul>
-        <li><a href={href('/#denkweise')}>Unsere Denkweise</a></li>
-        <li><a href={href('/#prinzipien')}>Prinzipien</a></li>
+        <li><a href={href('/#denkweise')}>Wie wir entscheiden</a></li>
+        <li><a href={href('/#prinzipien')}>Wofür wir stehen</a></li>
         <li><a href={href('/zusagen/')}>Unsere Zusagen</a></li>
         <li><a href={href('/zusagen/#ticketsystem')}>So läuft eine Anfrage</a></li>
         <li><a href={href('/faq/')}>Häufige Fragen</a></li>
@@ -72,6 +75,7 @@ const { kontakt = true, rueckgrat = false } = Astro.props;
   @media (min-width: 1000px) { .footer__grid { grid-template-columns: 1.5fr 1fr 1fr 1.1fr 0.9fr; gap: 32px; } .footer__grid > :first-child { grid-column: auto; } }
   .footer :global(.logo) { background: var(--white); border-radius: 12px; padding: 8px 12px; }
   .footer__claim { color: var(--white); font-family: var(--font-head); font-weight: 650; margin: 16px 0 8px; max-width: 32ch; }
+  .footer__kurz { color: var(--dark-lead); font-size: 0.95rem; line-height: 1.65; margin: 0 0 14px; max-width: 40ch; }
   .footer__adr { color: var(--dark-soft); font-size: 0.92rem; line-height: 1.6; margin: 0; }
   .footer__adr a { color: var(--dark-lead); }
   .footer__h { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-soft); margin-bottom: 12px; }

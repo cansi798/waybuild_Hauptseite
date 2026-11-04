@@ -1,0 +1,35 @@
+---
+// Szene „Wie wir Entscheidungen treffen“ (Jamil, Talk 4544): Die Linie läuft durch drei Stationen – Verstehen,
+// Empfehlen, Umsetzen. Die aktive Phase wird jeweils hervorgehoben (ruhig, dezent, selbstbewusst), die vorige tritt
+// zurück. Scrollgekoppelt (denkweise.ts). Ohne JS / reduzierte Bewegung: Linie fertig, „Umsetzen“ hervorgehoben.
+import Icon from '../Icon.astro';
+import { HS_ENTSCHEIDUNGEN as T } from '../../config/startseite';
+const f = (n: number) => n.toFixed(3);
+const n = T.stationen.length;
+const st = T.stationen.map((s, i) => {
+  const an = 0.04 + (i / (n - 1)) * 0.66;
+  const naechste = i < n - 1 ? 0.04 + ((i + 1) / (n - 1)) * 0.66 : -1;
+  return {
+    ...s,
+    spur: `blende:${f(an - 0.02)}-${f(an + 0.05)}${naechste > 0 ? ` aus:${f(naechste - 0.02)}-${f(naechste + 0.05)}` : ''}`,
+    // Linienstück bis zum nächsten Knoten (Knotenmitte → Knotenmitte, unabhängig von der Kartenhöhe)
+    seg: naechste > 0 ? `hoch:${f(an + 0.02)}-${f(naechste - 0.01)}` : '',
+  };
+});
+---
+<div class="hs-stationen" data-szene>
+  <ol class="hs-stationen__liste">
+    {st.map((s) => (
+      <li class="hs-station">
+        {s.seg && <span class="hs-station__spur" aria-hidden="true"></span>}
+        {s.seg && <span class="hs-station__seg" data-an={s.seg} aria-hidden="true"></span>}
+        <span class="hs-station__knoten" aria-hidden="true"><span class="hs-station__fuell" data-an={s.spur}></span><Icon name={s.icon} size={20} /></span>
+        <div class="hs-station__karte">
+          <span class="hs-station__hell" data-an={s.spur} aria-hidden="true"></span>
+          <h3>{s.wort}</h3>
+          <p>{s.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
