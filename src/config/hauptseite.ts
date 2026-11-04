@@ -112,7 +112,7 @@ export const VERTRAUEN: { icon: IconName; title: string; text: string }[] = [
   { icon: 'euro', title: 'Transparente Preise', text: 'Keine versteckten Kosten, Extras nur nach Absprache.' },
   { icon: 'server', title: 'Server in Deutschland', text: 'Unsere Lösungen laufen auf Servern in Deutschland.' },
   { icon: 'lock', title: 'DSGVO-konform', text: 'Auftragsverarbeitungs-Vertrag (AV-Vertrag) auf Anfrage.' },
-  { icon: 'unlock', title: 'Kein künstlicher Lock-in', text: 'Sie behalten die Kontrolle über Ihre Daten.' },
+  { icon: 'calendar', title: 'Klare Laufzeit', text: '24 Monate Mindestlaufzeit, danach monatlich kündbar.' },
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────────

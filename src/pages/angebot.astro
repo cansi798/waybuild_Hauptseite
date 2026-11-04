@@ -9,14 +9,14 @@ import Icon from '../components/Icon.astro';
 import { href, absolute } from '../lib/paths';
 import Faq from '../components/Faq.astro';
 import Hint from '../components/Hint.astro';
-import { WAAS, PAKETE, MODELL, INKLUSIVE, OFFER, steps, faqsWebsite, formatEuro } from '../config/site';
+import { WAAS, PAKETE, MODELL, INKLUSIVE, OFFER, steps, faqsWebsite, formatEuro, netto, BRUTTO_HINWEIS } from '../config/site';
 import { WEBSITE_PRODUKT as P, produktName } from '../config/hauptseite';
 const NAME = produktName(P);
 ---
 
 <BaseLayout
   title={`${NAME}: Website im Abo mit Betreuung`}
-  description={`${NAME} von Waybuild: Website, Hosting, Wartung und Betreuung zum festen Monatspreis: ${PAKETE.map((p) => formatEuro(p.preis)).join(' oder ')} netto, ohne Einrichtungskosten.`}
+  description={`${NAME} von Waybuild: drei Pakete ${PAKETE.map((p) => `${p.name} ${formatEuro(p.preis)}`).join(', ')} im Monat inkl. MwSt., ohne Einrichtungskosten.`}
   breadcrumb={[{ name: NAME, path: '/angebot/' }]}
   schema={[
     {
@@ -31,10 +31,11 @@ const NAME = produktName(P);
       offers: PAKETE.map((p) => ({
         '@type': 'Offer',
         name: p.name,
-        description: p.kurz,
+        description: `${p.kurz}. ${[...p.extras, ...p.features].join(', ')}. Keine Einrichtungskosten, keine Seitenbegrenzung, ${WAAS.laufzeit}. Preis inkl. 19 % MwSt. (${netto(p.preis).toFixed(2).replace('.', ',')} € netto).`,
         price: p.preis,
         priceCurrency: 'EUR',
-        priceSpecification: { '@type': 'UnitPriceSpecification', price: p.preis, priceCurrency: 'EUR', unitText: 'Monat', valueAddedTaxIncluded: false },
+        eligibleCustomerType: 'http://purl.org/goodrelations/v1#Business',
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: p.preis, priceCurrency: 'EUR', unitText: 'Monat', valueAddedTaxIncluded: true },
       })),
     },
     {
@@ -54,15 +55,16 @@ const NAME = produktName(P);
 
   <section class="section section--sand etappe" id="angebot" aria-labelledby="angebot-h">
     <div class="wrap">
-      <SectionHead eyebrow="Zwei Varianten" pre="Ein fester Monatspreis. " accent="Alles drin." text={WAAS.claim} id="angebot-h" />
+      <SectionHead eyebrow="Drei Pakete" pre="Ein fester Monatspreis. " accent="Alles drin." text={WAAS.claim} id="angebot-h" />
       <ul class="pakete">
         {PAKETE.map((p) => (
           <li class:list={['paket', 'reveal', { 'paket--top': p.empfohlen }]}>
             {p.empfohlen && <span class="paket__tag">Empfohlen</span>}
             <h3>{p.name}</h3>
             <p class="paket__kurz">{p.kurz}</p>
-            <p class="paket__preis"><strong>{formatEuro(p.preis)}</strong> <span>pro Monat, netto zzgl. MwSt.</span></p>
+            <p class="paket__preis"><strong>{formatEuro(p.preis)}</strong> <span>pro Monat inkl. MwSt.<br />{formatEuro(netto(p.preis))} netto</span></p>
             <p class="paket__fuer">{p.fuer}</p>
+            <ul class="paket__extras" aria-label="Extras">{p.extras.map((e) => <li><Icon name="doc" size={15} />{e}</li>)}</ul>
             <ul class="paket__liste">
               {p.features.map((f) => <li><Icon name="check" size={18} />{f}</li>)}
             </ul>
@@ -73,6 +75,7 @@ const NAME = produktName(P);
       <ul class="modell" aria-label="Rahmenbedingungen">
         {MODELL.map((m) => <li><Icon name="check" size={16} />{m}</li>)}
       </ul>
+      <p class="paket__hinweis">{WAAS.laufzeit}. {BRUTTO_HINWEIS} Impressum und Datenschutzerklärung binden wir nach aktuellem Stand ein; das ersetzt keine Rechtsberatung.</p>
     </div>
   </section>
 
@@ -106,8 +109,8 @@ const NAME = produktName(P);
 </BaseLayout>
 
 <style>
-  .pakete { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; max-width: 940px; }
-  @media (min-width: 760px) { .pakete { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  .pakete { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+  @media (min-width: 980px) { .pakete { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
   .paket { position: relative; background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: clamp(24px, 3vw, 32px); display: grid; gap: 8px; align-content: start; justify-items: start; }
   .paket--top { border: 2px solid var(--accent); }
   .paket__tag { position: absolute; top: -13px; right: 22px; background: var(--accent-ink); color: var(--white); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 999px; }
@@ -116,11 +119,16 @@ const NAME = produktName(P);
   .paket__kurz { color: var(--accent-ink); font-weight: 600; }
   .paket__preis strong { font-family: var(--font-head); font-size: 2.3rem; }
   .paket__preis span { color: var(--ink-soft); font-size: 0.9rem; }
+  .paket__preis { display: flex; align-items: center; gap: 10px; }
+  .paket__preis span { line-height: 1.35; }
+  .paket__extras { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .paket__extras li { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: rgb(0 166 161 / 12%); color: var(--accent-ink); font-size: 0.82rem; font-weight: 600; }
+  .paket__hinweis { margin: 18px 0 0; max-width: 940px; color: var(--ink-soft); font-size: 0.85rem; line-height: 1.6; }
   .paket__fuer { color: var(--ink-soft); line-height: 1.6; }
   .paket__liste { list-style: none; margin: 8px 0 16px; padding: 0; display: grid; gap: 8px; }
   .paket__liste li { display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
   .paket__liste :global(.icon), .modell :global(.icon) { color: var(--accent-ink); flex: none; margin-top: 2px; }
-  .modell { list-style: none; margin: 28px 0 0; padding: 0; max-width: 940px; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .modell { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
   .modell li { display: inline-flex; gap: 6px; align-items: center; font-weight: 500; }
 
   .inklusive { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }

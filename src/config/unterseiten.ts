@@ -82,7 +82,7 @@ export const PRODUKTSEITE = {
   website: {
     id: 'website-service', kenn: DW_PRODUKTBEREICH.hauptprodukt, name: K.titel, icon: 'layout' as IconName,
     nutzen: PRODUKTE[0].nutzen ?? '', text: K.text, punkte: K.punkte,
-    preis: K.preis,   // wie auf der Startseite (Talk 4176); /angebot/ zeigt noch 79 € / 139 € – offen bei Jamil
+    preis: K.preis,   // wie auf der Startseite: „ab 79,99 € / Monat“ (drei Pakete seit 04.11.2026, /angebot/)
     cta: K.cta, pfad: '/angebot/',
   },
   individuell: {

@@ -2,7 +2,7 @@
 // Dachmarke Waybuild (Jamil 27.10.2026, Talk 3475): erst was für ALLE Produkte gilt, dann die Produktliste.
 // Nur Fakten aus src/config/ – Platzhalter („[Wert einsetzen]“, „TODO“) werden nie ausgegeben.
 import type { APIRoute } from 'astro';
-import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, formatEuro, steps } from '../config/site';
+import { company, faqsAllgemein, faqsWebsite, isMissing, WAAS, INKLUSIVE, MODELL, PAKETE, IN_ALLEN, formatEuro, netto, steps } from '../config/site';
 import { SLA_KERN, SLA_HINWEIS, ZUSAGEN, QUALITAETEN, PRODUKTE, produktName } from '../config/hauptseite';
 import { DW_HERO, DW_KAPITEL, DW_IDEE, DW_VERSTEHEN, DW_HINTERFRAGEN, DW_ENTSCHEIDEN, DW_UMSETZEN, DW_VERBESSERN, DW_PRINZIPIEN, DW_PRODUKTBEREICH } from '../config/denkweise';
 import { absolute } from '../lib/paths';
@@ -23,7 +23,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     `Kurz gesagt: ${company.name}${adresse.length ? ` aus ${company.city}` : ''} entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland (B2B). Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.`,
     '',
-    'Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher Umsatzsteuer (B2B).',
+    'Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Preise der Website-Pakete inkl. 19 % USt. (Nettopreis jeweils genannt), andere Leistungen netto zzgl. USt. Nur B2B.',
     '',
     '## Für alle Produkte: Service-Zusagen',
     // Zeilen mit Platzhalter bewusst weglassen – nur zugesagte Werte ausgeben.
@@ -61,7 +61,9 @@ export const GET: APIRoute = ({ site }) => {
     `${WAAS.claim}`,
     `- Enthalten: ${INKLUSIVE.map((i) => i.title).join(', ')}.`,
     `- Geschäftsmodell: ${MODELL.join(', ')}.`,
-    ...PAKETE.map((p) => `- ${p.name}: ${formatEuro(p.preis)} pro Monat, netto, ${p.kurz}. ${p.features.join(', ')}.`),
+    `- In allen Paketen: ${IN_ALLEN.join(', ')}.`,
+    ...PAKETE.map((p) => `- Paket ${p.name}: ${formatEuro(p.preis)} pro Monat inkl. MwSt. (${formatEuro(netto(p.preis))} netto). ${p.kurz}. ${[...p.extras, ...p.features].join(', ')}.`),
+    `- Laufzeit: ${WAAS.laufzeit} (mit einem Monat Frist zum Monatsende).`,
     ...steps.map((s, i) => `- Schritt ${i + 1}, ${s.title}: ${s.text}`),
     '',
     '## Häufige Fragen zu Waybuild',

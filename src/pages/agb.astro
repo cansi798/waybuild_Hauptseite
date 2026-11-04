@@ -1,13 +1,13 @@
 ---
-// AGB-Vorlage für das Abo-Modell (B2B), angepasst an das heutige Modell (zwei Varianten,
-// keine Einrichtungskosten, 24 Monate Laufzeit, Website/Code/Domain gehören dem Kunden).
+// AGB-Vorlage für das Abo-Modell (B2B), angepasst an das heutige Modell (drei Pakete brutto inkl. USt.,
+// keine Einrichtungskosten, 24 Monate Mindestlaufzeit; § 6 seit 04.11.2026 ohne Eigentumsaussage zu Website/Code, Mietmodell offen).
 // Muss vor Verwendung anwaltlich geprüft werden – siehe Launch-Checkliste.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Hint from '../components/Hint.astro';
 import { company, WAAS, PAKETE, formatEuro, OFFER } from '../config/site';
 
-const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, netto)`).join(' und ');
+const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat inkl. USt.)`).join(', ');
 ---
 
 <BaseLayout title="Allgemeine Geschäftsbedingungen (AGB)" description={`AGB der ${company.legalName} für Website-Abos, Software, Cloud- und IT-Leistungen sowie Beratung.`} noindex breadcrumb={[{ name: 'AGB', path: '/agb/' }]}>
@@ -29,7 +29,7 @@ const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, 
 
       <h2>§ 2 Leistungen</h2>
       <p>
-        Der Leistungsumfang ergibt sich aus der gewählten Variante ({varianten}) gemäß der zum Vertragsschluss
+        Der Leistungsumfang ergibt sich aus dem gewählten Paket ({varianten}) gemäß der zum Vertragsschluss
         gültigen Leistungsbeschreibung auf der Website bzw. im Angebot. Er umfasst insbesondere die individuelle
         Gestaltung und Entwicklung der Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups und die
         laufende Betreuung einschließlich Änderungen ({OFFER}).
@@ -67,7 +67,8 @@ const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, 
 
       <h2>§ 4 Vergütung und Zahlung</h2>
       <p>
-        Es gelten die Preise der gewählten Variante bzw. des Angebots. Alle Preise verstehen sich netto zuzüglich der
+        Es gelten die Preise des gewählten Pakets bzw. des Angebots. Die Preise der Website-Pakete sind Bruttopreise
+        inklusive der gesetzlichen Umsatzsteuer; alle übrigen Preise verstehen sich netto zuzüglich der
         gesetzlichen Umsatzsteuer. Es fallen keine Einrichtungskosten an. Die Monatsbeiträge sind jeweils im Voraus zum
         Monatsersten fällig. Zusätzliche Leistungen werden nur nach vorheriger schriftlicher Absprache gesondert berechnet.
       </p>
@@ -80,11 +81,11 @@ const varianten = PAKETE.map((p) => `${p.name} (${formatEuro(p.preis)} / Monat, 
         der Textform (z. B. E-Mail). Das Recht zur außerordentlichen Kündigung bleibt unberührt.
       </p>
 
-      <h2>§ 6 Rechte an Website, Code und Domain</h2>
+      <h2>§ 6 Rechte an Website und Domain</h2>
       <p>
-        Die Domain wird auf den Namen des Kunden registriert und steht in seinem Eigentum. Website und Code gehören dem
-        Kunden. Es gibt keine Übernahmegebühr und keinen künstlichen Lock-in: Der Kunde behält jederzeit die Kontrolle
-        über seine Daten.
+        Die Domain wird auf den Namen des Kunden registriert und steht in seinem Eigentum. Während der Vertragslaufzeit
+        erhält der Kunde ein einfaches Nutzungsrecht an der Website. Nach Ablauf der Mindestlaufzeit kann der Kunde die
+        Website einschließlich Quellcode gegen eine Übernahmegebühr erwerben.
       </p>
 
       <h2>§ 7 Verfügbarkeit und Haftung</h2>

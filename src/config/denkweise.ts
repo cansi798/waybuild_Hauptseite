@@ -128,7 +128,7 @@ export const DW_UMSETZEN = {
     text: 'Veränderungen auf Ihrer Website einfach umsetzen.',
     punkte: ['Fester Ansprechpartner', 'Laufende Betreuung', 'Änderungen ohne Projektstress', 'Planbare Kosten'],
     // Preis wörtlich aus Jamils Konzept (Talk 3799); netto/brutto und 80 € statt 79 €: Frage b) an Jamil, Talk 3800
-    preis: '79,99 € / Monat', // Talk 4176 (vorher „ab 80 € / Monat“)
+    preis: 'ab 79,99 € / Monat', // Talk 4176; seit 04.11.2026 drei Pakete (Fundament 79,99 €, PAKETE in site.ts)
     cta: 'Mehr erfahren',
   },
 };
