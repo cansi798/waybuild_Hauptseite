@@ -34,16 +34,8 @@ const organization = {
   image: ogImage,
   foundingDate: company.foundingYear,
   email: company.email,
-  telephone: '+49 ' + company.phone.replace(/^0/, ''),
   address: { '@type': 'PostalAddress', streetAddress: company.street, postalCode: company.zip, addressLocality: company.city, addressCountry: company.country },
   areaServed: { '@type': 'Country', name: 'Deutschland', identifier: 'DE' },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'customer service',
-    email: company.email,
-    availableLanguage: ['de'],
-    hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '17:00' },
-  },
 };
 const website = { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${siteRoot}#website`, url: siteRoot, name: company.name, inLanguage: 'de-DE', publisher: { '@id': `${siteRoot}#organization` } };
 const jahr = new Date().getFullYear();
@@ -86,7 +78,6 @@ const jahr = new Date().getFullYear();
         <a class="kopf__logo" href={href('/')} aria-label="webgold, zur Startseite">
           <img src={href('/logo-webgold.svg')} alt="webgold" width="132" height="32" />
         </a>
-        <a class="btn btn--klein" href={start ? '#kontakt' : href('/#kontakt')}>Kontakt</a>
       </div>
     </header>
     <main id="main">

@@ -1,6 +1,6 @@
 // /llms.txt – kompakte Zusammenfassung für KI-Suchen. Nur Inhalte des Onepagers (keine Preise, keine AGB).
 import type { APIRoute } from 'astro';
-import { company, HOURS, POSITIONIERUNG, ERWARTET, ABLAUF } from '../config/site';
+import { company, POSITIONIERUNG, ERWARTET } from '../config/site';
 import { absolute } from '../lib/paths';
 
 export const GET: APIRoute = ({ site }) => {
@@ -16,13 +16,7 @@ export const GET: APIRoute = ({ site }) => {
     ERWARTET.lead,
     ...ERWARTET.punkte.map((p) => `- ${p.titel}: ${p.text}`),
     '',
-    `## ${ABLAUF.titel}`,
-    ...ABLAUF.schritte.map((s, i) => `${i + 1}. ${s.titel} (${s.zeit}): ${s.text}`),
-    '',
-    '## Kontakt',
-    `- Telefon und WhatsApp: ${company.phone}`,
-    `- E-Mail: ${company.email}`,
-    `- Erreichbar: ${HOURS}`,
+    '## Anbieter',
     `- Anschrift: ${company.legalName}, ${company.street}, ${company.zip} ${company.city}`,
     '',
     '## Seiten',

@@ -1,10 +1,11 @@
 ---
 // ONEPAGER (Jamil, Talk k8oxzjva #6072, 15.11.2026): „Hier entsteht gerade eine neue Website“ + was Kunden in Zukunft erwartet.
 // Inhalte aus WS-0007 (src/config/site.ts). Keine Preise, Pakete, Laufzeiten, AGB-Verweise (keine AGB vorhanden), kein Formular.
+// Gekürzt 15.11. (Jamil #6083): keine Kontaktmöglichkeiten, kein Ablauf. Alte Fassungen: Tags vor-kuerzer-20261115, vor-onepager-20261115.
 // Alte Hauptseite: Tag vor-onepager-20261115.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import { company, HOURS, HERO, ERWARTET, ABLAUF, KONTAKT, BESCHREIBUNG, phoneTel, whatsappLink } from '../config/site';
+import { HERO, ERWARTET, BESCHREIBUNG } from '../config/site';
 ---
 
 <BaseLayout title="webgold: Website im Abo und Web-App – neue Website in Arbeit" description={BESCHREIBUNG} start>
@@ -14,10 +15,6 @@ import { company, HOURS, HERO, ERWARTET, ABLAUF, KONTAKT, BESCHREIBUNG, phoneTel
       <p class="badge"><span class="badge__punkt" aria-hidden="true"></span>{HERO.badge}</p>
       <h1 id="h1">{HERO.titel}</h1>
       <p class="hero__unter">{HERO.unter}</p>
-      <div class="hero__knopfe">
-        <a class="btn btn--hell" href="#kontakt">{HERO.knopf} <Icon name="pfeil" size={18} /></a>
-        <a class="btn btn--rand" href="#erwartet">{HERO.knopf2}</a>
-      </div>
       <p class="hero__fuer">{HERO.fuer}</p>
     </div>
   </section>
@@ -26,7 +23,6 @@ import { company, HOURS, HERO, ERWARTET, ABLAUF, KONTAKT, BESCHREIBUNG, phoneTel
     <div class="wrap">
       <p class="kenn">{ERWARTET.kenn}</p>
       <h2 class="h2" id="erwartet-h">{ERWARTET.titel}</h2>
-      <p class="lead">{ERWARTET.lead}</p>
       <ul class="karten">
         {ERWARTET.punkte.map((p) => (
           <li class="karte">
@@ -36,37 +32,6 @@ import { company, HOURS, HERO, ERWARTET, ABLAUF, KONTAKT, BESCHREIBUNG, phoneTel
           </li>
         ))}
       </ul>
-    </div>
-  </section>
-
-  <section class="abschnitt ablauf" id="ablauf" aria-labelledby="ablauf-h">
-    <div class="wrap">
-      <p class="kenn">{ABLAUF.kenn}</p>
-      <h2 class="h2" id="ablauf-h">{ABLAUF.titel}</h2>
-      <p class="lead">{ABLAUF.lead}</p>
-      <ol class="schritte">
-        {ABLAUF.schritte.map((s) => (
-          <li class="schritt">
-            <h3>{s.titel}</h3>
-            <p>{s.text}</p>
-            <span class="schritt__zeit">{s.zeit}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <section class="abschnitt kontakt" id="kontakt" aria-labelledby="kontakt-h">
-    <div class="wrap">
-      <p class="kenn">{KONTAKT.kenn}</p>
-      <h2 class="h2" id="kontakt-h">{KONTAKT.titel}</h2>
-      <p class="lead">{KONTAKT.text}</p>
-      <ul class="wege">
-        <li><a class="weg" href={`tel:${phoneTel()}`}><span class="weg__ico"><Icon name="phone" /></span><span><span class="weg__art">Telefon</span><span class="weg__wert">{company.phone}</span></span></a></li>
-        <li><a class="weg" href={`mailto:${company.email}`}><span class="weg__ico"><Icon name="mail" /></span><span><span class="weg__art">E-Mail</span><span class="weg__wert">{company.email}</span></span></a></li>
-        <li><a class="weg" href={whatsappLink()} rel="noopener" target="_blank"><span class="weg__ico"><Icon name="whatsapp" /></span><span><span class="weg__art">WhatsApp <span class="sr">(öffnet WhatsApp in neuem Fenster)</span></span><span class="weg__wert">Nachricht schreiben</span></span></a></li>
-      </ul>
-      <p class="kontakt__zeit">Erreichbar {HOURS}.</p>
     </div>
   </section>
 </BaseLayout>
