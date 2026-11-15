@@ -16,7 +16,7 @@ import { HERO, ERWARTET, BESCHREIBUNG, company, phoneTel } from '../config/site'
       <h1 id="h1">{HERO.titel}</h1>
       <p class="hero__unter">{HERO.unter}</p>
       <!-- Telefon als Knopf (Jamil #6107/#6108, 15.11.2026) -->
-      <p class="hero__knopf"><a class="btn btn--hell" href={`tel:${phoneTel()}`} aria-label={`Anrufen: ${company.phone}`}><Icon name="phone" /> {company.phone}</a></p>
+      <p class="hero__knopf"><a class="btn btn--hell" href={`tel:${phoneTel()}`} aria-label="Jetzt anrufen"><Icon name="phone" /> Jetzt anrufen</a><!-- Nummer nicht ausschreiben (Jamil #6112) --></p>
     </div>
   </section>
 
