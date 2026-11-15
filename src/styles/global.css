@@ -11,7 +11,7 @@
   --dunkel: #084e4c;
   --positiv: #2c9a7a;
   --hauch: #edf4f1;
-  --gold: #d4af37;
+  --gold: #3cc8be; /* Jamil #6104: alles türkis (vorher Gold #d4af37) */
   --linie: #e6e0d4;
   --radius: 18px;
   --schatten: 0 1px 2px rgb(8 78 76 / 5%), 0 28px 56px -36px rgb(8 78 76 / 34%);
@@ -62,13 +62,13 @@ a:focus-visible, .btn:focus-visible { outline: 3px solid var(--gold); outline-of
 .hero__mesh { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .hero__blob { position: absolute; border-radius: 50%; will-change: transform; animation: treiben 26s ease-in-out infinite alternate; }
 .hero__blob--1 { width: 70vmax; height: 70vmax; left: -25vmax; top: -30vmax; background: radial-gradient(closest-side, rgb(44 154 122 / 55%), rgb(44 154 122 / 0)); }
-.hero__blob--2 { width: 50vmax; height: 50vmax; right: -18vmax; top: -10vmax; background: radial-gradient(closest-side, rgb(212 175 55 / 16%), rgb(212 175 55 / 0)); animation-delay: -8s; }
+.hero__blob--2 { width: 50vmax; height: 50vmax; right: -18vmax; top: -10vmax; background: radial-gradient(closest-side, rgb(60 200 190 / 18%), rgb(60 200 190 / 0)); animation-delay: -8s; }
 .hero__blob--3 { width: 70vmax; height: 70vmax; right: -30vmax; bottom: -45vmax; background: radial-gradient(closest-side, rgb(8 78 76 / 90%), rgb(8 78 76 / 0)); animation-delay: -16s; }
 @keyframes treiben { to { transform: translate3d(4vmax, 3vmax, 0) scale(1.06); } }
 @media (prefers-reduced-motion: reduce) { .hero__blob { animation: none; } }
 .hero__innen > * { max-width: 860px; }
-.badge { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 12px; border-radius: 999px; background: rgb(255 255 255 / 12%); border: 1px solid rgb(255 255 255 / 28%); font-size: 0.9rem; font-weight: 600; }
-.badge__punkt { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); animation: puls 2.4s ease-in-out infinite; }
+.badge { display: inline-flex; align-items: center; gap: 14px; padding: 11px 24px 11px 18px; border-radius: 999px; background: rgb(255 255 255 / 12%); border: 1px solid rgb(255 255 255 / 28%); font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem); font-weight: 700; } /* Jamil #6104: größer */
+.badge__punkt { width: 16px; height: 16px; box-shadow: 0 0 14px 3px rgb(60 200 190 / 65%); border-radius: 50%; background: var(--gold); animation: puls 2.4s ease-in-out infinite; }
 @keyframes puls { 50% { opacity: 0.35; } }
 @media (prefers-reduced-motion: reduce) { .badge__punkt { animation: none; } }
 .hero h1 { color: var(--white); font-size: clamp(2rem, 1.2rem + 4vw, 3.6rem); margin-top: 22px; max-width: 20ch; }
@@ -80,7 +80,7 @@ a:focus-visible, .btn:focus-visible { outline: 3px solid var(--gold); outline-of
 /* Was Sie bald erwartet */
 .karten { display: grid; gap: 16px; margin-top: 40px; list-style: none; padding: 0; }
 @media (min-width: 640px) { .karten { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .karten { grid-template-columns: repeat(4, 1fr); gap: 20px; } } /* 4 Karten: eine Reihe statt 3+1 */
+@media (min-width: 1000px) { .karten { grid-template-columns: repeat(3, 1fr); gap: 20px; } } /* Jamil #6104: 3 Karten */
 .karte { background: var(--white); border: 1px solid var(--linie); border-radius: var(--radius); padding: 26px 24px; box-shadow: var(--schatten); }
 .karte__ico { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--hauch); color: var(--primaer); margin-bottom: 18px; }
 .karte p { margin-top: 8px; color: var(--ink-soft); font-size: 1rem; }
@@ -93,7 +93,7 @@ a:focus-visible, .btn:focus-visible { outline: 3px solid var(--gold); outline-of
 .schritt::after { content: ''; position: absolute; left: 21px; top: 50px; bottom: 6px; width: 2px; background: var(--linie); }
 .schritt:last-child { padding-bottom: 0; }
 .schritt:last-child::after { display: none; }
-.schritt:last-child::before { box-shadow: 0 0 0 5px var(--white), 0 0 0 7px rgb(212 175 55 / 55%); }
+.schritt:last-child::before { box-shadow: 0 0 0 5px var(--white), 0 0 0 7px rgb(60 200 190 / 55%); }
 .schritt h3 { padding-top: 9px; }
 .schritt p { margin-top: 6px; color: var(--ink-soft); font-size: 1rem; max-width: 60ch; }
 .schritt__zeit { display: inline-block; margin-top: 10px; font-size: 0.85rem; font-weight: 600; color: var(--dunkel); background: var(--hauch); border-radius: 999px; padding: 3px 12px; }

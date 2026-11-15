@@ -73,13 +73,7 @@ const jahr = new Date().getFullYear();
   <body class={start ? 'ist-start' : undefined}>
     <a class="skip" href="#main">Zum Inhalt springen</a>
     {IS_PREVIEW && <div class="vorschau-leiste" role="note">Vorschau – nicht öffentlich</div>}
-    <header class="kopf">
-      <div class="wrap kopf__innen">
-        <a class="kopf__logo" href={href('/')} aria-label="webgold, zur Startseite">
-          <img src={href('/logo-webgold.svg')} alt="webgold" width="132" height="32" />
-        </a>
-      </div>
-    </header>
+    {/* Kopfzeile mit webgold-Logo entfernt (Jamil #6104, 15.11.2026) */}
     <main id="main">
       <slot />
     </main>
