@@ -1,1 +1,0 @@
-import"./denkweise.BOhtWeio.js";

@@ -1,124 +1,32 @@
-# Waybuild UG (haftungsbeschränkt)
+# webgold
 
-> Wir übernehmen Verantwortung. Sie behalten den Fokus. Anspruchsvolle Lösungen. Überraschend einfach umgesetzt.
+> Ihre Website im Abo und auf Wunsch eine Web-App für Ihren digitalen Alltag. Hier entsteht gerade unsere neue Website.
 
-Waybuild entwickelt durchdachte Lösungen und übernimmt Verantwortung dafür, dass Projekte und Zusammenarbeit für Kunden möglichst einfach, verständlich und verlässlich bleiben.
+webgold ist eine Marke der Waybuild UG (haftungsbeschränkt) aus Norderstedt. Zielgruppe: klein- und mittelständische Unternehmen.
 
-Kurz gesagt: Waybuild aus Norderstedt entwickelt digitale Produkte und individuelle Lösungen für Unternehmen und Selbstständige in Deutschland, Österreich und der Schweiz (DACH, B2B), remote und persönlich. Hauptprodukt ist der Website Service im Abo: Website, Hosting, Domain, Wartung und Betreuung zum festen Monatspreis, weil viele digitale Prozesse bei der Website beginnen. Während der Servicezeiten gibt es innerhalb einer Stunde eine erste Rückmeldung.
+## Was Sie bald erwartet
+Wir entwickeln digitale Lösungen, die Kunden gewinnen, Arbeitsabläufe vereinfachen und mit Ihrem Unternehmen mitwachsen.
+- Ihre Website im Abo: Fertig gebaut und laufend betreut. Strategie, Positionierung und Inhalte erarbeiten wir persönlich mit Ihnen, unsere KI setzt sie schnell um.
+- Auf Wunsch eine Web-App: Für Ihren digitalen Alltag: Ihre Anfragen landen an einem Ort, und Sie sehen, was noch offen ist. Website und Web-App vom selben Team.
+- Kostenlose, unverbindliche Vorschau: Zu jeder Anfrage erstellen wir Ihnen eine Vorschau Ihrer Website, kostenlos und unverbindlich. Feinschliff und Rückmeldung folgen am nächsten Werktag.
+- Ein fester Ansprechpartner: Jemand, der Ihr Unternehmen kennt, mit Vertretung bei Urlaub oder Krankheit. Sie landen weder in einem Callcenter noch in einem Ticketsystem.
+- Betreuung inklusive: Hosting, Sicherheitsupdates, SSL und Backups erledigen wir im Hintergrund. Sie müssen sich um nichts Technisches kümmern.
+- Hosting in Deutschland: Ihre Website läuft auf Servern in Deutschland, DSGVO-orientiert.
 
-Waybuild ist die Dachmarke. Zusagen, Prinzipien und Prozesse gelten für alle Produkte. Alle Preise netto zzgl. gesetzlicher USt. Nur B2B.
+## In fünf Schritten zu Ihrer Lösung
+1. Anfrage senden (Dauer: 2 Minuten): Sie melden sich kurz per Telefon, E-Mail oder WhatsApp. Wir melden uns persönlich mit Terminvorschlägen.
+2. Kostenlose Analyse und Vorschau (Vor unserem Gespräch): Wir analysieren Ihr Unternehmen, Ihre Website und wie gut man Sie bei Google findet, und erstellen eine kostenlose erste Vorschau.
+3. Kostenloses Erstgespräch (Rund 30 Minuten): Wir zeigen Ihnen Analyse und Vorschau und lernen Ihr Unternehmen, Ihre Ziele und Ihre Kunden kennen.
+4. Feinschliff auf Basis Ihrer Unternehmens-DNA (In der Regel am nächsten Werktag): Ihre Werte, Ihre Art zu arbeiten und das, wofür Kunden Sie schätzen: Darauf passen wir Ihre Vorschau an.
+5. Start (Nach Ihrer Freigabe): Sie entscheiden in Ruhe. Nach Ihrer Freigabe setzen wir um, Ihre Lösung geht online, und wir betreuen sie weiter.
 
-Sprachen: Deutsch (Hauptsprache) und Englisch (https://cansi798.github.io/waybuild_Hauptseite/en/). Impressum, Datenschutz und AGB nur auf Deutsch.
-
-## Einsatzgebiet
-- Sitz: Norderstedt bei Hamburg (einziger Standort, keine Niederlassungen).
-- Einsatzgebiet: ganz Deutschland, Österreich und die Schweiz (DACH). Wir arbeiten remote und, wenn es passt, persönlich vor Ort.
-- Deutschland, zum Beispiel: Hamburg, Berlin, München, Köln, Frankfurt, Stuttgart, Düsseldorf, Leipzig, Hannover, Bremen, Nürnberg, Dresden.
-- Österreich, zum Beispiel: Wien, Graz, Linz, Salzburg, Innsbruck.
-- Schweiz, zum Beispiel: Zürich, Basel, Bern, Genf, Luzern.
-
-## Für alle Produkte: Service-Zusagen
-- Reaktionszeit: Erste Rückmeldung innerhalb einer Stunde (während der Servicezeiten). Spätestens am nächsten Werktag bekommen Sie eine persönliche Antwort mit dem nächsten Schritt.
-- Sie erreichen immer einen Menschen. Kein Callcenter, keine Warteschleife.
-- Eine Nachricht genügt. Melden Sie sich so, wie es für Sie am einfachsten ist. Ein Formular brauchen Sie nicht.
-- Wir kümmern uns um die Technik. Wartung, Updates und Backups erledigen wir im Hintergrund.
-- Keine Überraschungen auf der Rechnung. Extras nur nach schriftlicher Absprache.
-- Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr (ohne gesetzliche Feiertage).
-
-## Warum es Waybuild gibt: Gute Lösungen sollten Unternehmen entlasten.
-Viele Unternehmen investieren Zeit, Geld und Energie in neue Lösungen. Trotzdem entstehen häufig dieselben Probleme: zu viele Abstimmungen, unnötige Komplexität, unklare Empfehlungen, fehlende Verantwortung, Lösungen, die nicht wirklich zum Unternehmen passen. Das Problem liegt oft nicht in der Technik. Es entsteht, wenn niemand das große Ganze betrachtet. Deshalb entwickelt Waybuild Lösungen mit einem klaren Ziel: Unternehmen voranbringen und gleichzeitig entlasten.
-
-## Für wen: Für Unternehmen, die mehr erwarten.
-Manche Unternehmen suchen einen Anbieter. Andere suchen einen Partner. Waybuild richtet sich an Unternehmen, die Wert auf Qualität, klare Empfehlungen und verlässliche Zusammenarbeit legen. An Unternehmen, die nicht einfach nur etwas umgesetzt haben möchten. Sondern eine Lösung, die wirklich zu ihnen passt.
-Typische Erwartungen: Jemand denkt mit, Jemand übernimmt Verantwortung, Empfehlungen sind nachvollziehbar, Kommunikation funktioniert unkompliziert, Ergebnisse stehen über Funktionen.
-
-## Wofür Waybuild steht: Unser Anspruch ist größer als ein einzelnes Produkt.
-- Verantwortung: Wir setzen nicht einfach Anforderungen um. Wir denken mit, hinterfragen und empfehlen den sinnvollsten Weg.
-- Qualität: Wir entwickeln Lösungen, die langfristig funktionieren und nicht nur kurzfristig beeindrucken.
-- Einfachheit: Wir halten Entscheidungen, Kommunikation und Zusammenarbeit so unkompliziert wie möglich.
-- Verlässlichkeit: Wir bleiben erreichbar und begleiten unsere Kunden auch über die Umsetzung hinaus.
-Eine Haltung. Viele Lösungen.
-
-## Zusammenarbeit: Gute Zusammenarbeit sollte einfach sein.
-Digitale Projekte müssen nicht kompliziert sein. Wir gestalten Zusammenarbeit so, dass Entscheidungen leichter werden, Kommunikation funktioniert und Fortschritt sichtbar bleibt. Was Kunden erleben: schnelle Rückmeldungen, feste Ansprechpartner, pragmatische Kommunikation, verständliche Empfehlungen, nachvollziehbare Entscheidungen, wenig organisatorischen Aufwand, langfristige Betreuung. Nicht jeder Kunde benötigt denselben Weg. Aber jeder Kunde verdient dieselbe Aufmerksamkeit.
-
-## Wie wir Entscheidungen treffen: Verstehen. Empfehlen. Umsetzen.
-Jede Herausforderung beginnt mit denselben Fragen: Was möchten Sie erreichen? Was funktioniert bereits gut? Was steht im Weg? Welche Lösung ergibt wirklich Sinn? Erst danach empfehlen wir den nächsten Schritt.
-1. Verstehen: Wir lernen Ziele, Anforderungen und Zusammenhänge kennen.
-2. Empfehlen: Wir entwickeln den sinnvollsten Lösungsweg.
-3. Umsetzen: Wir liefern hochwertige Ergebnisse und begleiten langfristig.
-
-## Unsere Lösungen: Unsere Lösungen folgen denselben Prinzipien.
-Ganz gleich, welches Produkt oder welcher Service genutzt wird: Die Grundlage bleibt dieselbe. Verantwortung, Qualität, Einfachheit, Verlässlichkeit.
-- Website Service: Moderne Unternehmenswebsites mit Fokus auf Verständlichkeit, Vertrauen und Nutzerfreundlichkeit. (https://cansi798.github.io/waybuild_Hauptseite/angebot/)
-- Individuelle Software: Digitale Werkzeuge, die sich an Menschen und Arbeitsweisen anpassen. Nicht umgekehrt. (https://cansi798.github.io/waybuild_Hauptseite/produkte/#individuell)
-- Weitere Lösungen: Neue Lösungen entstehen kontinuierlich auf derselben Grundlage. (https://cansi798.github.io/waybuild_Hauptseite/produkte/)
-Viele Lösungen. Eine Philosophie.
-
-## Das dürfen Sie von Waybuild erwarten.
-- feste Ansprechpartner
-- schnelle Rückmeldungen
-- klare Kommunikation
-- nachvollziehbare Empfehlungen
-- langfristige Betreuung
-- möglichst wenig organisatorischen Aufwand
-- Lösungen statt zusätzlicher Komplexität
-Gute Lösungen entstehen nicht durch mehr Abstimmungen. Sie entstehen durch Verständnis, Verantwortung und konsequente Umsetzung.
-
-## Produkte
-- Website Service, verfügbar: Wir bauen und betreuen Ihre Website und ändern sie, wann Sie möchten. Änderungen per Sprachnachricht, oft in wenigen Minuten erledigt. Jederzeit anpassbar, per Sprache, Text, Screenshot oder kurzem Video. Auf Wunsch optimiert sie sich selbst: Sie lernt aus Besuchern und Anfragen und passt sich laufend an. Keine Einrichtungsgebühr, ein fester monatlicher Abo-Preis. Alles mit unserem Serviceversprechen. Seite: https://cansi798.github.io/waybuild_Hauptseite/angebot/
-
-## Website Service (Hauptprodukt)
-Ein Ansprechpartner. Ein System. Ein fester Monatspreis.
-- Enthalten: Professionelle Website, Hosting, Domainverwaltung, SSL-Zertifikat, Wartung, Backups, Laufende Betreuung, KI-gestützte Erstellung, Sprachgesteuerte Änderungen, 20 E-Mail-Postfächer, SEO und KI-Suche, Keine Seitenbegrenzung.
-- Geschäftsmodell: Keine Einrichtungskosten, Keine Seitenbegrenzung, Fester Monatspreis, netto zzgl. MwSt., 24 Monate Mindestlaufzeit, Keine versteckten Kosten.
-- In allen Paketen: Keine Seitenbegrenzung, Mobilfreundlich für Handy, Tablet und PC, 0 € Einrichtung, 20 E-Mail-Postfächer, E-Mail-Signatur nach DIN 5008, SEO und KI-Suche optimiert, leicht erklärt, Impressum und Datenschutzerklärung nach aktuellem Stand, Hosting in Deutschland, DSGVO-orientiert, SSL, Domain, Updates und Backups, Änderungen per Nachricht, im fairen Rahmen, 24 Monate Mindestlaufzeit.
-- Paket Fundament: 79,99 € pro Monat netto zzgl. MwSt. (95,19 € inkl. MwSt.). Professionell online, ohne Startkosten. E-Mail-Signatur nach DIN 5008, Website ohne Seitenbegrenzung nach persönlichem Erstgespräch, Mobilfreundlich: optimiert für Handy, Tablet und PC, Texte schreiben wir mit Ihnen, KI-gestützt und von uns geprüft, SEO und für KI-Suche optimiert, in leichter Sprache erklärt, 20 E-Mail-Postfächer, Impressum und Datenschutzerklärung nach aktuellem Stand, Hosting in Deutschland, DSGVO-orientiert eingerichtet, Änderungen per Sprachnachricht oder Text, im fairen Rahmen.
-- Paket Wegweiser: 149,99 € pro Monat netto zzgl. MwSt. (178,49 € inkl. MwSt.). Zeigt neuen Kunden den Weg zu Ihnen. E-Mail-Signatur nach DIN 5008, Briefvorlage nach DIN 5008, Alles aus „Fundament“, Mobilfreundlich: optimiert für Handy, Tablet und PC, Google-Unternehmensprofil erstellt und eingerichtet (einmalig), E-Mail-Postfächer strukturiert eingerichtet, mit Unterordnern und Regeln für den Alltag, Lokale Seiten für Ihre Orte und Leistungen, Monatsbericht: Besucher, Anfragen, Suchbegriffe, Wir verbessern laufend den Weg vom Besucher zur Anfrage.
-- Paket Wahrzeichen: 299,99 € pro Monat netto zzgl. MwSt. (356,99 € inkl. MwSt.). Website, Logo und Geschäftspapiere aus einer Hand. Logo-Design, CI-Geschäftsbriefe nach DIN 5008, E-Mail-Signatur nach DIN 5008, Alles aus „Wegweiser“, Mobilfreundlich: optimiert für Handy, Tablet und PC, Ständige Optimierung in Absprache mit Ihnen, Logo-Design: 3 Entwürfe, 2 Korrekturrunden, Dateien für Web und Druck, CI-Geschäftsbriefe nach DIN 5008: Briefbogen, Angebot, Rechnung, Kurzer CI-Leitfaden: Farben, Schriften, Logo-Einsatz, Quartalsgespräch zur Weiterentwicklung.
-- Laufzeit: 24 Monate Mindestlaufzeit, danach monatlich kündbar (mit einem Monat Frist zum Monatsende).
-- Schritt 1, Erstgespräch: Wir lernen Ihr Unternehmen kennen und hören zu, was sich verändern soll.
-- Schritt 2, Verstehen & Planen: Wen möchten Sie erreichen? Was soll Ihre Website leisten? Wie wird aus einem Besucher eine Anfrage? Das klären wir gemeinsam.
-- Schritt 3, Umsetzen: Wir gestalten und bauen Ihre Website. Mit KI-gestützten Werkzeugen geht das schnell. Sie prüfen, wir feilen, bis alles passt.
-- Schritt 4, Laufend betreut: Ihre Website geht online. Änderungen schicken Sie per Sprachnachricht oder Text, wir setzen sie um und kümmern uns um Wartung, Updates und Backups.
-
-## Häufige Fragen zu Waybuild
-- Was macht Waybuild? Wir helfen Unternehmen, digitale Veränderungen einfach umzusetzen, ob bei der Website, bei Prozessen oder bei den Werkzeugen im Arbeitsalltag. Sie haben einen festen Ansprechpartner und feste Zusagen. Unser Hauptprodukt ist der Website Service. Wenn nichts Fertiges passt, entwickeln wir auf Anfrage individuell, zum Beispiel eigene Software. Weitere Produkte folgen.
-- Gelten Ihre Zusagen für alle Produkte? Ja. Unsere Zusagen, unsere Prinzipien und unser Prozess gelten für alle Produkte von Waybuild. Was ein einzelnes Produkt enthält und kostet, steht auf seiner Produktseite.
-- Wie schnell bekomme ich eine Antwort? Während der Servicezeiten bekommen Sie innerhalb einer Stunde eine erste Rückmeldung, spätestens am nächsten Werktag eine persönliche Antwort mit dem nächsten Schritt. Servicezeiten: Montag bis Freitag, 9 bis 18 Uhr.
-- Was kostet das Erstgespräch? Nichts. Das Erstgespräch ist kostenlos und unverbindlich.
-- Welche Rolle spielt KI? Ziele und Inhalte erarbeiten wir persönlich mit Ihnen. Bei der Umsetzung helfen uns KI-gestützte Werkzeuge, damit es schneller geht.
-- Bietet Waybuild neben Websites noch etwas an? Unser Hauptprodukt ist der Website Service. Passt kein fertiges Produkt, entwickeln wir auf Anfrage individuelle Software. Weitere Produkte folgen.
-- Sind die Preise netto? Ja. Alle Preise verstehen sich netto zzgl. der gesetzlichen Umsatzsteuer von 19 %. Zum Beispiel kostet Fundament 79,99 € netto im Monat, das sind 95,19 € inkl. MwSt. Unser Angebot richtet sich ausschließlich an Unternehmen und Selbstständige (B2B).
-
-## Häufige Fragen zum Website Service
-- Was kostet eine Website bei Waybuild? Es gibt drei Pakete: Fundament für 79,99 € netto im Monat (95,19 € inkl. MwSt.), Wegweiser für 149,99 € netto im Monat (178,49 € inkl. MwSt.), Wahrzeichen für 299,99 € netto im Monat (356,99 € inkl. MwSt.). Alle Preise netto zzgl. gesetzlicher MwSt., ohne Einrichtungskosten und ohne Seitenbegrenzung.
-- Was ist der Unterschied zwischen den drei Paketen? Fundament bringt Sie professionell online, mit 20 E-Mail-Postfächern und einer E-Mail-Signatur nach DIN 5008. Wegweiser erstellt zusätzlich Ihr Google-Unternehmensprofil, richtet Ihre Postfächer mit Ordnern und Regeln ein und verbessert laufend den Weg zur Anfrage. Wahrzeichen enthält außerdem Logo-Design, Geschäftsbriefe nach DIN 5008 und eine ständige Optimierung in Absprache mit Ihnen.
-- Was ist beim Website Service enthalten? Persönliche Beratung, KI-gestützte Erstellung ohne Seitenbegrenzung, Hosting in Deutschland, Domainverwaltung, SSL, Wartung, Backups, 20 E-Mail-Postfächer, eine E-Mail-Signatur nach DIN 5008 und laufende Betreuung. Ihre Website ist für Google und KI-Suchen optimiert, und wir erklären in leichter Sprache, was wir dafür tun. Sie zahlen einen festen Monatspreis und keine Einrichtungskosten.
-- Wie lange läuft der Vertrag? Die Mindestlaufzeit beträgt 24 Monate. Danach läuft das Abo monatlich weiter und ist mit einem Monat Frist zum Monatsende kündbar. Die Kündigung genügt in Textform, zum Beispiel per E-Mail.
-- Was passiert nach 24 Monaten? Nichts Überraschendes: Ihre Website läuft weiter wie bisher, zum gleichen Monatspreis und mit derselben Betreuung. Ab dann können Sie jeden Monat kündigen, mit einem Monat Frist zum Monatsende.
-- Gibt es Einrichtungskosten? Nein. In allen drei Paketen zahlen Sie keine Einrichtungsgebühr, nur den festen Monatspreis. Viele Anbieter verlangen vorab mehrere hundert Euro, bei uns fällt das weg.
-- Wie viele Seiten bekommt meine Website? So viele, wie Ihr Unternehmen braucht. Es gibt in keinem Paket eine Seitenbegrenzung.
-- Kann ich später in ein größeres Paket wechseln? Ja, ein Wechsel in ein größeres Paket ist möglich. Sagen Sie uns einfach Bescheid, die Einzelheiten besprechen wir mit Ihnen.
-- Wie schnell ist meine Website online? Spätestens 14 Tage, nachdem Ihre Inhalte (Texte, Bilder, Logo) vorliegen. Auf Wunsch erarbeiten wir die Inhalte gemeinsam mit Ihnen.
-- Kann ich meine bestehende Domain mitnehmen? Ja. Wir übernehmen die Verwaltung Ihrer bestehenden Domain ohne Ausfall.
+## Kontakt
+- Telefon und WhatsApp: 0151 56156578
+- E-Mail: service@webgold.io
+- Erreichbar: Montag bis Freitag, 9 bis 17 Uhr
+- Anschrift: Waybuild UG (haftungsbeschränkt), Kuno-Liesenberg-Kehre 32a, 22844 Norderstedt
 
 ## Seiten
 - [Startseite](https://cansi798.github.io/waybuild_Hauptseite/)
-- [Website Service](https://cansi798.github.io/waybuild_Hauptseite/angebot/): Preise und Details
-- [Produkte](https://cansi798.github.io/waybuild_Hauptseite/produkte/): Website Service, individuelle Software, weitere Produkte folgen
-- [Über uns](https://cansi798.github.io/waybuild_Hauptseite/ueber-uns/): wer wir sind, Mission, Denkweise, Prinzipien
-- [Referenzen](https://cansi798.github.io/waybuild_Hauptseite/referenzen/): Projekte, nur mit Freigabe der Kunden
-- [Partner](https://cansi798.github.io/waybuild_Hauptseite/partner/): Partnerschaften und Partner werden
-- [Karriere](https://cansi798.github.io/waybuild_Hauptseite/karriere/): wir suchen immer IT-Freelancer, IT-Fachkräfte (Festanstellung), Büro und Verwaltung, Dozenten für die waybuild Akademie; Initiativbewerbung; remote; Bewerbung per E-Mail
-- [Unsere Zusagen](https://cansi798.github.io/waybuild_Hauptseite/zusagen/): Service-Zusagen, Prozess einer Anfrage, Prinzipien
-- [Häufige Fragen](https://cansi798.github.io/waybuild_Hauptseite/faq/)
-- [Kontakt](https://cansi798.github.io/waybuild_Hauptseite/kontakt/): kostenloses Erstgespräch
-- [English: Home](https://cansi798.github.io/waybuild_Hauptseite/en/), [Products](https://cansi798.github.io/waybuild_Hauptseite/en/products/), [About us](https://cansi798.github.io/waybuild_Hauptseite/en/about/), [Careers](https://cansi798.github.io/waybuild_Hauptseite/en/careers/), [Contact](https://cansi798.github.io/waybuild_Hauptseite/en/contact/)
 - [Impressum](https://cansi798.github.io/waybuild_Hauptseite/impressum/)
 - [Datenschutz](https://cansi798.github.io/waybuild_Hauptseite/datenschutz/)
-- [AGB](https://cansi798.github.io/waybuild_Hauptseite/agb/)
-
-## Kontakt
-- E-Mail: kontakt@waybuild.de
-- Anschrift: Waybuild UG (haftungsbeschränkt), Rathausallee 76, 22846 Norderstedt
