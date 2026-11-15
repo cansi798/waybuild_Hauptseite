@@ -5,7 +5,7 @@
 // Alte Hauptseite: Tag vor-onepager-20261115.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import { HERO, ERWARTET, BESCHREIBUNG, company, phoneTel } from '../config/site';
+import { HERO, ERWARTET, BESCHREIBUNG, company } from '../config/site';
 ---
 
 <BaseLayout title="webgold: Website im Abo und Web-App – neue Website in Arbeit" description={BESCHREIBUNG} start>
@@ -15,8 +15,9 @@ import { HERO, ERWARTET, BESCHREIBUNG, company, phoneTel } from '../config/site'
       <p class="badge"><span class="badge__punkt" aria-hidden="true"></span>{HERO.badge}</p>
       <h1 id="h1">{HERO.titel}</h1>
       <p class="hero__unter">{HERO.unter}</p>
-      <!-- Telefon als Knopf (Jamil #6107/#6108, 15.11.2026) -->
-      <p class="hero__knopf"><a class="btn btn--hell" href={`tel:${phoneTel()}`} aria-label="Jetzt anrufen"><Icon name="phone" /> Jetzt anrufen</a><!-- Nummer nicht ausschreiben (Jamil #6112) --></p>
+      <!-- Statt Anruf-Knopf: E-Mail-Anfrage (Jamil #6115, 15.11.2026) -->
+      <p class="hero__cta-text">Sie können es kaum abwarten? Dann schreiben Sie uns gerne.</p>
+      <p class="hero__knopf"><a class="btn btn--hell" href={`mailto:${company.email}?subject=${encodeURIComponent('Anfrage')}`}><Icon name="mail" /> Anfrage stellen</a></p>
     </div>
   </section>
 
