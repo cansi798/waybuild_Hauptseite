@@ -1,53 +1,35 @@
 ---
+// Impressum wie WS-0007 (src/pages/impressum.astro), Daten aus src/config/site.ts.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import { company, isMissing, SHOW_HINTS } from '../config/site';
-import { href } from '../lib/paths';
-import Val from '../components/Val.astro';
-import Hint from '../components/Hint.astro';
+import { company } from '../config/site';
 ---
 
-<BaseLayout title="Impressum" description={`Impressum der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Impressum', path: '/impressum/' }]}>
-  <PageHeader eyebrow="Rechtliches" title="Impressum" lead="Angaben zur Waybuild UG (haftungsbeschränkt)." />
-  <section class="section section--legal etappe">
-    <div class="wrap"><div class="prose">
-      {[company.street, company.managingDirector, company.registerNumber].some(isMissing) && (
-        <Hint block label="Pflichtangaben im Impressum" where="src/config/site.ts → company">
-          Ohne vollständiges Impressum drohen Abmahnungen. Bitte vor dem offiziellen Start ergänzen.
-        </Hint>
-      )}
-      <h2>Angaben gemäß § 5 DDG</h2>
-      <p>
-        {company.legalName}<br />
-        <Val value={company.street} label="Straße & Hausnummer" where="src/config/site.ts → company.street" /><br />
-        <Val value={company.zip} label="PLZ" where="src/config/site.ts → company.zip" /> <Val value={company.city} label="Ort" where="src/config/site.ts → company.city" />
-      </p>
-      <p>
-        Vertreten durch die Geschäftsführung: <Val value={company.managingDirector} label="Name Geschäftsführung" where="src/config/site.ts → company.managingDirector" /><br />
-        Registergericht: <Val value={company.registerCourt} label="Registergericht" where="src/config/site.ts → company.registerCourt" /><br />
-        Registernummer: <Val value={company.registerNumber} label="HRB-Nummer" where="src/config/site.ts → company.registerNumber" />
-      </p>
-      <h2>Kontakt</h2>
-      <p>
-        E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a><br />Kontaktformular: <a href={href('/kontakt/')}>Kontaktseite</a>
-      </p>
-      {!isMissing(company.vatId) ? (
-        <>
-          <h2>Umsatzsteuer-ID</h2>
-          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: {company.vatId}</p>
-        </>
-      ) : SHOW_HINTS && (
-        <Hint block label="USt-IdNr. (nur falls vorhanden)" where="src/config/site.ts → company.vatId">
-          Noch keine USt-IdNr. belegt. Der Abschnitt „Umsatzsteuer-ID“ erscheint automatisch, sobald sie eingetragen ist; solange keine existiert, darf er entfallen (keine Steuernummer ins Impressum).
-        </Hint>
-      )}
-      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
-      <p><Val value={company.managingDirector} label="Name Geschäftsführung" where="src/config/site.ts → company.managingDirector" />, Anschrift wie oben</p>
-      <h2>EU-Streitschlichtung</h2>
-      <p>
-        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
-        Verbraucherschlichtungsstelle teilzunehmen.
-      </p>
-    </div></div>
-  </section>
+<BaseLayout title="Impressum" description={`Impressum der ${company.legalName}.`} noindex>
+  <div class="wrap prose">
+    <h1>Impressum</h1>
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p>
+      {company.name} – powered by {company.legalName}<br />
+      {company.street}<br />
+      {company.zip} {company.city}
+    </p>
+    <p>
+      Vertreten durch die Geschäftsführung: {company.managingDirector}<br />
+      Registergericht: {company.registerCourt}<br />
+      Registernummer: {company.registerNumber}
+    </p>
+    <h2>Kontakt</h2>
+    <p>
+      E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a><br />
+      Telefon: {company.phone}
+    </p>
+    {company.vatId && (<>
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: {company.vatId}</p>
+    </>)}
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p>{company.managingDirector}, Anschrift wie oben</p>
+    <h2>Verbraucherstreitbeilegung</h2>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  </div>
 </BaseLayout>

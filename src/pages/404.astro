@@ -1,21 +1,12 @@
 ---
-// 404 im Leitbild „Der Weg“: Sackgasse – und die Wege, die weiterführen.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Icon from '../components/Icon.astro';
 import { href } from '../lib/paths';
 ---
 
-<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es nicht (mehr). Hier geht es weiter zur Startseite, zum Angebot oder zum Kontakt." noindex>
-  <PageHeader eyebrow="Fehler 404" title="Dieser Weg" accent="führt nicht weiter." lead="Die Seite, die Sie suchen, gibt es nicht (mehr). Diese Wege bringen Sie ans Ziel:">
-    <div class="nf__actions">
-      <a class="btn btn--primary" href={href('/')}>Zur Startseite <Icon name="arrow" size={18} /></a>
-      <a class="btn btn--ghost" href={href('/produkte/')}>Unsere Produkte</a>
-      <a class="btn btn--ghost" href={href('/kontakt/')}>Kontakt</a>
-    </div>
-  </PageHeader>
+<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es nicht (mehr). Unsere neue Website entsteht gerade." noindex>
+  <section class="wrap nf">
+    <h1>Diese Seite gibt es nicht (mehr).</h1>
+    <p>Hier entsteht gerade unsere neue Website. Auf der Startseite finden Sie, was Sie bald erwartet, und wie Sie uns erreichen.</p>
+    <a class="btn" href={href('/')}>Zur Startseite</a>
+  </section>
 </BaseLayout>
-
-<style>
-  .nf__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-</style>

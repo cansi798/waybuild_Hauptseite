@@ -1,4 +1,4 @@
-# Waybuild – Apache-Konfiguration (IONOS, Strato, all-inkl, Hetzner Webhosting …)
+# webgold Onepager (Waybuild UG) – Apache-Konfiguration (IONOS, Strato, all-inkl, Hetzner Webhosting …)
 # Wird beim Live-Build automatisch nach dist/.htaccess kopiert.
 
 # ---- HTTPS + ohne www erzwingen ----------------------------------------------
@@ -11,6 +11,9 @@
   # Ordner-URLs immer mit abschließendem Slash (passt zu den Canonicals)
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^(.*[^/])$ /$1/ [L,R=301]
+
+  # Onepager (15.11.2026): alte Unterseiten der früheren Hauptseite dauerhaft auf die Startseite umleiten
+  RewriteRule ^(en|agb|angebot|checkliste|danke|faq|karriere|kontakt|partner|produkte|referenzen|ueber-uns|zusagen)(/.*)?$ / [L,R=301]
 </IfModule>
 
 ErrorDocument 404 /404.html

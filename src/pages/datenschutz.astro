@@ -1,95 +1,70 @@
 ---
+// Datenschutz für den Onepager: nur, was tatsächlich genutzt wird (Hosting, E-Mail/Telefon, WhatsApp-Link).
+// Kein Formular, keine Cookies, kein Tracking, kein Speicher im Browser, Schrift lokal. Grundlage: WS-0007 datenschutz.astro.
+// Hinweis: vor dem Livegang unter eigener Domain rechtlich prüfen lassen.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
 import { company } from '../config/site';
 import { IS_PREVIEW } from '../lib/env';
-import Val from '../components/Val.astro';
-import Hint from '../components/Hint.astro';
-// Hinweis: Vorlage – vor dem Livegang unter eigener Domain rechtlich prüfen lassen.
 ---
 
-<BaseLayout title="Datenschutzerklärung" description={`Datenschutzerklärung der ${company.legalName}.`} noindex breadcrumb={[{ name: 'Datenschutz', path: '/datenschutz/' }]}>
-  <PageHeader eyebrow="Rechtliches" title="Datenschutzerklärung" lead="So wenig Daten wie möglich: keine Cookies, kein Tracking." />
-  <section class="section section--legal etappe">
-    <div class="wrap"><div class="prose">
-      <Hint block label="Rechtliche Prüfung" where="src/pages/datenschutz.astro">
-        Vorlage – vor dem Start prüfen lassen. Bei eigener Domain/eigenem Hoster muss Abschnitt 3 angepasst werden.
-      </Hint>
+<BaseLayout title="Datenschutzerklärung" description={`Datenschutzerklärung der ${company.legalName}.`} noindex>
+  <div class="wrap prose">
+    <h1>Datenschutzerklärung</h1>
 
-      <h2>1. Verantwortlicher</h2>
-      <p>
-        {company.legalName}, <Val value={company.street} label="Straße" where="src/config/site.ts → company.street" />, <Val value={company.zip} label="PLZ" where="src/config/site.ts → company.zip" /> <Val value={company.city} label="Ort" where="src/config/site.ts → company.city" /><br />
-        E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>
-      </p>
+    <h2>1. Verantwortlicher</h2>
+    <p>
+      {company.legalName}, {company.street}, {company.zip} {company.city}<br />
+      Vertreten durch: {company.managingDirector}<br />
+      E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>, Telefon: {company.phone}
+    </p>
 
-      <h2>2. Grundsatz: So wenig Daten wie möglich</h2>
-      <p>
-        Diese Website verwendet keine Cookies, kein Tracking, keine Analyse-Tools und lädt beim Aufruf keine Inhalte von
-        Drittanbietern (auch Schriftarten werden lokal ausgeliefert). Daten an Dritte fließen nur, wenn Sie selbst aktiv
-        werden – etwa beim Absenden des Kontaktformulars (siehe Abschnitt 4).
-      </p>
+    <h2>2. Grundsatz: So wenig Daten wie möglich</h2>
+    <p>
+      Diese Website verwendet keine Cookies, kein Tracking, keine Analyse-Tools und kein Kontaktformular. Sie speichert
+      nichts in Ihrem Browser und lädt beim Aufruf keine Inhalte von Drittanbietern; auch die Schriftart wird von unserem
+      eigenen Webspace ausgeliefert. Daten an Dritte fließen nur, wenn Sie selbst aktiv werden, etwa beim Klick auf den
+      WhatsApp-Link (siehe Abschnitt 5).
+    </p>
 
-      <h2>3. Hosting</h2>
-      {IS_PREVIEW ? (
-        <p>
-          Diese Vorschau wird bei GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA)
-          gehostet. Beim Aufruf verarbeitet der Hoster technisch notwendige Daten (u. a. IP-Adresse, Zeitpunkt,
-          aufgerufene Seite, Browser) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
-        </p>
-      ) : (
-        <p>
-          Diese Website wird bei <Val value={company.hoster} label="Name & Anschrift des Hosters" where="src/config/site.ts → company.hoster" /> gehostet.
-          Beim Aufruf der Seite verarbeitet der Hoster technisch notwendige Daten (u. a. IP-Adresse, Zeitpunkt,
-          aufgerufene Seite, Browser) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
-          (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Mit dem Hoster besteht ein Vertrag
-          zur Auftragsverarbeitung (Art. 28 DSGVO). Auch unsere E-Mail-Postfächer werden bei diesem Anbieter betrieben.
-        </p>
-      )}
+    <h2>3. Hosting</h2>
+    {IS_PREVIEW ? (
+      <p>
+        Diese Vorschau wird bei GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA)
+        gehostet. Beim Aufruf verarbeitet der Hoster technisch notwendige Daten (u. a. IP-Adresse, Zeitpunkt,
+        aufgerufene Seite, Browser) in Server-Logfiles. Dabei können Daten in die USA übermittelt werden. Rechtsgrundlage
+        ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung).
+      </p>
+    ) : (
+      <p>
+        Diese Website wird bei {company.hoster} gehostet. Beim Aufruf der Seite verarbeitet der Hoster technisch
+        notwendige Daten (u. a. IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser) in Server-Logfiles. Rechtsgrundlage ist
+        Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Mit dem Hoster
+        besteht ein Vertrag zur Auftragsverarbeitung.
+      </p>
+    )}
 
-      <h2>4. Kontaktformular und E-Mail</h2>
-      <p>
-        Wenn Sie uns über das Formular oder per E-Mail kontaktieren, verarbeiten wir Ihre Angaben (Name, E-Mail,
-        ggf. Unternehmen, Telefon, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist
-        Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen). Die Daten werden gelöscht, sobald sie für die
-        Bearbeitung nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten bestehen.
-      </p>
+    <h2>4. Kontakt per E-Mail oder Telefon</h2>
+    <p>
+      Wenn Sie uns per E-Mail oder Telefon kontaktieren, verarbeiten wir Ihre Angaben (zum Beispiel Name, E-Mail-Adresse,
+      Telefonnummer, Unternehmen und Ihr Anliegen) ausschließlich zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist
+      Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an
+      der Beantwortung Ihrer Anfrage). Die Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich
+      sind und keine gesetzlichen Aufbewahrungspflichten bestehen.
+    </p>
 
-      <h3>Formular-Dienst Web3Forms</h3>
-      <p>
-        Für den Versand des Kontaktformulars nutzen wir den Dienst Web3Forms (web3forms.com). Wenn Sie das Formular
-        absenden, werden Ihre Angaben direkt von Ihrem Browser an Web3Forms übermittelt und von dort per E-Mail an uns
-        weitergeleitet. Dabei verarbeitet Web3Forms auch technisch notwendige Daten wie Ihre IP-Adresse. Web3Forms
-        handelt als Auftragsverarbeiter (Art. 28 DSGVO). Der Anbieter kann Daten auch außerhalb der EU, insbesondere in
-        den USA, verarbeiten; eine Übermittlung erfolgt nur auf Grundlage der Art. 44 ff. DSGVO. Rechtsgrundlage ist
-        Art. 6 Abs. 1 lit. b DSGVO (Anfrage zu einem Vertrag) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an
-        einem zuverlässigen Formularversand). Wenn Sie das nicht möchten, schreiben Sie uns einfach direkt per E-Mail.
-      </p>
-      <Hint block label="Web3Forms: Anbieterangaben, Serverstandort, AV-Vertrag" where="src/pages/datenschutz.astro → Abschnitt 4">
-        Vor dem Livegang Anbieter-Anschrift und Datenverarbeitungsbedingungen von Web3Forms prüfen und hier ergänzen (rechtliche Prüfung).
-      </Hint>
+    <h2>5. WhatsApp</h2>
+    <p>
+      Auf unserer Website verlinken wir auf WhatsApp. Erst wenn Sie auf den Link klicken, öffnet sich WhatsApp
+      (WhatsApp Ireland Limited, Merrion Road, Dublin 4, Irland) und es werden Daten an diesen Anbieter übertragen.
+      Nutzen Sie WhatsApp für Ihre Anfrage, gelten zusätzlich die Datenschutzbestimmungen von WhatsApp. Alternativ
+      erreichen Sie uns jederzeit per E-Mail oder Telefon.
+    </p>
 
-      <h2>5. Bewerbungen</h2>
-      <p>
-        Wenn Sie sich bei uns bewerben (per E-Mail), verarbeiten wir Ihre Angaben und Unterlagen (z. B. Name,
-        Kontaktdaten, Lebenslauf, Zeugnisse) ausschließlich, um über die Einstellung bzw. Zusammenarbeit zu
-        entscheiden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO in Verbindung mit § 26 BDSG (Anbahnung eines
-        Beschäftigungsverhältnisses); bei freiberuflicher Zusammenarbeit Art. 6 Abs. 1 lit. b DSGVO. Zugriff haben nur
-        die Personen, die am Auswahlverfahren beteiligt sind.
-      </p>
-      <p>
-        Kommt keine Zusammenarbeit zustande, löschen wir Ihre Bewerbungsunterlagen spätestens sechs Monate nach
-        Abschluss des Verfahrens, es sei denn, Sie haben in eine längere Speicherung für künftige Stellen
-        (Talentpool) eingewilligt (Art. 6 Abs. 1 lit. a DSGVO). Diese Einwilligung können Sie jederzeit widerrufen.
-        Kommt eine Zusammenarbeit zustande, übernehmen wir die erforderlichen Daten in die Personal- bzw.
-        Vertragsunterlagen.
-      </p>
-
-      <h2>6. Ihre Rechte</h2>
-      <p>
-        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung,
-        Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht auf Beschwerde bei einer
-        Datenschutz-Aufsichtsbehörde.
-      </p>
-    </div></div>
-  </section>
+    <h2>6. Ihre Rechte</h2>
+    <p>
+      Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit
+      und Widerspruch (Art. 15–21 DSGVO) sowie das Recht auf Beschwerde bei einer Datenschutz-Aufsichtsbehörde, zum
+      Beispiel beim Unabhängigen Landeszentrum für Datenschutz Schleswig-Holstein.
+    </p>
+  </div>
 </BaseLayout>
