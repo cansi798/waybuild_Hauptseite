@@ -7,8 +7,7 @@ webgold ist eine Marke der Waybuild UG (haftungsbeschränkt) aus Norderstedt. Zi
 ## Was Sie bald erwartet
 Wir entwickeln digitale Lösungen, die Kunden gewinnen, Arbeitsabläufe vereinfachen und mit Ihrem Unternehmen mitwachsen.
 - Website im Abo: Fertig gebaut und laufend betreut.
-- Auf Wunsch Web-App: Anfragen an einem Ort, alles im Blick.
-- Kostenlose Vorschau: Unverbindlich, zu jeder Anfrage.
+- Web-App im Abo: Anfragen an einem Ort, alles im Blick.
 - Hosting in Deutschland: Betreuung inklusive, DSGVO-orientiert.
 
 ## Anbieter
